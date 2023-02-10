@@ -1,2 +1,2 @@
 // common components
-export {};
+export { default as Header } from './common/Header';
