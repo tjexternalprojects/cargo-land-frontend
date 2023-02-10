@@ -501,6 +501,14 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-swipe@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-swipe/-/react-swipe-6.0.2.tgz#ad2b35ec6498e914f9655d0181d04df97affd553"
+  integrity sha512-LQGMw9AsJKqgb9HqlZq3DlptIQ3mpYBqYTeEggnog+4dHqLuEPoLI9wqy9s8XkVyWB2zJg276jrKYadknD0bng==
+  dependencies:
+    "@types/react" "*"
+    "@types/swipe" "*"
+
 "@types/react@*", "@types/react@^18.0.26":
   version "18.0.27"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.27.tgz#d9425abe187a00f8a5ec182b010d4fd9da703b71"
@@ -519,6 +527,11 @@
   version "7.3.13"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-7.3.13.tgz#da4bfd73f49bd541d28920ab0e2bf0ee80f71c91"
   integrity sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==
+
+"@types/swipe@*":
+  version "2.0.28"
+  resolved "https://registry.yarnpkg.com/@types/swipe/-/swipe-2.0.28.tgz#5fb03f0c688f179c0a343ec7dd9ef7e6543910ac"
+  integrity sha512-zkLaqdRTuWg7WpTwDvCFaTuMXhre1a9AjA2xHrSnkk5N09obkA1yAo5qKXoJmWkq8LjMi94E3ejy/L4qMSTw4A==
 
 "@typescript-eslint/eslint-plugin@^5.50.0":
   version "5.51.0"
