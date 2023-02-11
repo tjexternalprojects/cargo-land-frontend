@@ -11,7 +11,7 @@ const signup = ({ showLogin }: Props) => {
 		<div className=" space-y-5 w-full ">
 			<motion.button
 				animate={showLogin ? slideUp(0.9, 0.3) : ''}
-				className=" transition-all duration-75 ease-in-out bg-blue-400 w-full text-white rounded-xl h-11 text-lg border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5"
+				className=" transition-all duration-75 ease-in-out bg-blue-900 w-full text-white rounded-xl h-11 text-lg border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5"
 				type="submit"
 			>
 				<MdOutlineBusiness />
@@ -30,7 +30,7 @@ const signup = ({ showLogin }: Props) => {
 					>
 						<input
 							type="text"
-							placeholder="Username/email address"
+							placeholder="Email address"
 							className="text-sm rounded-xl flex-grow h-11 outline-none"
 						/>
 						<BiUserPin />
@@ -43,7 +43,7 @@ const signup = ({ showLogin }: Props) => {
 					>
 						<input
 							type="password"
-							placeholder="password"
+							placeholder="create password"
 							className="text-sm rounded-xl flex-grow h-11 outline-none"
 						/>
 						<Si1Password />
@@ -54,7 +54,7 @@ const signup = ({ showLogin }: Props) => {
 					className="hover:shadow-blue-100 hover:shadow-md  bg-gradient-to-br from-slate-50 via-white border-2 border-slate-200 to-slate-50 rounded-xl h-11 text-sm"
 					type="submit"
 				>
-					Login
+					Verify Email
 				</motion.button>
 			</form>
 			<div className="text-sm text-gray-500 flex items-center gap-4">
@@ -68,7 +68,7 @@ const signup = ({ showLogin }: Props) => {
 				type="submit"
 			>
 				<SiGmail />
-				<span>Gmail</span>
+				<span>Signup with Gmail</span>
 			</motion.button>
 		</div>
 	);
