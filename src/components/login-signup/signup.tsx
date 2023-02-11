@@ -15,7 +15,7 @@ interface Props {
 	showLogin: boolean;
 }
 const signup = ({ showLogin }: Props) => {
-	const { showPassword, setShowPassword } = useLogin();
+	const { showPassword, setShowPassword, handleSingupSubmit } = useLogin();
 
 	return (
 		<div className=" space-y-5 w-full ">
@@ -32,14 +32,14 @@ const signup = ({ showLogin }: Props) => {
 				<span className="w-full">Or an Individual</span>
 				<div className="border border-gray-300 w-full"></div>
 			</div>
-			<form className=" text-gray-500 flex flex-col space-y-4">
+			<form className=" text-gray-500 flex flex-col space-y-4" onSubmit={handleSingupSubmit}>
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.3, 0.3) : ''}
 						className="bg-white rounded-xl h-11 px-5  flex items-center"
 					>
 						<input
-							type="text"
+							type="email"
 							placeholder="Email address"
 							className="text-sm rounded-xl flex-grow h-11 outline-none"
 							required
