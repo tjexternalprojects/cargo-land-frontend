@@ -13,12 +13,13 @@ const login = ({ showLogin }: Props) => {
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.3, 0.3) : ''}
-						className="bg-white rounded-xl h-11 px-2  flex items-center"
+						className="bg-white rounded-xl h-11 px-5  flex items-center"
 					>
 						<input
 							type="text"
 							placeholder="Username/email address"
 							className="text-sm rounded-xl flex-grow h-11 outline-none"
+							required
 						/>
 						<BiUserPin />
 					</motion.div>
@@ -26,12 +27,13 @@ const login = ({ showLogin }: Props) => {
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.5, 0.3) : ''}
-						className="bg-white rounded-xl h-11 px-2  flex items-center"
+						className="bg-white rounded-xl h-11 px-5  flex items-center"
 					>
 						<input
 							type="password"
 							placeholder="password"
 							className="text-sm rounded-xl flex-grow h-11 outline-none"
+							required
 						/>
 						<Si1Password />
 					</motion.div>

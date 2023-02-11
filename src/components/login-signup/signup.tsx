@@ -1,12 +1,22 @@
 import React from 'react';
-import { BiUserPin, MdOutlineBusiness, Si1Password, SiGmail } from '../../assets/index';
+import {
+	BiHide,
+	BiShow,
+	BiUserPin,
+	MdOutlineBusiness,
+	Si1Password,
+	SiGmail,
+} from '../../assets/index';
 import { motion } from 'framer-motion';
 import { slideUp } from '../../animations';
+import useLogin from '../../customHooks/useLogin';
 
 interface Props {
 	showLogin: boolean;
 }
 const signup = ({ showLogin }: Props) => {
+	const { showPassword, setShowPassword } = useLogin();
+
 	return (
 		<div className=" space-y-5 w-full ">
 			<motion.button
@@ -19,19 +29,20 @@ const signup = ({ showLogin }: Props) => {
 			</motion.button>
 			<div className="text-sm text-gray-500 flex items-center gap-4">
 				<div className="border border-gray-300 w-full"></div>
-				<span className='w-full'>Or an Individual</span>
+				<span className="w-full">Or an Individual</span>
 				<div className="border border-gray-300 w-full"></div>
 			</div>
 			<form className=" text-gray-500 flex flex-col space-y-4">
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.3, 0.3) : ''}
-						className="bg-white rounded-xl h-11 px-2  flex items-center"
+						className="bg-white rounded-xl h-11 px-5  flex items-center"
 					>
 						<input
 							type="text"
 							placeholder="Email address"
 							className="text-sm rounded-xl flex-grow h-11 outline-none"
+							required
 						/>
 						<BiUserPin />
 					</motion.div>
@@ -39,14 +50,21 @@ const signup = ({ showLogin }: Props) => {
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.5, 0.3) : ''}
-						className="bg-white rounded-xl h-11 px-2  flex items-center"
+						className="bg-white rounded-xl h-11 px-5  flex items-center"
 					>
 						<input
-							type="password"
+							type={!showPassword? "password": "text"}
 							placeholder="create password"
 							className="text-sm rounded-xl flex-grow h-11 outline-none"
+							min={6}
+
+							required
 						/>
-						<Si1Password />
+						{!showPassword ? (
+							<BiHide className=' cursor-pointer' onClick={() => setShowPassword(!showPassword)} />
+						) : (
+							<BiShow className=' cursor-pointer' onClick={() => setShowPassword(!showPassword)} />
+						)}
 					</motion.div>
 				</div>
 				<motion.button
