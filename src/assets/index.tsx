@@ -1,5 +1,8 @@
 // icons
-export {};
+export { GrClose } from 'react-icons/gr';
+export { BiUserPin } from 'react-icons/bi';
+export { Si1Password, SiGmail } from 'react-icons/si';
+export {MdOutlineBusiness} from 'react-icons/md'
 
 // images
 export { default as logo } from './images/logo.png';

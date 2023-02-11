@@ -1,12 +1,11 @@
 import React from 'react';
 import { loginGif } from '../assets';
 import { Header } from '../components';
-import Styles from '../styles/Login.module.css';
 import useLogin from '../customHooks/useLogin';
 import ReactSwipe from 'react-swipe';
 
 const Login = () => {
-	let reactSwipeEl:any ;
+	let reactSwipeEl: any;
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
 	return (
@@ -20,7 +19,10 @@ const Login = () => {
 				<div className="flex-grow w-96 space-y-10 px-10">
 					<div className="bg-slate-200 rounded-3xl inline-flex shadow-md ">
 						<button
-							onClick={() => {handleToggleBtn(false); reactSwipeEl.prev()}}
+							onClick={() => {
+								handleToggleBtn(false);
+								reactSwipeEl.prev();
+							}}
 							className={`px-5 py-2 font-bold  ${
 								!toggleLoginType &&
 								'text-white bg-gradient-to-b from-slate-200 via-red-400 to-red-900  rounded-3xl shadow-lg border border-slate-100'
@@ -29,7 +31,10 @@ const Login = () => {
 							Business
 						</button>
 						<button
-							onClick={() => {handleToggleBtn(true); reactSwipeEl.next()}}
+							onClick={() => {
+								handleToggleBtn(true);
+								reactSwipeEl.next();
+							}}
 							className={`font-bold  px-5 py-2 ${
 								toggleLoginType &&
 								'text-white bg-gradient-to-b from-slate-200 via-red-400 to-red-900  rounded-3xl shadow-lg border border-slate-100'
@@ -77,9 +82,7 @@ const Login = () => {
 							</p>
 						</div>
 					</ReactSwipe>
-					<div className='flex gap-8 mt-10 justify-center md:justify-start lg:absolute top-1/2 -mr-14 right-1/2'>
-           
-          </div>
+					<div className="flex gap-8 mt-10 justify-center md:justify-start lg:absolute top-1/2 -mr-14 right-1/2"></div>
 					<button className=" font-bold text-xl bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300  text-red-400 rounded-3xl  px-8 py-2 hover:transition-all hover:shadow-red-100 duration-150 ease-in-out">
 						Book a Delivery
 					</button>
