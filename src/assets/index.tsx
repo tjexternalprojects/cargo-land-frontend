@@ -1,6 +1,6 @@
 // icons
 export { GrClose } from 'react-icons/gr';
-export { BiUserPin, BiShow, BiHide } from 'react-icons/bi';
+export { BiUserPin, BiShow, BiHide, BiMenuAltRight } from 'react-icons/bi';
 export { Si1Password, SiGmail } from 'react-icons/si';
 export { MdOutlineBusiness } from 'react-icons/md';
 
