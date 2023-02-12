@@ -8,17 +8,17 @@ interface Props {
 }
 const login = ({ showLogin }: Props) => {
 	return (
-		<div className=" space-y-5 w-full ">
+		<div className=" space-y-5 ">
 			<form className=" text-gray-500 flex flex-col space-y-4">
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.3, 0.3) : ''}
-						className="bg-white rounded-xl h-11 px-5  flex items-center"
+						className="bg-white rounded-xl h-11 px-5  flex items-center shadow-md"
 					>
 						<input
 							type="text"
 							placeholder="Username/email address"
-							className="text-sm rounded-xl flex-grow h-11 outline-none"
+							className="text-sm rounded-xl flex-grow h-11 outline-none bg-white"
 							required
 						/>
 						<BiUserPin />
@@ -27,12 +27,12 @@ const login = ({ showLogin }: Props) => {
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.5, 0.3) : ''}
-						className="bg-white rounded-xl h-11 px-5  flex items-center"
+						className="bg-white rounded-xl h-11 px-5  flex items-center shadow-md"
 					>
 						<input
 							type="password"
 							placeholder="password"
-							className="text-sm rounded-xl flex-grow h-11 outline-none"
+							className="text-sm rounded-xl flex-grow h-11 outline-none "
 							required
 						/>
 						<Si1Password />
@@ -40,7 +40,7 @@ const login = ({ showLogin }: Props) => {
 				</div>
 				<motion.button
 					animate={showLogin ? slideUp(0.7, 0.3) : ''}
-					className="hover:shadow-blue-100 hover:shadow-md  bg-gradient-to-br from-slate-50 via-white border-2 border-slate-200 to-slate-50 rounded-xl h-11 text-sm"
+					className="hover:shadow-blue-100 hover:shadow-md  bg-gradient-to-br from-slate-50 via-white shadow-md to-slate-50 rounded-xl h-11 te	xt-sm"
 					type="submit"
 				>
 					Login
