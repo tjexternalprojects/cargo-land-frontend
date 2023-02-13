@@ -2,10 +2,9 @@ import React from 'react';
 import {
 	BiHide,
 	BiShow,
-	BiUserPin,
 	MdOutlineBusiness,
-	Si1Password,
 	SiGmail,
+	MdAttachEmail,
 } from '../../assets/index';
 import { motion } from 'framer-motion';
 import { slideUp } from '../../animations';
@@ -19,7 +18,7 @@ const signup = ({ showLogin }: Props) => {
 	const { showPassword, setShowPassword, handleSingupSubmit } = useLogin();
 
 	return (
-		<div className=" space-y-5 w-full px-10 ml-14 md:ml-0 md:px-0 ">
+		<div className=" space-y-5 w-full px-10  md:ml-0 md:px-0 ">
 			<Link to="/business_signup">
 				<motion.button
 					animate={showLogin ? slideUp(0.9, 0.3) : ''}
@@ -47,7 +46,7 @@ const signup = ({ showLogin }: Props) => {
 							className="text-sm rounded-xl flex-grow h-11 outline-none bg-transparent"
 							required
 						/>
-						<BiUserPin />
+						<MdAttachEmail />
 					</motion.div>
 				</div>
 				<div className="flex flex-col">
