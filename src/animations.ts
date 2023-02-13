@@ -9,15 +9,16 @@ export const scaleRotate = {
 	},
 };
 
-export const scaleBg = {
-	height: ['0vh', '90vh'],
-	width: ['0vw', '55vw'],
-	transition: {
-		height: { duration: 0.5 },
-		width: { duration: 0.5 },
-	},
+export const scaleBg = (width: string) => {
+	return {
+		height: ['0vh', '90vh'],
+		width: ['0%', width],
+		transition: {
+			height: { duration: 0.5 },
+			width: { duration: 0.5 },
+		},
+	};
 };
-
 export const reduceScaleBg = {
 	height: ['85vh', '0vh'],
 	width: ['50vw', '0vw'],

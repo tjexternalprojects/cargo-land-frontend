@@ -9,11 +9,11 @@ const Login = () => {
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
 	return (
-		<div className=" h-screen bg-gradient-to-r from-white via-white to-slate-300 px-10">
+		<div className=" bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-slate-50 px-10">
 			<Header />
-			<div className="flex items-center h-auto">
+			<div className="flex flex-wrap justify-center items-center space-y-12 h-auto">
 				<div className="flex-grow">
-					<img src={loginGif} />
+					<img src={loginGif} className="backdrop-blur-md" />
 				</div>
 
 				<div className="flex-grow w-96 space-y-10 px-10">
@@ -55,10 +55,6 @@ const Login = () => {
 								Signup as a Business and get cheaper rate of transporting goods
 							</p>
 
-							{/* <p className="text-gray-400">
-							Do you need last minute deleivery? we are here to resuce you, by using our shipping
-							service, your goods will arive in less than 90 minutes
-						</p> */}
 							<p className="text-gray-400">
 								"Say goodbye to shipping headaches with our top-notch courier services. We offer
 								fast, reliable delivery options for businesses of all sizes. Contact us today to
@@ -71,10 +67,6 @@ const Login = () => {
 								Signup as a Business and get cheaper rate of transporting goods
 							</p>
 
-							{/* <p className="text-gray-400">
-							Do you need last minute deleivery? we are here to resuce you, by using our shipping
-							service, your goods will arive in less than 90 minutes
-						</p> */}
 							<p className="text-gray-400">
 								"Say goodbye to shipping headaches with our top-notch courier services. We offer
 								fast, reliable delivery options for businesses of all sizes. Contact us today to
