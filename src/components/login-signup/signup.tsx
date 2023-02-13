@@ -10,6 +10,7 @@ import {
 import { motion } from 'framer-motion';
 import { slideUp } from '../../animations';
 import useLogin from '../../customHooks/useLogin';
+import { Link } from 'react-router-dom';
 
 interface Props {
 	showLogin: boolean;
@@ -19,6 +20,7 @@ const signup = ({ showLogin }: Props) => {
 
 	return (
 		<div className=" space-y-5 w-full ">
+			<Link to="/business_signup">
 			<motion.button
 				animate={showLogin ? slideUp(0.9, 0.3) : ''}
 				className=" transition-all duration-75 ease-in-out bg-blue-900 w-full text-white rounded-xl h-11 text-lg border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5"
@@ -27,6 +29,7 @@ const signup = ({ showLogin }: Props) => {
 				<MdOutlineBusiness />
 				<span>Singup as a Business</span>
 			</motion.button>
+			</Link>
 			<div className="text-sm text-gray-500 flex items-center gap-4">
 				<div className="border border-gray-300 w-full"></div>
 				<span className="w-full">Or an Individual</span>
