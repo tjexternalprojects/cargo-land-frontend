@@ -5,6 +5,7 @@ import { scaleBg, reduceScaleBg, fadeIn } from '../../animations';
 import { LoginComponent, SingupComponent } from '..';
 import ReactSwipe from 'react-swipe';
 import useLogin from '../../customHooks/useLogin';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 	let reactSwipeEl: any;
@@ -14,7 +15,10 @@ const Header = () => {
 	return (
 		<div className=" text-xl z-20  md:pt-3 md:h-16 box-border w-full fixed bg-white">
 			<div className="flex items-center justify-between w-full px-5 md:px-10 pt-4 md:pt-0 bg-white md:bg-transparent   md:w-auto z-10 ">
-				<img src={logo} className=" w-32" alt="" />
+				<Link to="/login">
+					{' '}
+					<img src={logo} className=" w-32" alt="" />
+				</Link>
 				<div className="z-20 hidden md:block">
 					<ul className="flex gap-5  text-red-400 border-b border-b-red-100">
 						<li>Price List</li>
@@ -79,7 +83,6 @@ const Header = () => {
 							ref={(el) => (reactSwipeEl = el)}
 						>
 							<div className="w-full flex justify-center md:block">
-
 								<LoginComponent showLogin={isOpen} />
 							</div>
 							<div className="w-full flex justify-center md:block">

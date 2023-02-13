@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	BiHide,
-	BiShow,
-	MdOutlineBusiness,
-	SiGmail,
-	MdAttachEmail,
-} from '../../assets/index';
+import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail } from '../../assets/index';
 import { motion } from 'framer-motion';
 import { slideUp } from '../../animations';
 import useLogin from '../../customHooks/useLogin';
