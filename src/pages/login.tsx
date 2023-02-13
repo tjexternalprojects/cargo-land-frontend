@@ -9,9 +9,11 @@ const Login = () => {
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
 	return (
-		<div className=" bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-slate-50 px-10">
+		<>
 			<Header />
-			<div className="flex flex-wrap justify-center items-center space-y-12 h-auto">
+			
+		<div className=" bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-slate-50   ">
+			<div className="flex flex-wrap justify-center items-center space-y-12 h-screen">
 				<div className="flex-grow">
 					<img src={loginGif} className="backdrop-blur-md" />
 				</div>
@@ -45,7 +47,7 @@ const Login = () => {
 					</div>
 
 					<ReactSwipe
-						className="carousel"
+						className="carousel "
 						swipeOptions={{ continuous: false }}
 						ref={(el) => (reactSwipeEl = el)}
 					>
@@ -81,6 +83,7 @@ const Login = () => {
 				</div>
 			</div>
 		</div>
+		</>
 	);
 };
 

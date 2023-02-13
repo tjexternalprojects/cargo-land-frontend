@@ -6,9 +6,7 @@ const businessSignup = () => {
 		<div>
 			<Header />
 			<div className="flex">
-				<div>
-          
-        </div>
+				<div></div>
 				<div>
 					<img src={signupGif} />
 				</div>

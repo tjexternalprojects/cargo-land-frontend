@@ -19,7 +19,7 @@ const signup = ({ showLogin }: Props) => {
 	const { showPassword, setShowPassword, handleSingupSubmit } = useLogin();
 
 	return (
-		<div className=" space-y-5 w-full ">
+		<div className=" space-y-5 w-full px-10 ml-14 md:ml-0 md:px-0 ">
 			<Link to="/business_signup">
 				<motion.button
 					animate={showLogin ? slideUp(0.9, 0.3) : ''}

@@ -12,8 +12,8 @@ const Header = () => {
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
 	return (
-		<div className="w-full text-xl md:px-10 pt-8 h-20">
-			<div className="flex items-center justify-between   z-10">
+		<div className=" text-xl z-20  md:pt-3 md:h-16 box-border w-full fixed bg-white">
+			<div className="flex items-center justify-between w-full px-5 md:px-10 pt-4 md:pt-0 bg-white md:bg-transparent   md:w-auto z-10 ">
 				<img src={logo} className=" w-32" alt="" />
 				<div className="z-20 hidden md:block">
 					<ul className="flex gap-5  text-red-400 border-b border-b-red-100">
@@ -22,9 +22,9 @@ const Header = () => {
 						<li>About Us</li>
 					</ul>
 				</div>
-				<div className="z-20">
+				<div className="z-20 ">
 					<button
-						onClick={() => setIsOpen((isOpen) => !isOpen)}
+						onClick={() => setIsOpen(!isOpen)}
 						className={`flex items-center text-sm md:text-md  text-red-400 rounded-3xl px-4  md:px-8 py-2  hover:transition-all duration-150 ease-in-outhover:shadow-red-100 hover:shadow-xl hover:shadow-blue-100  
 						${
 							!isOpen
@@ -32,12 +32,12 @@ const Header = () => {
 								: ''
 						}`}
 					>
-						Sing&nbsp;in
+						Sign&nbsp;in
 						<BiMenuAltRight className=" md:hidden text-3xl" />
 					</button>
 				</div>
 				<motion.div
-					animate={isOpen ? scaleBg('55%') : reduceScaleBg}
+					animate={isOpen ? scaleBg('55%') : ''}
 					className={`flex flex-col justify-center items-center  px-48 md:px-24 ${
 						isOpen
 							? 'shadow-xl shadow-blue-100 z-10 overflow-hidden   backdrop-blur-lg  absolute right-0 top-0 rounded-b-full rounded-l-full'
@@ -46,7 +46,7 @@ const Header = () => {
 				>
 					<motion.div
 						animate={isOpen ? fadeIn : ''}
-						className="md:w-full md:px-28 flex mb-8 text-gray-500 "
+						className="md:w-full mt-16 md:px-28 flex mb-8 text-gray-500 "
 					>
 						<button
 							onClick={() => {
@@ -72,18 +72,21 @@ const Header = () => {
 						</button>
 					</motion.div>
 
-					<ReactSwipe
-						className="carousel w-96 "
-						swipeOptions={{ continuous: false }}
-						ref={(el) => (reactSwipeEl = el)}
-					>
-						<div className="w-full flex justify-center md:block">
-							<LoginComponent showLogin={isOpen} />
-						</div>
-						<div className="w-full flex justify-center md:block">
-							<SingupComponent showLogin={isOpen} />
-						</div>
-					</ReactSwipe>
+					{isOpen && (
+						<ReactSwipe
+							className="carousel w-96 m-0"
+							swipeOptions={{ continuous: false }}
+							ref={(el) => (reactSwipeEl = el)}
+						>
+							<div className="w-full flex justify-center md:block">
+
+								<LoginComponent showLogin={isOpen} />
+							</div>
+							<div className="w-full flex justify-center md:block">
+								<SingupComponent showLogin={isOpen} />
+							</div>
+						</ReactSwipe>
+					)}
 					<div className="md:hidden flex flex-col items-center uppercase  gap-1   text-sm   text-red-400 ">
 						<div>Price&nbsp;List</div>
 						<div>Contact&nbsp;Us</div>
