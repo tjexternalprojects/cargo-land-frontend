@@ -5,8 +5,10 @@ const businessSignup = () => {
 	return (
 		<div>
 			<Header />
-			<div className="flex">
-				<div></div>
+			<div className="flex h-screen items-center pt-10">
+				<div>
+					<div></div>
+				</div>
 				<div>
 					<img src={signupGif} />
 				</div>
