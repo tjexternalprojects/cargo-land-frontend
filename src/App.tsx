@@ -1,14 +1,15 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BusinessSignup, Login } from './pages';
 
 function App() {
-  return (
-    <div className="min-h-screen flex justify-center items-center">
-      <h1 className="text-3xl font-bold text-blue-600">
-        Install & Setup Vite + React + Typescript + Tailwind CSS 3
-      </h1>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/login" element={<Login />} />
+				<Route path="/business_signup" element={<BusinessSignup />} />
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
