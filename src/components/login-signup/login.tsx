@@ -8,7 +8,7 @@ interface Props {
 }
 const login = ({ showLogin }: Props) => {
 	return (
-		<div className=" space-y-5 ">
+		<div className=" space-y-5 w-full px-10 ml-14 md:ml-0 md:px-0">
 			<form className=" text-gray-500 flex flex-col space-y-4">
 				<div className="flex flex-col">
 					<motion.div

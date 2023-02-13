@@ -10,6 +10,7 @@ import {
 import { motion } from 'framer-motion';
 import { slideUp } from '../../animations';
 import useLogin from '../../customHooks/useLogin';
+import { Link } from 'react-router-dom';
 
 interface Props {
 	showLogin: boolean;
@@ -18,15 +19,17 @@ const signup = ({ showLogin }: Props) => {
 	const { showPassword, setShowPassword, handleSingupSubmit } = useLogin();
 
 	return (
-		<div className=" space-y-5 box-border ">
-			<motion.button
-				animate={showLogin ? slideUp(0.9, 0.3) : ''}
-				className="px-2 transition-all duration-75 ease-in-out bg-blue-900 w-full text-white rounded-xl h-11 text-sm md:text-lg border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5"
-				type="submit"
-			>
-				<MdOutlineBusiness />
-				<span>Singup as a Business</span>
-			</motion.button>
+		<div className=" space-y-5 w-full px-10 ml-14 md:ml-0 md:px-0 ">
+			<Link to="/business_signup">
+				<motion.button
+					animate={showLogin ? slideUp(0.9, 0.3) : ''}
+					className="px-2 transition-all duration-75 ease-in-out bg-blue-900 w-full text-white rounded-xl h-11 text-sm md:text-lg border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5"
+					type="submit"
+				>
+					<MdOutlineBusiness />
+					<span>Singup as a Business</span>
+				</motion.button>
+			</Link>
 			<div className="text-sm text-gray-500 flex items-center gap-4">
 				<div className="border border-gray-300 w-full"></div>
 				<span className="w-full">Or an Individual</span>

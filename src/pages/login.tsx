@@ -9,11 +9,13 @@ const Login = () => {
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
 	return (
-		<div className=" bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-slate-50 px-10">
+		<>
 			<Header />
-			<div className="flex flex-wrap justify-center items-center space-y-12 h-auto">
+			
+		<div className=" bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-slate-50   ">
+			<div className="flex flex-wrap justify-center items-center space-y-12 h-screen">
 				<div className="flex-grow">
-					<img src={loginGif} className='backdrop-blur-md' />
+					<img src={loginGif} className="backdrop-blur-md" />
 				</div>
 
 				<div className="flex-grow w-96 space-y-10 px-10">
@@ -45,7 +47,7 @@ const Login = () => {
 					</div>
 
 					<ReactSwipe
-						className="carousel"
+						className="carousel "
 						swipeOptions={{ continuous: false }}
 						ref={(el) => (reactSwipeEl = el)}
 					>
@@ -55,7 +57,6 @@ const Login = () => {
 								Signup as a Business and get cheaper rate of transporting goods
 							</p>
 
-						
 							<p className="text-gray-400">
 								"Say goodbye to shipping headaches with our top-notch courier services. We offer
 								fast, reliable delivery options for businesses of all sizes. Contact us today to
@@ -68,7 +69,6 @@ const Login = () => {
 								Signup as a Business and get cheaper rate of transporting goods
 							</p>
 
-						
 							<p className="text-gray-400">
 								"Say goodbye to shipping headaches with our top-notch courier services. We offer
 								fast, reliable delivery options for businesses of all sizes. Contact us today to
@@ -81,8 +81,9 @@ const Login = () => {
 						Book a Delivery
 					</button>
 				</div>
-			</div> 
+			</div>
 		</div>
+		</>
 	);
 };
 
