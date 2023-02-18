@@ -9,3 +9,8 @@ export { default as SingupComponent } from './login-signup/signup';
 export { default as BasicInfo } from './businessSignup/basicInfo';
 export { default as BusinessData } from './businessSignup/BusinessData';
 export { default as BusinessDocuments } from './businessSignup/BusinessDocuments';
+
+// Dashboard
+export { default as DashboardHome } from './dashboard/home';
+export { default as Sidebar } from './dashboard/sidebar';
+export { default as TopBar } from './dashboard/TopBar';

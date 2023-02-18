@@ -10,7 +10,7 @@ import useBusinessSignup from '../customHooks/useBusinessSignup';
 import { motion } from 'framer-motion';
 import { slideUp } from '../animations';
 
-const businessSignup = () => {
+const BusinessSignup = () => {
 	const { activeTab, setActiveTab } = useBusinessSignup();
 	return (
 		<div>
@@ -105,4 +105,4 @@ const businessSignup = () => {
 	);
 };
 
-export default businessSignup;
+export default BusinessSignup;
