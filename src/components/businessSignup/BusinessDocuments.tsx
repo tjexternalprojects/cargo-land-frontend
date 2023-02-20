@@ -1,10 +1,12 @@
 import React from 'react';
-import {HiDocumentText} from '../../assets'
+import { HiDocumentText } from '../../assets';
 const BusinessDocuments = () => {
 	return (
-    	<form className=" text-gray-500 flex flex-col space-y-4">
+		<form className=" text-gray-500 flex flex-col space-y-4">
 			<div className="flex flex-col">
-                <small><i className='text-red-400'>Upload your business CAC or TIN Document</i></small>
+				<small>
+					<i className="text-red-400">Upload your business CAC or TIN Document</i>
+				</small>
 				<div className="mt-3 bg-white rounded-xl px-5  flex items-center shadow-md">
 					<input
 						type="file"
@@ -16,7 +18,7 @@ const BusinessDocuments = () => {
 				</div>
 			</div>
 		</form>
-        );
+	);
 };
 
 export default BusinessDocuments;

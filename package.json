@@ -27,18 +27,22 @@
 		}
 	},
 	"dependencies": {
+		"chart.js": "^4.2.1",
 		"eslint": "^8.33.0",
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react-hooks": "^4.6.0",
+		"faker": "^6.6.6",
 		"framer-motion": "^9.0.2",
 		"react": "^18.2.0",
+		"react-chartjs-2": "^5.2.0",
 		"react-dom": "^18.2.0",
 		"react-icons": "^4.7.1",
 		"react-router-dom": "^6.8.1",
 		"react-swipe": "^6.0.4"
 	},
 	"devDependencies": {
+		"@types/faker": "^6.6.9",
 		"@types/react": "^18.0.26",
 		"@types/react-dom": "^18.0.9",
 		"@types/react-swipe": "^6.0.2",
