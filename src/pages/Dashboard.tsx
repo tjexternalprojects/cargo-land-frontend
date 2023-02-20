@@ -4,14 +4,14 @@ import { Sidebar, TopBar } from '../components';
 
 const Dashboard = () => {
 	return (
-		<div className="flex bg-gradient-to-tr from-white via-white to-blue-200 min-h-screen">
-			<div className=' w-72'>
+		<div className="flex bg-gradient-to-tr from-white via-white to-slate-50 min-h-screen">
+			<div className=" w-72">
 				<Sidebar />
 			</div>
-
-			<div className=' w-full py-5 px-10'>
-        <TopBar/>
-      	<Outlet />
+		
+			<div className=" w-full py-5 px-10">
+				<TopBar />
+				<Outlet />
 			</div>
 		</div>
 	);

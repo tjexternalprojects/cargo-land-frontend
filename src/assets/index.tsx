@@ -11,11 +11,12 @@ export { ImLocation } from 'react-icons/im';
 export { BsTelephoneForward } from 'react-icons/bs';
 export { AiOutlineNumber } from 'react-icons/ai';
 export { RiPriceTag2Line, RiSearch2Line } from 'react-icons/ri';
-export {CiSettings} from 'react-icons/ci'
+export { CiSettings } from 'react-icons/ci';
+export {GiHamburgerMenu} from 'react-icons/gi'
 
 // images
 export { default as logo } from './images/logo.png';
 export { default as logonBg } from './images/loginBg.jpg';
 export { default as loginGif } from './images/loginGif.gif';
 export { default as signupGif } from './images/signupGif2.gif';
-export {default as userImg} from './images/user.png'
+export { default as userImg } from './images/user.png';
