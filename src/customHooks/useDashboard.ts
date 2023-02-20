@@ -15,7 +15,7 @@ function useDashboard() {
 		'December',
 	];
 
-	const recieved_data = {
+	const received_data = {
 		labels,
 		datasets: [
 			{
@@ -28,7 +28,7 @@ function useDashboard() {
 					'black',
 					'pink',
 					'blue',
-					'purpule',
+					'purple',
 					'violet',
 					'lightbrown',
 					'indigo',
@@ -67,7 +67,7 @@ function useDashboard() {
 		],
 	};
 	return {
-        recieved_data,
+        received_data,
 		sent_data,
 	};
 }

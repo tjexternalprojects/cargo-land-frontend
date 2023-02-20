@@ -3,16 +3,16 @@ import { LineGraph } from '..';
 import useDashboard from '../../customHooks/useDashboard';
 
 const home = () => {
-	const { recieved_data, sent_data } = useDashboard();
+	const { received_data, sent_data } = useDashboard();
 	return (
 		<div className="mt-10">
 			<div className="gap-4 flex justify-between  bg-white p-5 shadow-sm">
 			<div className=" inline-flex rounded-md gap-3 p-4 min-w-min bg-green-50  flex-grow w-72 justify-between  shadow items-center">
 					<div className=" w-20">
-						<LineGraph data={recieved_data} />
+						<LineGraph data={received_data} />
 					</div>
 					<div className="flex flex-col items-end text-green-500">
-						<div>Package Recieved</div>
+						<div>Package Received</div>
 						<div className=" text-5xl font-thin">200</div>
 					</div>
 				</div>
