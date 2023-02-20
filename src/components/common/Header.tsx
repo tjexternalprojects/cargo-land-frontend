@@ -29,7 +29,7 @@ const Header = () => {
 				<div className="z-20 ">
 					<button
 						onClick={() => setIsOpen(!isOpen)}
-						className={`flex items-center text-sm md:text-md  text-red-400 rounded-3xl px-4  md:px-8 py-2  hover:transition-all duration-150 ease-in-outhover:shadow-red-100 hover:shadow-xl hover:shadow-blue-100  
+						className={`flex items-center text-sm md:text-md  text-red-400 rounded-3xl px-4  md:px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100  
 						${
 							!isOpen
 								? '  bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300  '
