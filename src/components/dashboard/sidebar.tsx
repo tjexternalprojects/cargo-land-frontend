@@ -1,6 +1,7 @@
 import {
 	CiSettings,
 	logo,
+	MdTrackChanges,
 	RiPriceTag2Line,
 	TbLayoutDashboard,
 	TbLogout,
@@ -8,12 +9,15 @@ import {
 	userImg,
 } from '../../assets';
 import { NavLink, useMatch } from 'react-router-dom';
+import useLogin from '../../customHooks/useLogin';
 const sidebar = () => {
 	const dashboardMatch = useMatch('/');
 	const deliveryMatch = useMatch('/delivery');
+	const trackMatch = useMatch('/track_shipment');
 	const historyMatch = useMatch('/price');
+	const { handleLogout } = useLogin();
 	return (
-		<div className=" bg-blue-900 fixed h-screen w-64  md:flex flex-col justify-between hidden">
+		<div className=" bg-blue-900 fixed h-screen w-64 flex flex-col justify-between">
 			<div className="bg-white shadow-md flex items-center justify-center rounded-md p-2 m-8">
 				<img src={logo} className=" w-24 h-8" alt="" />
 			</div>
@@ -48,10 +52,29 @@ const sidebar = () => {
 									deliveryMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
 								} px-3 flex items-center space-x-3 `}
 							>
-								<TbTruckDelivery /> <span>New Delivery</span>
+								<MdTrackChanges /> <span>New Shipment</span>
 							</div>
 
 							<div className={`${deliveryMatch ? 'bg-white' : 'bg-blue-900'}`}>
+								<div className="h-4 bg-blue-900 rounded-tr-3xl"></div>
+							</div>
+						</NavLink>
+					</li>
+
+					<li>
+						<NavLink className="flex flex-col" to="/track_shipment">
+							<div className={`${trackMatch ? 'bg-white' : 'bg-blue-900'}`}>
+								<div className="h-4 bg-blue-900 rounded-br-3xl"></div>
+							</div>
+							<div
+								className={`${
+									trackMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
+								} px-3 flex items-center space-x-3 `}
+							>
+								<TbTruckDelivery /> <span>Track Shipment</span>
+							</div>
+
+							<div className={`${trackMatch ? 'bg-white' : 'bg-blue-900'}`}>
 								<div className="h-4 bg-blue-900 rounded-tr-3xl"></div>
 							</div>
 						</NavLink>
@@ -92,7 +115,10 @@ const sidebar = () => {
 					<div className=" transition-all duration-75 ease-linear rounded-full p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">
 						<CiSettings />
 					</div>
-					<div className="transition-all duration-75 ease-linear rounded-full p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">
+					<div
+						onClick={handleLogout}
+						className="transition-all duration-75 ease-linear rounded-full p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer"
+					>
 						{' '}
 						<TbLogout />
 					</div>

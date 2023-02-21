@@ -1,5 +1,5 @@
-import React from 'react';
-import { loginGif } from '../assets';
+import React, { useContext } from 'react';
+import { cargoBG } from '../assets';
 import { Header } from '../components';
 import useLogin from '../customHooks/useLogin';
 import ReactSwipe from 'react-swipe';
@@ -12,13 +12,19 @@ const Login = () => {
 		<>
 			<Header />
 
-			<div className=" bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-slate-50   ">
+			<div
+				className={`relative h-screen bg-cover bg-center`}
+				style={{
+					backgroundImage: `url(${cargoBG})`,
+				}}
+			>
+				<div className="opacity-50 absolute h-screen  bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-black  bg-cover bg-center "></div>
 				<div className="flex flex-wrap justify-center items-center space-y-12 h-screen">
 					<div className="flex-grow">
-						<img src={loginGif} className="backdrop-blur-md" />
+						{/* <img src={loginGif} className="backdrop-blur-md" /> */}
 					</div>
 
-					<div className="flex-grow w-96 space-y-10 px-10">
+					<div className="flex-grow w-80 space-y-10 px-10 bg-white py-10 rounded-l-xl">
 						<div className="bg-slate-200 rounded-3xl inline-flex shadow-md ">
 							<button
 								onClick={() => {

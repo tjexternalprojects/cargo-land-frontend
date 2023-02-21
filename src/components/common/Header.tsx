@@ -13,9 +13,9 @@ const Header = () => {
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
 	return (
-		<div className=" text-xl z-20  md:pt-3 md:h-16 box-border w-full fixed bg-white">
-			<div className="flex items-center justify-between w-full px-5 md:px-10 pt-4 md:pt-0 bg-white md:bg-transparent   md:w-auto z-10 ">
-				<Link to="/login">
+		<div className=" text-xl z-20  md:pt-3 md:h-16 box-border w-full fixed ">
+			<div className="flex items-center justify-between w-full px-5 md:px-10 pt-4 md:pt-0    md:w-auto z-10 ">
+				<Link to="/">
 					{' '}
 					<img src={logo} className=" w-32" alt="" />
 				</Link>

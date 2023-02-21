@@ -17,3 +17,6 @@ export { default as DeliveryPage } from './dashboard/Delivery';
 export { default as History } from './dashboard/History';
 export { default as Sidebar } from './dashboard/sidebar';
 export { default as TopBar } from './dashboard/TopBar';
+
+// Dashboard New_Shipment
+export { default as NewShipmentForm } from './dashboard/newShipment/NewShipmentForm';

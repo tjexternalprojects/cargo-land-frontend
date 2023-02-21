@@ -19,7 +19,6 @@ function useDashboard() {
 		labels,
 		datasets: [
 			{
-				label: 'Dataset 1',
 				data: [2, 3, 3, 5, 6, 7, 8, 1, 3, 5, 3, 0],
 				backgroundColor: [
 					'red',
@@ -41,11 +40,10 @@ function useDashboard() {
 		],
 	};
 
-    const sent_data = {
+	const sent_data = {
 		labels,
 		datasets: [
 			{
-				label: 'Dataset 1',
 				data: [12, 13, 13, 15, 16, 17, 18, 11, 13, 15, 13, 10],
 				backgroundColor: [
 					'red',
@@ -67,7 +65,7 @@ function useDashboard() {
 		],
 	};
 	return {
-        received_data,
+		received_data,
 		sent_data,
 	};
 }

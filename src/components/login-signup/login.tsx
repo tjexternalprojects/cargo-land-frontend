@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BiUserPin, Si1Password, SiGmail } from '../../assets/index';
 import { motion } from 'framer-motion';
 import { slideUp } from '../../animations';
-
+import useLogin from '../../customHooks/useLogin';
 interface Props {
 	showLogin: boolean;
 }
 const login = ({ showLogin }: Props) => {
+	const { handleLogin } = useLogin();
+
 	return (
 		<div className=" space-y-5 w-full px-10 md:ml-0 md:px-0">
-			<form className=" text-gray-500 flex flex-col space-y-4">
+			<form className=" text-gray-500 flex flex-col space-y-4" onSubmit={handleLogin}>
 				<div className="flex flex-col">
 					<motion.div
 						animate={showLogin ? slideUp(0.3, 0.3) : ''}

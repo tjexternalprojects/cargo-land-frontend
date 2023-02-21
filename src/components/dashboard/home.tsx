@@ -7,7 +7,7 @@ const home = () => {
 	return (
 		<div className="mt-10">
 			<div className="gap-4 flex justify-between  bg-white p-5 shadow-sm">
-			<div className=" inline-flex rounded-md gap-3 p-4 min-w-min bg-green-50  flex-grow w-72 justify-between  shadow items-center">
+				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min bg-green-50  flex-grow w-72 justify-between  shadow items-center">
 					<div className=" w-20">
 						<LineGraph data={received_data} />
 					</div>
@@ -36,7 +36,6 @@ const home = () => {
 						<div className=" text-5xl font-thin ">200</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	);
