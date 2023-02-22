@@ -1,5 +1,5 @@
 import React from 'react';
-import { GiWeight, GoPackage, MdDescription, MdOutlineSubtitles } from '../../../assets';
+import { BiCloudUpload, GiWeight, GoPackage, MdDescription, MdOutlineSubtitles } from '../../../assets';
 
 const NewShipmentForm = () => {
 	return (
@@ -43,10 +43,10 @@ const NewShipmentForm = () => {
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Images</label>
 						<div className="border flex rounded-lg mt-2 p-2">
-							<div className="relative w-32 h-32 bg-red-400 flex items-center justify-center rounded-xl overflow-hidden">
+							<div className=" w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl overflow-hidden">
 								
-								<label className=" w-8 h-8 bg-gray-500 rounded-xl flex items-center justify-center cursor-pointer">
-									
+								<label className=" w-20 h-20 border-gray-500 border-dotted border-4 rounded-xl flex items-center justify-center cursor-pointer">
+									<BiCloudUpload className='text-3xl text-gray-500'/>
 									<input id="fileInput" type="file" className="hidden" />
 								</label>
 							</div>

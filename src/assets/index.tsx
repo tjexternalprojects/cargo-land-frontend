@@ -1,6 +1,6 @@
 // icons
 export { GrClose, GrContactInfo, GrDocumentText, GrBusinessService } from 'react-icons/gr';
-export { BiUserPin, BiShow, BiHide, BiMenuAltRight, BiFilter } from 'react-icons/bi';
+export { BiUserPin, BiShow, BiHide, BiMenuAltRight, BiFilter, BiCloudUpload } from 'react-icons/bi';
 export { Si1Password, SiGmail, SiMinutemailer } from 'react-icons/si';
 export {
 	MdOutlineSubtitles,
