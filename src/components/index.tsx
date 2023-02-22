@@ -20,3 +20,4 @@ export { default as TopBar } from './dashboard/TopBar';
 
 // Dashboard New_Shipment
 export { default as NewShipmentForm } from './dashboard/newShipment/NewShipmentForm';
+export { default as RecipientDetails} from './dashboard/newShipment/RecipientDetails'

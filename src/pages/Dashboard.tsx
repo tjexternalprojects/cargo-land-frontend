@@ -9,13 +9,12 @@ const Dashboard = () => {
 	const { setState } = useContext<AppContextType>(AppContext);
 
 	return (
-		<div className="flex bg-gradient-to-tr from-white via-white to-slate-50 min-h-screen">
-			<div className={`w-72  ${toggleAdminSideBar ? 'block' : 'md:block hidden'}`}>
-				<Sidebar />
+		<div className="flex bg-gradient-to-tr from-white via-white to-slate-50 min-h-screen ">
+			<div className={`w-72  ${toggleAdminSideBar ? 'flex' : 'md:flex hidden'}`}>
+			<Sidebar />
 			</div>
-
-			<div className=" w-full py-5 px-10">
-				<div className="flex">
+			<div className=" fixed w-full bg-white flex items-center justify-center py-3 border-2 border-red-800 ">
+				<div className=" h-10 w-full  px-10 ">
 					<div>
 						<GiHamburgerMenu
 							className={`md:hidden text-4xl`}
@@ -29,7 +28,10 @@ const Dashboard = () => {
 					</div>
 					<TopBar />
 				</div>
-				<Outlet />
+			</div>
+			<div className='pt-16'>
+
+			<Outlet />
 			</div>
 		</div>
 	);

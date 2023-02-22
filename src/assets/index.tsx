@@ -28,3 +28,6 @@ export { default as loginGif } from './images/loginGif.gif';
 export { default as signupGif } from './images/signupGif2.gif';
 export { default as userImg } from './images/user.png';
 export { default as cargoBG } from './images/cargoBG.jpg';
+
+// Shipment Images 
+export {default as package1} from './images/shipment/package1.jpg'

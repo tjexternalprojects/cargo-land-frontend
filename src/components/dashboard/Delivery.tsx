@@ -1,4 +1,4 @@
-import { NewShipmentForm } from '..';
+import { NewShipmentForm, RecipientDetails } from '..';
 const Delivery = () => {
 	return (
 		<>
@@ -15,6 +15,7 @@ const Delivery = () => {
 				</div>
 				<div className=" w-full ">
 					<NewShipmentForm />
+					<RecipientDetails />
 				</div>
 			</div>
 		</>

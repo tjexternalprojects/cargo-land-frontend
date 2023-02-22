@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import {
 	BiCloudUpload,
@@ -9,7 +11,7 @@ import {
 } from '../../../assets';
 import useShipment from '../../../customHooks/useShipments';
 
-const NewShipmentForm = () => {
+const RecipientDetails = () => {
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full">
@@ -90,4 +92,4 @@ const NewShipmentForm = () => {
 	);
 };
 
-export default NewShipmentForm;
+export default RecipientDetails;

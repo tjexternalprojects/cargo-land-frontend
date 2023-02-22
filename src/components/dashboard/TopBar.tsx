@@ -3,7 +3,7 @@ import { BiFilter, RiSearch2Line, userImg } from '../../assets';
 
 const TopBar = () => {
 	return (
-		<div className="flex w-full gap-10 justify-between items-stretch">
+		<div className="flex gap-10 justify-between items-stretch w-full">
 			<form className="w-full">
 				<div className="flex px-3 items-center space-x-3 bg-white rounded-xl border h-full">
 					<RiSearch2Line />
