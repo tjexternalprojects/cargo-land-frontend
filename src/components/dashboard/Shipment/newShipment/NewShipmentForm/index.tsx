@@ -10,7 +10,7 @@ import {
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 import { Country, State, City } from 'country-state-city';
 import { ICountry, IState, ICity } from 'country-state-city';
-console.log(Country);
+console.log(Country.getAllCountries());
 const NewShipmentForm = () => {
 	return (
 		<>
@@ -85,7 +85,11 @@ const NewShipmentForm = () => {
 								<small className="text-gray-400 font-bold">Country</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<select className="w-full outline-none">
-										<option value="">Nigeria</option>
+										{Country.getAllCountries().map((country, key)=>(
+											<option value="">
+												{country.name}</option>
+										))
+}
 									</select>
 									<div className="text-xl text-gray-500">
 										<GiWeight />
