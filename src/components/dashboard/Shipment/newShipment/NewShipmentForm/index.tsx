@@ -8,7 +8,9 @@ import {
 	package1,
 } from '@/assets';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
-
+import { Country, State, City } from 'country-state-city';
+import { ICountry, IState, ICity } from 'country-state-city';
+console.log(Country);
 const NewShipmentForm = () => {
 	return (
 		<>
