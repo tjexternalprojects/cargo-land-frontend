@@ -1,5 +1,4 @@
-import React from 'react';
-import { GrBusinessService, ImLocation, BsTelephoneForward, AiOutlineNumber } from '../../assets';
+import { GrBusinessService, ImLocation, BsTelephoneForward, AiOutlineNumber } from '@/assets';
 const BusinessData = () => {
 	return (
 		<form className=" text-gray-500 flex flex-col space-y-4">

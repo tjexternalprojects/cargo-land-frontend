@@ -1,5 +1,5 @@
 import React from 'react';
-import { HiDocumentText } from '../../assets';
+import { HiDocumentText } from '@/assets';
 const BusinessDocuments = () => {
 	return (
 		<form className=" text-gray-500 flex flex-col space-y-4">

@@ -1,5 +1,5 @@
-import { BiHide, BiShow, BiUserPin, MdAttachEmail, Si1Password } from '../../assets';
-import useBusinessSignup from '../../customHooks/useBusinessSignup';
+import { BiHide, BiShow, BiUserPin, MdAttachEmail, Si1Password } from '@/assets';
+import useBusinessSignup from '@/pages/BusinessSignup/useBusinessSignup';
 
 const BasicInfo = () => {
 	const { showPassword, setShowPassword } = useBusinessSignup();

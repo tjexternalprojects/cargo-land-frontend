@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiFilter, RiSearch2Line, userImg } from '../../assets';
+import { BiFilter, RiSearch2Line, userImg } from '@/assets';
 
 const TopBar = () => {
 	return (

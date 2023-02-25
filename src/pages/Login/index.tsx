@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { cargoBG } from '../assets';
-import { Header } from '../components';
-import useLogin from '../customHooks/useLogin';
+import { cargoBG } from '@/assets';
+import { Header } from '@/components';
+import useLogin from '@/pages/Login/useLogin';
 import ReactSwipe from 'react-swipe';
 
 const Login = () => {

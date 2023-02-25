@@ -64,6 +64,16 @@ export const slideUp = (delay: number, duration: number) => {
 	return animateSlideUp;
 };
 
+
+export const fadeSlide = (direction:number) => {
+	return {
+		initial: { opacity: 0, y: direction },
+		animate: { opacity: 1, y: 0 },
+	};
+};
+
+
+
 export const slideLeft = {
 	x: ['0%', '100%'],
 	opacity: [1, 0],

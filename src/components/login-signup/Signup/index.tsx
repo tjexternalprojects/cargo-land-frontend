@@ -1,8 +1,8 @@
 import React from 'react';
-import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail } from '../../assets/index';
+import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail } from '@/assets';
 import { motion } from 'framer-motion';
-import { slideUp } from '../../animations';
-import useLogin from '../../customHooks/useLogin';
+import { slideUp } from '@/animations';
+import useLogin from '@/pages/Login/useLogin';
 import { Link } from 'react-router-dom';
 
 interface Props {

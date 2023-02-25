@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Login } from './pages';
-import { useApp } from './context/IndexContext';
+import { useApp } from './context';
 
 const useAuth = () => {
 	const { user } = useApp();

@@ -1,23 +1,24 @@
 // common components
 export { default as Header } from './common/Header';
 export { default as LineGraph } from './common/Graph';
+export {default as Map} from './common/Map'
 
-// login coponents
-export { default as LoginComponent } from './login-signup/login';
-export { default as SingupComponent } from './login-signup/signup';
+// login components
+export { default as LoginComponent } from './login-signup/Login';
+export { default as SingupComponent } from './login-signup/Signup';
 
-// Business Signup
-export { default as BasicInfo } from './businessSignup/basicInfo';
+// Business SignUp
+export { default as BasicInfo } from './businessSignup/BasicInfo';
 export { default as BusinessData } from './businessSignup/BusinessData';
 export { default as BusinessDocuments } from './businessSignup/BusinessDocuments';
 
 // Dashboard
-export { default as DashboardHome } from './dashboard/home';
-export { default as DeliveryPage } from './dashboard/Delivery';
+export { default as DashboardHome } from './dashboard/Home';
+export { default as DeliveryPage } from './dashboard/Shipment';
 export { default as History } from './dashboard/History';
-export { default as Sidebar } from './dashboard/sidebar';
+export { default as Sidebar } from './dashboard/Sidebar';
 export { default as TopBar } from './dashboard/TopBar';
 
 // Dashboard New_Shipment
-export { default as NewShipmentForm } from './dashboard/newShipment/NewShipmentForm';
-export { default as RecipientDetails} from './dashboard/newShipment/RecipientDetails'
+export { default as NewShipmentForm } from './dashboard/Shipment/newShipment/NewShipmentForm';
+export { default as RecipientDetails} from './dashboard/Shipment/newShipment/RecipientDetails'

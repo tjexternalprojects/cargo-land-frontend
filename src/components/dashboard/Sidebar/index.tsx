@@ -7,9 +7,9 @@ import {
 	TbLogout,
 	TbTruckDelivery,
 	userImg,
-} from '../../assets';
+} from '@/assets';
 import { NavLink, useMatch } from 'react-router-dom';
-import useLogin from '../../customHooks/useLogin';
+import useLogin from '@/pages/Login/useLogin';
 const sidebar = () => {
 	const dashboardMatch = useMatch('/');
 	const deliveryMatch = useMatch('/delivery');

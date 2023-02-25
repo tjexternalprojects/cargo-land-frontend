@@ -1,13 +1,12 @@
 import { ReactNode, useState, useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { Sidebar, TopBar } from "../components";
-import { GiHamburgerMenu } from "../assets";
-import { useApp, AppContext, AppContextType } from "../context/IndexContext";
+import { Sidebar, TopBar } from "@/components";
+import { GiHamburgerMenu } from "@/assets";
+import { useApp, AppContext, AppContextType } from "@/context";
 
 const Dashboard = () => {
   const { toggleAdminSideBar } = useApp();
   const { setState } = useContext<AppContextType>(AppContext);
-// w-72
   return (
 <div className="flex bg-gradient-to-tr from-white via-white to-slate-50 min-h-screen">
   <div className={` w-72 z-10 ${toggleAdminSideBar ? "flex" : "md:flex hidden"}`}>
@@ -27,7 +26,7 @@ const Dashboard = () => {
         </div>
         <TopBar />
       </div>
-    <div className="pt-16 ">
+    <div className="pt-16 w-full">
       <Outlet />
     </div>
 </div>

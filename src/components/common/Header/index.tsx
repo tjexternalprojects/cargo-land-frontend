@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { BiMenuAltRight, logo } from '../../assets';
+import { BiMenuAltRight, logo } from '../../../assets';
 import { motion } from 'framer-motion';
-import { scaleBg, reduceScaleBg, fadeIn } from '../../animations';
-import { LoginComponent, SingupComponent } from '..';
+import { scaleBg, reduceScaleBg, fadeIn } from '../../../animations';
+import { LoginComponent, SingupComponent } from '../..';
 import ReactSwipe from 'react-swipe';
-import useLogin from '../../customHooks/useLogin';
+import useLogin from '@/pages/Login/useLogin';
 import { Link } from 'react-router-dom';
 
 const Header = () => {

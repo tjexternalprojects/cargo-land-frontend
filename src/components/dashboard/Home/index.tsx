@@ -1,6 +1,6 @@
 import React from 'react';
-import { LineGraph } from '..';
-import useDashboard from '../../customHooks/useDashboard';
+import { LineGraph } from '@/components';
+import useDashboard from '@/pages/Dashboard/useDashboard';
 
 const home = () => {
 	const { received_data, sent_data } = useDashboard();

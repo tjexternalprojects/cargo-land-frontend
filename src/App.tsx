@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DashboardHome, DeliveryPage, History } from './components';
-import Dashboard from './pages/Dashboard';
-import { BusinessSignup, Login } from './pages/index';
-import ProtectedRoutes from './ProtectedRoutes';
-import { AppProvider } from './context/IndexContext';
+import { DashboardHome, DeliveryPage, History } from '@/components';
+import Dashboard from '@/pages/Dashboard';
+import { BusinessSignup, Login } from '@/pages/index';
+import ProtectedRoutes from '@/ProtectedRoutes';
+import { AppProvider } from '@/context';
 
 function App() {
 	return (

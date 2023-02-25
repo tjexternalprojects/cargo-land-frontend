@@ -4,11 +4,11 @@ import {
 	TbBusinessplan,
 	signupGif,
 	MdOutlineArrowForwardIos,
-} from '../assets';
-import { BasicInfo, BusinessDocuments, BusinessData, Header } from '../components';
-import useBusinessSignup from '../customHooks/useBusinessSignup';
+} from '../../assets';
+import { BasicInfo, BusinessDocuments, BusinessData, Header } from '@/components';
+import useBusinessSignup from './useBusinessSignup';
 import { motion } from 'framer-motion';
-import { slideUp } from '../animations';
+import { slideUp } from '@/animations';
 
 const BusinessSignup = () => {
 	const { activeTab, setActiveTab } = useBusinessSignup();
