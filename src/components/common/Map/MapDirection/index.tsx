@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Geocode from "react-geocode";
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from "@react-google-maps/api";
-import { TravelMode } from "@react-google-maps/api";
+// import { DirectionsRenderer, DirectionsServiceStatus, TravelMode } from "google.maps";
 
 Geocode.setApiKey("AIzaSyDh080FVx9-iAk78VVmaLVm3PMIHcaPeXA");
 
@@ -98,7 +98,7 @@ const MapDirection=()=> {
               options={{
                 origin: { lat: fromLatitude, lng: fromLongitude },
                 destination: { lat: toLatitude, lng: toLongitude },
-                travelMode: TravelMode.DRIVING,
+                travelMode: google.maps.TravelMode.DRIVING,
               }}
               callback={directionsCallback}
             />
