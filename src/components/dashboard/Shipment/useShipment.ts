@@ -13,13 +13,13 @@ function useShipment() {
 		if (animationDirection.prev_direction < item_number) {
 			setAnimationDirection(() => ({
 				...animationDirection,
-				direction: 50,
+				direction: -50,
 				prev_direction: item_number,
 			}));
 		} else if (animationDirection.prev_direction > item_number) {
 			setAnimationDirection(() => ({
 				...animationDirection,
-				direction: -50,
+				direction: 50,
 				prev_direction: item_number,
 			}));
 		}

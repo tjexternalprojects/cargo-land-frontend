@@ -6,7 +6,7 @@ import { fadeSlide } from '@/animations';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 
 const Delivery = () => {
-	const { handleShowTab, animationDirection, animateTab } = useShipment();
+	const { handleShowTab, setAnimateTab, animationDirection, animateTab } = useShipment();
 
 	return (
 		<>
@@ -59,7 +59,7 @@ const Delivery = () => {
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item1' ? 'animate' : 'initial'}
 					>
-						<NewShipmentForm />
+						<NewShipmentForm setAnimateTab={setAnimateTab} />
 					</motion.div>
 					<motion.div
 						className={`${animateTab == 'item2' ? 'inline-flex' : 'hidden'} w-full pt-20 `}

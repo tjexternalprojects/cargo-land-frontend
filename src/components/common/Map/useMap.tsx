@@ -1,4 +1,4 @@
 function useMap() {
-    return {}
+	return {};
 }
-export default useMap
+export default useMap;

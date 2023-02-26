@@ -1,7 +1,8 @@
 // common components
 export { default as Header } from './common/Header';
 export { default as LineGraph } from './common/Graph';
-export {default as Map} from './common/Map'
+export { default as Map } from './common/Map';
+export {default as MapDirection} from './common/Map/MapDirection'
 
 // login components
 export { default as LoginComponent } from './login-signup/Login';
@@ -21,4 +22,4 @@ export { default as TopBar } from './dashboard/TopBar';
 
 // Dashboard New_Shipment
 export { default as NewShipmentForm } from './dashboard/Shipment/newShipment/NewShipmentForm';
-export { default as RecipientDetails} from './dashboard/Shipment/newShipment/RecipientDetails'
+export { default as RecipientDetails } from './dashboard/Shipment/newShipment/RecipientDetails';

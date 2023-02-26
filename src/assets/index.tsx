@@ -20,6 +20,7 @@ export { AiOutlineNumber } from 'react-icons/ai';
 export { RiPriceTag2Line, RiSearch2Line } from 'react-icons/ri';
 export { CiSettings } from 'react-icons/ci';
 export { GiHamburgerMenu, GiWeight } from 'react-icons/gi';
+export { MdOutlineShareLocation, MdOutlineMyLocation, MdAddLocationAlt } from 'react-icons/md';
 
 // images
 export { default as logo } from './images/logo.png';
@@ -29,5 +30,5 @@ export { default as signupGif } from './images/signupGif2.gif';
 export { default as userImg } from './images/user.png';
 export { default as cargoBG } from './images/cargoBG.jpg';
 
-// Shipment Images 
-export {default as package1} from './images/shipment/package1.jpg'
+// Shipment Images
+export { default as package1 } from './images/shipment/package1.jpg';

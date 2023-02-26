@@ -1,17 +1,26 @@
-import React from 'react';
+import { FC } from 'react';
 import {
 	BiCloudUpload,
 	GiWeight,
 	GoPackage,
+	MdAddLocationAlt,
 	MdDescription,
+	MdOutlineMyLocation,
+	MdOutlineShareLocation,
 	MdOutlineSubtitles,
 	package1,
 } from '@/assets';
-import useShipment from '@/components/dashboard/Shipment/useShipment';
 import { Country, State, City } from 'country-state-city';
-import { ICountry, IState, ICity } from 'country-state-city';
-console.log(Country.getAllCountries());
-const NewShipmentForm = () => {
+import useNewShipmentForm from '@/components/dashboard/Shipment/newShipment/NewShipmentForm/useNewShipmentForm';
+
+interface NewShipmentFormProps {
+	setAnimateTab: (value: string) => void;
+}
+
+const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
+	const { setCountryCode, handleSubmitNewShipmentForm, countryCode, stateCode, setStateCode } =
+		useNewShipmentForm(setAnimateTab);
+
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full">
@@ -19,10 +28,10 @@ const NewShipmentForm = () => {
 					<GoPackage />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
-				<form className=" w-9/12 my-5">
+				<form className=" w-9/12 my-5" onSubmit={handleSubmitNewShipmentForm}>
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment title</label>
-						<div className="border flex rounded-lg mt-2 p-2">
+						<div className="border flex rounded-lg mt-2 p-2 bg-white">
 							<input className="w-full outline-none" type="text" />
 							<div className="text-xl text-gray-500">
 								<MdOutlineSubtitles />
@@ -32,7 +41,7 @@ const NewShipmentForm = () => {
 
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment Description</label>
-						<div className="border flex rounded-lg mt-2 p-2">
+						<div className="border flex rounded-lg mt-2 p-2 bg-white">
 							<textarea className="w-full outline-none"></textarea>
 							<div className="text-xl text-gray-500">
 								<MdDescription />
@@ -42,7 +51,7 @@ const NewShipmentForm = () => {
 
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment Weight (Kg)</label>
-						<div className="border flex rounded-lg mt-2 p-2">
+						<div className="border flex rounded-lg mt-2 p-2 bg-white">
 							<input className="w-full outline-none" type="text" />
 							<div className="text-xl text-gray-500">
 								<GiWeight />
@@ -52,7 +61,7 @@ const NewShipmentForm = () => {
 
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Images</label>
-						<div className="border gap-3 flex rounded-lg mt-2 p-2 overflow-x-auto w-full">
+						<div className="border gap-3 flex rounded-lg mt-2 p-2 overflow-x-auto w-full bg-white">
 							<div className="w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl">
 								<img src={package1} className="object-cover w-full h-full rounded-xl" />
 							</div>
@@ -78,21 +87,25 @@ const NewShipmentForm = () => {
 						</div>
 					</div>
 
-					<div className="mt-3">
-						<label className="text-sm text-gray-400">Shipment Current Location for pickup</label>
+					<div className="mt-7 border rounded-lg p-5 bg-white">
+						<label className="text-lg text-gray-400">Shipment Current Location for pickup</label>
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
 								<small className="text-gray-400 font-bold">Country</small>
 								<div className="border flex rounded-lg mt-2 p-2">
-									<select className="w-full outline-none">
-										{Country.getAllCountries().map((country, key)=>(
-											<option value="">
-												{country.name}</option>
-										))
-}
+									<select
+										className="w-full outline-none"
+										value={countryCode}
+										onChange={(e) => setCountryCode(e.target.value)}
+									>
+										{Country.getAllCountries().map((country) => (
+											<option key={country.isoCode} value={country.isoCode} className="space-x-10">
+												{country.name}
+											</option>
+										))}
 									</select>
 									<div className="text-xl text-gray-500">
-										<GiWeight />
+										{Country.getCountryByCode(countryCode)?.flag}
 									</div>
 								</div>
 							</div>
@@ -100,21 +113,45 @@ const NewShipmentForm = () => {
 							<div>
 								<small className="text-gray-400 font-bold">State</small>
 								<div className="border flex rounded-lg mt-2 p-2">
-									<select className="w-full outline-none">
-										<option value="">Lagos</option>
+									<select
+										className="w-full outline-none"
+										value={stateCode}
+										onChange={(e) => setStateCode(e.target.value)}
+									>
+										{State.getStatesOfCountry(countryCode).map((states) => (
+											<option value={states.isoCode} key={states.isoCode}>
+												{states.name}
+											</option>
+										))}
 									</select>
 									<div className="text-xl text-gray-500">
-										<GiWeight />
+										<MdOutlineShareLocation />
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<small className="text-gray-400 font-bold">City</small>
+								<div className="border flex rounded-lg mt-2 p-2">
+									<select className="w-full outline-none">
+										{City.getCitiesOfState(countryCode, stateCode).map((cities, key) => (
+											<option value={cities.stateCode} key={key}>
+												{cities.name}
+											</option>
+										))}
+									</select>
+									<div className="text-xl text-gray-500">
+										<MdOutlineMyLocation />
 									</div>
 								</div>
 							</div>
 
 							<div className="mt-3">
-								<small className=" text-gray-400 font-bold">Full Address</small>
+								<small className=" text-gray-400 font-bold">Address</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<textarea className="w-full outline-none"></textarea>
 									<div className="text-xl text-gray-500">
-										<MdOutlineSubtitles />
+										<MdAddLocationAlt />
 									</div>
 								</div>
 							</div>

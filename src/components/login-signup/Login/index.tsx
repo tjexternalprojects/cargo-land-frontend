@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BiUserPin, Si1Password, SiGmail } from '../../../assets/index';
+import { BiUserPin, Si1Password, SiGmail } from '@/assets';
 import { motion } from 'framer-motion';
 import { slideUp } from '@/animations';
 import useLogin from '@/pages/Login/useLogin';

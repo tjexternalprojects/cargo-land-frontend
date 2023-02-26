@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {
 	BiCloudUpload,
@@ -10,7 +8,7 @@ import {
 	package1,
 } from '@/assets';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
-import {Map} from '@/components'
+import { Map, MapDirection } from '@/components';
 
 const RecipientDetails = () => {
 	return (
@@ -21,8 +19,9 @@ const RecipientDetails = () => {
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
 				<Map />
+				<MapDirection/>
 
-				<form className=" w-9/12 mt-5">
+				{/* <form className=" w-9/12 mt-5">
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">
 							Shipment Current location |{' '}
@@ -34,7 +33,7 @@ const RecipientDetails = () => {
 							</small>
 						</label>
 					</div>
-				</form>
+				</form> */}
 			</div>
 		</>
 	);
