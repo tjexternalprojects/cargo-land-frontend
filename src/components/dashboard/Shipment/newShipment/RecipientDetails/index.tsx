@@ -6,6 +6,7 @@ import {
 	MdDescription,
 	MdOutlineSubtitles,
 	package1,
+	RiUserReceivedLine,
 } from '@/assets';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 import { Map, MapDirection } from '@/components';
@@ -15,11 +16,11 @@ const RecipientDetails = () => {
 		<>
 			<div className="inline-flex flex-col items-center w-full">
 				<div className="bg-blue-900 rounded-full text-white text-3xl p-2">
-					<GoPackage />
+					<RiUserReceivedLine />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
-				<Map />
-				<MapDirection/>
+				{/* <Map /> */}
+				{/* <MapDirection /> */}
 
 				{/* <form className=" w-9/12 mt-5">
 					<div className="mt-3">

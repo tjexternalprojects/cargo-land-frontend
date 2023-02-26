@@ -17,7 +17,7 @@ export { HiDocumentText } from 'react-icons/hi';
 export { ImLocation } from 'react-icons/im';
 export { BsTelephoneForward } from 'react-icons/bs';
 export { AiOutlineNumber } from 'react-icons/ai';
-export { RiPriceTag2Line, RiSearch2Line } from 'react-icons/ri';
+export { RiPriceTag2Line, RiSearch2Line, RiUserReceivedLine } from 'react-icons/ri';
 export { CiSettings } from 'react-icons/ci';
 export { GiHamburgerMenu, GiWeight } from 'react-icons/gi';
 export { MdOutlineShareLocation, MdOutlineMyLocation, MdAddLocationAlt } from 'react-icons/md';
