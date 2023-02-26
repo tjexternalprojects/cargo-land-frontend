@@ -18,7 +18,7 @@ const RecipientDetails = () => {
 					<GoPackage />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
-				<Map />
+				{/* <Map /> */}
 				<MapDirection/>
 
 				{/* <form className=" w-9/12 mt-5">
