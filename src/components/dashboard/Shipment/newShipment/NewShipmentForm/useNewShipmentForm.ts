@@ -11,15 +11,6 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 	const [citySelected, setCitySelected] = useState('');
 	const [address, setAddress] = useState('');
 	const [mapAddress, setMapAddress] = useState('');
-	// const [shipmentDetails, setShipmentDetails] = useState<
-	// 	Record<string, string | number | (string | ArrayBuffer | null)[]>
-	// >({
-	// 	shipment_title: '',
-	// 	shipment_description: '',
-	// 	shipment_weight: 0,
-	// 	images:[],
-	// });
-
 	const [shipmentDetails, setShipmentDetails] = useState<
 		Record<string, string | number | (string | ArrayBuffer | null)[]>
 	>({
@@ -28,6 +19,14 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 		shipment_weight: 0,
 		images: [] as (string | null)[],
 	});
+
+	 const image_slider_settings = {
+			dots: false,
+			infinite: false,
+			speed: 500,
+			slidesToShow: 5,
+			slidesToScroll: 1,
+		};
 
 	const handleSubmitNewShipmentForm = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -90,6 +89,7 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 		citySelected,
 		mapAddress,
 		shipmentDetails,
+		image_slider_settings,
 		handleImageChange,
 		setShipmentDetails,
 		setCitySelected,

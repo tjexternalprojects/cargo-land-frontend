@@ -14,6 +14,9 @@ import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
 import { AddressMap } from '@/components';
 import { ToastContainer } from 'react-toastify';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 interface NewShipmentFormProps {
 	setAnimateTab: (value: string) => void;
@@ -28,6 +31,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 		setAddress,
 		setShipmentDetails,
 		handleImageChange,
+		image_slider_settings,
 		shipmentDetails,
 		citySelected,
 		address,
@@ -111,7 +115,10 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Images</label>
-						<div className="border gap-3 flex rounded-lg mt-2 p-2    overflow-x-scroll bg-white w-full">
+						<Slider {...image_slider_settings}>
+							
+						</Slider>
+						{/* <div className="border gap-3 flex rounded-lg mt-2 p-2    overflow-x-scroll bg-white w-full">
 							{shipmentDetails.images &&
 								Array.isArray(shipmentDetails.images) &&
 								shipmentDetails.images.map((image, index) => (
@@ -126,7 +133,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 										/>
 									</div>
 								))}
-						</div>
+						</div> */}
 						<div className="mt-5 w-1/2 h-10 border-2 bg-slate-200 shadow flex items-center justify-between pl-5 rounded-xl overflow-hidden">
 							<label className=" w-full h-20 flex items-center justify-between cursor-pointer">
 								<span>Upload shipment image</span>

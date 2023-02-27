@@ -52,6 +52,7 @@
 		"react-places-autocomplete": "^7.3.0",
 		"react-router-dom": "^6.8.1",
 		"react-scroll": "^1.8.9",
+		"react-slick": "^0.29.0",
 		"react-swipe": "^6.0.4",
 		"react-toastify": "^9.1.1"
 	},
@@ -61,6 +62,7 @@
 		"@types/react": "^18.0.26",
 		"@types/react-dom": "^18.0.9",
 		"@types/react-scroll": "^1.8.6",
+		"@types/react-slick": "^0.23.10",
 		"@types/react-swipe": "^6.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.50.0",
 		"@typescript-eslint/parser": "^5.50.0",
