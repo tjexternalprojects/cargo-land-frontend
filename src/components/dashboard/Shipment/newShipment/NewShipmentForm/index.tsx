@@ -13,6 +13,7 @@ import {
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
 import { AddressMap } from '@/components';
+import { ToastContainer } from 'react-toastify';
 
 interface NewShipmentFormProps {
 	setAnimateTab: (value: string) => void;
@@ -26,6 +27,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 		setCitySelected,
 		setAddress,
 		setShipmentDetails,
+		handleImageChange,
 		shipmentDetails,
 		citySelected,
 		address,
@@ -36,12 +38,15 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 
 	return (
 		<>
-			<div className="inline-flex flex-col items-center w-full">
-				<div className="bg-blue-900 rounded-full text-white text-3xl p-2">
+			<div className="inline-flex flex-col items-center w-full ">
+				<div className="bg-blue-900 rounded-full text-white  text-3xl p-2">
 					<GoPackage />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
-				<form className=" w-9/12 my-5" onSubmit={handleSubmitNewShipmentForm}>
+				<form
+					className=" w-9/12 my-5 border-2 border-red-400 "
+					onSubmit={handleSubmitNewShipmentForm}
+				>
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment title</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
@@ -50,10 +55,10 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 								type="text"
 								value={shipmentDetails.shipment_title as string}
 								onChange={(e) =>
-									setShipmentDetails((prevState) => ({
-										...prevState,
-										shipmentDetails: shipmentDetails.shipment_title,
-									}))
+									setShipmentDetails({
+										...shipmentDetails,
+										shipment_title: e.target.value,
+									})
 								}
 								required
 							/>
@@ -66,7 +71,17 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment Description</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<textarea className="w-full outline-none" required></textarea>
+							<textarea
+								className="w-full outline-none"
+								value={shipmentDetails.shipment_description as string}
+								onChange={(e) =>
+									setShipmentDetails({
+										...shipmentDetails,
+										shipment_description: e.target.value,
+									})
+								}
+								required
+							></textarea>
 							<div className="text-xl text-gray-500">
 								<MdDescription />
 							</div>
@@ -76,7 +91,18 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment Weight (Kg)</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<input className="w-full outline-none" type="text" required />
+							<input
+								className="w-full outline-none"
+								type="text"
+								value={shipmentDetails.shipment_weight as number}
+								onChange={(e) =>
+									setShipmentDetails({
+										...shipmentDetails,
+										shipment_weight: Number(e.target.value),
+									})
+								}
+								required
+							/>
 							<div className="text-xl text-gray-500">
 								<GiWeight />
 							</div>
@@ -85,30 +111,38 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Images</label>
-						<div className="border gap-3 flex rounded-lg mt-2 p-2 overflow-x-auto w-full bg-white">
-							<div className="w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl">
-								<img src={package1} className="object-cover w-full h-full rounded-xl" />
-							</div>
-							<div className="w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl">
-								<img src={package1} className="object-cover w-full h-full rounded-xl" />
-							</div>
-							<div className="w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl">
-								<img src={package1} className="object-cover w-full h-full rounded-xl" />
-							</div>
-							<div className="w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl">
-								<img src={package1} className="object-cover w-full h-full rounded-xl" />
-							</div>
+						<div className="border gap-3 flex rounded-lg mt-2 p-2    overflow-x-scroll bg-white w-full">
+							{shipmentDetails.images &&
+								Array.isArray(shipmentDetails.images) &&
+								shipmentDetails.images.map((image, index) => (
+									<div
+										key={index}
+										className=" w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl"
+									>
+										<img
+											src={typeof image === 'string' ? image : undefined}
+											alt="Shipment"
+											className="object-cover w-full  h-full rounded-xl"
+										/>
+									</div>
+								))}
 						</div>
-
 						<div className="mt-5 w-1/2 h-10 border-2 bg-slate-200 shadow flex items-center justify-between pl-5 rounded-xl overflow-hidden">
 							<label className=" w-full h-20 flex items-center justify-between cursor-pointer">
 								<span>Upload shipment image</span>
 								<div className="border-gray-500 border-dotted w-20 h-20 border-4 rounded-xl flex items-center justify-center">
 									<BiCloudUpload className="text-3xl text-gray-500" />
-									<input id="fileInput" type="file" className="hidden" />
+									<input
+										id="fileInput"
+										type="file"
+										className="hidden"
+										onChange={handleImageChange}
+										accept="image/*"
+									/>
 								</div>
 							</label>
 						</div>
+						<ToastContainer />
 					</div>
 
 					<div className="mt-7 border rounded-lg p-5 bg-white">

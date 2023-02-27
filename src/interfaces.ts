@@ -13,7 +13,7 @@ export interface ShipmentDetails {
 	};
 	recipient_full_name: string;
 	recipient_email: string;
-	shipment_destintion: {
+	shipment_destination: {
 		country: string;
 		state: string;
 		city: string;
