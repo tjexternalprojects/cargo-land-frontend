@@ -1,14 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import AuthContext from './AuthContext';
 import SettingsContext from './SettingsContext';
+import GeneralContext from './GeneralContext';
 
 const { user } = AuthContext();
 const { notifications, theme, toggleAdminSideBar } = SettingsContext();
+const { shipmentDetails } = GeneralContext();
 
 // Define the global state object
 
 type AppState = {
 	user: Record<string, boolean>;
+	shipmentDetails: Record<
+		string,
+		Array<unknown> | number | string | Record<string, string | number>
+	>;
 	settings: string;
 	notifications: Notification[];
 	toggleAdminSideBar: boolean;
@@ -16,6 +22,7 @@ type AppState = {
 
 const initialState: AppState = {
 	user,
+	shipmentDetails,
 	settings: theme,
 	notifications,
 	toggleAdminSideBar,

@@ -1,8 +1,8 @@
 // common components
 export { default as Header } from './common/Header';
 export { default as LineGraph } from './common/Graph';
-export { default as Map } from './common/Map';
-export {default as MapDirection} from './common/Map/MapDirection'
+export { default as AddressMap } from './common/AddressMap';
+export { default as MapDirection } from './common/AddressMap/MapDirection';
 
 // login components
 export { default as LoginComponent } from './login-signup/Login';

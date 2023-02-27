@@ -11,15 +11,28 @@ import {
 	package1,
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
-import useNewShipmentForm from '@/components/dashboard/Shipment/newShipment/NewShipmentForm/useNewShipmentForm';
+import useNewShipmentForm from './useNewShipmentForm';
+import { AddressMap } from '@/components';
 
 interface NewShipmentFormProps {
 	setAnimateTab: (value: string) => void;
 }
 
 const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
-	const { setCountryCode, handleSubmitNewShipmentForm, countryCode, stateCode, setStateCode } =
-		useNewShipmentForm(setAnimateTab);
+	const {
+		setCountryCode,
+		handleSubmitNewShipmentForm,
+		setStateCode,
+		setCitySelected,
+		setAddress,
+		setShipmentDetails,
+		shipmentDetails,
+		citySelected,
+		address,
+		mapAddress,
+		countryCode,
+		stateCode,
+	} = useNewShipmentForm(setAnimateTab);
 
 	return (
 		<>
@@ -32,7 +45,18 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment title</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<input className="w-full outline-none" type="text" />
+							<input
+								className="w-full outline-none"
+								type="text"
+								value={shipmentDetails.shipment_title as string}
+								onChange={(e) =>
+									setShipmentDetails((prevState) => ({
+										...prevState,
+										shipmentDetails: shipmentDetails.shipment_title,
+									}))
+								}
+								required
+							/>
 							<div className="text-xl text-gray-500">
 								<MdOutlineSubtitles />
 							</div>
@@ -42,7 +66,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment Description</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<textarea className="w-full outline-none"></textarea>
+							<textarea className="w-full outline-none" required></textarea>
 							<div className="text-xl text-gray-500">
 								<MdDescription />
 							</div>
@@ -52,7 +76,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">Shipment Weight (Kg)</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<input className="w-full outline-none" type="text" />
+							<input className="w-full outline-none" type="text" required />
 							<div className="text-xl text-gray-500">
 								<GiWeight />
 							</div>
@@ -89,6 +113,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 
 					<div className="mt-7 border rounded-lg p-5 bg-white">
 						<label className="text-lg text-gray-400">Shipment Current Location for pickup</label>
+
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
 								<small className="text-gray-400 font-bold">Country</small>
@@ -97,7 +122,9 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 										className="w-full outline-none"
 										value={countryCode}
 										onChange={(e) => setCountryCode(e.target.value)}
+										required
 									>
+										<option value="0">Select Country</option>
 										{Country.getAllCountries().map((country) => (
 											<option key={country.isoCode} value={country.isoCode} className="space-x-10">
 												{country.name}
@@ -117,7 +144,11 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 										className="w-full outline-none"
 										value={stateCode}
 										onChange={(e) => setStateCode(e.target.value)}
+										disabled={countryCode === '' || countryCode === '0'}
+										required
 									>
+										<option value="0">Select State</option>
+
 										{State.getStatesOfCountry(countryCode).map((states) => (
 											<option value={states.isoCode} key={states.isoCode}>
 												{states.name}
@@ -133,9 +164,17 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 							<div>
 								<small className="text-gray-400 font-bold">City</small>
 								<div className="border flex rounded-lg mt-2 p-2">
-									<select className="w-full outline-none">
+									<select
+										disabled={stateCode === '' || stateCode === '0'}
+										className="w-full outline-none"
+										value={citySelected}
+										onChange={(e) => setCitySelected(e.target.value)}
+										required
+									>
+										<option value="0">Select City</option>
+
 										{City.getCitiesOfState(countryCode, stateCode).map((cities, key) => (
-											<option value={cities.stateCode} key={key}>
+											<option value={cities.name} key={key}>
 												{cities.name}
 											</option>
 										))}
@@ -149,12 +188,20 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 							<div className="mt-3">
 								<small className=" text-gray-400 font-bold">Address</small>
 								<div className="border flex rounded-lg mt-2 p-2">
-									<textarea className="w-full outline-none"></textarea>
+									<textarea
+										className="w-full outline-none"
+										value={address}
+										onChange={(e) => setAddress(e.target.value)}
+										disabled={citySelected === '' || citySelected === '0'}
+										required
+									></textarea>
 									<div className="text-xl text-gray-500">
 										<MdAddLocationAlt />
 									</div>
 								</div>
 							</div>
+							<span className="mt-2">Full Address: {mapAddress}</span>
+							<AddressMap address={mapAddress} />
 						</div>
 					</div>
 

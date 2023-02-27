@@ -21,7 +21,7 @@ export { RiPriceTag2Line, RiSearch2Line, RiUserReceivedLine } from 'react-icons/
 export { CiSettings } from 'react-icons/ci';
 export { GiHamburgerMenu, GiWeight } from 'react-icons/gi';
 export { MdOutlineShareLocation, MdOutlineMyLocation, MdAddLocationAlt } from 'react-icons/md';
-
+export { FaUserEdit } from 'react-icons/fa';
 // images
 export { default as logo } from './images/logo.png';
 export { default as logonBg } from './images/loginBg.jpg';

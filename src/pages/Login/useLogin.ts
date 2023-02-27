@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { AppContext, AppContextType } from '../../context';
+import { AppContext, AppContextType } from '@/context';
 import { useNavigate } from 'react-router-dom';
 
 function useLogin() {
@@ -29,16 +29,16 @@ function useLogin() {
 	const handleLogout = () => {
 		setState((prevState) => ({
 			...prevState,
-			user: { useLogin: false },
+			user: { loggdIn: false },
 		}));
 		navigate('/login');
 	};
 
 	return {
 		toggleLoginType,
+		showPassword,
 		setToggleLoginType,
 		handleToggleBtn,
-		showPassword,
 		setShowPassword,
 		handleSingupSubmit,
 		handleLogin,

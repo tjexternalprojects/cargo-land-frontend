@@ -66,7 +66,7 @@ const Delivery = () => {
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item2' ? 'animate' : 'initial'}
 					>
-						<RecipientDetails />
+						<RecipientDetails setAnimateTab={setAnimateTab} />
 					</motion.div>
 
 					<motion.div
@@ -74,7 +74,7 @@ const Delivery = () => {
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item3' ? 'animate' : 'initial'}
 					>
-						<RecipientDetails />
+						<RecipientDetails setAnimateTab={setAnimateTab} />
 					</motion.div>
 				</div>
 			</div>

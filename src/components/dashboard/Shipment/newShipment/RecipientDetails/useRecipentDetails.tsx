@@ -1,25 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Country, State, City } from 'country-state-city';
-import { AppContext, AppContextType } from '@/context';
 
 function useRecipentDetails(setAnimateTab: (value: string) => void) {
-	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
 	const [stateCode, setStateCode] = useState('');
 	const [citySelected, setCitySelected] = useState('');
 	const [address, setAddress] = useState('');
 	const [mapAddress, setMapAddress] = useState('');
-	const [shipmentDetails, setShipmentDetails] = useState(state.shipmentDetails);
 
-	const handleSubmitNewShipmentForm = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleRecipientDetails = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
-		setState((prevState) => ({
-			...prevState,
-			shipmentDetails,
-		}));
-		console.log(state.shipmentDetails);
-		setAnimateTab('item2');
+		setAnimateTab('item3');
 	};
 
 	const updateMapAddress = () => {
@@ -44,11 +35,9 @@ function useRecipentDetails(setAnimateTab: (value: string) => void) {
 		address,
 		citySelected,
 		mapAddress,
-		shipmentDetails,
-		setShipmentDetails,
 		setCitySelected,
 		setAddress,
-		handleSubmitNewShipmentForm,
+		handleRecipientDetails,
 		setCountryCode,
 		setStateCode,
 	};
