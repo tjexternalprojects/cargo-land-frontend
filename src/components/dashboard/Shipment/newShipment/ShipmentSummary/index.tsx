@@ -20,7 +20,10 @@ const RecipientDetails: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
 					<MdTrackChanges />
 				</div>
 				<p className="text-xl mt-4">Shipment Summary</p>
-				<form className=" w-9/12 my-5" onSubmit={handleSummary}></form>
+				<div>
+					
+				</div>
+				{/* <form className=" w-9/12 my-5" onSubmit={handleSummary}></form> */}
 			<ToastContainer />
 			</div>
 		</>
