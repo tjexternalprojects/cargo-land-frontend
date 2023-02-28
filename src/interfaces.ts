@@ -1,8 +1,8 @@
 export interface ShipmentDetails {
 	shipment_title: string;
 	shipment_description: string;
-	shipment_weight: string;
-	images: any[];
+	shipment_weight: number;
+	images: (string | ArrayBuffer | null)[];
 	current_location: {
 		country: string;
 		state: string;

@@ -12,15 +12,26 @@ export {
 } from 'react-icons/md';
 export { GoSignIn, GoPackage } from 'react-icons/go';
 export { TiBusinessCard } from 'react-icons/ti';
-export { TbBusinessplan, TbLayoutDashboard, TbLogout, TbTruckDelivery } from 'react-icons/tb';
+export {
+	TbBusinessplan,
+	TbLayoutDashboard,
+	TbLogout,
+	TbTruckDelivery,
+	TbZoomOutArea,
+} from 'react-icons/tb';
 export { HiDocumentText } from 'react-icons/hi';
 export { ImLocation } from 'react-icons/im';
 export { BsTelephoneForward } from 'react-icons/bs';
-export { AiOutlineNumber } from 'react-icons/ai';
+export { AiOutlineNumber, AiOutlineClose } from 'react-icons/ai';
 export { RiPriceTag2Line, RiSearch2Line, RiUserReceivedLine } from 'react-icons/ri';
 export { CiSettings } from 'react-icons/ci';
 export { GiHamburgerMenu, GiWeight } from 'react-icons/gi';
-export { MdOutlineShareLocation, MdOutlineMyLocation, MdAddLocationAlt } from 'react-icons/md';
+export {
+	MdOutlineShareLocation,
+	MdOutlineMyLocation,
+	MdAddLocationAlt,
+	MdOutlineDeleteOutline,
+} from 'react-icons/md';
 export { FaUserEdit } from 'react-icons/fa';
 // images
 export { default as logo } from './images/logo.png';

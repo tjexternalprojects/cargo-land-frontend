@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import AuthContext from './AuthContext';
 import SettingsContext from './SettingsContext';
 import GeneralContext from './GeneralContext';
+import { ShipmentDetails } from '@/interfaces';
 
 const { user } = AuthContext();
 const { notifications, theme, toggleAdminSideBar } = SettingsContext();

@@ -5,7 +5,7 @@ function GeneralContext() {
 	const shipmentDetails = {
 		shipment_title: '',
 		shipment_description: '',
-		shipment_weight: '',
+		shipment_weight: 0,
 		images: [],
 		current_location: {
 			country: '',

@@ -5,6 +5,9 @@ import { BusinessSignup, Login } from '@/pages/index';
 import ProtectedRoutes from '@/ProtectedRoutes';
 import { AppProvider } from '@/context';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 function App() {
 	return (
 		<AppProvider>

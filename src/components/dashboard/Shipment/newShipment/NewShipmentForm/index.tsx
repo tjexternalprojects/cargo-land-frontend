@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import {
+	AiOutlineClose,
 	BiCloudUpload,
 	GiWeight,
 	GoPackage,
@@ -8,15 +9,12 @@ import {
 	MdOutlineMyLocation,
 	MdOutlineShareLocation,
 	MdOutlineSubtitles,
-	package1,
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
 import { AddressMap } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 interface NewShipmentFormProps {
 	setAnimateTab: (value: string) => void;
@@ -31,6 +29,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 		setAddress,
 		setShipmentDetails,
 		handleImageChange,
+		removeImage,
 		image_slider_settings,
 		shipmentDetails,
 		citySelected,
@@ -47,12 +46,11 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					<GoPackage />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
-				<form
-					className=" w-9/12 my-5 border-2 border-red-400 "
-					onSubmit={handleSubmitNewShipmentForm}
-				>
+				<form className=" w-9/12 my-5" onSubmit={handleSubmitNewShipmentForm}>
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">Shipment title</label>
+						<label className="text-sm text-gray-400">
+							Shipment title <span className="text-red-500"> * </span>
+						</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
 							<input
 								className="w-full outline-none"
@@ -73,7 +71,10 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					</div>
 
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">Shipment Description</label>
+						<label className="text-sm text-gray-400">
+							Shipment Description
+							<span className="text-red-500"> * </span>
+						</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
 							<textarea
 								className="w-full outline-none"
@@ -93,11 +94,14 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					</div>
 
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">Shipment Weight (Kg)</label>
+						<label className="text-sm text-gray-400">
+							Shipment Weight (Kg)
+							<span className="text-red-500"> * </span>
+						</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
 							<input
 								className="w-full outline-none"
-								type="text"
+								type="number"
 								value={shipmentDetails.shipment_weight as number}
 								onChange={(e) =>
 									setShipmentDetails({
@@ -114,27 +118,38 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 					</div>
 
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">Images</label>
+						<label className="text-sm text-gray-400">
+							Images
+							<span className="text-red-500"> * </span>
+						</label>
 						<Slider {...image_slider_settings}>
-							
-						</Slider>
-						{/* <div className="border gap-3 flex rounded-lg mt-2 p-2    overflow-x-scroll bg-white w-full">
-							{shipmentDetails.images &&
-								Array.isArray(shipmentDetails.images) &&
-								shipmentDetails.images.map((image, index) => (
-									<div
-										key={index}
-										className=" w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl"
-									>
-										<img
-											src={typeof image === 'string' ? image : undefined}
-											alt="Shipment"
-											className="object-cover w-full  h-full rounded-xl"
-										/>
+							{shipmentDetails.images.map((image, index) => (
+								<div
+									key={index}
+									className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
+								>
+									<img
+										src={typeof image === 'string' ? image : undefined}
+										alt="Shipment"
+										className="object-cover w-full  h-full rounded-xl"
+									/>
+
+									<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100 opacity-0 hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+										{/* <div className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-white/30 p-2 rounded-full hover:border border-slate-50">
+												<TbZoomOutArea />
+											</div> */}
+										<div
+											className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
+											onClick={() => removeImage(index)}
+										>
+											<AiOutlineClose />
+										</div>
 									</div>
-								))}
-						</div> */}
-						<div className="mt-5 w-1/2 h-10 border-2 bg-slate-200 shadow flex items-center justify-between pl-5 rounded-xl overflow-hidden">
+								</div>
+							))}
+						</Slider>
+
+						<div className="mt-10 w-1/2 h-10 border-2 bg-slate-200 shadow flex items-center justify-between pl-5 rounded-xl overflow-hidden">
 							<label className=" w-full h-20 flex items-center justify-between cursor-pointer">
 								<span>Upload shipment image</span>
 								<div className="border-gray-500 border-dotted w-20 h-20 border-4 rounded-xl flex items-center justify-center">
@@ -157,7 +172,10 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
-								<small className="text-gray-400 font-bold">Country</small>
+								<small className="text-gray-400 font-bold">
+									Country
+									<span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<select
 										className="w-full outline-none"
@@ -179,7 +197,10 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 							</div>
 
 							<div>
-								<small className="text-gray-400 font-bold">State</small>
+								<small className="text-gray-400 font-bold">
+									State
+									<span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<select
 										className="w-full outline-none"
@@ -188,7 +209,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 										disabled={countryCode === '' || countryCode === '0'}
 										required
 									>
-										<option value="0">Select State</option>
+										<option value="">Select State</option>
 
 										{State.getStatesOfCountry(countryCode).map((states) => (
 											<option value={states.isoCode} key={states.isoCode}>
@@ -203,7 +224,10 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 							</div>
 
 							<div>
-								<small className="text-gray-400 font-bold">City</small>
+								<small className="text-gray-400 font-bold">
+									City
+									<span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<select
 										disabled={stateCode === '' || stateCode === '0'}
@@ -227,7 +251,10 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 							</div>
 
 							<div className="mt-3">
-								<small className=" text-gray-400 font-bold">Address</small>
+								<small className=" text-gray-400 font-bold">
+									Address
+									<span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<textarea
 										className="w-full outline-none"

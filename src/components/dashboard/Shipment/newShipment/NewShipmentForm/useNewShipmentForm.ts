@@ -11,30 +11,108 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 	const [citySelected, setCitySelected] = useState('');
 	const [address, setAddress] = useState('');
 	const [mapAddress, setMapAddress] = useState('');
-	const [shipmentDetails, setShipmentDetails] = useState<
-		Record<string, string | number | (string | ArrayBuffer | null)[]>
-	>({
+
+	interface ShipmentDetails {
+		shipment_title: string;
+		shipment_description: string;
+		shipment_weight: number;
+		images: (string | ArrayBuffer | null)[];
+		current_location: Record<string, string | number>
+	}
+
+	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
 		shipment_title: '',
 		shipment_description: '',
 		shipment_weight: 0,
-		images: [] as (string | null)[],
+		images: [],
+		current_location: {
+			country: '',
+			state: '',
+			city: '',
+			address: '',
+			longitude: 0,
+			latitude: 0,
+		},
 	});
 
-	 const image_slider_settings = {
-			dots: false,
-			infinite: false,
-			speed: 500,
-			slidesToShow: 5,
-			slidesToScroll: 1,
-		};
+	const image_slider_settings = {
+		dots: true,
+		infinite: false,
+		speed: 500,
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		initialSlide: 0,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: true,
+					dots: true,
+				},
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+					initialSlide: 2,
+				},
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+		],
+	};
 
-	const handleSubmitNewShipmentForm = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	const removeImage = (indexToRemove: number) => {
+		setShipmentDetails((prevState) => {
+			const images = Array.isArray(prevState.images)
+				? prevState.images.filter((image, index) => index !== indexToRemove)
+				: [];
+			return {
+				...prevState,
+				images,
+			};
+		});
+	};
 
+	useEffect(()=>{
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
 		}));
+	}, [shipmentDetails])
+	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if (
+			shipmentDetails.shipment_title == '' ||
+			shipmentDetails.shipment_description == '' ||
+			shipmentDetails.shipment_weight == 0 ||
+			shipmentDetails.images.length == 0 ||
+			countryCode == '' ||
+			countryCode == '0' ||
+			stateCode == '' ||
+			stateCode == '0' ||
+			citySelected == '' ||
+			citySelected == '0' ||
+			address == ''
+		) {
+			toast.info('Please fill thie important fields (*)', {
+				progressClassName: 'bg-red-500 h-1',
+				autoClose: 3000,
+			});
+			return;
+		}
+
+		
+		
+		  console.log(shipmentDetails)
 		console.log(state.shipmentDetails);
 		setAnimateTab('item2');
 	};
@@ -50,7 +128,7 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 					const dataUrl = reader.result;
 					setShipmentDetails((prevDetails) => ({
 						...prevDetails,
-						images: [...(prevDetails.images as (string | null)[]), dataUrl],
+						images: [...(prevDetails.images as (string | ArrayBuffer)[]), dataUrl],
 					}));
 				};
 
@@ -60,7 +138,6 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 					progressClassName: 'bg-blue-500 h-1',
 					autoClose: 3000,
 				});
-				
 			}
 		}
 		console.log(shipmentDetails);
@@ -76,6 +153,17 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 			? Country.getCountryByCode(countryCode)?.name
 			: '';
 
+			setShipmentDetails({
+				...shipmentDetails,
+				current_location: {
+				  ...shipmentDetails.current_location,
+				  country: Country.getCountryByCode(countryCode)?.name as string,
+				  state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
+				  city: citySelected,
+				  address: address,
+				},
+			  });
+
 		setMapAddress(c_address + c_city + c_state + c_country);
 	};
 	useEffect(() => {
@@ -90,6 +178,7 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 		mapAddress,
 		shipmentDetails,
 		image_slider_settings,
+		removeImage,
 		handleImageChange,
 		setShipmentDetails,
 		setCitySelected,
