@@ -81,14 +81,14 @@ const Delivery = () => {
 				{/* PAGE */}
 				<div className=" w-full pl-16">
 					<motion.div
-						className={`${animateTab == 'item1' ? 'inline-flex' : 'hidden'} w-full pt-20 `}
+						className={`${animateTab == 'item1' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item1' ? 'animate' : 'initial'}
 					>
 						<NewShipmentForm setAnimateTab={setAnimateTab} />
 					</motion.div>
 					<motion.div
-						className={`${animateTab == 'item2' ? 'inline-flex' : 'hidden'} w-full pt-20 `}
+						className={`${animateTab == 'item2' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item2' ? 'animate' : 'initial'}
 					>
@@ -96,7 +96,7 @@ const Delivery = () => {
 					</motion.div>
 
 					<motion.div
-						className={`${animateTab == 'item3' ? 'inline-flex' : 'hidden'} w-full pt-20 `}
+						className={`${animateTab == 'item3' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item3' ? 'animate' : 'initial'}
 					>
@@ -104,7 +104,7 @@ const Delivery = () => {
 					</motion.div>
 
 					<motion.div
-						className={`${animateTab == 'item4' ? 'inline-flex' : 'hidden'} w-full pt-20 `}
+						className={`${animateTab == 'item4' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item4' ? 'animate' : 'initial'}
 					>
