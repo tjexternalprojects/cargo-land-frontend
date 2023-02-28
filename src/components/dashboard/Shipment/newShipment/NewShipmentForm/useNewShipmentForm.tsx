@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
+import Geocode from 'react-geocode';
+const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
+
 import 'react-toastify/dist/ReactToastify.css';
 
 function useNewShipmentForm(setAnimateTab: (value: string) => void) {
@@ -11,13 +14,37 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 	const [citySelected, setCitySelected] = useState('');
 	const [address, setAddress] = useState('');
 	const [mapAddress, setMapAddress] = useState('');
+	const [latitude, setLatitude] = useState(null);
+	const [longitude, setLongitude] = useState(null);
+
+	Geocode.setApiKey(GOOGLE_API_KEY);
+
+	const getLocationOnMap = () => {
+		console.log(address)
+			Geocode.fromAddress(address).then(
+				(response) => {
+					const { lat, lng } = response.results[0].geometry.location;
+					setLatitude(lat);
+					setLongitude(lng);
+				},
+				(error) => {
+					console.error(error);
+				}
+			);
+	};
+
+	useEffect(() => {
+		if(address != ''){
+		getLocationOnMap();
+		}
+	}, [address]);
 
 	interface ShipmentDetails {
 		shipment_title: string;
 		shipment_description: string;
 		shipment_weight: number;
 		images: (string | ArrayBuffer | null)[];
-		current_location: Record<string, string | number>
+		current_location: Record<string, string | number>;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
@@ -82,12 +109,12 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 		});
 	};
 
-	useEffect(()=>{
+	useEffect(() => {
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
 		}));
-	}, [shipmentDetails])
+	}, [shipmentDetails]);
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (
@@ -103,17 +130,17 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 			citySelected == '0' ||
 			address == ''
 		) {
-			toast.info('Please fill thie important fields (*)', {
+			toast.info('Please fill the important fields (*)', {
 				progressClassName: 'bg-red-500 h-1',
 				autoClose: 3000,
 			});
 			return;
 		}
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
+		}));
 
-		
-		
-		  console.log(shipmentDetails)
-		console.log(state.shipmentDetails);
 		setAnimateTab('item2');
 	};
 
@@ -140,7 +167,6 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 				});
 			}
 		}
-		console.log(shipmentDetails);
 	};
 
 	const updateMapAddress = () => {
@@ -153,16 +179,18 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 			? Country.getCountryByCode(countryCode)?.name
 			: '';
 
-			setShipmentDetails({
-				...shipmentDetails,
-				current_location: {
-				  ...shipmentDetails.current_location,
-				  country: Country.getCountryByCode(countryCode)?.name as string,
-				  state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
-				  city: citySelected,
-				  address: address,
-				},
-			  });
+		setShipmentDetails({
+			...shipmentDetails,
+			current_location: {
+				...shipmentDetails.current_location,
+				country: Country.getCountryByCode(countryCode)?.name as string,
+				state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
+				city: citySelected,
+				address: address,
+				longitude: longitude as unknown as number,
+				latitude: latitude as unknown as number,
+			},
+		});
 
 		setMapAddress(c_address + c_city + c_state + c_country);
 	};

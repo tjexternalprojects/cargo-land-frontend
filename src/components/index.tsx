@@ -23,3 +23,5 @@ export { default as TopBar } from './dashboard/TopBar';
 // Dashboard New_Shipment
 export { default as NewShipmentForm } from './dashboard/Shipment/newShipment/NewShipmentForm';
 export { default as RecipientDetails } from './dashboard/Shipment/newShipment/RecipientDetails';
+export { default as ShipmentSummary} from './dashboard/Shipment/newShipment/ShipmentSummary';
+export { default as Payment } from './dashboard/Shipment/newShipment/Payment'

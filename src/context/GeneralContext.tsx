@@ -26,6 +26,7 @@ function GeneralContext() {
 			latitude: 0,
 		},
 		delivery_price: 0,
+		form_level:0,
 	};
 
 	return {

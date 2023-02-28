@@ -1,4 +1,4 @@
-import { NewShipmentForm, RecipientDetails } from '@/components';
+import { NewShipmentForm, Payment, RecipientDetails, ShipmentSummary } from '@/components';
 import { Link } from 'react-scroll';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -6,7 +6,7 @@ import { fadeSlide } from '@/animations';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 
 const Delivery = () => {
-	const { handleShowTab, setAnimateTab, animationDirection, animateTab } = useShipment();
+	const { handleShowTab, setAnimateTab, state, animationDirection, animateTab } = useShipment();
 
 	return (
 		<>
@@ -28,26 +28,52 @@ const Delivery = () => {
 							Package&nbsp;Details
 						</div>
 						<div>
-							<div
-								onClick={() => handleShowTab('item2', 2)}
-								className={`${
-									animateTab == 'item2'
-										? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
-										: 'pl-5'
-								} cursor-pointer`}
-							>
-								Recipient&nbsp;Details
-							</div>
+							{state.shipmentDetails.form_level > 0 ? (
+								<div
+									onClick={() => handleShowTab('item2', 2)}
+									className={`${
+										animateTab == 'item2'
+											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
+											: 'pl-5'
+									} cursor-pointer`}
+								>
+									Recipient&nbsp;Details
+								</div>
+							) : (
+								<div className="text-gray-400 pl-5">Recipient&nbsp;Details</div>
+							)}
 						</div>
-						<div
-							onClick={() => handleShowTab('item3', 3)}
-							className={`${
-								animateTab == 'item3'
-									? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
-									: 'pl-5'
-							} cursor-pointer`}
-						>
-							Payment
+						<div>
+							{state.shipmentDetails.form_level > 1 ? (
+								<div
+									onClick={() => handleShowTab('item3', 3)}
+									className={`${
+										animateTab == 'item3'
+											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
+											: 'pl-5'
+									} cursor-pointer`}
+								>
+									Shipment Summary
+								</div>
+							) : (
+								<div className="text-gray-400 pl-5">Shipment Summary</div>
+							)}
+						</div>
+						<div>
+							{state.shipmentDetails.form_level > 2 ? (
+								<div
+									onClick={() => handleShowTab('item4', 4)}
+									className={`${
+										animateTab == 'item3'
+											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
+											: 'pl-5'
+									} cursor-pointer`}
+								>
+									Payment
+								</div>
+							) : (
+								<div className="text-gray-400 pl-5">Payment</div>
+							)}
 						</div>
 					</div>
 				</div>
@@ -74,7 +100,15 @@ const Delivery = () => {
 						variants={fadeSlide(animationDirection.direction)}
 						animate={animateTab == 'item3' ? 'animate' : 'initial'}
 					>
-						<RecipientDetails setAnimateTab={setAnimateTab} />
+						<ShipmentSummary setAnimateTab={setAnimateTab} />
+					</motion.div>
+
+					<motion.div
+						className={`${animateTab == 'item4' ? 'inline-flex' : 'hidden'} w-full pt-20 `}
+						variants={fadeSlide(animationDirection.direction)}
+						animate={animateTab == 'item4' ? 'animate' : 'initial'}
+					>
+						<Payment setAnimateTab={setAnimateTab} />
 					</motion.div>
 				</div>
 			</div>

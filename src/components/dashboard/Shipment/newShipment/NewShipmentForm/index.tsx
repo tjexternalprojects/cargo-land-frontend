@@ -164,7 +164,6 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 								</div>
 							</label>
 						</div>
-						<ToastContainer />
 					</div>
 
 					<div className="mt-7 border rounded-lg p-5 bg-white">
@@ -269,7 +268,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 								</div>
 							</div>
 							<span className="mt-2">Full Address: {mapAddress}</span>
-							<AddressMap address={mapAddress} />
+							{mapAddress !== '' && <AddressMap address={mapAddress} />}
 						</div>
 					</div>
 
@@ -283,6 +282,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 						</button>
 					</div>
 				</form>
+			<ToastContainer />
 			</div>
 		</>
 	);

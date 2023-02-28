@@ -32,7 +32,9 @@ const AddressMap: FC<AddressMapProps> = ({ address }) => {
 	};
 
 	useEffect(() => {
-		getAddressOnMap();
+		if (address !== '') {
+			getAddressOnMap();
+		}
 	}, [address]);
 
 	return (

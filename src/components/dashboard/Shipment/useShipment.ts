@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AppContext, AppContextType } from '@/context';
+
 function useShipment() {
-	const [newShipment, setNewShipment] = useState([]);
+	const { state } = useContext<AppContextType>(AppContext);
 	const [animateTab, setAnimateTab] = useState('item1');
 	const [animationDirection, setAnimationDirection] = useState({
 		prev_direction: 1,
@@ -27,6 +29,6 @@ function useShipment() {
 		setAnimateTab(item);
 	};
 
-	return { handleNewShipment, handleShowTab, setAnimateTab, animationDirection, animateTab };
+	return { handleNewShipment, handleShowTab, setAnimateTab, state,  animationDirection, animateTab };
 }
 export default useShipment;

@@ -10,25 +10,28 @@ import {
 import { AddressMap } from '@/components';
 import { Country, State, City } from 'country-state-city';
 
-import useRecipentDetails from './useRecipentDetails';
+import useRecipientDetails from './useRecipientDetails';
+import { ToastContainer } from 'react-toastify';
 
-interface RecipentDetailsProps {
+interface RecipientDetailsProps {
 	setAnimateTab: (value: string) => void;
 }
 
-const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
+const RecipientDetails: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
 	const {
 		countryCode,
 		stateCode,
 		address,
 		citySelected,
 		mapAddress,
+		shipmentDetails,
+		setShipmentDetails,
 		setCitySelected,
 		setAddress,
 		setCountryCode,
 		setStateCode,
 		handleRecipientDetails,
-	} = useRecipentDetails(setAnimateTab);
+	} = useRecipientDetails(setAnimateTab);
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full">
@@ -38,9 +41,22 @@ const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
 				<p className="text-xl mt-4">Recipient Details</p>
 				<form className=" w-9/12 my-5" onSubmit={handleRecipientDetails}>
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">Recipient Full Name </label>
+						<label className="text-sm text-gray-400">
+							Recipient Full Name <span className="text-red-500"> * </span>{' '}
+						</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<input className="w-full outline-none" type="text" />
+							<input
+								className="w-full outline-none"
+								type="text"
+								value={shipmentDetails.recipient_full_name as string}
+								onChange={(e) =>
+									setShipmentDetails({
+										...shipmentDetails,
+										recipient_full_name: e.target.value,
+									})
+								}
+								required
+							/>
 							<div className="text-xl text-gray-500">
 								<FaUserEdit />
 							</div>
@@ -48,9 +64,22 @@ const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
 					</div>
 
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">Recipient Email</label>
+						<label className="text-sm text-gray-400">
+							Recipient Email <span className="text-red-500"> * </span>
+						</label>
 						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<input className="w-full outline-none" type="email" />
+							<input
+								className="w-full outline-none"
+								type="email"
+								value={shipmentDetails.recipient_email as string}
+								onChange={(e) =>
+									setShipmentDetails({
+										...shipmentDetails,
+										recipient_email: e.target.value,
+									})
+								}
+								required
+							/>
 							<div className="text-xl text-gray-500">
 								<MdAttachEmail />
 							</div>
@@ -61,12 +90,15 @@ const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
 						<label className="text-lg text-gray-400">Shipment Destination Address</label>
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
-								<small className="text-gray-400 font-bold">Country</small>
+								<small className="text-gray-400 font-bold">
+									Country <span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<select
 										className="w-full outline-none"
 										value={countryCode}
 										onChange={(e) => setCountryCode(e.target.value)}
+										required
 									>
 										<option value="0">Select Country</option>
 										{Country.getAllCountries().map((country) => (
@@ -82,13 +114,16 @@ const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
 							</div>
 
 							<div>
-								<small className="text-gray-400 font-bold">State</small>
+								<small className="text-gray-400 font-bold">
+									State <span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<select
 										className="w-full outline-none"
 										value={stateCode}
 										onChange={(e) => setStateCode(e.target.value)}
 										disabled={countryCode === '' || countryCode === '0'}
+										required
 									>
 										<option value="0">Select State</option>
 
@@ -105,13 +140,16 @@ const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
 							</div>
 
 							<div>
-								<small className="text-gray-400 font-bold">City</small>
+								<small className="text-gray-400 font-bold">
+									City <span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<select
 										disabled={stateCode === '' || stateCode === '0'}
 										className="w-full outline-none"
 										value={citySelected}
 										onChange={(e) => setCitySelected(e.target.value)}
+										required
 									>
 										<option value="0">Select City</option>
 
@@ -128,13 +166,16 @@ const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
 							</div>
 
 							<div className="mt-3">
-								<small className=" text-gray-400 font-bold">Address</small>
+								<small className=" text-gray-400 font-bold">
+									Address <span className="text-red-500"> * </span>
+								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
 									<textarea
 										className="w-full outline-none"
 										value={address}
 										onChange={(e) => setAddress(e.target.value)}
 										disabled={citySelected === '' || citySelected === '0'}
+										required
 									></textarea>
 									<div className="text-xl text-gray-500">
 										<MdAddLocationAlt />
@@ -156,6 +197,7 @@ const RecipientDetails: FC<RecipentDetailsProps> = ({ setAnimateTab }) => {
 						</button>
 					</div>
 				</form>
+			<ToastContainer />
 			</div>
 		</>
 	);
