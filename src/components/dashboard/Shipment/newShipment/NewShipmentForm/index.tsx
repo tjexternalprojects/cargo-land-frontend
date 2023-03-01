@@ -282,7 +282,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 						</button>
 					</div>
 				</form>
-			<ToastContainer />
+				<ToastContainer />
 			</div>
 		</>
 	);

@@ -1,7 +1,5 @@
 function usePayment(setAnimateTab: (value: string) => void) {
-	const handlePayment = () =>{
-
-	}
+	const handlePayment = () => {};
 	return {
 		handlePayment,
 	};

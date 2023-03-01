@@ -197,7 +197,7 @@ const RecipientDetails: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
 						</button>
 					</div>
 				</form>
-			<ToastContainer />
+				<ToastContainer />
 			</div>
 		</>
 	);

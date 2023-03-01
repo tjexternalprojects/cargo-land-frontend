@@ -1,8 +1,5 @@
 import { FC } from 'react';
-import {
-
-	RiUserReceivedLine,
-} from '@/assets';
+import { RiUserReceivedLine } from '@/assets';
 import usePayment from './usePayment';
 import { ToastContainer } from 'react-toastify';
 
@@ -11,9 +8,7 @@ interface RecipientDetailsProps {
 }
 
 const Payment: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
-	const {
-		handlePayment,
-	} = usePayment(setAnimateTab);
+	const { handlePayment } = usePayment(setAnimateTab);
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full">
@@ -21,10 +16,8 @@ const Payment: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
 					<RiUserReceivedLine />
 				</div>
 				<p className="text-xl mt-4">Recipient Details</p>
-				<form className=" w-9/12 my-5" onSubmit={handlePayment}>
-
-				</form>
-			<ToastContainer />
+				<form className=" w-9/12 my-5" onSubmit={handlePayment}></form>
+				<ToastContainer />
 			</div>
 		</>
 	);

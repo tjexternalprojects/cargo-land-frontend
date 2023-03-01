@@ -29,6 +29,6 @@ function useShipment() {
 		setAnimateTab(item);
 	};
 
-	return { handleNewShipment, handleShowTab, setAnimateTab, state,  animationDirection, animateTab };
+	return { handleNewShipment, handleShowTab, setAnimateTab, state, animationDirection, animateTab };
 }
 export default useShipment;

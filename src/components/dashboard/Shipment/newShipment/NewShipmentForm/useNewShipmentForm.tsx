@@ -5,8 +5,6 @@ import { toast } from 'react-toastify';
 import Geocode from 'react-geocode';
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
-import 'react-toastify/dist/ReactToastify.css';
-
 function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
@@ -20,22 +18,22 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 	Geocode.setApiKey(GOOGLE_API_KEY);
 
 	const getLocationOnMap = () => {
-		console.log(address)
-			Geocode.fromAddress(address).then(
-				(response) => {
-					const { lat, lng } = response.results[0].geometry.location;
-					setLatitude(lat);
-					setLongitude(lng);
-				},
-				(error) => {
-					console.error(error);
-				}
-			);
+		console.log(address);
+		Geocode.fromAddress(address).then(
+			(response) => {
+				const { lat, lng } = response.results[0].geometry.location;
+				setLatitude(lat);
+				setLongitude(lng);
+			},
+			(error) => {
+				console.error(error);
+			}
+		);
 	};
 
 	useEffect(() => {
-		if(address != ''){
-		getLocationOnMap();
+		if (address != '') {
+			getLocationOnMap();
 		}
 	}, [address]);
 

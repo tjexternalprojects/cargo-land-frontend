@@ -44,7 +44,7 @@ const Delivery = () => {
 							)}
 						</div>
 						<div>
-							{state.shipmentDetails.form_level > 1 ? (
+							{state.shipmentDetails.form_level == 0 ? (
 								<div
 									onClick={() => handleShowTab('item3', 3)}
 									className={`${

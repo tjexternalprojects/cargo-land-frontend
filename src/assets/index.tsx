@@ -9,6 +9,11 @@ export {
 	MdOutlineArrowForwardIos,
 	MdTrackChanges,
 	MdDescription,
+	MdNotificationsNone,
+	MdOutlineShareLocation,
+	MdOutlineMyLocation,
+	MdAddLocationAlt,
+	MdOutlineDeleteOutline,
 } from 'react-icons/md';
 export { GoSignIn, GoPackage } from 'react-icons/go';
 export { TiBusinessCard } from 'react-icons/ti';
@@ -26,13 +31,9 @@ export { AiOutlineNumber, AiOutlineClose } from 'react-icons/ai';
 export { RiPriceTag2Line, RiSearch2Line, RiUserReceivedLine } from 'react-icons/ri';
 export { CiSettings } from 'react-icons/ci';
 export { GiHamburgerMenu, GiWeight } from 'react-icons/gi';
-export {
-	MdOutlineShareLocation,
-	MdOutlineMyLocation,
-	MdAddLocationAlt,
-	MdOutlineDeleteOutline,
-} from 'react-icons/md';
 export { FaUserEdit } from 'react-icons/fa';
+export { IoMdCart } from 'react-icons/io';
+
 // images
 export { default as logo } from './images/logo.png';
 export { default as logonBg } from './images/loginBg.jpg';
