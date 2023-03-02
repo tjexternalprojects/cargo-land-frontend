@@ -14,6 +14,7 @@ export {
 	MdOutlineMyLocation,
 	MdAddLocationAlt,
 	MdOutlineDeleteOutline,
+	MdViewInAr,
 } from 'react-icons/md';
 export { GoSignIn, GoPackage } from 'react-icons/go';
 export { TiBusinessCard } from 'react-icons/ti';
@@ -27,7 +28,7 @@ export {
 export { HiDocumentText } from 'react-icons/hi';
 export { ImLocation } from 'react-icons/im';
 export { BsTelephoneForward } from 'react-icons/bs';
-export { AiOutlineNumber, AiOutlineClose } from 'react-icons/ai';
+export { AiOutlineNumber, AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
 export { RiPriceTag2Line, RiSearch2Line, RiUserReceivedLine } from 'react-icons/ri';
 export { CiSettings } from 'react-icons/ci';
 export { GiHamburgerMenu, GiWeight } from 'react-icons/gi';

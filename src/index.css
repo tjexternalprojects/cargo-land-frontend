@@ -8,3 +8,20 @@ body {
 	font-family: 'Roboto', sans-serif;
 	/* position: relative; */
 }
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(transparent, #da5151, #19289b);
+	border-radius: 8px;
+}
+
+.xscroll::-webkit-scrollbar {
+	height: 5px;
+}
+
+.xscroll::-webkit-scrollbar-thumb {
+	background: linear-gradient( transparent, #19289b);
+}
