@@ -14,8 +14,8 @@ const RecipientDetails: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
 		<>
 			<div className="inline-flex flex-col  w-full ml-40">
 				<div className="flex gap-5">
-					<div className="bg-white h-screen-82 p-5 rounded-md shadow-md  w-full">
-						<table className=" w-full">
+					<div className="bg-white h-screen-82 p-5 rounded-md shadow-md overflow-auto  w-full">
+						<table className=" w-full  bg-white rounded-lg shadow-sm">
 							<thead className=" text-left bg-slate-100 ">
 								<th className="p-3">Shipment Id</th>
 								<th>Current Location</th>
@@ -26,31 +26,27 @@ const RecipientDetails: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
 								<th></th>
 							</thead>
 							<tbody>
-								<tr>
-									<td className="p-3">XXX2DDDDDD</td>
-									<td className="p-3">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
-									<td className="p-3">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
-									<td className="p-3">#50,000</td>
-									<td>
-										<button className="bg-blue-800 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md">
+								{shipmentData.map((val, key) => (
+									<tr className=" border-b hover:bg-slate-300 cursor-pointer">
+										<td className="p-3">XXX2DDDDDD</td>
+										<td className="p-3 w-1/4">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
+										<td className="p-3 w-1/4">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
+										<td className="p-3">#50,000</td>
+										<td>
+											<button className="bg-blue-800 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md">
+												<AiOutlineEdit />
+												<span>Edit</span>
+											</button>
+										</td>
 
-											<AiOutlineEdit />
-											<span>Edit</span>
-										</button>
-									</td>
-									<td>
-										<button className="bg-green-800 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md">
-											<MdViewInAr />
-											<span>view</span>
-										</button>
-									</td>
-									<td>
-										<button className="bg-red-500 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md">
-											<AiOutlineClose />
-											<span>Remove</span>
-										</button>
-									</td>
-								</tr>
+										<td>
+											<button className="bg-red-500 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md">
+												<AiOutlineClose />
+												<span>Remove</span>
+											</button>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 
