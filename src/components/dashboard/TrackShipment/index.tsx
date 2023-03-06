@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiCurrentLocation, GoPackage, ImLocation } from '@/assets';
+import { BiCurrentLocation, BsTelephoneForward, GoPackage, ImLocation, RiUserReceivedLine } from '@/assets';
 const TrackShipment = () => {
 	return (
 		<div className="flex mt-8 gap-5">
@@ -61,13 +61,40 @@ const TrackShipment = () => {
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
-			<div>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quia quibusdam dicta
-				accusantium saepe expedita sint iure dolore quaerat fugiat architecto ab, ullam soluta
-				mollitia autem ipsa officia vitae modi!
+			<div className=" w-full">
+				<div className="flex items-center  justify-between w-full border gap-5">
+					<div className="border-2 p-3 rounded-md flex-grow">
+						<div className="flex items-center text-sm space-x-2 text-slate-500">
+							<RiUserReceivedLine />
+							<span>Receiver</span>
+						</div>
+						<div>
+							<h1 className="text-xl font-bold">Jame Miller</h1>
+						</div>
+					</div>
+
+					<div className="border-2 p-3 rounded-md flex-grow">
+						<div className="flex items-center text-sm space-x-2 text-slate-500">
+							<BsTelephoneForward />
+							<span>Phone Number</span>
+						</div>
+						<div>
+							<h1 className="text-xl font-bold">+234 8144139845</h1>
+						</div>
+					</div>
+
+					<div className="border-2 p-3 rounded-md flex-grow">
+						<div className="flex items-center text-sm space-x-2 text-slate-500">
+							<BiCurrentLocation />
+							<span>Address</span>
+						</div>
+						<div>
+							<h1 className="text-xl font-bold">20, Sijuwola Street, Okota</h1>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
