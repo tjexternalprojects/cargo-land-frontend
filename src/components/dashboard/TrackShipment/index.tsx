@@ -64,7 +64,7 @@ const TrackShipment = () => {
 				</div>
 			</div>
 			<div className=" w-full">
-				<div className="flex items-center  justify-between w-full border gap-5">
+				<div className="flex items-center  justify-between w-full gap-5">
 					<div className="border-2 p-3 rounded-md flex-grow">
 						<div className="flex items-center text-sm space-x-2 text-slate-500">
 							<RiUserReceivedLine />
