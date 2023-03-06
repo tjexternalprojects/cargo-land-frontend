@@ -1,6 +1,14 @@
 // icons
 export { GrClose, GrContactInfo, GrDocumentText, GrBusinessService } from 'react-icons/gr';
-export { BiUserPin, BiShow, BiHide, BiMenuAltRight, BiFilter, BiCloudUpload } from 'react-icons/bi';
+export {
+	BiUserPin,
+	BiShow,
+	BiHide,
+	BiMenuAltRight,
+	BiFilter,
+	BiCloudUpload,
+	BiCurrentLocation,
+} from 'react-icons/bi';
 export { Si1Password, SiGmail, SiMinutemailer } from 'react-icons/si';
 export {
 	MdOutlineSubtitles,
@@ -27,7 +35,7 @@ export {
 } from 'react-icons/tb';
 export { HiDocumentText } from 'react-icons/hi';
 export { ImLocation } from 'react-icons/im';
-export { BsTelephoneForward } from 'react-icons/bs';
+export { BsTelephoneForward, BsCartCheck } from 'react-icons/bs';
 export { AiOutlineNumber, AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
 export { RiPriceTag2Line, RiSearch2Line, RiUserReceivedLine } from 'react-icons/ri';
 export { CiSettings } from 'react-icons/ci';

@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import { fadeSlide } from '@/animations';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 
-const Delivery = () => {
-	const { handleShowTab, setAnimateTab, state, animationDirection, animateTab } = useShipment();
+const Shipment = () => {
+	const { handleShowTab, state, animationDirection } = useShipment();
 
 	return (
 		<>
@@ -20,7 +20,7 @@ const Delivery = () => {
 						<div
 							onClick={() => handleShowTab('item1', 1)}
 							className={`${
-								animateTab == 'item1'
+								state.shipmentCurrentTab == 'item1'
 									? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
 									: 'pl-5'
 							} cursor-pointer`}
@@ -32,7 +32,7 @@ const Delivery = () => {
 								<div
 									onClick={() => handleShowTab('item2', 2)}
 									className={`${
-										animateTab == 'item2'
+										state.shipmentCurrentTab == 'item2'
 											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
 											: 'pl-5'
 									} cursor-pointer`}
@@ -44,11 +44,11 @@ const Delivery = () => {
 							)}
 						</div>
 						<div>
-							{state.shipmentDetails.form_level == 0 ? (
+							{state.shipmentDetails.form_level > 1 ? (
 								<div
 									onClick={() => handleShowTab('item3', 3)}
 									className={`${
-										animateTab == 'item3'
+										state.shipmentCurrentTab == 'item3'
 											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
 											: 'pl-5'
 									} cursor-pointer`}
@@ -64,7 +64,7 @@ const Delivery = () => {
 								<div
 									onClick={() => handleShowTab('item4', 4)}
 									className={`${
-										animateTab == 'item3'
+										state.shipmentCurrentTab == 'item4'
 											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
 											: 'pl-5'
 									} cursor-pointer`}
@@ -81,34 +81,43 @@ const Delivery = () => {
 				{/* PAGE */}
 				<div className=" w-full pl-16">
 					<motion.div
-						className={`${animateTab == 'item1' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
+						className={`${
+							state.shipmentCurrentTab == 'item1' ? 'inline-flex' : 'hidden'
+						} w-full pt-10 `}
 						variants={fadeSlide(animationDirection.direction)}
-						animate={animateTab == 'item1' ? 'animate' : 'initial'}
+						animate={state.shipmentCurrentTab == 'item1' ? 'animate' : 'initial'}
 					>
-						<NewShipmentForm setAnimateTab={setAnimateTab} />
-					</motion.div>
-					<motion.div
-						className={`${animateTab == 'item2' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
-						variants={fadeSlide(animationDirection.direction)}
-						animate={animateTab == 'item2' ? 'animate' : 'initial'}
-					>
-						<RecipientDetails setAnimateTab={setAnimateTab} />
+						<NewShipmentForm />
 					</motion.div>
 
 					<motion.div
-						className={`${animateTab == 'item3' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
+						className={`${
+							state.shipmentCurrentTab == 'item2' ? 'inline-flex' : 'hidden'
+						} w-full pt-10 `}
 						variants={fadeSlide(animationDirection.direction)}
-						animate={animateTab == 'item3' ? 'animate' : 'initial'}
+						animate={state.shipmentCurrentTab == 'item2' ? 'animate' : 'initial'}
 					>
-						<ShipmentSummary setAnimateTab={setAnimateTab} />
+						<RecipientDetails />
 					</motion.div>
 
 					<motion.div
-						className={`${animateTab == 'item4' ? 'inline-flex' : 'hidden'} w-full pt-10 `}
+						className={`${
+							state.shipmentCurrentTab == 'item3' ? 'inline-flex' : 'hidden'
+						} w-full pt-10 `}
 						variants={fadeSlide(animationDirection.direction)}
-						animate={animateTab == 'item4' ? 'animate' : 'initial'}
+						animate={state.shipmentCurrentTab == 'item3' ? 'animate' : 'initial'}
 					>
-						<Payment setAnimateTab={setAnimateTab} />
+						<ShipmentSummary />
+					</motion.div>
+
+					<motion.div
+						className={`${
+							state.shipmentCurrentTab == 'item4' ? 'inline-flex' : 'hidden'
+						} w-full pt-10 `}
+						variants={fadeSlide(animationDirection.direction)}
+						animate={state.shipmentCurrentTab == 'item4' ? 'animate' : 'initial'}
+					>
+						<Payment />
 					</motion.div>
 				</div>
 			</div>
@@ -116,4 +125,4 @@ const Delivery = () => {
 	);
 };
 
-export default Delivery;
+export default Shipment;

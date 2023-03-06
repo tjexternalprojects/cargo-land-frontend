@@ -83,3 +83,10 @@ export const slideLeft = {
 		x: { duration: 2 },
 	},
 };
+
+
+export const slideInFromRight = {
+	initial: { y: -1000 },
+	animate: { y: 0 },
+	transition: { duration: 0.5, ease: 'easeInOut' },
+};

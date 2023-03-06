@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DashboardHome, DeliveryPage, History } from '@/components';
+import { DashboardHome, ShipmentPage, History, TrackShipment } from '@/components';
 import Dashboard from '@/pages/Dashboard';
 import { BusinessSignup, Login } from '@/pages/index';
 import ProtectedRoutes from '@/ProtectedRoutes';
@@ -18,7 +18,8 @@ function App() {
 					<Route element={<ProtectedRoutes />}>
 						<Route path="/" element={<Dashboard />}>
 							<Route path="" element={<DashboardHome />} />
-							<Route path="/delivery" element={<DeliveryPage />} />
+							<Route path="/shipment" element={<ShipmentPage />} />
+							<Route path="/track_shipment" element={<TrackShipment />} />
 							<Route path="/price" element={<History />} />
 						</Route>
 					</Route>

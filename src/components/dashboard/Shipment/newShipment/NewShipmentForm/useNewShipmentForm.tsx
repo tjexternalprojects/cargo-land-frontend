@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import Geocode from 'react-geocode';
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
-function useNewShipmentForm(setAnimateTab: (value: string) => void) {
+function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
 	const [stateCode, setStateCode] = useState('');
@@ -139,7 +139,10 @@ function useNewShipmentForm(setAnimateTab: (value: string) => void) {
 			shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
 		}));
 
-		setAnimateTab('item2');
+		setState({
+			...state, shipmentCurrentTab:'item2'
+		})
+
 	};
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

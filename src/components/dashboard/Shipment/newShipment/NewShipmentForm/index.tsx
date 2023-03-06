@@ -16,11 +16,8 @@ import { AddressMap } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
 
-interface NewShipmentFormProps {
-	setAnimateTab: (value: string) => void;
-}
 
-const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
+const NewShipmentForm = () => {
 	const {
 		setCountryCode,
 		handleSubmitNewShipmentForm,
@@ -37,7 +34,7 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 		mapAddress,
 		countryCode,
 		stateCode,
-	} = useNewShipmentForm(setAnimateTab);
+	} = useNewShipmentForm();
 
 	return (
 		<>
@@ -135,9 +132,6 @@ const NewShipmentForm: FC<NewShipmentFormProps> = ({ setAnimateTab }) => {
 									/>
 
 									<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100 opacity-0 hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
-										{/* <div className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-white/30 p-2 rounded-full hover:border border-slate-50">
-												<TbZoomOutArea />
-											</div> */}
 										<div
 											className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
 											onClick={() => removeImage(index)}

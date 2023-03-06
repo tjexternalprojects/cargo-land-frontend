@@ -13,11 +13,9 @@ import { Country, State, City } from 'country-state-city';
 import useRecipientDetails from './useRecipientDetails';
 import { ToastContainer } from 'react-toastify';
 
-interface RecipientDetailsProps {
-	setAnimateTab: (value: string) => void;
-}
 
-const RecipientDetails: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
+
+const RecipientDetails = () => {
 	const {
 		countryCode,
 		stateCode,
@@ -31,7 +29,7 @@ const RecipientDetails: FC<RecipientDetailsProps> = ({ setAnimateTab }) => {
 		setCountryCode,
 		setStateCode,
 		handleRecipientDetails,
-	} = useRecipientDetails(setAnimateTab);
+	} = useRecipientDetails();
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full">

@@ -3,12 +3,13 @@ import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import Geocode from 'react-geocode';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
-function useRecipientDetails(setAnimateTab: (value: string) => void) {
+function useRecipientDetails() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
 	const [stateCode, setStateCode] = useState('');
@@ -41,12 +42,14 @@ function useRecipientDetails(setAnimateTab: (value: string) => void) {
 	}, [address]);
 
 	interface ShipmentDetails {
+		shipment_id: string;
 		recipient_full_name: string;
 		recipient_email: string;
 		shipment_destination: Record<string, string | number>;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
+		shipment_id: '',
 		recipient_full_name: '',
 		recipient_email: '',
 		shipment_destination: {
@@ -80,9 +83,13 @@ function useRecipientDetails(setAnimateTab: (value: string) => void) {
 		}
 		setState((prevState) => ({
 			...prevState,
-			shipmentDetails: { ...prevState.shipmentDetails, form_level: 2 },
+			shipmentDetails: { ...prevState.shipmentDetails, shipment_id: uuidv4(), form_level: 2 },
 		}));
-		setAnimateTab('item3');
+
+		setState({
+			...state,
+			shipmentCurrentTab: 'item3',
+		});
 	};
 
 	const updateMapAddress = () => {

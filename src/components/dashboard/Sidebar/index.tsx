@@ -12,7 +12,7 @@ import { NavLink, useMatch } from 'react-router-dom';
 import useLogin from '@/pages/Login/useLogin';
 const sidebar = () => {
 	const dashboardMatch = useMatch('/');
-	const deliveryMatch = useMatch('/delivery');
+	const shipmentMatch = useMatch('/shipment');
 	const trackMatch = useMatch('/track_shipment');
 	const historyMatch = useMatch('/price');
 	const { handleLogout } = useLogin();
@@ -43,19 +43,19 @@ const sidebar = () => {
 					</li>
 
 					<li>
-						<NavLink className="flex flex-col" to="/delivery">
-							<div className={`${deliveryMatch ? 'bg-white' : 'bg-blue-900'}`}>
+						<NavLink className="flex flex-col" to="/shipment">
+							<div className={`${shipmentMatch ? 'bg-white' : 'bg-blue-900'}`}>
 								<div className="h-4 bg-blue-900 rounded-br-3xl"></div>
 							</div>
 							<div
 								className={`${
-									deliveryMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
+									shipmentMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
 								} px-3 flex items-center space-x-3 `}
 							>
 								<MdTrackChanges /> <span>New Shipment</span>
 							</div>
 
-							<div className={`${deliveryMatch ? 'bg-white' : 'bg-blue-900'}`}>
+							<div className={`${shipmentMatch ? 'bg-white' : 'bg-blue-900'}`}>
 								<div className="h-4 bg-blue-900 rounded-tr-3xl"></div>
 							</div>
 						</NavLink>
