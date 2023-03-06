@@ -13,41 +13,58 @@ const TrackShipment = () => {
 						<div className="font-bold">KH92129</div>
 					</div>
 					<button className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
-						Pending
+						On transit
 					</button>
 				</div>
 				<hr className="my-5" />
 				<div>
-					<div>
-						<div className="inline-flex flex-col items-center">
-							<div className="flex">
-								<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
-									<GoPackage />
-								</div>
-								<div className='text-sm'>
-                  <span>From</span>
-                  <div className='text-black font-bold'>Dr. Simeon Jnr Street, Lekki, Lagos, Nigeria</div>
-                </div>
+					<div className="flex items-start space-x-2">
+						<div className="flex items-center flex-col">
+							<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
+								<GoPackage />
 							</div>
-							<div className=" h-5 w-0.5 bg-slate-300"></div>
+							<div className=" h-10 w-0.5 bg-slate-300"></div>
+						</div>
+						<div className="text-sm">
+							<span>From</span>
+							<div className="text-black font-bold">
+								Dr. Simeon Jnr Street, Lekki, Lagos, Nigeria
+							</div>
 						</div>
 					</div>
-					<div>
-						<div className="bg-slate-300 rounded-full p-2 text-blue-500 text-xl inline-flex items-center justify-center">
-							<BiCurrentLocation />
+
+					<div className="flex items-start space-x-2">
+						<div className="flex items-center flex-col">
+							<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
+								<BiCurrentLocation />
+							</div>
+							<div className=" h-10 w-0.5 bg-slate-300"></div>
 						</div>
-						<div></div>
-					</div>
-					<div>
-						<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
-							<ImLocation />
+						<div className="text-sm">
+							<span>Current location</span>
+							<div className="text-black font-bold">
+								Dr. Simeon Jnr Street, Lekki, Lagos, Nigeria
+							</div>
 						</div>
-						<div></div>
 					</div>
+
+					<div className="flex items-start space-x-2">
+						<div className="flex items-center flex-col">
+							<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
+								<ImLocation />
+							</div>
+						</div>
+						<div className="text-sm">
+							<span>To</span>
+							<div className="text-black font-bold">
+								Dr. Simeon Jnr Street, Lekki, Lagos, Nigeria
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 			<div>
-				{' '}
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quia quibusdam dicta
 				accusantium saepe expedita sint iure dolore quaerat fugiat architecto ab, ullam soluta
 				mollitia autem ipsa officia vitae modi!
