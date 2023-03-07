@@ -1,6 +1,8 @@
 import React from 'react';
 import { BiCurrentLocation, BsTelephoneForward, GoPackage, ImLocation, RiUserReceivedLine } from '@/assets';
+import AddressMap from '@/components/common/AddressMap';
 const TrackShipment = () => {
+	const mapAddress = '20 siju street, Ago Okota, Isolo Lagos Nigeria'
 	return (
 		<div className="flex mt-8 gap-5">
 			<div className=" w-6/12">
@@ -63,7 +65,7 @@ const TrackShipment = () => {
 					</div>
 				</div>
 			</div>
-			<div className=" w-full">
+			<div className=" w-full p-5">
 				<div className="flex items-center  justify-between w-full gap-5">
 					<div className="border-2 p-3 rounded-md flex-grow">
 						<div className="flex items-center text-sm space-x-2 text-slate-500">
@@ -94,6 +96,30 @@ const TrackShipment = () => {
 							<h1 className="text-xl font-bold">20, Sijuwola Street, Okota</h1>
 						</div>
 					</div>
+				</div>
+				<div className='mt-5 '>
+				<AddressMap address={mapAddress} />
+				</div>
+				<div className='mt-5'>
+					<h3>Item List</h3>
+					<table className=' w-full'>
+
+						<thead>
+							<tr>
+								<td>Item Id</td>
+								<td>Item Name</td>
+								<td>Item Category</td>
+								<td>Item Weight</td>
+								<td>Item Quantity</td>
+								<td>Actions</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
