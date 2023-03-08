@@ -12,7 +12,7 @@ import {
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
-import { AddressMap, Map } from '@/components';
+import { AddressMap, LeafletMap, Map } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
 
@@ -264,7 +264,8 @@ const NewShipmentForm = () => {
 							</div>
 							<span className="mt-2">Full Address: {mapAddress1}</span>
 							{/* {mapAddress1 !== '' && <AddressMap key={"address1"} address={mapAddress1} />} */}
-							<Map address={mapAddress1} id="map1"/>
+							{/* <Map address={mapAddress1} id="map1"/> */}
+							<LeafletMap address={mapAddress1} />
 						</div>
 					</div>
 

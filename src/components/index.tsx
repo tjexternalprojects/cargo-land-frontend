@@ -5,7 +5,8 @@ export { default as AddressMap } from './common/AddressMap';
 export { default as AddressMap2 } from './common/AddressMap2';
 export { default as MapDirection } from './common/AddressMap/MapDirection';
 export { default as Notification}  from './common/Notification'
-export { default as Map } from './common/Map'
+export { default as Map } from './common/Maps/Map'
+export { default as LeafletMap} from './common/Maps/leaflet'
 
 // login components
 export { default as LoginComponent } from './login-signup/Login';
