@@ -2,8 +2,10 @@
 export { default as Header } from './common/Header';
 export { default as LineGraph } from './common/Graph';
 export { default as AddressMap } from './common/AddressMap';
+export { default as AddressMap2 } from './common/AddressMap2';
 export { default as MapDirection } from './common/AddressMap/MapDirection';
 export { default as Notification}  from './common/Notification'
+export { default as Map } from './common/Map'
 
 // login components
 export { default as LoginComponent } from './login-signup/Login';

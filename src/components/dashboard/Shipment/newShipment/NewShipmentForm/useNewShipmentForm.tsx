@@ -11,7 +11,7 @@ function useNewShipmentForm() {
 	const [stateCode, setStateCode] = useState('');
 	const [citySelected, setCitySelected] = useState('');
 	const [address, setAddress] = useState('');
-	const [mapAddress, setMapAddress] = useState('');
+	const [mapAddress1, setMapAddress] = useState('');
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
 
@@ -134,15 +134,17 @@ function useNewShipmentForm() {
 			});
 			return;
 		}
+			setState({
+				...state,
+				shipmentCurrentTab: 'item2',
+			});
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
 		}));
 
-		setState({
-			...state, shipmentCurrentTab:'item2'
-		})
-
+	
+console.log(state)
 	};
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -204,7 +206,7 @@ function useNewShipmentForm() {
 		stateCode,
 		address,
 		citySelected,
-		mapAddress,
+		mapAddress1,
 		shipmentDetails,
 		image_slider_settings,
 		removeImage,

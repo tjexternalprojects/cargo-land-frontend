@@ -22,7 +22,6 @@ function useRecipientDetails() {
 	Geocode.setApiKey(GOOGLE_API_KEY);
 
 	const getLocationOnMap = () => {
-		console.log(address);
 		Geocode.fromAddress(address).then(
 			(response) => {
 				const { lat, lng } = response.results[0].geometry.location;
@@ -39,6 +38,7 @@ function useRecipientDetails() {
 		if (address != '') {
 			getLocationOnMap();
 		}
+
 	}, [address]);
 
 	interface ShipmentDetails {

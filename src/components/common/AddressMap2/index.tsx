@@ -17,7 +17,7 @@ const containerStyle = {
 const AddressMap: FC<AddressMapProps> = ({ address }) => {
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
-
+	
 	const getAddressOnMap = () => {
 		Geocode.fromAddress(address).then(
 			(response) => {
@@ -31,16 +31,15 @@ const AddressMap: FC<AddressMapProps> = ({ address }) => {
 		);
 	};
 
-	useEffect(() => {
-		
-		if (address !== '') {
-			getAddressOnMap();
-		}
-	}, [address]);
+	// useEffect(() => {
+	// 	if (address !== '') {
+	// 		getAddressOnMap();
+	// 	}
+	// }, [address]);
 
 	return (
 		<div>
-
+			<button onClick={getAddressOnMap}>Confirm Address</button>
 			{latitude && longitude && (
 				<LoadScript googleMapsApiKey={GOOGLE_API_KEY}>
 					<GoogleMap

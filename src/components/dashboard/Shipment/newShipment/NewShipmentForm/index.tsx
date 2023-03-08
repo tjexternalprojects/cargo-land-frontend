@@ -12,7 +12,7 @@ import {
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
-import { AddressMap } from '@/components';
+import { AddressMap, Map } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
 
@@ -31,7 +31,7 @@ const NewShipmentForm = () => {
 		shipmentDetails,
 		citySelected,
 		address,
-		mapAddress,
+		mapAddress1,
 		countryCode,
 		stateCode,
 	} = useNewShipmentForm();
@@ -261,8 +261,8 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
-							<span className="mt-2">Full Address: {mapAddress}</span>
-							{mapAddress !== '' && <AddressMap address={mapAddress} />}
+							<span className="mt-2">Full Address: {mapAddress1}</span>
+							{/* {mapAddress1 !== '' && <AddressMap key={"address1"} address={mapAddress1} />} */}
 						</div>
 					</div>
 
