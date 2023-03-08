@@ -180,8 +180,8 @@ const RecipientDetails = () => {
 									</div>
 								</div>
 							</div>
-							<span className="mt-2">Full Address: {mapAddress}</span>
-							{mapAddress !== '' && <Map address={mapAddress} />}
+							<span className="mt-2">Full Addre	ss: {mapAddress}</span>
+							{mapAddress !== '' && <Map address={mapAddress} id="map2"/>}
 						</div>
 					</div>
 

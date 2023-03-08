@@ -12,9 +12,10 @@ import { Icon, Style } from 'ol/style';
 
 type Props = {
   address: string;
+  id: string;
 };
 
-const NominatimMap: React.FC<Props> = ({ address }) => {
+const NominatimMap: React.FC<Props> = ({ address, id }) => {
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
 
   useEffect(() => {
@@ -67,12 +68,12 @@ const NominatimMap: React.FC<Props> = ({ address }) => {
       newMap.addLayer(vectorLayer);
 
       return () => {
-        newMap.setTarget("");
+        newMap.setTarget('');
       };
     }
   }, [location]);
 
-  return <div id="map" style={{ height: '400px' }}></div>;
+  return <div id={id} style={{ height: '400px' }}></div>;
 };
 
 export default NominatimMap;
