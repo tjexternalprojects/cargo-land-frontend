@@ -35,7 +35,8 @@ const NewShipmentForm = () => {
 		countryCode,
 		stateCode,
 	} = useNewShipmentForm();
-
+ const latitude = '51.5074';
+ const longitude = '-0.1278';
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full ">
@@ -263,6 +264,7 @@ const NewShipmentForm = () => {
 							</div>
 							<span className="mt-2">Full Address: {mapAddress1}</span>
 							{/* {mapAddress1 !== '' && <AddressMap key={"address1"} address={mapAddress1} />} */}
+							<Map latitude={latitude} longitude={longitude} />
 						</div>
 					</div>
 
