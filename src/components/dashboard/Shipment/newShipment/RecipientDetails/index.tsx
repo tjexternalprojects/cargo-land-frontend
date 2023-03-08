@@ -7,7 +7,7 @@ import {
 	MdOutlineShareLocation,
 	RiUserReceivedLine,
 } from '@/assets';
-import { AddressMap } from '@/components';
+import { AddressMap, Map } from '@/components';
 import { Country, State, City } from 'country-state-city';
 
 import useRecipientDetails from './useRecipientDetails';
@@ -181,7 +181,7 @@ const RecipientDetails = () => {
 								</div>
 							</div>
 							<span className="mt-2">Full Address: {mapAddress}</span>
-							{mapAddress !== '' && <AddressMap key={"address2"} address={mapAddress} />}
+							{mapAddress !== '' && <Map address={mapAddress} />}
 						</div>
 					</div>
 
