@@ -98,15 +98,14 @@ const TrackShipment = () => {
 						</div>
 					</div>
 				</div>
-				<div className='mt-5 '>
-				{/* <AddressMap address={mapAddress} /> */}
-				{/* <OpenStreetMapDirection fromAddress={address1} toAddress={address2}/> */}
-				<OpenStreetMapDirection/>
+				<div className="mt-5 ">
+					{/* <AddressMap address={mapAddress} /> */}
+					{/* <OpenStreetMapDirection fromAddress={address1} toAddress={address2}/> */}
+					<OpenStreetMapDirection start_address ={address1} end_address={address2}/>
 				</div>
-				<div className='mt-5'>
+				<div className="mt-5">
 					<h3>Item List</h3>
-					<table className=' w-full'>
-
+					<table className=" w-full">
 						<thead>
 							<tr>
 								<td>Item Id</td>
@@ -118,9 +117,7 @@ const TrackShipment = () => {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								
-							</tr>
+							<tr></tr>
 						</tbody>
 					</table>
 				</div>

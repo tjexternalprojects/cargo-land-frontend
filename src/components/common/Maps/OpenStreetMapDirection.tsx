@@ -11,6 +11,7 @@ import VectorSource from 'ol/source/Vector';
 import { Icon, Stroke, Style } from 'ol/style';
 import { LineString } from 'ol/geom';
 import { getVectorContext } from 'ol/render';
+import coordinate from './getCoordinate';
 
 type Props = {
 	start_address: string;
@@ -19,6 +20,10 @@ type Props = {
 
 
 const OpenLayersMap: FC<Props> = ({start_address, end_address})=> {
+  const { fetchLocation } = coordinate();
+
+console.log(fetchLocation(start_address))
+
   const mapRef = useRef(null);
 
   useEffect(() => {
