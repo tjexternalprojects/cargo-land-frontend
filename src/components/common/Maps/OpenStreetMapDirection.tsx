@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -12,7 +12,13 @@ import { Icon, Stroke, Style } from 'ol/style';
 import { LineString } from 'ol/geom';
 import { getVectorContext } from 'ol/render';
 
-function OpenLayersMap() {
+type Props = {
+	start_address: string;
+  end_address:string
+};
+
+
+const OpenLayersMap: FC<Props> = ({start_address, end_address})=> {
   const mapRef = useRef(null);
 
   useEffect(() => {
