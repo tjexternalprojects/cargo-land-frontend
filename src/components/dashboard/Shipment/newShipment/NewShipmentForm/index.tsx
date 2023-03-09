@@ -12,7 +12,7 @@ import {
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
-import { AddressMap, LeafletMap, Map } from '@/components';
+import {  OpenStreetMap } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
 
@@ -31,12 +31,10 @@ const NewShipmentForm = () => {
 		shipmentDetails,
 		citySelected,
 		address,
-		mapAddress1,
+		mapAddress,
 		countryCode,
 		stateCode,
 	} = useNewShipmentForm();
- const latitude = 51.5074;
- const longitude = -0.1278;
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full ">
@@ -262,10 +260,9 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
-							<span className="mt-2">Full Address: {mapAddress1}</span>
-							{/* {mapAddress1 !== '' && <AddressMap key={"address1"} address={mapAddress1} />} */}
-							{/* <Map address={mapAddress1} id="map1"/> */}
-							<LeafletMap address={mapAddress1} />
+							<span className="mt-2">Full Address: {mapAddress}</span>
+							{mapAddress !== '' && <OpenStreetMap address={mapAddress} />}
+
 						</div>
 					</div>
 

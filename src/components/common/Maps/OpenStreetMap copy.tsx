@@ -12,11 +12,11 @@ import { Icon, Style } from 'ol/style';
 
 type Props = {
   address: string;
-  id: string;
 };
 
-const NominatimMap: React.FC<Props> = ({ address, id }) => {
+const NominatimMap: React.FC<Props> = ({ address }) => {
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [mapId, setMapId] = useState<string>(`map-${Math.random().toString(36).substr(2, 9)}`); // generate unique id
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -32,7 +32,7 @@ const NominatimMap: React.FC<Props> = ({ address, id }) => {
   useEffect(() => {
     if (location) {
       const newMap = new Map({
-        target: 'map',
+        target: mapId, // use unique id as target
         layers: [
           new TileLayer({
             source: new OSM(),
@@ -40,7 +40,7 @@ const NominatimMap: React.FC<Props> = ({ address, id }) => {
         ],
         view: new View({
           center: fromLonLat([location.longitude, location.latitude]),
-          zoom: 12,
+          zoom: 16,
         }),
       });
 
@@ -71,9 +71,9 @@ const NominatimMap: React.FC<Props> = ({ address, id }) => {
         newMap.setTarget('');
       };
     }
-  }, [location]);
+  }, [location, mapId]);
 
-  return <div id={id} style={{ height: '400px' }}></div>;
+  return <div id={mapId} style={{ height: '400px' }}></div>; // use unique id for the div
 };
 
 export default NominatimMap;

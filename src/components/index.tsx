@@ -1,12 +1,11 @@
 // common components
 export { default as Header } from './common/Header';
 export { default as LineGraph } from './common/Graph';
-export { default as AddressMap } from './common/AddressMap';
-export { default as AddressMap2 } from './common/AddressMap2';
-export { default as MapDirection } from './common/AddressMap/MapDirection';
+export { default as GoogleMap } from './common/Maps/GoogleMap';
+export { default as MapDirection } from './common/Maps/GoogleMap/MapDirection';
 export { default as Notification}  from './common/Notification'
-export { default as Map } from './common/Maps/Map'
-export { default as LeafletMap} from './common/Maps/leaflet'
+export { default as OpenStreetMap } from './common/Maps/OpenStreetMap'
+export { default as OpenStreetMapDirection } from './common/Maps/OpenStreetMapDirection'
 
 // login components
 export { default as LoginComponent } from './login-signup/Login';

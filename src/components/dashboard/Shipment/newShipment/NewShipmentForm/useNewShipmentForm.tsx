@@ -11,7 +11,7 @@ function useNewShipmentForm() {
 	const [stateCode, setStateCode] = useState('');
 	const [citySelected, setCitySelected] = useState('');
 	const [address, setAddress] = useState('');
-	const [mapAddress1, setMapAddress] = useState('');
+	const [mapAddress, setMapAddress] = useState('');
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
 
@@ -206,7 +206,7 @@ console.log(state)
 		stateCode,
 		address,
 		citySelected,
-		mapAddress1,
+		mapAddress,
 		shipmentDetails,
 		image_slider_settings,
 		removeImage,

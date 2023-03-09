@@ -1,8 +1,9 @@
 import React from 'react';
 import { BiCurrentLocation, BsTelephoneForward, GoPackage, ImLocation, RiUserReceivedLine } from '@/assets';
-import AddressMap from '@/components/common/AddressMap';
+import {OpenStreetMapDirection} from '@/components/';
 const TrackShipment = () => {
-	const mapAddress = '20 siju street, Ago Okota, Isolo Lagos Nigeria'
+	const address1 = 'No. 56, Felly Akurunwa Street, Ago Palace Way, Okota, Isolo Road, Nigeria, Lagos'
+	const address2 = 'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos'
 	return (
 		<div className="flex mt-8 gap-5">
 			<div className=" w-6/12">
@@ -98,7 +99,9 @@ const TrackShipment = () => {
 					</div>
 				</div>
 				<div className='mt-5 '>
-				<AddressMap address={mapAddress} />
+				{/* <AddressMap address={mapAddress} /> */}
+				{/* <OpenStreetMapDirection fromAddress={address1} toAddress={address2}/> */}
+				<OpenStreetMapDirection/>
 				</div>
 				<div className='mt-5'>
 					<h3>Item List</h3>
