@@ -11,7 +11,6 @@ import VectorSource from 'ol/source/Vector';
 import { Icon, Stroke, Style } from 'ol/style';
 import { LineString } from 'ol/geom';
 import { getVectorContext } from 'ol/render';
-import coordinate from './getCoordinate';
 
 type Props = {
 	start_address: string;
@@ -20,9 +19,7 @@ type Props = {
 
 
 const OpenLayersMap: FC<Props> = ({start_address, end_address})=> {
-  const { fetchLocation } = coordinate();
 
-console.log(fetchLocation(start_address))
 
   const mapRef = useRef(null);
 
@@ -68,10 +65,7 @@ console.log(fetchLocation(start_address))
       }),
     });
     map.addLayer(routeLayer);
-
-    const start = 'No. 56, Felly Akurunwa Street, Ago Palace Way, Okota, Isolo Road, Nigeria, Lagos'
-	const end = 'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos'
-  const apiKey = "5b3ce3597851110001cf624875cf2303e7ca4f449b051b2aa1a1b570"
+    const OPEN_STREET_MAP_API_KEY = import.meta.env.VITE_REACT_APP_OPEN_STREET_MAP_API_KEY;
   const startCoords = {
     lng: 11.16525,
     lat: 45.31337
@@ -80,8 +74,8 @@ console.log(fetchLocation(start_address))
     lng:5.98333,
     lat:52.3475
   }
-    // const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624875cf2303e7ca4f449b051b2aa1a1b570&start=${start}&end=${end}`;
-    const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${startCoords.lng},${startCoords.lat}&end=${endCoords.lng},${endCoords.lat}`;
+    
+    const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${OPEN_STREET_MAP_API_KEY}&start=${startCoords.lng},${startCoords.lat}&end=${endCoords.lng},${endCoords.lat}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {

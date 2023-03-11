@@ -15,6 +15,7 @@ import useNewShipmentForm from './useNewShipmentForm';
 import {  OpenStreetMap } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
+import { GoogleMap } from '@/components';
 
 
 const NewShipmentForm = () => {
@@ -261,7 +262,8 @@ const NewShipmentForm = () => {
 								</div>
 							</div>
 							<span className="mt-2">Full Address: {mapAddress}</span>
-							{mapAddress !== '' && <OpenStreetMap address={mapAddress} />}
+							{/* {mapAddress !== '' && <OpenStreetMap address={mapAddress} />} */}
+							{mapAddress !== '' && <GoogleMap address={mapAddress}/>}
 
 						</div>
 					</div>

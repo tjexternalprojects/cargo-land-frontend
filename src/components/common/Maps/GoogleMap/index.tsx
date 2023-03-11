@@ -17,6 +17,7 @@ const containerStyle = {
 const AddressMap: FC<AddressMapProps> = ({ address }) => {
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
+	const [mapId, setMapId] = useState<string>(`map-${Math.random().toString(36).substr(2, 9)}`); // generate unique id
 
 	const getAddressOnMap = () => {
 		Geocode.fromAddress(address).then(

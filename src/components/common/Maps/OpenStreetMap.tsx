@@ -24,6 +24,7 @@ const NominatimMap: React.FC<Props> = ({ address }) => {
       const data = await response.json();
       if (data && data.length > 0) {
         setLocation({ latitude: parseFloat(data[0].lat), longitude: parseFloat(data[0].lon) });
+        console.log(location)
       }
     };
     fetchLocation();

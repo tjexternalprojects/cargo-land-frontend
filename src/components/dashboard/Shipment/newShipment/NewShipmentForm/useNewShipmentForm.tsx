@@ -21,6 +21,7 @@ function useNewShipmentForm() {
 		console.log(address);
 		Geocode.fromAddress(address).then(
 			(response) => {
+				
 				const { lat, lng } = response.results[0].geometry.location;
 				setLatitude(lat);
 				setLongitude(lng);
