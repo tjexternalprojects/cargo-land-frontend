@@ -3,7 +3,7 @@ import { BiCurrentLocation, BsTelephoneForward, GoPackage, ImLocation, RiUserRec
 import {MapDirection, OpenStreetMapDirection} from '@/components/';
 import {useGeocode} from '@/components'
 const TrackShipment = () => {
-	const { location, error } = useGeocode("10 Adewuni Street, Lawanson 101241, Lagos");
+	const { location, error } = useGeocode('20 Sijuwola St, Ilasamaja 102214, Lagos');
 	const address1 = 'No. 56, Felly Akurunwa Street, Ago Palace Way, Okota, Nigeria, Lagos'
 	const address2 = 'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos'
 	return (
@@ -103,7 +103,8 @@ const TrackShipment = () => {
 				<div className="mt-5 ">
 					{/* <AddressMap address={mapAddress} /> */}
 					{/* <OpenStreetMapDirection fromAddress={address1} toAddress={address2}/> */}
-					<OpenStreetMapDirection start_address ={address1} end_address={address2}/>
+					{/* <OpenStreetMapDirection start_address ={address1} end_address={address2}/>
+					 */}
 					<MapDirection/>
 					{/* <MapLongitude address ={address1}/> */}
 					<div>
