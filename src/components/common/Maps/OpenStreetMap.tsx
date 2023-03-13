@@ -22,9 +22,11 @@ const NominatimMap: React.FC<Props> = ({ address }) => {
     const fetchLocation = async () => {
       const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${address}&format=json`);
       const data = await response.json();
+      console.log(data)
       if (data && data.length > 0) {
-        setLocation({ latitude: parseFloat(data[0].lat), longitude: parseFloat(data[0].lon) });
-        console.log(location)
+        // setLocation({ latitude: parseFloat(data[0].lat), longitude: parseFloat(data[0].lon) });
+        setLocation({ latitude: 6.499183599999999, longitude: 3.3090219 });
+  
       }
     };
     fetchLocation();

@@ -3,6 +3,7 @@ export { default as Header } from './common/Header';
 export { default as LineGraph } from './common/Graph';
 export { default as GoogleMap } from './common/Maps/GoogleMap';
 export { default as MapDirection } from './common/Maps/GoogleMap/MapDirection';
+export { default as useGeocode } from './common/Maps/GoogleMap/useGeocode'
 export { default as Notification}  from './common/Notification'
 export { default as OpenStreetMap } from './common/Maps/OpenStreetMap'
 export { default as OpenStreetMapDirection } from './common/Maps/OpenStreetMapDirection'

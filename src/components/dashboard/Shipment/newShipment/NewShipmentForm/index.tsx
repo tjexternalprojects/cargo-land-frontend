@@ -262,8 +262,8 @@ const NewShipmentForm = () => {
 								</div>
 							</div>
 							<span className="mt-2">Full Address: {mapAddress}</span>
-							{/* {mapAddress !== '' && <OpenStreetMap address={mapAddress} />} */}
-							{mapAddress !== '' && <GoogleMap address={mapAddress}/>}
+							{mapAddress !== '' && <OpenStreetMap address={mapAddress} />}
+							{/* {mapAddress !== '' && <GoogleMap address={mapAddress}/>} */}
 
 						</div>
 					</div>

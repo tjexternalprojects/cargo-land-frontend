@@ -7,7 +7,7 @@ import Feature from 'ol/Feature';
 import { fromLonLat } from 'ol/proj';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import {  Circle as CircleStyle, Fill, Icon, Stroke, Style } from 'ol/style';
+import {  Circle as CircleStyle, Icon, Stroke, Style } from 'ol/style';
 import { LineString } from 'ol/geom';
 
 import Point from 'ol/geom/Point.js';
@@ -35,64 +35,9 @@ const OpenLayersMap: FC<Props> = ({start_address, end_address})=> {
   useEffect(() => {
     if (!mapRef.current) return;
 
-
-
-    
-    
-    const styles = {
-      'route': new Style({
-        stroke: new Stroke({
-          width: 6,
-          color: [237, 212, 0, 0.8],
-        }),
-      }),
-      'icon': new Style({
-        image: new Icon({
-          anchor: [0.5, 1],
-          src: 'data/icon.png',
-        }),
-      }),
-      'geoMarker': new Style({
-        image: new CircleStyle({
-          radius: 7,
-          fill: new Fill({color: 'black'}),
-          stroke: new Stroke({
-            color: 'white',
-            width: 2,
-          }),
-        }),
-      }),
-    };
-
-
-
-
-
-  const startCoords = [3.3090219 , 6.499183599999999]
-  const endCoords=[3.2949878,6.5505729]
-  const routeSource = new VectorSource();
-  const routeLayer = new VectorLayer({
-    source: routeSource,
-    style: new Style({
-      image: new Icon({
-        src: 'https://openlayers.org/en/latest/examples/data/icon.png',
-      }),
-      stroke: new Stroke({
-        width: 5,
-        color: [237, 212, 0, 0.8],
-      }),
-    }),
-  });
-  const startPoint = new Feature({
-    geometry: new Point(startCoords),
-  });
-  const endPoint = new Feature({
-    geometry: new Point(endCoords),
-  });
-
-
-  routeSource.addFeatures([startPoint, endPoint]);
-  
+    // const osmLayer = new TileLayer({
+    //   source: new OSM(),
+    // });
 
     const map = new Map({
       target: mapRef.current,
@@ -104,16 +49,66 @@ const OpenLayersMap: FC<Props> = ({start_address, end_address})=> {
         }),
       }),],
       view: new View({
-        center: fromLonLat(startCoords),
+        center: fromLonLat([0, 0]),
         zoom: 2,
       }),
     });
 
+    
+    
+    
+    
+    const markerSource = new VectorSource();
 
+
+    const markerStyle = new Style({
+      image: new Icon({
+        src: 'https://openlayers.org/en/latest/examples/data/icon.png',
+      }),
+    });
+
+    const markerLayer = new VectorLayer({
+      source: markerSource,
+      style: markerStyle,
+    });
+
+    map.addLayer(markerLayer);
+
+    const routeSource = new VectorSource();
+    const routeLayer = new VectorLayer({
+      source: routeSource,
+      style: new Style({
+        stroke: new Stroke({
+          width: 5,
+          color: [237, 212, 0, 0.8],
+        }),
+      }),
+    });
     map.addLayer(routeLayer);
   
 
     
+  // const startCoords = {
+  //   lng: 3.3090219 ,
+  //   lat: 6.499183599999999
+  // }
+  // const endCoords={
+  //   lng:3.2949878,
+  //   lat:6.5505729
+  // }
+    
+const startCoords = fromLonLat([3.3090219, 6.499183599999999]);
+const endCoords = fromLonLat([3.2949878, 6.5505729]);
+
+const startPoint = new Feature({
+  geometry: new Point(startCoords),
+});
+
+const endPoint = new Feature({
+  geometry: new Point(endCoords),
+});
+
+markerSource.addFeatures([startPoint, endPoint]);
 
 
     const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${OPEN_STREET_MAP_API_KEY}&start=${startCoords[0]},${startCoords[1]}&end=${endCoords[0]},${endCoords[1]}`;
