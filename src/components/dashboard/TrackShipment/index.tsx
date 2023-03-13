@@ -1,6 +1,6 @@
 import React from 'react';
 import { BiCurrentLocation, BsTelephoneForward, GoPackage, ImLocation, RiUserReceivedLine } from '@/assets';
-import {MapDirection, OpenStreetMapDirection} from '@/components/';
+import {MapDirection} from '@/components/';
 import {useGeocode} from '@/components'
 const TrackShipment = () => {
 	const { location, error } = useGeocode('20 Sijuwola St, Ilasamaja 102214, Lagos');

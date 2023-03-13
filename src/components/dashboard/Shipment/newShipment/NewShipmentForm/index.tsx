@@ -12,7 +12,7 @@ import {
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
-import {  AddressMap, OpenStreetMap } from '@/components';
+import {  AddressMap } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
 import { GoogleMap } from '@/components';
@@ -262,10 +262,7 @@ const NewShipmentForm = () => {
 								</div>
 							</div>
 							<span className="mt-2">Full Address: {mapAddress}</span>
-							{/* {mapAddress !== '' && <OpenStreetMap address={mapAddress} />} */}
-							<AddressMap/>
-							{/* {mapAddress !== '' && <GoogleMap address={mapAddress}/>} */}
-
+							<AddressMap address={mapAddress} />
 						</div>
 					</div>
 
