@@ -3,7 +3,7 @@ import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import Geocode from 'react-geocode';
-const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
+import { useGeocode } from '@/components';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -14,29 +14,8 @@ function useNewShipmentForm() {
 	const [mapAddress, setMapAddress] = useState('');
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
-
-	Geocode.setApiKey(GOOGLE_API_KEY);
-
-	const getLocationOnMap = () => {
-		console.log(address);
-		Geocode.fromAddress(address).then(
-			(response) => {
-				
-				const { lat, lng } = response.results[0].geometry.location;
-				setLatitude(lat);
-				setLongitude(lng);
-			},
-			(error) => {
-				console.error(error);
-			}
-		);
-	};
-
-	useEffect(() => {
-		if (address != '') {
-			getLocationOnMap();
-		}
-	}, [address]);
+	const { fetchLocation} = useGeocode();
+	const [showLoader, setShowLoader] = useState(false)
 
 	interface ShipmentDetails {
 		shipment_title: string;
@@ -116,6 +95,7 @@ function useNewShipmentForm() {
 	}, [shipmentDetails]);
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setShowLoader(true)
 		if (
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
@@ -135,17 +115,38 @@ function useNewShipmentForm() {
 			});
 			return;
 		}
-			setState({
-				...state,
-				shipmentCurrentTab: 'item2',
-			});
-		setState((prevState) => ({
-			...prevState,
-			shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
-		}));
 
-	
-console.log(state)
+		await updateMapAddress();
+		fetchLocation(mapAddress).then(data=>{
+			console.log(data)
+			setShowLoader(false)
+
+				const { lat, lng } = data.results[0].geometry.location;
+				setLatitude(lat)
+				setLongitude(lng)
+			setShipmentDetails({
+				...shipmentDetails,
+				current_location: {
+					...shipmentDetails.current_location,
+					country: Country.getCountryByCode(countryCode)?.name as string,
+					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
+					city: citySelected,
+					address: address,
+					longitude: longitude as unknown as number,
+					latitude: latitude as unknown as number,
+				},
+			});
+		})
+		// 	setState({
+		// 		...state,
+		// 		shipmentCurrentTab: 'item2',
+		// 	});
+		// setState((prevState) => ({
+		// 	...prevState,
+		// 	shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
+		// }));
+
+		// console.log(state)
 	};
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,20 +184,8 @@ console.log(state)
 			? Country.getCountryByCode(countryCode)?.name
 			: '';
 
-		setShipmentDetails({
-			...shipmentDetails,
-			current_location: {
-				...shipmentDetails.current_location,
-				country: Country.getCountryByCode(countryCode)?.name as string,
-				state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
-				city: citySelected,
-				address: address,
-				longitude: longitude as unknown as number,
-				latitude: latitude as unknown as number,
-			},
-		});
-
 		setMapAddress(c_address + c_city + c_state + c_country);
+
 	};
 	useEffect(() => {
 		updateMapAddress();
@@ -210,6 +199,9 @@ console.log(state)
 		mapAddress,
 		shipmentDetails,
 		image_slider_settings,
+		latitude,
+		longitude,
+		showLoader,
 		removeImage,
 		handleImageChange,
 		setShipmentDetails,

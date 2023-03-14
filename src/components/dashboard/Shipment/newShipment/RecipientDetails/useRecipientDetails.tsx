@@ -38,7 +38,6 @@ function useRecipientDetails() {
 		if (address != '') {
 			getLocationOnMap();
 		}
-
 	}, [address]);
 
 	interface ShipmentDetails {

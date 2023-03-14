@@ -1,8 +1,8 @@
-import { AppContext, AppContextType } from "@/context";
-import { useContext } from "react";
+import { AppContext, AppContextType } from '@/context';
+import { useContext } from 'react';
 
 function useShipmentModal(setShowModal: (value: boolean) => void) {
-	const {state, setState} = useContext<AppContextType>(AppContext)
+	const { state, setState } = useContext<AppContextType>(AppContext);
 	const image_slider_settings = {
 		dots: true,
 		infinite: false,

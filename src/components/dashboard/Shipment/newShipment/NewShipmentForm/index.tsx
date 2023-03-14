@@ -12,11 +12,9 @@ import {
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
-import {  AddressMap } from '@/components';
+import { AddressMap, RingLoader } from '@/components';
 import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
-import { GoogleMap } from '@/components';
-
 
 const NewShipmentForm = () => {
 	const {
@@ -28,6 +26,9 @@ const NewShipmentForm = () => {
 		setShipmentDetails,
 		handleImageChange,
 		removeImage,
+		showLoader,
+		latitude,
+		longitude,
 		image_slider_settings,
 		shipmentDetails,
 		citySelected,
@@ -38,6 +39,7 @@ const NewShipmentForm = () => {
 	} = useNewShipmentForm();
 	return (
 		<>
+
 			<div className="inline-flex flex-col items-center w-full ">
 				<div className="bg-blue-900 rounded-full text-white  text-3xl p-2">
 					<GoPackage />
@@ -261,8 +263,9 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
-							<span className="mt-2">Full Address: {mapAddress}</span>
-							<AddressMap address={mapAddress} />
+							{/* <span className="mt-2">Full Address: {mapAddress}</span> */}
+							{latitude && longitude && <AddressMap address={mapAddress} />}
+							{ showLoader && <div className='w-full flex items-center justify-center'> <RingLoader text='Validating address...' textColor="text-blue-900"/></div>}
 						</div>
 					</div>
 

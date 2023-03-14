@@ -1,11 +1,18 @@
 import React from 'react';
-import { BiCurrentLocation, BsTelephoneForward, GoPackage, ImLocation, RiUserReceivedLine } from '@/assets';
-import {MapDirection} from '@/components/';
-import {useGeocode} from '@/components'
+import {
+	BiCurrentLocation,
+	BsTelephoneForward,
+	GoPackage,
+	ImLocation,
+	RiUserReceivedLine,
+} from '@/assets';
+import { MapDirection } from '@/components/';
+import { useGeocode } from '@/components';
 const TrackShipment = () => {
 	const { location, error } = useGeocode('20 Sijuwola St, Ilasamaja 102214, Lagos');
-	const address1 = 'No. 56, Felly Akurunwa Street, Ago Palace Way, Okota, Nigeria, Lagos'
-	const address2 = 'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos'
+	const address1 = 'No. 56, Felly Akurunwa Street, Ago Palace Way, Okota, Nigeria, Lagos';
+	const address2 =
+		'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos';
 	return (
 		<div className="flex mt-8 gap-5">
 			<div className=" w-6/12">
@@ -105,12 +112,12 @@ const TrackShipment = () => {
 					{/* <OpenStreetMapDirection fromAddress={address1} toAddress={address2}/> */}
 					{/* <OpenStreetMapDirection start_address ={address1} end_address={address2}/>
 					 */}
-					<MapDirection/>
+					<MapDirection />
 					{/* <MapLongitude address ={address1}/> */}
 					<div>
-      Latitude: {location?.lat}, Longitude: {location?.lng}
-	  {error?.message}
-    </div>
+						Latitude: {location?.lat}, Longitude: {location?.lng}
+						{error?.message}
+					</div>
 				</div>
 				<div className="mt-5">
 					<h3>Item List</h3>

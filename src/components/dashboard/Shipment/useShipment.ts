@@ -8,8 +8,6 @@ function useShipment() {
 		direction: -50,
 	});
 
-
-
 	const handleNewShipment = () => {};
 
 	const handleShowTab = (item: string, item_number: number) => {

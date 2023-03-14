@@ -20,7 +20,7 @@ type AppState = {
 	notifications: Notification[];
 	toggleAdminSideBar: boolean;
 	toggleNotification: boolean;
-	shipmentCurrentTab:string;
+	shipmentCurrentTab: string;
 };
 
 const initialState: AppState = {

@@ -33,7 +33,6 @@ const AddressMap: FC<AddressMapProps> = ({ address }) => {
 	};
 
 	useEffect(() => {
-		
 		if (address !== '') {
 			getAddressOnMap();
 		}
@@ -41,7 +40,6 @@ const AddressMap: FC<AddressMapProps> = ({ address }) => {
 
 	return (
 		<div>
-
 			{latitude && longitude && (
 				<LoadScript googleMapsApiKey={GOOGLE_API_KEY}>
 					<GoogleMap

@@ -15,8 +15,7 @@ import Slider from 'react-slick';
 import useShipmentSummary from './useShipmentSummary';
 import { ShipmentModal } from '@/components';
 
-
-const RecipientDetails= () => {
+const RecipientDetails = () => {
 	const {
 		image_slider_settings,
 		shipmentData,
@@ -105,9 +104,7 @@ const RecipientDetails= () => {
 				</div>
 			</div>
 
-			{showShipmentModal && (
-				<ShipmentModal setShowModal={setShowShipmentModal}  />
-			)}
+			{showShipmentModal && <ShipmentModal setShowModal={setShowShipmentModal} />}
 		</>
 	);
 };

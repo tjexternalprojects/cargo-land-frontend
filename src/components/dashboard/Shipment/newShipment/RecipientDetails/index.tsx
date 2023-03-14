@@ -7,13 +7,11 @@ import {
 	MdOutlineShareLocation,
 	RiUserReceivedLine,
 } from '@/assets';
-import {AddressMap } from '@/components';
+import { AddressMap } from '@/components';
 import { Country, State, City } from 'country-state-city';
 
 import useRecipientDetails from './useRecipientDetails';
 import { ToastContainer } from 'react-toastify';
-
-
 
 const RecipientDetails = () => {
 	const {

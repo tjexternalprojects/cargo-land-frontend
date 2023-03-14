@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import {AiOutlineClose} from  '@/assets'
+import React, { FC } from 'react';
+import { AiOutlineClose } from '@/assets';
 
 interface NotificationModalProps {
 	setShowModal: (value: boolean) => void;
@@ -12,7 +12,7 @@ const NotificationModal: FC<NotificationModalProps> = ({ setShowModal }) => {
 					<div className="flex justify-end py-2 px-5  bg-blue-50 rounded-t-xl ">
 						<div
 							className="rounded-full shadow-lg hover:shadow-blue-200 hover:bg-blue-400 hover:text-white transition-all duration-75 ease-in-out cursor-pointer p-2 "
-							onClick={()=>setShowModal(false)}
+							onClick={() => setShowModal(false)}
 						>
 							<AiOutlineClose />
 						</div>
@@ -39,4 +39,4 @@ const NotificationModal: FC<NotificationModalProps> = ({ setShowModal }) => {
 	);
 };
 
-export default NotificationModal
+export default NotificationModal;

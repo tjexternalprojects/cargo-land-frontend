@@ -1,3 +1,3 @@
 declare module 'google-maps' {
-    export = google;
-  }
+	export = google;
+}

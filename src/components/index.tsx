@@ -1,11 +1,12 @@
 // common components
 export { default as Header } from './common/Header';
 export { default as LineGraph } from './common/Graph';
-export { default as GoogleMap } from './common/Maps/GoogleMap';
 export { default as MapDirection } from './common/Maps/GoogleMap/Direction';
-export { default as AddressMap} from './common/Maps/GoogleMap/AddressMap'
-export { default as useGeocode } from './common/Maps/GoogleMap/useGeocode'
-export { default as Notification}  from './common/Notification'
+export { default as AddressMap } from './common/Maps/GoogleMap/AddressMap';
+export { default as useGeocode } from './common/Maps/GoogleMap/useGeocode';
+export { default as Notification } from './common/Notification';
+export { default as Loader} from './common/loader'
+export { default as RingLoader} from './common/RingLoader'
 
 // login components
 export { default as LoginComponent } from './login-signup/Login';
@@ -22,8 +23,8 @@ export { default as ShipmentPage } from './dashboard/Shipment';
 export { default as History } from './dashboard/History';
 export { default as Sidebar } from './dashboard/Sidebar';
 export { default as TopBar } from './dashboard/TopBar';
-export { default as ShipmentModal} from './dashboard/Shipment/ShipmentModal'
-export { default as TrackShipment} from './dashboard/TrackShipment'
+export { default as ShipmentModal } from './dashboard/Shipment/ShipmentModal';
+export { default as TrackShipment } from './dashboard/TrackShipment';
 
 // Dashboard New_Shipment
 export { default as NewShipmentForm } from './dashboard/Shipment/newShipment/NewShipmentForm';

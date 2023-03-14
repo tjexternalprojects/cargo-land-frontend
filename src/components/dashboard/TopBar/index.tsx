@@ -1,6 +1,6 @@
 import React from 'react';
 import { BiFilter, IoMdCart, MdNotificationsNone, RiSearch2Line, userImg } from '@/assets';
-import useTopBar from './useTopBar'
+import useTopBar from './useTopBar';
 const TopBar = () => {
 	const { handleToggleNotification, showChartItems } = useTopBar();
 	return (

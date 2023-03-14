@@ -12,7 +12,7 @@ interface AddressMapProps {
 
 const AddressMap: FC<AddressMapProps> = ({ address }) => {
 	const { location, error } = useGeocode(address);
-console.log(location)
+	console.log(location);
 
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 
@@ -26,7 +26,7 @@ console.log(location)
 		}
 	}, [map]);
 
-	return  (
+	return (
 		<LoadScript
 			googleMapsApiKey={GOOGLE_API_KEY}
 			libraries={['places']} // add the libraries prop here

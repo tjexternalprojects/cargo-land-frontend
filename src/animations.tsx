@@ -84,7 +84,6 @@ export const slideLeft = {
 	},
 };
 
-
 export const slideInFromRight = {
 	initial: { y: -1000 },
 	animate: { y: 0 },

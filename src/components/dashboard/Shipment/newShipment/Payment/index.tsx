@@ -2,8 +2,6 @@ import { RiUserReceivedLine } from '@/assets';
 import usePayment from './usePayment';
 import { ToastContainer } from 'react-toastify';
 
-
-
 const Payment = () => {
 	const { handlePayment } = usePayment();
 	return (

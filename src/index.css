@@ -23,5 +23,5 @@ body {
 }
 
 .xscroll::-webkit-scrollbar-thumb {
-	background: linear-gradient( transparent, #19289b);
+	background: linear-gradient(transparent, #19289b);
 }
