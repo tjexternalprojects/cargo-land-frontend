@@ -109,6 +109,7 @@ function useNewShipmentForm() {
 			citySelected == '0' ||
 			address == ''
 		) {
+			setShowLoader(false)
 			toast.info('Please fill the important fields (*)', {
 				progressClassName: 'bg-red-500 h-1',
 				autoClose: 3000,
@@ -122,6 +123,7 @@ function useNewShipmentForm() {
 			setShowLoader(false)
 
 				const { lat, lng } = data.results[0].geometry.location;
+			
 				setLatitude(lat)
 				setLongitude(lng)
 			setShipmentDetails({

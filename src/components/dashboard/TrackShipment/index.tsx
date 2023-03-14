@@ -9,7 +9,6 @@ import {
 import { MapDirection } from '@/components/';
 import { useGeocode } from '@/components';
 const TrackShipment = () => {
-	const { location, error } = useGeocode('20 Sijuwola St, Ilasamaja 102214, Lagos');
 	const address1 = 'No. 56, Felly Akurunwa Street, Ago Palace Way, Okota, Nigeria, Lagos';
 	const address2 =
 		'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos';
@@ -114,10 +113,7 @@ const TrackShipment = () => {
 					 */}
 					<MapDirection />
 					{/* <MapLongitude address ={address1}/> */}
-					<div>
-						Latitude: {location?.lat}, Longitude: {location?.lng}
-						{error?.message}
-					</div>
+					
 				</div>
 				<div className="mt-5">
 					<h3>Item List</h3>

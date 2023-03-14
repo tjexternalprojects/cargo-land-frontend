@@ -39,7 +39,6 @@ const NewShipmentForm = () => {
 	} = useNewShipmentForm();
 	return (
 		<>
-
 			<div className="inline-flex flex-col items-center w-full ">
 				<div className="bg-blue-900 rounded-full text-white  text-3xl p-2">
 					<GoPackage />
@@ -264,8 +263,12 @@ const NewShipmentForm = () => {
 								</div>
 							</div>
 							{/* <span className="mt-2">Full Address: {mapAddress}</span> */}
-							{latitude && longitude && <AddressMap address={mapAddress} />}
-							{ showLoader && <div className='w-full flex items-center justify-center'> <RingLoader text='Validating address...' textColor="text-blue-900"/></div>}
+							{latitude && longitude && <AddressMap geoLocation={{lng: longitude, lat:latitude}} />}
+							{showLoader && (
+								<div className="w-full flex items-center justify-center">
+									<RingLoader text="Validating address..." textColor="text-blue-900" />
+								</div>
+							)}
 						</div>
 					</div>
 
@@ -275,7 +278,7 @@ const NewShipmentForm = () => {
 							type="submit"
 							className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md border border-slate-100 bg-blue-100 font-bold text-blue-900 text-md"
 						>
-							Next
+							Validate Address
 						</button>
 					</div>
 				</form>

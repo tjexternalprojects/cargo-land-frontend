@@ -7,43 +7,46 @@ const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 const startLocation = { lng: 3.3119897, lat: 6.499183599999999 };
 
 interface AddressMapProps {
-	address: string;
+	geoLocation: { lng: number; lat: number };
+	formatted_address:string
 }
 
-const AddressMap: FC<AddressMapProps> = ({ address }) => {
-	const { location, error } = useGeocode(address);
-	console.log(location);
-
+const AddressMap: FC<AddressMapProps> = ({ geoLocation, formatted_address }) => {
 	const [map, setMap] = useState<google.maps.Map | null>(null);
+
+	const { isLoaded } = useJsApiLoader({
+		id: 'google-map-script',
+		googleMapsApiKey: GOOGLE_API_KEY,
+		libraries: ['places'],
+	});
 
 	useEffect(() => {
 		if (map) {
-			const marker = new window.google.maps.Marker({
-				position: startLocation,
+			new window.google.maps.Marker({
+				position: geoLocation,
 				map,
-				title: 'Start Location',
+				title: formatted_address,
 			});
 		}
 	}, [map]);
-
-	return (
-		<LoadScript
-			googleMapsApiKey={GOOGLE_API_KEY}
-			libraries={['places']} // add the libraries prop here
-		>
-			<GoogleMap
-				center={startLocation}
-				zoom={10}
-				mapContainerStyle={{ width: '100%', height: '100vh' }}
-				options={{
-					zoomControl: false,
-					streetViewControl: false,
-					mapTypeControl: false,
-					fullscreenControl: false,
-				}}
-				onLoad={(map) => setMap(map)}
-			></GoogleMap>
-		</LoadScript>
+	// lat: 6.5049772;
+	// lng: 3.3120209;
+	return isLoaded ? (
+		<GoogleMap
+			center={geoLocation}
+			zoom={16}
+			mapContainerStyle={{ width: '100%', height: '100vh' }}
+			options={{
+				zoomControl: true,
+				streetViewControl: true,
+				mapTypeControl: true,
+				fullscreenControl: true,
+				mapTypeId: google.maps.MapTypeId.TERRAIN,
+			}}
+			onLoad={(map) => setMap(map)}
+		></GoogleMap>
+	) : (
+		<div>Loading Google Maps API...</div>
 	);
 };
 
