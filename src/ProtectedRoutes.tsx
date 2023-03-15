@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Login } from './pages';
 import { useApp } from './context';
@@ -15,7 +15,7 @@ const ProtectedRoutes = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
+  const handleNavigate = useCallback(() => {
     const isUnprotectedRoute = unprotectedRoutes.includes(location.pathname);
 
     if (isAuth && !isUnprotectedRoute) {
@@ -23,7 +23,11 @@ const ProtectedRoutes = () => {
     } else if (!isAuth && !isUnprotectedRoute) {
       navigate('/login', { state: { from: location.pathname } });
     }
-  }, [isAuth, location]);
+  }, [isAuth, location, navigate]);
+
+  useEffect(() => {
+    handleNavigate();
+  }, [handleNavigate, navigate]);
 
   return isAuth !== null ? <Outlet /> : <Login />;
 };
