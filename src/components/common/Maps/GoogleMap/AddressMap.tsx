@@ -21,8 +21,8 @@ const AddressMap: FC<AddressMapProps> = ({ geoLocation, formatted_address }) => 
 	});
 
 	useEffect(() => {
-		setMap(null)
-		console.log(geoLocation)
+		setMap(null);
+		console.log(geoLocation);
 		if (map) {
 			console.log('located');
 			new window.google.maps.Marker({
@@ -48,9 +48,7 @@ const AddressMap: FC<AddressMapProps> = ({ geoLocation, formatted_address }) => 
 				mapTypeId: google.maps.MapTypeId.TERRAIN,
 			}}
 			onLoad={(map) => setMap(map)}
-		>
-
-		</GoogleMap>
+		></GoogleMap>
 	) : (
 		<div>Loading Google Maps API...</div>
 	);

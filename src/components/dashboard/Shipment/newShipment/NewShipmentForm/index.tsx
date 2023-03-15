@@ -253,10 +253,11 @@ const NewShipmentForm = () => {
 									<span className="text-red-500"> * </span>
 								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
-								<div className="text-xl text-gray-500">
-									<RiSearch2Line />
+									<div className="text-xl text-gray-500">
+										<RiSearch2Line />
 									</div>
-									<input type="text"
+									<input
+										type="text"
 										className="w-full outline-none px-2"
 										value={address}
 										placeholder="type in shipment street address location"
@@ -275,7 +276,10 @@ const NewShipmentForm = () => {
 										formatted_address={formattedAddress}
 										geoLocation={{ lng: longitude, lat: latitude }}
 									/>
-									<div className=" font-extrabold text-xl text-red-500"><span className="underline">Address Found: </span>{formattedAddress}</div>
+									<div className=" font-extrabold text-xl text-red-500">
+										<span className="underline">Address Found: </span>
+										{formattedAddress}
+									</div>
 								</>
 							)}
 							{showLoader && (

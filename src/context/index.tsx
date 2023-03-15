@@ -11,9 +11,10 @@ const { shipmentDetails, shipmentCurrentTab } = GeneralContext();
 // Define the global state object
 
 type AppState = {
-	user: Record<string, boolean>;
-	shipmentDetails: 
-	Record<string, Array<unknown> | number | string | Record<string, string | number >
+	user: Record<string, string | null | boolean>;
+	shipmentDetails: Record<
+		string,
+		Array<unknown> | number | string | Record<string, string | number>
 	>;
 	settings: string;
 	notifications: Notification[];

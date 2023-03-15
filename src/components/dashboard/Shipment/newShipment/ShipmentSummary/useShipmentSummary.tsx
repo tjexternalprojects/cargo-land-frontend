@@ -31,13 +31,11 @@ function useShipmentSummary() {
 			...state,
 			shipmentCurrentTab: 'item4',
 		});
-		
+
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, form_level: 3 },
 		}));
-
-	
 	};
 	const handleSummary = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

@@ -3,6 +3,7 @@ import { cargoBG } from '@/assets';
 import { Header } from '@/components';
 import useLogin from '@/pages/Login/useLogin';
 import ReactSwipe from 'react-swipe';
+import { ToastContainer } from 'react-toastify';
 
 const Login = () => {
 	let reactSwipeEl: any;
@@ -11,6 +12,7 @@ const Login = () => {
 	return (
 		<>
 			<Header />
+			<ToastContainer />
 
 			<div
 				className={`relative h-screen bg-cover bg-center`}

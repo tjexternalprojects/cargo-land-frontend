@@ -96,7 +96,7 @@ function useNewShipmentForm() {
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
-		
+
 		if (
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
@@ -117,25 +117,23 @@ function useNewShipmentForm() {
 			});
 			return;
 		}
-		setLatitude(null)
-		setLongitude(null)
+		setLatitude(null);
+		setLongitude(null);
 		await updateMapAddress();
 		fetchLocation(mapAddress).then((data) => {
 			console.log(data);
 			setShowLoader(false);
 
-			if(data.results.length > 1){
-				toast.error('Multiple address match please re-check your address')
-				return
+			if (data.results.length > 1) {
+				toast.error('Multiple address match please re-check your address');
+				return;
 			}
-
-
 
 			const { lat, lng } = data.results[0].geometry.location;
 
 			// if(state.shipmentDetails.shipment_destination.longitude  )
 
-			setLatitude(lat); 
+			setLatitude(lat);
 			setLongitude(lng);
 			setFormattedAddress(data.results[0].formatted_address);
 			setShipmentDetails({
@@ -162,7 +160,7 @@ function useNewShipmentForm() {
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
-		}));	
+		}));
 	};
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
@@ -202,7 +200,7 @@ function useNewShipmentForm() {
 		setMapAddress(c_address + c_city + c_state + c_country);
 	};
 	useEffect(() => {
-		setFormattedAddress("")
+		setFormattedAddress('');
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
 

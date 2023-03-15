@@ -22,9 +22,6 @@ function useRecipientDetails() {
 	const [formattedAddress, setFormattedAddress] = useState('');
 	const { fetchLocation } = useGeocode();
 
-	
-
-
 	interface ShipmentDetails {
 		shipment_id: string;
 		recipient_full_name: string;
@@ -46,7 +43,7 @@ function useRecipientDetails() {
 		},
 	});
 
-	const handleRecipientDetails = async(event: React.FormEvent<HTMLFormElement>) => {
+	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
 
@@ -69,16 +66,16 @@ function useRecipientDetails() {
 			return;
 		}
 
-		setLatitude(null)
-		setLongitude(null)
+		setLatitude(null);
+		setLongitude(null);
 		await updateMapAddress();
 		fetchLocation(mapAddress).then((data) => {
 			console.log(data);
 			setShowLoader(false);
 
-			if(data.results.length > 1){
-				toast.error('Multiple address match please re-check your address')
-				return
+			if (data.results.length > 1) {
+				toast.error('Multiple address match please re-check your address');
+				return;
 			}
 			const { lat, lng } = data.results[0].geometry.location;
 
@@ -99,7 +96,6 @@ function useRecipientDetails() {
 				},
 			});
 		});
-
 	};
 
 	const moveNext = () => {
@@ -107,14 +103,12 @@ function useRecipientDetails() {
 			...state,
 			shipmentCurrentTab: 'item3',
 		});
-		
+
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, shipment_id: uuidv4(), form_level: 2 },
 		}));
-
-		
-	}
+	};
 
 	const updateMapAddress = () => {
 		const c_address = address != '' ? address + ', ' : '';
@@ -125,8 +119,6 @@ function useRecipientDetails() {
 		const c_country = Country.getCountryByCode(countryCode)?.name
 			? Country.getCountryByCode(countryCode)?.name
 			: '';
-
-		
 
 		setMapAddress(c_address + c_city + c_state + c_country);
 	};
