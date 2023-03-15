@@ -30,7 +30,6 @@ const useGeocode = () => {
 		}
 	};
 
-
 	return { location, error, fetchLocation };
 };
 

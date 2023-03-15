@@ -27,15 +27,17 @@ function useShipmentSummary() {
 	};
 
 	const handlePayment = () => {
+		setState({
+			...state,
+			shipmentCurrentTab: 'item4',
+		});
+		
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, form_level: 3 },
 		}));
 
-		setState({
-			...state,
-			shipmentCurrentTab: 'item4',
-		});
+	
 	};
 	const handleSummary = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();

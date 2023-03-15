@@ -5,8 +5,8 @@ export { default as MapDirection } from './common/Maps/GoogleMap/Direction';
 export { default as AddressMap } from './common/Maps/GoogleMap/AddressMap';
 export { default as useGeocode } from './common/Maps/GoogleMap/useGeocode';
 export { default as Notification } from './common/Notification';
-export { default as Loader} from './common/loader'
-export { default as RingLoader} from './common/RingLoader'
+export { default as Loader } from './common/loader';
+export { default as RingLoader } from './common/RingLoader';
 
 // login components
 export { default as LoginComponent } from './login-signup/Login';

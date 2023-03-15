@@ -12,8 +12,6 @@ const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 const startLocation = { lng: 3.3119897, lat: 6.499183599999999 };
 const endLocation = { lng: 3.3120209, lat: 6.5049772 };
 
-
-
 function App() {
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 	const [directionsResponse, setDirectionsResponse] = useState<null | google.maps.DirectionsResult>(
@@ -46,7 +44,6 @@ function App() {
 		}
 	}, [isLoaded, startLocation, endLocation]);
 
-
 	return isLoaded ? (
 		<GoogleMap
 			center={startLocation}
@@ -70,7 +67,6 @@ function App() {
 }
 
 export default App;
-
 
 // import { useEffect, useState } from 'react';
 // import { useJsApiLoader, GoogleMap, Marker, LoadScript } from '@react-google-maps/api';

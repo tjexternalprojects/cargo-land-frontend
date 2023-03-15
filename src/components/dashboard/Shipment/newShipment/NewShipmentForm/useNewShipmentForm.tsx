@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
-import Geocode from 'react-geocode';
 import { useGeocode } from '@/components';
 
 function useNewShipmentForm() {
@@ -14,8 +13,9 @@ function useNewShipmentForm() {
 	const [mapAddress, setMapAddress] = useState('');
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
-	const { fetchLocation} = useGeocode();
-	const [showLoader, setShowLoader] = useState(false)
+	const [showLoader, setShowLoader] = useState(false);
+	const [formattedAddress, setFormattedAddress] = useState('');
+	const { fetchLocation } = useGeocode();
 
 	interface ShipmentDetails {
 		shipment_title: string;
@@ -47,32 +47,32 @@ function useNewShipmentForm() {
 		slidesToShow: 4,
 		slidesToScroll: 1,
 		initialSlide: 0,
-		responsive: [
-			{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-					infinite: true,
-					dots: true,
-				},
-			},
-			{
-				breakpoint: 600,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-					initialSlide: 2,
-				},
-			},
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-				},
-			},
-		],
+		// responsive: [
+		// 	{
+		// 		breakpoint: 1024,
+		// 		settings: {
+		// 			slidesToShow: 3,
+		// 			slidesToScroll: 3,
+		// 			infinite: true,
+		// 			dots: true,
+		// 		},
+		// 	},
+		// 	{
+		// 		breakpoint: 600,
+		// 		settings: {
+		// 			slidesToShow: 2,
+		// 			slidesToScroll: 2,
+		// 			initialSlide: 2,
+		// 		},
+		// 	},
+		// 	{
+		// 		breakpoint: 480,
+		// 		settings: {
+		// 			slidesToShow: 1,
+		// 			slidesToScroll: 1,
+		// 		},
+		// 	},
+		// ],
 	};
 
 	const removeImage = (indexToRemove: number) => {
@@ -95,7 +95,8 @@ function useNewShipmentForm() {
 	}, [shipmentDetails]);
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		setShowLoader(true)
+		setShowLoader(true);
+		
 		if (
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
@@ -109,23 +110,34 @@ function useNewShipmentForm() {
 			citySelected == '0' ||
 			address == ''
 		) {
-			setShowLoader(false)
+			setShowLoader(false);
 			toast.info('Please fill the important fields (*)', {
 				progressClassName: 'bg-red-500 h-1',
 				autoClose: 3000,
 			});
 			return;
 		}
-
+		setLatitude(null)
+		setLongitude(null)
 		await updateMapAddress();
-		fetchLocation(mapAddress).then(data=>{
-			console.log(data)
-			setShowLoader(false)
+		fetchLocation(mapAddress).then((data) => {
+			console.log(data);
+			setShowLoader(false);
 
-				const { lat, lng } = data.results[0].geometry.location;
-			
-				setLatitude(lat)
-				setLongitude(lng)
+			if(data.results.length > 1){
+				toast.error('Multiple address match please re-check your address')
+				return
+			}
+
+
+
+			const { lat, lng } = data.results[0].geometry.location;
+
+			// if(state.shipmentDetails.shipment_destination.longitude  )
+
+			setLatitude(lat); 
+			setLongitude(lng);
+			setFormattedAddress(data.results[0].formatted_address);
 			setShipmentDetails({
 				...shipmentDetails,
 				current_location: {
@@ -134,23 +146,24 @@ function useNewShipmentForm() {
 					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
 					city: citySelected,
 					address: address,
+					formattedAddress: formattedAddress,
 					longitude: longitude as unknown as number,
 					latitude: latitude as unknown as number,
 				},
 			});
-		})
-		// 	setState({
-		// 		...state,
-		// 		shipmentCurrentTab: 'item2',
-		// 	});
-		// setState((prevState) => ({
-		// 	...prevState,
-		// 	shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
-		// }));
-
-		// console.log(state)
+		});
 	};
 
+	const moveNext = () => {
+		setState({
+			...state,
+			shipmentCurrentTab: 'item2',
+		});
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
+		}));	
+	};
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
 		if (files && files.length > 0) {
@@ -187,9 +200,9 @@ function useNewShipmentForm() {
 			: '';
 
 		setMapAddress(c_address + c_city + c_state + c_country);
-
 	};
 	useEffect(() => {
+		setFormattedAddress("")
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
 
@@ -204,6 +217,8 @@ function useNewShipmentForm() {
 		latitude,
 		longitude,
 		showLoader,
+		formattedAddress,
+		moveNext,
 		removeImage,
 		handleImageChange,
 		setShipmentDetails,

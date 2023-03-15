@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
-import Geocode from 'react-geocode';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import { useGeocode } from '@/components';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,27 +18,12 @@ function useRecipientDetails() {
 	const [mapAddress, setMapAddress] = useState('');
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
+	const [showLoader, setShowLoader] = useState(false);
+	const [formattedAddress, setFormattedAddress] = useState('');
+	const { fetchLocation } = useGeocode();
 
-	Geocode.setApiKey(GOOGLE_API_KEY);
+	
 
-	const getLocationOnMap = () => {
-		Geocode.fromAddress(address).then(
-			(response) => {
-				const { lat, lng } = response.results[0].geometry.location;
-				setLatitude(lat);
-				setLongitude(lng);
-			},
-			(error) => {
-				console.error(error);
-			}
-		);
-	};
-
-	useEffect(() => {
-		if (address != '') {
-			getLocationOnMap();
-		}
-	}, [address]);
 
 	interface ShipmentDetails {
 		shipment_id: string;
@@ -61,8 +46,10 @@ function useRecipientDetails() {
 		},
 	});
 
-	const handleRecipientDetails = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleRecipientDetails = async(event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setShowLoader(true);
+
 		if (
 			shipmentDetails.recipient_full_name == '' ||
 			shipmentDetails.recipient_email == '' ||
@@ -74,22 +61,60 @@ function useRecipientDetails() {
 			citySelected == '0' ||
 			address == ''
 		) {
+			setShowLoader(false);
 			toast.info('Please fill the important fields (*)', {
 				progressClassName: 'bg-red-500 h-1',
 				autoClose: 3000,
 			});
 			return;
 		}
+
+		setLatitude(null)
+		setLongitude(null)
+		await updateMapAddress();
+		fetchLocation(mapAddress).then((data) => {
+			console.log(data);
+			setShowLoader(false);
+
+			if(data.results.length > 1){
+				toast.error('Multiple address match please re-check your address')
+				return
+			}
+			const { lat, lng } = data.results[0].geometry.location;
+
+			setLatitude(lat);
+			setLongitude(lng);
+			setFormattedAddress(data.results[0].formatted_address);
+			setShipmentDetails({
+				...shipmentDetails,
+				shipment_destination: {
+					...shipmentDetails.shipment_destination,
+					country: Country.getCountryByCode(countryCode)?.name as string,
+					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
+					city: citySelected,
+					address: address,
+					formattedAddress: formattedAddress,
+					longitude: longitude as unknown as number,
+					latitude: latitude as unknown as number,
+				},
+			});
+		});
+
+	};
+
+	const moveNext = () => {
+		setState({
+			...state,
+			shipmentCurrentTab: 'item3',
+		});
+		
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, shipment_id: uuidv4(), form_level: 2 },
 		}));
 
-		setState({
-			...state,
-			shipmentCurrentTab: 'item3',
-		});
-	};
+		
+	}
 
 	const updateMapAddress = () => {
 		const c_address = address != '' ? address + ', ' : '';
@@ -101,18 +126,7 @@ function useRecipientDetails() {
 			? Country.getCountryByCode(countryCode)?.name
 			: '';
 
-		setShipmentDetails({
-			...shipmentDetails,
-			shipment_destination: {
-				...shipmentDetails.shipment_destination,
-				country: Country.getCountryByCode(countryCode)?.name as string,
-				state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
-				city: citySelected,
-				address: address,
-				longitude: longitude as unknown as number,
-				latitude: latitude as unknown as number,
-			},
-		});
+		
 
 		setMapAddress(c_address + c_city + c_state + c_country);
 	};
@@ -135,6 +149,11 @@ function useRecipientDetails() {
 		citySelected,
 		mapAddress,
 		shipmentDetails,
+		showLoader,
+		longitude,
+		latitude,
+		formattedAddress,
+		moveNext,
 		setShipmentDetails,
 		setCitySelected,
 		setAddress,

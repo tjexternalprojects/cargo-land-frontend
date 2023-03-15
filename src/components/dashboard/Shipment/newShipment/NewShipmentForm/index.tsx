@@ -9,6 +9,7 @@ import {
 	MdOutlineMyLocation,
 	MdOutlineShareLocation,
 	MdOutlineSubtitles,
+	RiSearch2Line,
 } from '@/assets';
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
@@ -26,6 +27,8 @@ const NewShipmentForm = () => {
 		setShipmentDetails,
 		handleImageChange,
 		removeImage,
+		moveNext,
+		formattedAddress,
 		showLoader,
 		latitude,
 		longitude,
@@ -250,20 +253,31 @@ const NewShipmentForm = () => {
 									<span className="text-red-500"> * </span>
 								</small>
 								<div className="border flex rounded-lg mt-2 p-2">
-									<textarea
-										className="w-full outline-none"
+								<div className="text-xl text-gray-500">
+									<RiSearch2Line />
+									</div>
+									<input type="text"
+										className="w-full outline-none px-2"
 										value={address}
+										placeholder="type in shipment street address location"
 										onChange={(e) => setAddress(e.target.value)}
 										disabled={citySelected === '' || citySelected === '0'}
 										required
-									></textarea>
+									/>
 									<div className="text-xl text-gray-500">
 										<MdAddLocationAlt />
 									</div>
 								</div>
 							</div>
-							{/* <span className="mt-2">Full Address: {mapAddress}</span> */}
-							{latitude && longitude && <AddressMap geoLocation={{lng: longitude, lat:latitude}} />}
+							{latitude && longitude && (
+								<>
+									<AddressMap
+										formatted_address={formattedAddress}
+										geoLocation={{ lng: longitude, lat: latitude }}
+									/>
+									<div className=" font-extrabold text-xl text-red-500"><span className="underline">Address Found: </span>{formattedAddress}</div>
+								</>
+							)}
 							{showLoader && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />
@@ -274,12 +288,23 @@ const NewShipmentForm = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-5">
-						<button
-							type="submit"
-							className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md border border-slate-100 bg-blue-100 font-bold text-blue-900 text-md"
-						>
-							Validate Address
-						</button>
+						{formattedAddress == '' ? (
+							<button
+								disabled={showLoader}
+								type="submit"
+								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md  bg-blue-100 font-bold text-blue-900 text-md"
+							>
+								Validate Address
+							</button>
+						) : (
+							<button
+								type="button"
+								onClick={moveNext}
+								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-100 font-bold text-blue-900 text-md"
+							>
+								Next
+							</button>
+						)}
 					</div>
 				</form>
 				<ToastContainer />

@@ -113,7 +113,6 @@ const TrackShipment = () => {
 					 */}
 					<MapDirection />
 					{/* <MapLongitude address ={address1}/> */}
-					
 				</div>
 				<div className="mt-5">
 					<h3>Item List</h3>
