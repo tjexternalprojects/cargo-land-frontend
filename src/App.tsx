@@ -3,6 +3,7 @@ import { DashboardHome, ShipmentPage, History, TrackShipment } from '@/component
 import Dashboard from '@/pages/Dashboard';
 import { BusinessSignup, Login } from '@/pages/index';
 import ProtectedRoutes from '@/ProtectedRoutes';
+import UnprotectedRoutes from '@/UnprotectedRoutes';
 import { AppProvider } from '@/context';
 
 import 'slick-carousel/slick/slick.css';
@@ -22,7 +23,9 @@ function App() {
 							<Route path="/price" element={<History />} />
 						</Route>
 					</Route>
-					<Route path="/login" element={<Login />} />
+					<Route element={<UnprotectedRoutes />}>
+						<Route path="/login" element={<Login />} />
+					</Route>
 				</Routes>
 			</BrowserRouter>
 		</AppProvider>

@@ -21,7 +21,7 @@ function useLogin() {
 		localStorage.removeItem('login_token');
 		setState({
 			...state,
-			user: { loggdIn: false },
+			user: { loggdIn: null },
 		});
 		navigate('/login');
 	};

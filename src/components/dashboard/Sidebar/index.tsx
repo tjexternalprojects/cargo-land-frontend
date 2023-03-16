@@ -10,12 +10,14 @@ import {
 } from '@/assets';
 import { NavLink, useMatch } from 'react-router-dom';
 import useLogin from '@/pages/Login/useLogin';
+import useSidebar from './useSidebar';
 const sidebar = () => {
 	const dashboardMatch = useMatch('/');
 	const shipmentMatch = useMatch('/shipment');
 	const trackMatch = useMatch('/track_shipment');
 	const historyMatch = useMatch('/price');
 	const { handleLogout } = useLogin();
+	const {userInfo} = useSidebar()
 	return (
 		<div className=" bg-blue-900 fixed h-screen w-64 flex flex-col justify-between">
 			<div className="bg-white shadow-md flex items-center justify-center rounded-md p-2 m-8">
@@ -105,7 +107,7 @@ const sidebar = () => {
 						<img src={userImg} className="w-full h-full object-contain rounded-full" />
 					</div>
 					<div className="text-center">
-						<h3 className="font-bold text-md">David Adeyinka</h3>
+						<h3 className="font-bold text-md">{userInfo?.name}</h3>
 						<p className="text-gray-300 font-light text-sm">@davidadexx</p>
 					</div>
 
