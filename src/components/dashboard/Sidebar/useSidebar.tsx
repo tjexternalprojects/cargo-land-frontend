@@ -1,8 +1,8 @@
-import { useApp } from '@/context';
+
 function useSidebar(){
-	const { user } = useApp();
-    const userInfo = user.user_info ? JSON.parse(user.user_info) : null;
+  const user_info = localStorage.getItem('user_info');
+	const userInfo = user_info ? JSON.parse(user_info) : null;
     console.log(userInfo)
-    return {userInfo}
+    return { userInfo };
 }
 export default useSidebar

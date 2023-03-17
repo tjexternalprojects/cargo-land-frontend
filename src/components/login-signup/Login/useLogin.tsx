@@ -20,7 +20,7 @@ function useLogin() {
 				setShowLoading(false);
 				if (response.status == 200) {
 					localStorage.setItem('login_token', response.data.token);
-					localStorage.setItem('user_info',  JSON.stringify(response.data.user_info))
+					localStorage.setItem('user_info',  JSON.stringify (response.data.user_info))
 					setState((prevState) => ({
 						...prevState,
 						user: { loggedIn: response.data.token, user_info: response.data.user_info },
@@ -35,6 +35,7 @@ function useLogin() {
 			})
 			.catch((error) => {
 				setShowLoading(false);
+				console.log(error)
 				if (error.response.status == 401) {
 					toast.error(error.response.data.message, {
 						progressClassName: 'bg-red-500 h-1',

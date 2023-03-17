@@ -29,7 +29,14 @@ const ProtectedRoutes = () => {
 		handleNavigate();
 	}, []);
 
-	return isAuth !== null ? <Outlet /> : <Login />;
+	if (isAuth === null) {
+		return <Outlet />;
+	} else if (!isAuth) {
+		throw new Error('Access denied');
+	} else {
+		return <Outlet />;
+	}
 };
+
 
 export default ProtectedRoutes;

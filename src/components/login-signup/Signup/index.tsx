@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail } from '@/assets';
 import { motion } from 'framer-motion';
 import { slideUp } from '@/animations';
-import useLogin from '@/pages/Login/useLogin';
+import useSignUp from './useSignUp';
+import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
+
+import { IResolveParams, LoginSocialGoogle } from 'reactjs-social-login';
+import { GoogleLoginButton } from 'react-social-login-buttons';
 
 interface Props {
 	showLogin: boolean;
 }
 const signup = ({ showLogin }: Props) => {
-	const { showPassword, setShowPassword, handleSingupSubmit } = useLogin();
+	const {
+		showPassword,
+		GOOGLE_SIGNUP_CLIENT_ID,
+		setShowPassword,
+		handleSingupSubmit,
+		googleSignUpSuccess,
+		googleSignUpFailure,
+	} = useSignUp();
+	const onLoginStart = useCallback(() => {
+		alert('login start');
+	}, []);
+
+	const REDIRECT_URI = 'http://localhost:9000/login';
 
 	return (
 		<div className=" space-y-5 w-full px-10  md:ml-0 md:px-0 ">
@@ -75,14 +91,39 @@ const signup = ({ showLogin }: Props) => {
 				<span>Or</span>
 				<div className="border border-gray-300 w-full"></div>
 			</div>
-			<motion.button
+			<motion.div
 				animate={showLogin ? slideUp(0.9, 0.3) : ''}
 				className=" transition-all duration-75 ease-in-out bg-red-400 w-full text-white rounded-xl h-11 text-sm border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5 shadow-md"
-				type="submit"
 			>
-				<SiGmail />
-				<span>Signup with Gmail</span>
-			</motion.button>
+				<GoogleLogin
+					className=" bg-transparent text-white border-none shadow-none"
+					clientId={import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID}
+					buttonText="Sign up with Google"
+					onSuccess={googleSignUpSuccess}
+					onFailure={googleSignUpFailure}
+					cookiePolicy={'single_host_origin'}
+				/>
+			</motion.div>
+
+			<LoginSocialGoogle
+				client_id={import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID}
+				onLoginStart={onLoginStart}
+				redirect_uri={REDIRECT_URI}
+				scope="openid profile email"
+				discoveryDocs="claims_supported"
+				access_type="offline"
+				onResolve={({ provider, data }: IResolveParams) => {
+					console.log(provider);
+					console.log(data);
+					// setProvider(provider);
+					// setProfile(data);
+				}}
+				onReject={(err) => {
+					console.log(err);
+				}}
+			>
+				<GoogleLoginButton />
+			</LoginSocialGoogle>
 		</div>
 	);
 };

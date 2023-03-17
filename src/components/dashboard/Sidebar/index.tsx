@@ -17,7 +17,7 @@ const sidebar = () => {
 	const trackMatch = useMatch('/track_shipment');
 	const historyMatch = useMatch('/price');
 	const { handleLogout } = useLogin();
-	const {userInfo} = useSidebar()
+	const { userInfo } = useSidebar();
 	return (
 		<div className=" bg-blue-900 fixed h-screen w-64 flex flex-col justify-between">
 			<div className="bg-white shadow-md flex items-center justify-center rounded-md p-2 m-8">
@@ -104,11 +104,14 @@ const sidebar = () => {
 			<div className="text-white flex flex-col items-center p-8">
 				<div className="flex flex-col gap-3 items-center">
 					<div className="w-10 h-10 rounded-full shadow-md border border-slate-200">
-						<img src={userImg} className="w-full h-full object-contain rounded-full" />
+						<img
+							src={!userInfo?.avatar ? userImg : userInfo?.avatar}
+							className="w-full h-full object-contain rounded-full"
+						/>
 					</div>
 					<div className="text-center">
 						<h3 className="font-bold text-md">{userInfo?.name}</h3>
-						<p className="text-gray-300 font-light text-sm">@davidadexx</p>
+						<p className="text-gray-300 font-light text-sm">{userInfo?.email}</p>
 					</div>
 
 					<button></button>
