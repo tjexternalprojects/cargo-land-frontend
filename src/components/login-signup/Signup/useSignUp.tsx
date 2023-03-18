@@ -20,7 +20,7 @@ function useSignUp() {
 		function start() {
 			gapi.client.init({
 				client_id: GOOGLE_SIGNUP_CLIENT_ID,
-				scope: '',
+				scope: 'https://www.googleapis.com/auth/calendar',
 			});
 		}
 		gapi.load('client:auth2', start);
