@@ -20,7 +20,6 @@ function useTopBar() {
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, form_level: 2 },
 		}));
-		console.log(state.shipmentDetails);
 		navigation('/shipment');
 	};
 

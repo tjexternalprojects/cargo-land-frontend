@@ -8,7 +8,7 @@ interface Props {
 	data: {
 		labels: string[];
 		datasets: {
-			label: string;
+			// label: string;
 			data: number[];
 			backgroundColor: string[];
 			borderWidth: number;

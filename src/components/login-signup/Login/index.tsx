@@ -4,11 +4,22 @@ import { motion } from 'framer-motion';
 import { slideUp } from '@/animations';
 import useLogin from './useLogin';
 import RingLoader from '@/components/common/RingLoader';
+import GoogleLogin from 'react-google-login';
+
 interface Props {
 	showLogin: boolean;
 }
 const login = ({ showLogin }: Props) => {
-	const { handleLogin, setLoginData, loginData, showLoading } = useLogin();
+	const {
+		handleLogin,
+		setLoginData,
+		loginData,
+		showLoading,
+		GOOGLE_SIGNUP_CLIENT_ID,
+
+		googleSignUpSuccess,
+		googleSignUpFailure,
+	} = useLogin();
 
 	return (
 		<div className=" space-y-5 w-full px-10 md:ml-0 md:px-0">
@@ -57,14 +68,19 @@ const login = ({ showLogin }: Props) => {
 				<span>Or</span>
 				<div className="border border-gray-300 w-full"></div>
 			</div>
-			<motion.button
+			<motion.div
 				animate={showLogin ? slideUp(0.9, 0.3) : ''}
 				className=" transition-all duration-75 ease-in-out bg-red-400 w-full text-white rounded-xl h-11 text-sm border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5"
-				type="submit"
 			>
-				<SiGmail />
-				<span>Gmail</span>
-			</motion.button>
+				<GoogleLogin
+					className=" bg-transparent text-white border-none shadow-none"
+					clientId={GOOGLE_SIGNUP_CLIENT_ID}
+					buttonText="Sign up with Google"
+					onSuccess={googleSignUpSuccess}
+					onFailure={googleSignUpFailure}
+					cookiePolicy={'single_host_origin'}
+				/>
+			</motion.div>
 		</div>
 	);
 };

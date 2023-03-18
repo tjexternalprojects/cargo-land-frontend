@@ -10,6 +10,7 @@ export {
 	BiCurrentLocation,
 } from 'react-icons/bi';
 export { Si1Password, SiGmail, SiMinutemailer } from 'react-icons/si';
+export { SlGraph } from 'react-icons/SL';
 export {
 	MdOutlineSubtitles,
 	MdOutlineBusiness,
@@ -35,12 +36,12 @@ export {
 } from 'react-icons/tb';
 export { HiDocumentText } from 'react-icons/hi';
 export { ImLocation } from 'react-icons/im';
-export { BsTelephoneForward, BsCartCheck } from 'react-icons/bs';
+export { BsTelephoneForward, BsCartCheck, BsArrowUpRight, BsArrowDownRight } from 'react-icons/bs';
 export { AiOutlineNumber, AiOutlineClose, AiOutlineEdit } from 'react-icons/ai';
 export { RiPriceTag2Line, RiSearch2Line, RiUserReceivedLine } from 'react-icons/ri';
 export { CiSettings } from 'react-icons/ci';
 export { GiHamburgerMenu, GiWeight } from 'react-icons/gi';
-export { FaUserEdit } from 'react-icons/fa';
+export { FaUserEdit, FaEye, FaEyeSlash } from 'react-icons/fa';
 export { IoMdCart } from 'react-icons/io';
 
 // images

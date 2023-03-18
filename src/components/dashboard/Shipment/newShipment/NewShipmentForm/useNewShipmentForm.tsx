@@ -121,7 +121,6 @@ function useNewShipmentForm() {
 		setLongitude(null);
 		await updateMapAddress();
 		fetchLocation(mapAddress).then((data) => {
-			console.log(data);
 			setShowLoader(false);
 
 			if (data.results.length > 1) {

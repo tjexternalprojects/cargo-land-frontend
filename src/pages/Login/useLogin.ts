@@ -11,8 +11,6 @@ function useLogin() {
 	const navigate = useNavigate();
 	const [loginData, setLoginData] = useState({ email: '', password: '' });
 
-
-
 	const handleToggleBtn = (val: boolean) => {
 		setToggleLoginType(val);
 	};

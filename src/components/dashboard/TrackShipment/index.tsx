@@ -23,9 +23,9 @@ const TrackShipment = () => {
 						<small>Shipment ID</small>
 						<div className="font-bold">KH92129</div>
 					</div>
-					<button className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
+					<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
 						On transit
-					</button>
+					</label>
 				</div>
 				<hr className="my-5" />
 				<div>
@@ -107,12 +107,8 @@ const TrackShipment = () => {
 					</div>
 				</div>
 				<div className="mt-5 ">
-					{/* <AddressMap address={mapAddress} /> */}
-					{/* <OpenStreetMapDirection fromAddress={address1} toAddress={address2}/> */}
-					{/* <OpenStreetMapDirection start_address ={address1} end_address={address2}/>
-					 */}
-					<MapDirection />
-					{/* <MapLongitude address ={address1}/> */}
+					
+					<MapDirection height="80vh"/>
 				</div>
 				<div className="mt-5">
 					<h3>Item List</h3>

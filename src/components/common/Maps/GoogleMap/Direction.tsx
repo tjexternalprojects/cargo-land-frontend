@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
 	useJsApiLoader,
 	GoogleMap,
@@ -12,7 +12,11 @@ const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 const startLocation = { lng: 3.3119897, lat: 6.499183599999999 };
 const endLocation = { lng: 3.3120209, lat: 6.5049772 };
 
-function App() {
+interface MapDirectionProps{
+	height:string
+}
+
+const MapDirection: FC<MapDirectionProps> = ({height}) =>{
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 	const [directionsResponse, setDirectionsResponse] = useState<null | google.maps.DirectionsResult>(
 		null
@@ -48,12 +52,12 @@ function App() {
 		<GoogleMap
 			center={startLocation}
 			zoom={10}
-			mapContainerStyle={{ width: '100%', height: '100vh' }}
+			mapContainerStyle={{ width: '100%', height }}
 			options={{
-				zoomControl: false,
-				streetViewControl: false,
-				mapTypeControl: false,
-				fullscreenControl: false,
+				zoomControl: true,
+				streetViewControl: true,
+				mapTypeControl: true,
+				fullscreenControl: true,
 			}}
 			onLoad={(map) => setMap(map)}
 		>
@@ -66,42 +70,4 @@ function App() {
 	);
 }
 
-export default App;
-
-// import { useEffect, useState } from 'react';
-// import { useJsApiLoader, GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
-
-// const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
-
-// const startLocation = { lng: 3.3119897, lat: 6.499183599999999 };
-
-// function App() {
-// 	const [map, setMap] = useState<google.maps.Map | null>(null);
-
-// 	const { isLoaded } = useJsApiLoader({
-// 		id: 'google-map-script',
-// 		googleMapsApiKey: GOOGLE_API_KEY,
-// 		libraries: ['places'],
-// 	});
-
-// 	return isLoaded ? (
-// 		<GoogleMap
-// 			center={startLocation}
-// 			zoom={15}
-// 			mapContainerStyle={{ width: '100%', height: '100vh' }}
-// 			options={{
-// 				zoomControl: false,
-// 				streetViewControl: false,
-// 				mapTypeControl: false,
-// 				fullscreenControl: false,
-// 			}}
-// 			onLoad={(map) => setMap(map)}
-// 		>
-// 			{map && <Marker position={startLocation} />}
-// 		</GoogleMap>
-// 	) : (
-// 		<div>Loading Google Maps API...</div>
-// 	);
-// }
-
-// export default App;
+export default MapDirection;
