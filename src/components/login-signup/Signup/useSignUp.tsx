@@ -19,7 +19,7 @@ function useSignUp() {
 	useEffect(() => {
 		function start() {
 			gapi.client.init({
-				clientId: GOOGLE_SIGNUP_CLIENT_ID,
+				client_id: GOOGLE_SIGNUP_CLIENT_ID,
 				scope: '',
 			});
 		}
