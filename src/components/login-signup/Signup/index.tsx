@@ -97,14 +97,14 @@ const signup = ({ showLogin }: Props) => {
 			>
 				<GoogleLogin
 					className=" bg-transparent text-white border-none shadow-none"
-					clientId={import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID}
+					clientId={GOOGLE_SIGNUP_CLIENT_ID}
 					buttonText="Sign up with Google"
 					onSuccess={googleSignUpSuccess}
 					onFailure={googleSignUpFailure}
 					cookiePolicy={'single_host_origin'}
 				/>
 			</motion.div>
-
+{/* 
 			<LoginSocialGoogle
 				client_id={import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID}
 				onLoginStart={onLoginStart}
@@ -123,7 +123,7 @@ const signup = ({ showLogin }: Props) => {
 				}}
 			>
 				<GoogleLoginButton />
-			</LoginSocialGoogle>
+			</LoginSocialGoogle> */}
 		</div>
 	);
 };
