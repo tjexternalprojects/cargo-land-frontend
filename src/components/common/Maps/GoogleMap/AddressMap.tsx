@@ -1,5 +1,5 @@
 import { useEffect, useState, FC } from 'react';
-import { useJsApiLoader, GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
+import { useJsApiLoader, GoogleMap } from '@react-google-maps/api';
 
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 // const startLocation = { lng: 3.3119897, lat: 6.499183599999999 };
@@ -9,13 +9,17 @@ interface AddressMapProps {
 	formatted_address: string;
 }
 
+type MapLibrary = 'places' | 'drawing' | 'geometry' | 'localContext' | 'visualization';
+
+const MAP_LIBRARIES: MapLibrary[] = ['places'];
+
 const AddressMap: FC<AddressMapProps> = ({ geoLocation, formatted_address }) => {
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 	const [mapId, setMapId] = useState<string>(`map-${Math.random().toString(36).substring(2, 9)}`); // generate unique id
 	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: GOOGLE_API_KEY,
-		libraries: ['places'],
+		libraries: MAP_LIBRARIES,
 	});
 
 	useEffect(() => {

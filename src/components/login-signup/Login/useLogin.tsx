@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AppContext, AppContextType } from '@/context';
 import { useNavigate } from 'react-router-dom';
-import axios from '@/context/axios';
+import axios from '@/context/baseURL';
 import { toast } from 'react-toastify';
 const GOOGLE_SIGNUP_CLIENT_ID = import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
-
 function useLogin() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const navigate = useNavigate();
@@ -24,6 +23,7 @@ function useLogin() {
 		e.preventDefault();
 
 		setShowLoading(true);
+
 		axios
 			.post('/user/login', loginData)
 			.then((response) => {

@@ -15,11 +15,8 @@ function useTopBar() {
 		setState({
 			...state,
 			shipmentCurrentTab: 'item3',
+			form_level: 2,
 		});
-		setState((prevState) => ({
-			...prevState,
-			shipmentDetails: { ...prevState.shipmentDetails, form_level: 2 },
-		}));
 		navigation('/shipment');
 	};
 

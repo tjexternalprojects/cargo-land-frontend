@@ -5,21 +5,20 @@ function useHome() {
 		{
 			shipment_id: 'KH921B',
 			status: 'On Transit',
-            shipment_title:'Bag of Shoes',
+			shipment_title: 'Bag of Shoes',
 			startLocation: { lng: 3.3119897, lat: 6.499183599999999 },
 			endLocation: { lng: 3.3120209, lat: 6.5049772 },
-            approval_date:'20-may-2023 11:45 am',
-            delevery_date:'30-may-2023'
-
+			approval_date: '20-may-2023 11:45 am',
+			delevery_date: '30-may-2023',
 		},
 		{
 			shipment_id: 'KH921B',
 			status: 'On Transit',
-            shipment_title:'Bag of Shoes',
+			shipment_title: 'Bag of Shoes',
 			startLocation: { lng: 3.3119897, lat: 6.499183599999999 },
 			endLocation: { lng: 3.3120209, lat: 6.5049772 },
-            approval_date:'20-may-2023 11:45 am',
-            delevery_date:'30-may-2023'
+			approval_date: '20-may-2023 11:45 am',
+			delevery_date: '30-may-2023',
 		},
 	]);
 	const [curency, setCurency] = useState('\u20A6');

@@ -28,7 +28,7 @@ const Shipment = () => {
 							Package&nbsp;Details
 						</div>
 						<div>
-							{state.shipmentDetails.form_level > 0 ? (
+							{state.form_level > 0 ? (
 								<div
 									onClick={() => handleShowTab('item2', 2)}
 									className={`${
@@ -44,7 +44,7 @@ const Shipment = () => {
 							)}
 						</div>
 						<div>
-							{state.shipmentDetails.form_level > 1 ? (
+							{state.form_level > 1 ? (
 								<div
 									onClick={() => handleShowTab('item3', 3)}
 									className={`${
@@ -60,7 +60,7 @@ const Shipment = () => {
 							)}
 						</div>
 						<div>
-							{state.shipmentDetails.form_level > 2 ? (
+							{state.form_level > 2 ? (
 								<div
 									onClick={() => handleShowTab('item4', 4)}
 									className={`${

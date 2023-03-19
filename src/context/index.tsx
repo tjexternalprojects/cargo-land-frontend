@@ -2,11 +2,10 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import AuthContext from './AuthContext';
 import SettingsContext from './SettingsContext';
 import GeneralContext from './ShipmentContext';
-import { ShipmentDetails } from '@/interfaces';
 
 const { user } = AuthContext();
 const { toggleNotification, notifications, theme, toggleAdminSideBar } = SettingsContext();
-const { shipmentDetails, shipmentCurrentTab } = GeneralContext();
+const { shipmentDetails, shipmentCurrentTab, form_level } = GeneralContext();
 
 // Define the global state object
 
@@ -21,6 +20,7 @@ type AppState = {
 	toggleAdminSideBar: boolean;
 	toggleNotification: boolean;
 	shipmentCurrentTab: string;
+	form_level: number;
 };
 
 const initialState: AppState = {
@@ -31,6 +31,7 @@ const initialState: AppState = {
 	toggleAdminSideBar,
 	toggleNotification,
 	shipmentCurrentTab,
+	form_level,
 };
 
 export type AppContextType = {

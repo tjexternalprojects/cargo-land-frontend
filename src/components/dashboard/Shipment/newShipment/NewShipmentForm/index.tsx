@@ -28,6 +28,7 @@ const NewShipmentForm = () => {
 		handleImageChange,
 		removeImage,
 		moveNext,
+		handleSubmitTest,
 		formattedAddress,
 		showLoader,
 		latitude,
@@ -47,6 +48,7 @@ const NewShipmentForm = () => {
 					<GoPackage />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
+				<button onClick={handleSubmitTest}>TESSSSS</button>
 				<form className=" w-9/12 my-5" onSubmit={handleSubmitNewShipmentForm}>
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">
@@ -103,11 +105,11 @@ const NewShipmentForm = () => {
 							<input
 								className="w-full outline-none"
 								type="number"
-								value={shipmentDetails.shipment_weight as number}
+								value={shipmentDetails.shipment_weight as string}
 								onChange={(e) =>
 									setShipmentDetails({
 										...shipmentDetails,
-										shipment_weight: Number(e.target.value),
+										shipment_weight: e.target.value
 									})
 								}
 								required

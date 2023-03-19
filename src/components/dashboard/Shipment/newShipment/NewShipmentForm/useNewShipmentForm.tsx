@@ -3,7 +3,7 @@ import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
-
+import axios from 'axios'
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
@@ -20,7 +20,7 @@ function useNewShipmentForm() {
 	interface ShipmentDetails {
 		shipment_title: string;
 		shipment_description: string;
-		shipment_weight: number;
+		shipment_weight: string;
 		images: (string | ArrayBuffer | null)[];
 		current_location: Record<string, string | number>;
 	}
@@ -28,7 +28,7 @@ function useNewShipmentForm() {
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
 		shipment_title: '',
 		shipment_description: '',
-		shipment_weight: 0,
+		shipment_weight: '',
 		images: [],
 		current_location: {
 			country: '',
@@ -100,8 +100,8 @@ function useNewShipmentForm() {
 		if (
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
-			shipmentDetails.shipment_weight == 0 ||
-			shipmentDetails.images.length == 0 ||
+			shipmentDetails.shipment_weight == '' ||
+			// shipmentDetails.images.length == 0 ||
 			countryCode == '' ||
 			countryCode == '0' ||
 			stateCode == '' ||
@@ -124,7 +124,9 @@ function useNewShipmentForm() {
 			setShowLoader(false);
 
 			if (data.results.length > 1) {
-				toast.error('Multiple address match please re-check your address');
+				toast.error(
+					'Multiple address match please re-check your address, you can add local government area to be specific'
+				);
 				return;
 			}
 
@@ -149,17 +151,16 @@ function useNewShipmentForm() {
 				},
 			});
 		});
+
+		console.log(shipmentDetails);
 	};
 
 	const moveNext = () => {
 		setState({
 			...state,
 			shipmentCurrentTab: 'item2',
+			form_level: 1,
 		});
-		setState((prevState) => ({
-			...prevState,
-			shipmentDetails: { ...prevState.shipmentDetails, form_level: 1 },
-		}));
 	};
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
@@ -170,10 +171,10 @@ function useNewShipmentForm() {
 
 				reader.onloadend = () => {
 					const dataUrl = reader.result;
-					setShipmentDetails((prevDetails) => ({
-						...prevDetails,
-						images: [...(prevDetails.images as (string | ArrayBuffer)[]), dataUrl],
-					}));
+					// setShipmentDetails((prevDetails) => ({
+					// 	...prevDetails,
+					// 	images: [...(prevDetails.images as (string | ArrayBuffer)[]), dataUrl],
+					// }));
 				};
 
 				reader.readAsDataURL(file);
@@ -203,6 +204,25 @@ function useNewShipmentForm() {
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
 
+
+
+	const handleSubmitTest = ()=>{
+		console.log(state.user.loggedIn)
+			 axios
+				.post('https://server.cargolandglobal.com/shipment/create-shipment',state.shipmentDetails,{
+					headers: {
+						'Authorization': `Bearer ${state.user.loggedIn}`,
+					},
+				})
+				.then((response) => {
+					console.log(response);
+				
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+
 	return {
 		countryCode,
 		stateCode,
@@ -215,6 +235,7 @@ function useNewShipmentForm() {
 		longitude,
 		showLoader,
 		formattedAddress,
+		handleSubmitTest,
 		moveNext,
 		removeImage,
 		handleImageChange,

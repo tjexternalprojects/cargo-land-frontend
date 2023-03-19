@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
-import { v4 as uuidv4 } from 'uuid';
 import { useGeocode } from '@/components';
+import axios from '@/context/baseURL';
+// import axios from 'axios';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
 function useRecipientDetails() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -18,19 +18,18 @@ function useRecipientDetails() {
 	const [mapAddress, setMapAddress] = useState('');
 	const [latitude, setLatitude] = useState(null);
 	const [longitude, setLongitude] = useState(null);
-	const [showLoader, setShowLoader] = useState(false);
 	const [formattedAddress, setFormattedAddress] = useState('');
 	const { fetchLocation } = useGeocode();
+	const [showLoading, setShowLoading] = useState(false);
+
 
 	interface ShipmentDetails {
-		shipment_id: string;
 		recipient_full_name: string;
 		recipient_email: string;
 		shipment_destination: Record<string, string | number>;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
-		shipment_id: '',
 		recipient_full_name: '',
 		recipient_email: '',
 		shipment_destination: {
@@ -45,7 +44,7 @@ function useRecipientDetails() {
 
 	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		setShowLoader(true);
+		setShowLoading(true);
 
 		if (
 			shipmentDetails.recipient_full_name == '' ||
@@ -58,7 +57,7 @@ function useRecipientDetails() {
 			citySelected == '0' ||
 			address == ''
 		) {
-			setShowLoader(false);
+			setShowLoading(false);
 			toast.info('Please fill the important fields (*)', {
 				progressClassName: 'bg-red-500 h-1',
 				autoClose: 3000,
@@ -70,10 +69,12 @@ function useRecipientDetails() {
 		setLongitude(null);
 		await updateMapAddress();
 		fetchLocation(mapAddress).then((data) => {
-			setShowLoader(false);
+			setShowLoading(false);
 
 			if (data.results.length > 1) {
-				toast.error('Multiple address match please re-check your address');
+				toast.error(
+					'Multiple address match please re-check your address, you can add local government area to be specific'
+				);
 				return;
 			}
 			const { lat, lng } = data.results[0].geometry.location;
@@ -97,16 +98,31 @@ function useRecipientDetails() {
 		});
 	};
 
-	const moveNext = () => {
-		setState({
-			...state,
-			shipmentCurrentTab: 'item3',
-		});
-
-		setState((prevState) => ({
-			...prevState,
-			shipmentDetails: { ...prevState.shipmentDetails, shipment_id: uuidv4(), form_level: 2 },
-		}));
+	// This is use to control the active tab design
+	const moveNext = async() => {
+		setShowLoading(true);
+		console.log(state.shipmentDetails);
+		console.log(state.user.loggedIn)
+		await axios
+			.post('/shipment/create-shipment', state.shipmentDetails, {
+				headers: {
+					'Authorization': `Bearer ${state.user.loggedIn}`,
+				},
+			})
+			.then((response) => {
+				setShowLoading(false);
+				console.log(response);
+				setState({
+					...state,
+					shipmentCurrentTab: 'item3',
+					form_level: 2,
+				});
+			})
+			.catch((error) => {
+				setShowLoading(false);
+				console.log(error);
+			});
+			console.log('why')
 	};
 
 	const updateMapAddress = () => {
@@ -133,6 +149,25 @@ function useRecipientDetails() {
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
 
+
+	const handleSubmit = ()=>{
+	console.log(state.shipmentDetails)
+		 axios
+			.post('https://server.cargolandglobal.com/shipment/create-shipment',state.shipmentDetails,{
+				headers: {
+					'Authorization': `Bearer ${state.user.loggedIn}`,
+				},
+			})
+			.then((response) => {
+				setShowLoading(false);
+				console.log(response);
+			
+			})
+			.catch((error) => {
+				setShowLoading(false);
+				console.log(error);
+			});
+	}
 	return {
 		countryCode,
 		stateCode,
@@ -140,10 +175,11 @@ function useRecipientDetails() {
 		citySelected,
 		mapAddress,
 		shipmentDetails,
-		showLoader,
 		longitude,
 		latitude,
 		formattedAddress,
+		showLoading,
+		handleSubmit,
 		moveNext,
 		setShipmentDetails,
 		setCitySelected,

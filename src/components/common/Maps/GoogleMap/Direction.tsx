@@ -4,7 +4,6 @@ import {
 	GoogleMap,
 	Marker,
 	DirectionsRenderer,
-	LoadScript,
 } from '@react-google-maps/api';
 
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
@@ -12,11 +11,15 @@ const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 const startLocation = { lng: 3.3119897, lat: 6.499183599999999 };
 const endLocation = { lng: 3.3120209, lat: 6.5049772 };
 
-interface MapDirectionProps{
-	height:string
+interface MapDirectionProps {
+	height: string;
 }
 
-const MapDirection: FC<MapDirectionProps> = ({height}) =>{
+type MapLibrary = 'places' | 'drawing' | 'geometry' | 'localContext' | 'visualization';
+
+const MAP_LIBRARIES: MapLibrary[] = ['places'];
+
+const MapDirection: FC<MapDirectionProps> = ({ height }) => {
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 	const [directionsResponse, setDirectionsResponse] = useState<null | google.maps.DirectionsResult>(
 		null
@@ -25,7 +28,7 @@ const MapDirection: FC<MapDirectionProps> = ({height}) =>{
 	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: GOOGLE_API_KEY,
-		libraries: ['places'],
+		libraries: MAP_LIBRARIES,
 	});
 
 	async function calculateRoute() {
@@ -68,6 +71,6 @@ const MapDirection: FC<MapDirectionProps> = ({height}) =>{
 	) : (
 		<div>Loading Google Maps API...</div>
 	);
-}
+};
 
 export default MapDirection;

@@ -52,7 +52,7 @@ const RecipientDetails = () => {
 											className=" border-b hover:bg-slate-300 cursor-pointer"
 											onClick={handleShowModal}
 										>
-											<td className="p-3">{val.shipment_id}</td>
+											<td className="p-3">KH921B</td>
 											<td className="p-3 w-1/4">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
 											<td className="p-3 w-1/4">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
 											<td className="p-3">#50,000</td>
