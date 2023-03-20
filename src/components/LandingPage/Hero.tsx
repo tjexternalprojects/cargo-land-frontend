@@ -66,3 +66,4 @@ export default function BasicSlider() {
 		</HeroSlider>
 	);
 }
+// https://github.com/cruip/tailwind-landing-page-template
