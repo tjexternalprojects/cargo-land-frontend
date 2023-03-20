@@ -2,7 +2,7 @@ import { NewShipmentForm, Payment, RecipientDetails, ShipmentSummary } from '@/c
 import { Link } from 'react-scroll';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { fadeSlide } from '@/animations';
+import { fadeSlide } from '@/utils/animations';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 
 const Shipment = () => {

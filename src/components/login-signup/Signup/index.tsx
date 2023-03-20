@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail } from '@/assets';
 import { motion } from 'framer-motion';
-import { slideUp } from '@/animations';
+import { slideUp } from '@/utils/animations';
 import useSignUp from './useSignUp';
 import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';

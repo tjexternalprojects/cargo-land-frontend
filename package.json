@@ -45,6 +45,7 @@
 		"gapi-script": "^1.2.0",
 		"google-map-react": "^2.2.0",
 		"google-maps": "^4.3.3",
+		"hero-slider": "^3.1.0",
 		"leaflet": "^1.9.3",
 		"leaflet-geosearch": "^3.7.0",
 		"leaflet-routing-machine": "^3.2.12",
@@ -71,6 +72,7 @@
 		"react-social-login-buttons": "^3.6.1",
 		"react-swipe": "^6.0.4",
 		"react-toastify": "^9.1.1",
+		"react-transition-group": "^4.4.5",
 		"reactjs-social-login": "^2.6.2",
 		"slick-carousel": "^1.8.1"
 	},
@@ -84,6 +86,7 @@
 		"@types/react-scroll": "^1.8.6",
 		"@types/react-slick": "^0.23.10",
 		"@types/react-swipe": "^6.0.2",
+		"@types/react-transition-group": "^4.4.5",
 		"@types/uuid": "^9.0.1",
 		"@typescript-eslint/eslint-plugin": "^5.50.0",
 		"@typescript-eslint/parser": "^5.50.0",

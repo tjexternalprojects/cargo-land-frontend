@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BiMenuAltRight, logo } from '../../../assets';
 import { motion } from 'framer-motion';
-import { scaleBg, reduceScaleBg, fadeIn } from '../../../animations';
+import { scaleBg, reduceScaleBg, fadeIn } from '../../../utils/animations';
 import { LoginComponent, SingupComponent } from '../..';
 import ReactSwipe from 'react-swipe';
 import useLogin from '@/pages/Login/useLogin';

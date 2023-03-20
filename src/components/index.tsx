@@ -31,3 +31,6 @@ export { default as NewShipmentForm } from './dashboard/Shipment/newShipment/New
 export { default as RecipientDetails } from './dashboard/Shipment/newShipment/RecipientDetails';
 export { default as ShipmentSummary } from './dashboard/Shipment/newShipment/ShipmentSummary';
 export { default as Payment } from './dashboard/Shipment/newShipment/Payment';
+
+// Landing Page
+export { default as Hero } from './LandingPage/Hero'

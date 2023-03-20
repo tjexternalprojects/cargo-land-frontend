@@ -54,3 +54,8 @@ export { default as cargoBG } from './images/cargoBG.jpg';
 
 // Shipment Images
 export { default as package1 } from './images/shipment/package1.jpg';
+
+// Landing Page
+export { default as dottedImage } from './images/landingPage/dotted.png'
+export { default as heroImage} from './images/landingPage/hero-image.png' 
+export { default as CircleBg} from './images/landingPage/circleBg'

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BiUserPin, Si1Password, SiGmail } from '@/assets';
 import { motion } from 'framer-motion';
-import { slideUp } from '@/animations';
+import { slideUp } from '@/utils/animations';
 import useLogin from './useLogin';
 import RingLoader from '@/components/common/RingLoader';
 import GoogleLogin from 'react-google-login';
