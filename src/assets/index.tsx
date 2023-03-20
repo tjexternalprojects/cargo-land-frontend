@@ -59,3 +59,6 @@ export { default as package1 } from './images/shipment/package1.jpg';
 export { default as dottedImage } from './images/landingPage/dotted.png'
 export { default as heroImage} from './images/landingPage/hero-image.png' 
 export { default as CircleBg} from './images/landingPage/circleBg'
+export { default as GoodsImg} from  './images/landingPage/goods.jpg'
+export { default as Background7} from  './images/landingPage/Background7.jpeg'
+export { default as Background2} from  './images/landingPage/Background2.jpeg'

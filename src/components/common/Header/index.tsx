@@ -13,8 +13,7 @@ const Header = () => {
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
 	return (
-		<div className=" text-xl z-20  md:pt-3 md:h-16 box-border w-full fixed ">
-			<div className="flex items-center justify-between w-full px-5 md:px-10 pt-4 md:pt-0    md:w-auto z-10 ">
+		<div className=" text-xl z-20  box-border w-full backdrop-blur-lg bg-white pb-3 flex justify-between items-center px-10 pt-4  fixed ">
 				<Link to="/">
 					{' '}
 					<img src={logo} className=" w-32" alt="" />
@@ -44,9 +43,11 @@ const Header = () => {
 					animate={isOpen ? scaleBg('55%') : ''}
 					className={`flex flex-col justify-center items-center  px-48 md:px-24 ${
 						isOpen
-							? 'shadow-xl shadow-blue-100 z-10 overflow-hidden   backdrop-blur-lg  absolute right-0 top-0 rounded-b-full rounded-l-full'
+							? 'z-10 overflow-hidden bg-white  backdrop-blur-lg  absolute right-0 top-0 h-screen'
 							: ' hidden'
 					}`}
+
+					// rounded-b-full rounded-l-full
 				>
 					<motion.div
 						animate={isOpen ? fadeIn : ''}
@@ -97,7 +98,6 @@ const Header = () => {
 					</div>
 				</motion.div>
 			</div>
-		</div>
 	);
 };
 
