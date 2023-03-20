@@ -1,7 +1,7 @@
 import HeroSlider, { Overlay, Slide, MenuNav } from 'hero-slider';
-import Wrapper from './components/Wrapper';
-import Title from './components/Title';
-import Subtitle from './components/Subtitle';
+import Wrapper from '@/components/Wrapper';
+import Title from '@/components/Title';
+import Subtitle from '@/components/Subtitle';
 
 const bogliasco = 'https://i.imgur.com/Gu5Cznz.jpg';
 const countyClare = 'https://i.imgur.com/idjXzVQ.jpg';
