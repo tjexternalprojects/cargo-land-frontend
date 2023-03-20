@@ -26,7 +26,6 @@ const RecipientDetails = () => {
 		latitude,
 		formattedAddress,
 		showLoading,
-		handleSubmit,
 		moveNext,
 		setShipmentDetails,
 		setCitySelected,
@@ -37,7 +36,6 @@ const RecipientDetails = () => {
 	} = useRecipientDetails();
 	return (
 		<>
-				{/* <button onClick={handleSubmit} className='mt-96'>SUBMITTTTT</button> */}
 				<div className="inline-flex flex-col items-center w-full">
                 <div className="bg-blue-900 rounded-full text-white text-3xl p-2">
                     <RiUserReceivedLine />

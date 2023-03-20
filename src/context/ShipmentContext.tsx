@@ -11,6 +11,7 @@ function GeneralContext() {
 			state: '',
 			city: '',
 			address: '',
+			formattedAddress:'',
 			longitude: 0,
 			latitude: 0,
 		},

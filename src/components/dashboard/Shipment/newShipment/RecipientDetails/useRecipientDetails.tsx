@@ -90,9 +90,9 @@ function useRecipientDetails() {
 					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
 					city: citySelected,
 					address: address,
-					formattedAddress: formattedAddress,
-					longitude: longitude as unknown as number,
-					latitude: latitude as unknown as number,
+					formattedAddress: data.results[0].formatted_address,
+					longitude: lng,
+					latitude: lat,
 				},
 			});
 		});
@@ -150,24 +150,6 @@ function useRecipientDetails() {
 	}, [address, citySelected, stateCode, countryCode]);
 
 
-	const handleSubmit = ()=>{
-	console.log(state.shipmentDetails)
-		 axios
-			.post('https://server.cargolandglobal.com/shipment/create-shipment',state.shipmentDetails,{
-				headers: {
-					'Authorization': `Bearer ${state.user.loggedIn}`,
-				},
-			})
-			.then((response) => {
-				setShowLoading(false);
-				console.log(response);
-			
-			})
-			.catch((error) => {
-				setShowLoading(false);
-				console.log(error);
-			});
-	}
 	return {
 		countryCode,
 		stateCode,
@@ -179,7 +161,6 @@ function useRecipientDetails() {
 		latitude,
 		formattedAddress,
 		showLoading,
-		handleSubmit,
 		moveNext,
 		setShipmentDetails,
 		setCitySelected,

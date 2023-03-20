@@ -3,7 +3,6 @@ import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
-import axios from 'axios'
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
@@ -16,12 +15,12 @@ function useNewShipmentForm() {
 	const [showLoader, setShowLoader] = useState(false);
 	const [formattedAddress, setFormattedAddress] = useState('');
 	const { fetchLocation } = useGeocode();
-
+	const [previewImage, setPreviewImage] = useState<(string | ArrayBuffer | null | File)[]>([]);
 	interface ShipmentDetails {
 		shipment_title: string;
 		shipment_description: string;
 		shipment_weight: string;
-		images: (string | ArrayBuffer | null)[];
+		images: (string | ArrayBuffer | null | File)[];
 		current_location: Record<string, string | number>;
 	}
 
@@ -47,32 +46,6 @@ function useNewShipmentForm() {
 		slidesToShow: 4,
 		slidesToScroll: 1,
 		initialSlide: 0,
-		// responsive: [
-		// 	{
-		// 		breakpoint: 1024,
-		// 		settings: {
-		// 			slidesToShow: 3,
-		// 			slidesToScroll: 3,
-		// 			infinite: true,
-		// 			dots: true,
-		// 		},
-		// 	},
-		// 	{
-		// 		breakpoint: 600,
-		// 		settings: {
-		// 			slidesToShow: 2,
-		// 			slidesToScroll: 2,
-		// 			initialSlide: 2,
-		// 		},
-		// 	},
-		// 	{
-		// 		breakpoint: 480,
-		// 		settings: {
-		// 			slidesToShow: 1,
-		// 			slidesToScroll: 1,
-		// 		},
-		// 	},
-		// ],
 	};
 
 	const removeImage = (indexToRemove: number) => {
@@ -96,7 +69,7 @@ function useNewShipmentForm() {
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
-
+		console.log(shipmentDetails)
 		if (
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
@@ -122,7 +95,6 @@ function useNewShipmentForm() {
 		await updateMapAddress();
 		fetchLocation(mapAddress).then((data) => {
 			setShowLoader(false);
-
 			if (data.results.length > 1) {
 				toast.error(
 					'Multiple address match please re-check your address, you can add local government area to be specific'
@@ -132,11 +104,11 @@ function useNewShipmentForm() {
 
 			const { lat, lng } = data.results[0].geometry.location;
 
-			// if(state.shipmentDetails.shipment_destination.longitude  )
-
+			
 			setLatitude(lat);
 			setLongitude(lng);
 			setFormattedAddress(data.results[0].formatted_address);
+
 			setShipmentDetails({
 				...shipmentDetails,
 				current_location: {
@@ -145,14 +117,14 @@ function useNewShipmentForm() {
 					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
 					city: citySelected,
 					address: address,
-					formattedAddress: formattedAddress,
-					longitude: longitude as unknown as number,
-					latitude: latitude as unknown as number,
+					formattedAddress: data.results[0].formatted_address,
+					longitude: lng,
+					latitude: lat,
 				},
 			});
+
 		});
 
-		console.log(shipmentDetails);
 	};
 
 	const moveNext = () => {
@@ -162,21 +134,22 @@ function useNewShipmentForm() {
 			form_level: 1,
 		});
 	};
-	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
 		if (files && files.length > 0) {
 			const file = files[0];
 			if (file.type.startsWith('image/')) {
 				const reader = new FileReader();
-
 				reader.onloadend = () => {
 					const dataUrl = reader.result;
-					// setShipmentDetails((prevDetails) => ({
-					// 	...prevDetails,
-					// 	images: [...(prevDetails.images as (string | ArrayBuffer)[]), dataUrl],
-					// }));
+					setShipmentDetails((prevDetails) => ({
+						...prevDetails,
+						images: [...prevDetails.images, file],
+					}));
+					setPreviewImage((prevImages) => [...prevImages, dataUrl]);
 				};
-
 				reader.readAsDataURL(file);
 			} else {
 				toast.info('Please select an image file', {
@@ -204,25 +177,6 @@ function useNewShipmentForm() {
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
 
-
-
-	const handleSubmitTest = ()=>{
-		console.log(state.user.loggedIn)
-			 axios
-				.post('https://server.cargolandglobal.com/shipment/create-shipment',state.shipmentDetails,{
-					headers: {
-						'Authorization': `Bearer ${state.user.loggedIn}`,
-					},
-				})
-				.then((response) => {
-					console.log(response);
-				
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
-
 	return {
 		countryCode,
 		stateCode,
@@ -235,7 +189,7 @@ function useNewShipmentForm() {
 		longitude,
 		showLoader,
 		formattedAddress,
-		handleSubmitTest,
+		previewImage,
 		moveNext,
 		removeImage,
 		handleImageChange,

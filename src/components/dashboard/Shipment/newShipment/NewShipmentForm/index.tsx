@@ -28,7 +28,7 @@ const NewShipmentForm = () => {
 		handleImageChange,
 		removeImage,
 		moveNext,
-		handleSubmitTest,
+		previewImage,
 		formattedAddress,
 		showLoader,
 		latitude,
@@ -48,7 +48,6 @@ const NewShipmentForm = () => {
 					<GoPackage />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
-				<button onClick={handleSubmitTest}>TESSSSS</button>
 				<form className=" w-9/12 my-5" onSubmit={handleSubmitNewShipmentForm}>
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">
@@ -109,7 +108,7 @@ const NewShipmentForm = () => {
 								onChange={(e) =>
 									setShipmentDetails({
 										...shipmentDetails,
-										shipment_weight: e.target.value
+										shipment_weight: e.target.value,
 									})
 								}
 								required
@@ -126,7 +125,7 @@ const NewShipmentForm = () => {
 							<span className="text-red-500"> * </span>
 						</label>
 						<Slider {...image_slider_settings}>
-							{shipmentDetails.images.map((image, index) => (
+							{previewImage.map((image, index) => (
 								<div
 									key={index}
 									className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
