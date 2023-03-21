@@ -19,8 +19,8 @@ const Header = () => {
 					<img src={logo} className=" w-32" alt="" />
 				</Link>
 				<div className="z-20 hidden md:block">
-					<ul className="flex gap-5  text-red-400 border-b border-b-red-100">
-						<li>Price List</li>
+					<ul className="flex gap-5  text-red-400">
+						<li className="cursor-pointer">Price List</li>
 						<li>Contact Us</li>
 						<li>About Us</li>
 					</ul>

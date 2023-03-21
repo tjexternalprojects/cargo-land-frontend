@@ -109,7 +109,6 @@ export default function BasicSlider() {
   />
 
   <SideNav />
-      <MenuNav />
     </HeroSlider>
   );
 }
