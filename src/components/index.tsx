@@ -33,4 +33,5 @@ export { default as ShipmentSummary } from './dashboard/Shipment/newShipment/Shi
 export { default as Payment } from './dashboard/Shipment/newShipment/Payment';
 
 // Landing Page
-export { default as Hero } from './LandingPage'
+export { default as Hero } from './LandingPage/Hero'
+export { default as Services} from './LandingPage/Services'

@@ -15,20 +15,19 @@ const Header = () => {
 	return (
 		<div className=" text-xl z-20  box-border w-full backdrop-blur-lg bg-white pb-3 flex justify-between items-center px-10 pt-4  fixed ">
 				<Link to="/">
-					{' '}
 					<img src={logo} className=" w-32" alt="" />
 				</Link>
 				<div className="z-20 hidden md:block">
-					<ul className="flex gap-5  text-red-400">
+					<ul className="flex gap-5 text-md  text-red-400">
 						<li className="cursor-pointer">Price List</li>
-						<li>Contact Us</li>
-						<li>About Us</li>
+						<li className='cursor-pointer'>Contact Us</li>
+						<li className='cursor-pointer'>About Us</li>
 					</ul>
 				</div>
 				<div className="z-20 ">
 					<button
 						onClick={() => setIsOpen(!isOpen)}
-						className={`flex items-center text-sm md:text-md  text-red-400 rounded-md px-4  md:px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100  
+						className={`flex items-center text-md md:text-md  text-red-400 rounded-md px-4  md:px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100  
 					`}
 					>
 						Sign&nbsp;in
