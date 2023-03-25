@@ -1,12 +1,11 @@
-import { BiMenuAltRight, dottedImage, MapImg, TitleLine } from '@/assets';
-
-import { useEffect } from 'react';
+import { MapImg, TitleLine } from '@/assets';
+import useLandingPage from '@/pages/LandingPage/useLandingPage';
 
 const Services = () => {
-
+const {handleGetStarted}= useLandingPage()
 	return (
 		<div className=" flex items-center">
-			<div className="px-10  md:px-20 lg:px-44 flex flex-wrap md:flex-nowrap items-center py-20  gap-20">
+			<div className="px-10  md:px-20 lg:px-44 flex flex-col xl:flex-row items-center py-20  gap-20">
 				<div className="space-y-5 flex-grow">
 					<div className="flex items-center space-x-2">
 						<div className="w-10 h-1 bg-blue-900"></div>{' '}
@@ -39,23 +38,23 @@ const Services = () => {
 						</p>
 					</div>
 
-					<button className="flex items-center  bg-blue-900 border  text-white rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 ">
+					<button onClick={handleGetStarted} className="flex items-center  bg-blue-900 border  text-white rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 ">
 						Get Started
 					</button>
 				</div>
 
 				<div className="flex-grow flex gap-10">
 					<div
-						className=" border h-80   w-4/12  rounded-3xl"
-						// data-aos="fade-up"
-						// data-aos-delay="200"
-						// data-aos-duration="1000"
+						className="  h-80 md:w-44  rounded-3xl"
+						data-aos="fade-up"
+						data-aos-delay="200"
+						data-aos-duration="1000"
 					>
 						<img className=" object-cover w-full h-full object-center rounded-full" src={MapImg} />
 					</div>
 
 					<div
-						className=" border h-80 w-44 rounded-full"
+						className=" border h-80 md:w-44 rounded-full"
 				
 					>
 						<img

@@ -9,8 +9,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
 	let reactSwipeEl: any;
-	const [isOpen, setIsOpen] = useState(false);
-	const { toggleLoginType, handleToggleBtn } = useLogin();
+	const { toggleLoginType, state, toggleShowLoin,  handleToggleBtn } = useLogin();
 //  md:px-20 lg:px-44
 	return (
 		<div className="text-xl z-20 box-border w-full backdrop-blur-lg bg-white pb-3 flex justify-between items-center  pt-4 px-10 md:px-20 lg:px-44  fixed ">
@@ -19,20 +18,21 @@ const Header = () => {
 			</a>
 			<div className="z-20 hidden md:block">
 				<ul className="flex gap-5 text-md  text-red-400">
+				<li className="cursor-pointer">
+						<a href="#AboutUs">About Us</a>
+					</li>
 					<li className="cursor-pointer">
-						<a href="#PriceList">Price List</a>
+						<a href="#Direction">Direction</a>
 					</li>
 					<li className="cursor-pointer">
 						<a href="#Contact">Contact Us</a>
 					</li>
-					<li className="cursor-pointer">
-						<a href="#AboutUs">About Us</a>
-					</li>
+
 				</ul>
 			</div>
 			<div className="z-20 ">
 				<button
-					onClick={() => setIsOpen(!isOpen)}
+					onClick={toggleShowLoin}
 					className={`flex items-center text-md md:text-md  text-red-400 rounded-md px-4  md:px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100  
 					`}
 				>
@@ -41,9 +41,9 @@ const Header = () => {
 				</button>
 			</div>
 			<motion.div
-				animate={isOpen ? scaleBg('55%') : ''}
-				className={`flex flex-col justify-center items-center rounded-b-full rounded-l-full  px-48 md:px-24 ${
-					isOpen
+				animate={state.openSignUpMenu ? scaleBg('55%') : ''}
+				className={`flex flex-col justify-center items-center rounded-b-full rounded-l-full  px-40  md:px-24 ${
+					state.openSignUpMenu
 						? 'z-10 overflow-hidden bg-white  backdrop-blur-lg  absolute right-0 top-0 h-screen'
 						: ' hidden'
 				}`}
@@ -51,8 +51,8 @@ const Header = () => {
 				// rounded-b-full rounded-l-full
 			>
 				<motion.div
-					animate={isOpen ? fadeIn : ''}
-					className="md:w-full mt-16 md:px-28 flex mb-8 text-gray-500 "
+					animate={state.openSignUpMenu ? fadeIn : ''}
+					className="md:w-full mt-16 md:px-28 flex mb-8 b text-gray-500"
 				>
 					<button
 						onClick={() => {
@@ -78,25 +78,33 @@ const Header = () => {
 					</button>
 				</motion.div>
 
-				{isOpen && (
+				{state.openSignUpMenu && (
 					<ReactSwipe
 						className="carousel w-96 m-0"
 						swipeOptions={{ continuous: false }}
 						ref={(el) => (reactSwipeEl = el)}
 					>
 						<div className="w-full flex justify-center md:block">
-							<LoginComponent showLogin={isOpen} />
+							<LoginComponent showLogin={state.openSignUpMenu} />
 						</div>
 						<div className="w-full flex justify-center md:block">
-							<SingupComponent showLogin={isOpen} />
+							<SingupComponent showLogin={state.openSignUpMenu} />
 						</div>
 					</ReactSwipe>
 				)}
-				<div className="md:hidden flex flex-col items-center uppercase  gap-1   text-sm   text-red-400 ">
-					<div>Price&nbsp;List</div>
-					<div>Contact&nbsp;Us</div>
-					<div>About&nbsp;Us</div>
-				</div>
+						<ul className="md:hidden flex flex-col items-center uppercase  gap-1   text-sm   text-red-400 ">
+				<li className="cursor-pointer">
+						<a href="#AboutUs">About Us</a>
+					</li>
+					<li className="cursor-pointer">
+						<a href="#Direction">Direction</a>
+					</li>
+					<li className="cursor-pointer">
+						<a href="#Contact">Contact&nbsp;Us</a>
+					</li>
+
+				</ul>
+				
 			</motion.div>
 		</div>
 	);

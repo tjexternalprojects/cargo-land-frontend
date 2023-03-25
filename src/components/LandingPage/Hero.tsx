@@ -15,21 +15,21 @@ const slides = [
 		backgroundImageSrc: cargoBG,
 		title: 'Cargo Land – Your Gateway to Seamless Shipping',
 		subtitle:
-			'Our cargo land services are designed to provide you with a seamless shipping experience.  We offer a range of cargo land services, including transportation, storage, and handling, to ensure that your goods reach their destination safely and efficiently.',
+			'Our cargo land services are designed to provide you with a seamless shipping experience.  ',
 	},
 	{
 		label: 'Exports',
 		backgroundImageSrc: Background7,
 		title: 'Export Services – Taking Your Business to New Heights',
 		subtitle:
-			'If you are looking to expand your business overseas, our export services can help you achieve your goals. Our team of experts will work with you to develop a customized export plan that meets your specific needs.',
+			'If you are looking to expand your business overseas, our export services can help you achieve your goals. ',
 	},
 	{
 		label: 'Import',
 		backgroundImageSrc: Background2,
 		title: 'Import Services – Bringing the World to Your Doorstep',
 		subtitle:
-			'Our import services are designed to bring the world to your doorstep. We offer a comprehensive range of import services, including transportation, customs clearance, and warehousing, to ensure that your goods are delivered safely and efficiently.',
+			'Our import services are designed to bring the world to your doorstep.',
 	},
 ];
 
@@ -70,14 +70,15 @@ export default function BasicSlider() {
 								shouldLazyLoad: true,
 							}}
 						>
-							<div className="flex flex-col justify-center items-center h-full p-0 sm:p-20 text-center">
+							<div className=" h-full p-0 sm:p-20 text-center">
 								<motion.div
-									className="h-screen flex items-end w-full md:justify-center justify-end flex-col"
+									className="h-screen inline-flex w-full lg:justify-end items-end lg:items-center border pb-20"
 									initial={{ opacity: 0, x: -50 }}
 									animate={{ opacity: 1, x: 0 }}
 									transition={{ type: 'spring', duration: 0.5 }}
 								>
-									<div className=" w-full md:w-1/3 md:mr-20 md:mb-0 mb-5 px-10 md:mx-0">
+									 {/* w-full md:w-1/3 md:mr-20 md:mb-0 mb-5 px-10 md:mx-0 */}
+									<div className=" px-20 lg:w-1/2">
 										<h1 className="text-white text-uppercase text-left text-2xl font-bold">
 											{slide.title}
 										</h1>

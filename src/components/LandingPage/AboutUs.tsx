@@ -3,7 +3,7 @@ import React from 'react';
 
 const AboutUs = () => {
 	return (
-		<div className="flex px-44 py-40" id="AboutUs">
+		<div className="flex px-10 md:px-20 lg:px-44 py-40" id="AboutUs">
 			<div className="relative">
 				<div
 					className="absolute w-96 h-96 top-0 -z-10 rounded-full bg-slate-100"

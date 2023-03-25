@@ -15,6 +15,19 @@ function useLogin() {
 		setToggleLoginType(val);
 	};
 
+	const toggleShowLoin = () =>{
+		setState({
+			...state,
+			openSignUpMenu: !state.openSignUpMenu,
+		});
+	}
+	const showLogin = () =>{
+		setState({
+			...state,
+			openSignUpMenu: true,
+		});
+	}
+	
 	const handleLogout = () => {
 		confirmAlert({
 			title: 'Logout?',
@@ -45,6 +58,9 @@ function useLogin() {
 
 	return {
 		toggleLoginType,
+		state,
+		showLogin,
+		toggleShowLoin,
 		setLoginData,
 		setToggleLoginType,
 		handleToggleBtn,

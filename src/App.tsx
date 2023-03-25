@@ -12,9 +12,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 function App() {
-	useEffect(() => {
-		AOS.init();
-	}, []);
+		useEffect(() => {
+			AOS.init();
+		}, []);
 	return (
 		<AppProvider>
 			<BrowserRouter>
@@ -25,10 +25,9 @@ function App() {
 							<Route path="/dashboard/shipment" element={<ShipmentPage />} />
 							<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 							<Route path="/dashboard/price" element={<History />} />
-						</Route>
+						</Route>	
 					</Route>
 					<Route element={<UnprotectedRoutes />}>
-						<Route path="/login" element={<Login />} />
 						<Route path="/" element={<LandingPage />} />
 						<Route path="/business" element={<BusinessSignup />} />
 					</Route>
