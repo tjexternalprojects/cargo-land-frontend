@@ -1,10 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import {
-	useJsApiLoader,
-	GoogleMap,
-	Marker,
-	DirectionsRenderer,
-} from '@react-google-maps/api';
+import { useJsApiLoader, GoogleMap, Marker, DirectionsRenderer } from '@react-google-maps/api';
 
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 

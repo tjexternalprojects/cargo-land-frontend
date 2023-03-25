@@ -5,17 +5,16 @@ import { BusinessSignup, LandingPage, Login } from '@/pages/index';
 import ProtectedRoutes from '@/ProtectedRoutes';
 import UnprotectedRoutes from '@/UnprotectedRoutes';
 import { AppProvider } from '@/context';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
 function App() {
-		useEffect(() => {
-			AOS.init();
-		}, []);
+	useEffect(() => {
+		AOS.init();
+	}, []);
 	return (
 		<AppProvider>
 			<BrowserRouter>
@@ -31,7 +30,7 @@ function App() {
 					<Route element={<UnprotectedRoutes />}>
 						<Route path="/login" element={<Login />} />
 						<Route path="/" element={<LandingPage />} />
-						<Route path="/business" element={<BusinessSignup/>}/> 
+						<Route path="/business" element={<BusinessSignup />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

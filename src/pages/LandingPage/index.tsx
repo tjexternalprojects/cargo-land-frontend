@@ -1,5 +1,5 @@
 import { dottedImage } from '@/assets';
-import { Header, Hero, Services } from '@/components';
+import { AboutUs, Business, Contact, Header, Hero, GetStarted, Services } from '@/components';
 import Footer from '@/components/common/Footer';
 import React from 'react';
 
@@ -10,6 +10,10 @@ const LandingPage = () => {
 			<Header />
 			<Hero />
 			<Services />
+			<Business />
+			<AboutUs />
+			<GetStarted />
+			<Contact />
 			<Footer />
 		</div>
 	);

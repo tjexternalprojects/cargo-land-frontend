@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { cargoBG } from '@/assets';
-import { Header } from '@/components';
+import { Header, Services } from '@/components';
 import useLogin from '@/pages/Login/useLogin';
 import ReactSwipe from 'react-swipe';
 import { ToastContainer } from 'react-toastify';
@@ -13,6 +13,7 @@ const Login = () => {
 		<>
 			<Header />
 			<ToastContainer />
+			<Services />
 
 			<div
 				className={`relative h-screen bg-cover bg-center`}

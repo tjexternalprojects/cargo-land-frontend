@@ -8,7 +8,6 @@ import axios from '@/context/baseURL';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-
 function useRecipientDetails() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
@@ -21,7 +20,6 @@ function useRecipientDetails() {
 	const [formattedAddress, setFormattedAddress] = useState('');
 	const { fetchLocation } = useGeocode();
 	const [showLoading, setShowLoading] = useState(false);
-
 
 	interface ShipmentDetails {
 		recipient_full_name: string;
@@ -99,14 +97,14 @@ function useRecipientDetails() {
 	};
 
 	// This is use to control the active tab design
-	const moveNext = async() => {
+	const moveNext = async () => {
 		setShowLoading(true);
 		console.log(state.shipmentDetails);
-		console.log(state.user.loggedIn)
+		console.log(state.user.loggedIn);
 		await axios
 			.post('/shipment/create-shipment', state.shipmentDetails, {
 				headers: {
-					'Authorization': `Bearer ${state.user.loggedIn}`,
+					Authorization: `Bearer ${state.user.loggedIn}`,
 				},
 			})
 			.then((response) => {
@@ -122,7 +120,7 @@ function useRecipientDetails() {
 				setShowLoading(false);
 				console.log(error);
 			});
-			console.log('why')
+		console.log('why');
 	};
 
 	const updateMapAddress = () => {
@@ -148,7 +146,6 @@ function useRecipientDetails() {
 	useEffect(() => {
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
-
 
 	return {
 		countryCode,

@@ -1,5 +1,5 @@
-function useLandingPage(){
-    return{}
+function useLandingPage() {
+	return {};
 }
 
-export default useLandingPage
+export default useLandingPage;

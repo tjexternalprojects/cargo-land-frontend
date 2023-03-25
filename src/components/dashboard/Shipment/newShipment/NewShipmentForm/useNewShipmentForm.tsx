@@ -69,7 +69,7 @@ function useNewShipmentForm() {
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
-		console.log(shipmentDetails)
+		console.log(shipmentDetails);
 		if (
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
@@ -104,7 +104,6 @@ function useNewShipmentForm() {
 
 			const { lat, lng } = data.results[0].geometry.location;
 
-			
 			setLatitude(lat);
 			setLongitude(lng);
 			setFormattedAddress(data.results[0].formatted_address);
@@ -122,9 +121,7 @@ function useNewShipmentForm() {
 					latitude: lat,
 				},
 			});
-
 		});
-
 	};
 
 	const moveNext = () => {
@@ -135,8 +132,7 @@ function useNewShipmentForm() {
 		});
 	};
 
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
 		if (files && files.length > 0) {
 			const file = files[0];
