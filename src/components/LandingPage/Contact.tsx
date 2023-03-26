@@ -6,7 +6,7 @@ const Contact = () => {
 			className=" my-24  bg-cover bg-center  bg-no-repeat bg-fixed"
 			style={{ backgroundImage: `url(${Background})` }}
 		>
-			<div className="relative bg-gradient-to-b  from-white via-white/10 to-white px-44 py-10">
+			<div className="relative bg-gradient-to-b  from-white via-white/10 to-white px-10 md:px-20  lg:px-44 py-10">
 				<div>
 					<div
 						className="absolute right-0 w-10 h-10 rounded-full bg-red-400"

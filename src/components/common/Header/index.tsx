@@ -18,7 +18,7 @@ const Header = () => {
 			</a>
 			<div className="z-20 hidden md:block">
 				<ul className="flex gap-5 text-md  text-red-400">
-				<li className="cursor-pointer">
+					<li className="cursor-pointer">
 						<a href="#AboutUs">About Us</a>
 					</li>
 					<li className="cursor-pointer">
@@ -27,16 +27,14 @@ const Header = () => {
 					<li className="cursor-pointer">
 						<a href="#Contact">Contact Us</a>
 					</li>
-
 				</ul>
 			</div>
-			<div className="z-20 ">
+			<div className="z-20  ">
 				<button
 					onClick={toggleShowLoin}
-					className={`flex items-center text-md md:text-md  text-red-400 rounded-md px-4  md:px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100  
-					`}
+					className="flex   items-center text-md md:text-md  text-red-400 rounded-md p-2 hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100"
 				>
-					Sign&nbsp;in
+					<span>Sign&nbsp;in</span>
 					<BiMenuAltRight className=" md:hidden text-3xl" />
 				</button>
 			</div>
@@ -92,8 +90,8 @@ const Header = () => {
 						</div>
 					</ReactSwipe>
 				)}
-						<ul className="md:hidden flex flex-col items-center uppercase  gap-1   text-sm   text-red-400 ">
-				<li className="cursor-pointer">
+				<ul className="md:hidden flex flex-col items-center uppercase  gap-1   text-sm   text-red-400 ">
+					<li className="cursor-pointer">
 						<a href="#AboutUs">About Us</a>
 					</li>
 					<li className="cursor-pointer">
@@ -102,9 +100,7 @@ const Header = () => {
 					<li className="cursor-pointer">
 						<a href="#Contact">Contact&nbsp;Us</a>
 					</li>
-
 				</ul>
-				
 			</motion.div>
 		</div>
 	);

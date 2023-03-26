@@ -38,14 +38,17 @@ const {handleGetStarted}= useLandingPage()
 						</p>
 					</div>
 
-					<button onClick={handleGetStarted} className="flex items-center  bg-blue-900 border  text-white rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 ">
+					<button
+						onClick={handleGetStarted}
+						className="flex items-center  bg-blue-900 border  text-white rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 "
+					>
 						Get Started
 					</button>
 				</div>
 
 				<div className="flex-grow flex gap-10">
 					<div
-						className="  h-80 md:w-44  rounded-3xl"
+						className="  h-80 md:w-44  rounded-full"
 						data-aos="fade-up"
 						data-aos-delay="200"
 						data-aos-duration="1000"
@@ -55,7 +58,9 @@ const {handleGetStarted}= useLandingPage()
 
 					<div
 						className=" border h-80 md:w-44 rounded-full"
-				
+						data-aos="fade-up"
+						data-aos-delay="100"
+						data-aos-duration="1000"
 					>
 						<img
 							className=" object-cover w-full h-full object-right-bottom rounded-full"
