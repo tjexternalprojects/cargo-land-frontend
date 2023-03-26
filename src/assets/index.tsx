@@ -74,8 +74,6 @@ export { default as cargoBG } from './images/cargoBG.jpg';
 export { default as package1 } from './images/shipment/package1.jpg';
 
 // Landing Page
-export { default as dottedImage } from './images/landingPage/dotted.png';
-export { default as heroImage } from './images/landingPage/hero-image.png';
 export { default as CircleBg } from './images/landingPage/circleBg';
 export { default as GoodsImg } from './images/landingPage/goods.jpg';
 export { default as Background7 } from './images/landingPage/Background7.jpeg';
@@ -83,7 +81,5 @@ export { default as Background2 } from './images/landingPage/Background2.jpeg';
 export { default as TitleLine } from './images/landingPage/TitleLine';
 export { default as MapImg } from './images/landingPage/map.jpg';
 export { default as BusinessUser } from './images/landingPage/business_user.png';
-export { default as LoginBanner } from './images/landingPage/login_img.png';
 export { default as Background } from './images/landingPage/background.jpg';
-export { default as PriceListImg } from './images/landingPage/PriceList.jpg';
 export { default as MapImg2 } from './images/landingPage/map_img.png';
