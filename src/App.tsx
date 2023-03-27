@@ -30,6 +30,7 @@ function App() {
 					<Route element={<UnprotectedRoutes />}>
 						<Route path="/" element={<LandingPage />} />
 						<Route path="/business" element={<BusinessSignup />} />
+						<Route path="/login" element={<Login/>}/>
 					</Route>
 				</Routes>
 			</BrowserRouter>

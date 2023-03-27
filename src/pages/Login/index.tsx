@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
-import { Header, Services } from '@/components';
+import { Header, LoginComponent, SingupComponent } from '@/components';
 import useLogin from '@/pages/Login/useLogin';
 import ReactSwipe from 'react-swipe';
 import { ToastContainer } from 'react-toastify';
+import { BiMenuAltRight, logo } from '@/assets';
+import { motion } from 'framer-motion';
+import { scaleBg, reduceScaleBg, fadeIn } from '@/utils/animations';
+
 
 const Login = () => {
 	let reactSwipeEl: any;
@@ -11,83 +15,51 @@ const Login = () => {
 	return (
 		<>
 			<Header />
-			<ToastContainer />
-			<Services />
-
-			<div
-				className={`relative h-screen bg-cover bg-center`}
-				
-			>
-				<div className="opacity-50 absolute h-screen  bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-black  bg-cover bg-center "></div>
-				<div className="flex flex-wrap justify-center items-center space-y-12 h-screen">
-					<div className="flex-grow">
-						{/* <img src={loginGif} className="backdrop-blur-md" /> */}
-					</div>
-
-					<div className="flex-grow w-80 space-y-10 px-10 bg-white py-10 rounded-l-xl">
-						<div className="bg-slate-200 rounded-3xl inline-flex shadow-md ">
-							<button
-								onClick={() => {
-									handleToggleBtn(false);
-									reactSwipeEl.prev();
-								}}
-								className={`px-5 py-2 font-bold  ${
-									!toggleLoginType &&
-									'text-white bg-gradient-to-b from-slate-200 via-red-400 to-red-900  rounded-3xl shadow-lg border border-slate-100'
-								}`}
-							>
-								Business
-							</button>
-							<button
-								onClick={() => {
-									handleToggleBtn(true);
-									reactSwipeEl.next();
-								}}
-								className={`font-bold  px-5 py-2 ${
-									toggleLoginType &&
-									'text-white bg-gradient-to-b from-slate-200 via-red-400 to-red-900  rounded-3xl shadow-lg border border-slate-100'
-								}`}
-							>
-								Individual
-							</button>
-						</div>
-
+			<div>
+				<div></div>
+				<div>
+					<motion.div
+						animate={fadeIn}
+						className="md:w-full mt-16 md:px-28 flex mb-8 b text-gray-500"
+					>
+						<button
+							onClick={() => {
+								handleToggleBtn(false);
+								reactSwipeEl.prev();
+							}}
+							className={` flex-grow px-5 py-2 font-bold border-b-2   ${
+								!toggleLoginType ? ' border-red-400' : 'border-b-gray-300'
+							}`}
+						>
+							Login
+						</button>
+						<button
+							onClick={() => {
+								handleToggleBtn(true);
+								reactSwipeEl.next();
+							}}
+							className={`flex-grow font-bold  px-5 py-2  border-b-2  ${
+								toggleLoginType ? ' border-b-2 border-red-400' : 'border-b-gray-300'
+							}`}
+						>
+							Sign&nbsp;up
+						</button>
+					</motion.div>
+					
 						<ReactSwipe
-							className="carousel "
+							className="carousel w-96 m-0"
 							swipeOptions={{ continuous: false }}
 							ref={(el) => (reactSwipeEl = el)}
 						>
-							<div className="space-y-5">
-								<h1 className=" font-extrabold text-4xl text-gray-500">Deliver more, worry less</h1>
-								<p className="text-gray-400">
-									Signup as a Business and get cheaper rate of transporting goods
-								</p>
-
-								<p className="text-gray-400">
-									"Say goodbye to shipping headaches with our top-notch courier services. We offer
-									fast, reliable delivery options for businesses of all sizes. Contact us today to
-									find out how we can help streamline your shipping process."
-								</p>
+							<div className="w-full flex justify-center md:block">
+								<LoginComponent showLogin={toggleLoginType} />
 							</div>
-							<div className="space-y-5">
-								<h1 className=" font-extrabold text-4xl text-gray-500">Deliver more, worry less</h1>
-								<p className="text-gray-400">
-									Signup as a Business and get cheaper rate of transporting goods
-								</p>
-
-								<p className="text-gray-400">
-									"Say goodbye to shipping headaches with our top-notch courier services. We offer
-									fast, reliable delivery options for businesses of all sizes. Contact us today to
-									find out how we can help streamline your shipping process."
-								</p>
+							<div className="w-full flex justify-center md:block">
+								<SingupComponent showLogin={toggleLoginType} />
 							</div>
 						</ReactSwipe>
-						<div className="flex gap-8 mt-10 justify-center md:justify-start lg:absolute top-1/2 -mr-14 right-1/2"></div>
-						<button className=" font-bold text-xl bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300  text-red-400 rounded-3xl  px-8 py-2 hover:transition-all hover:shadow-red-100 duration-150 ease-in-out">
-							Book a Delivery
-						</button>
-					</div>
 				</div>
+				<div></div>
 			</div>
 		</>
 	);
