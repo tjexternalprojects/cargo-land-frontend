@@ -6,9 +6,9 @@ import { ToastContainer } from 'react-toastify';
 import { BiMenuAltRight, logo } from '@/assets';
 import { motion } from 'framer-motion';
 import { scaleBg, reduceScaleBg, fadeIn } from '@/utils/animations';
+// youtu.be/VRszzGhzURY
 
-
-const Login = () => {
+https: const Login = () => {
 	let reactSwipeEl: any;
 	const { toggleLoginType, handleToggleBtn } = useLogin();
 
@@ -18,46 +18,45 @@ const Login = () => {
 			<div>
 				<div></div>
 				<div>
-				<div className="md:w-full  flex  text-gray-500">
-					<motion.div animate={fadeIn}>
-						<button
-							onClick={() => {
-								handleToggleBtn(false);
-								reactSwipeEl.prev();
-							}}
-							className={` flex-grow px-5 py-2 font-bold border-b-2   ${
-								!toggleLoginType ? ' border-red-400' : 'border-b-gray-300'
-							}`}
-						>
-							Login
-						</button>
-						<button
-							onClick={() => {
-								handleToggleBtn(true);
-								reactSwipeEl.next();
-							}}
-							className={`flex-grow font-bold  px-5 py-2  border-b-2  ${
-								toggleLoginType ? ' border-b-2 border-red-400' : 'border-b-gray-300'
-							}`}
-						>
-							Sign&nbsp;up
-						</button>
-					</motion.div>
+					<div className="md:w-full  flex  text-gray-500">
+						<motion.div animate={fadeIn}>
+							<button
+								onClick={() => {
+									handleToggleBtn(false);
+									reactSwipeEl.prev();
+								}}
+								className={` flex-grow px-5 py-2 font-bold border-b-2   ${
+									!toggleLoginType ? ' border-red-400' : 'border-b-gray-300'
+								}`}
+							>
+								Login
+							</button>
+							<button
+								onClick={() => {
+									handleToggleBtn(true);
+									reactSwipeEl.next();
+								}}
+								className={`flex-grow font-bold  px-5 py-2  border-b-2  ${
+									toggleLoginType ? ' border-b-2 border-red-400' : 'border-b-gray-300'
+								}`}
+							>
+								Sign&nbsp;up
+							</button>
+						</motion.div>
 
-					<ReactSwipe
-						className="carousel w-96 m-0"
-						swipeOptions={{ continuous: false }}
-						ref={(el) => (reactSwipeEl = el)}
-					>
-						<div className="w-full flex justify-center md:block">
-							<LoginComponent showLogin={toggleLoginType} />
-						</div>
-						<div className="w-full flex justify-center md:block">
-							<SingupComponent showLogin={toggleLoginType} />
-						</div>
-					</ReactSwipe>
-
-				</div>
+						<ReactSwipe
+							className="carousel w-96 m-0"
+							swipeOptions={{ continuous: false }}
+							ref={(el) => (reactSwipeEl = el)}
+						>
+							<div className="w-full flex justify-center md:block">
+								<LoginComponent showLogin={toggleLoginType} />
+							</div>
+							<div className="w-full flex justify-center md:block">
+								<SingupComponent showLogin={toggleLoginType} />
+							</div>
+						</ReactSwipe>
+					</div>
 				</div>
 				<div></div>
 			</div>
