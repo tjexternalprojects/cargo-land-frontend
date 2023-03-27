@@ -2,7 +2,6 @@ import {
 	TiBusinessCard,
 	HiDocumentText,
 	TbBusinessplan,
-	signupGif,
 	MdOutlineArrowForwardIos,
 } from '../../assets';
 import { BasicInfo, BusinessDocuments, BusinessData, Header } from '@/components';
@@ -17,7 +16,7 @@ const BusinessSignup = () => {
 			<Header />
 			<div className="flex h-screen items-center pt-10 flex-wrap">
 				<div>
-					<img src={signupGif} />
+	
 				</div>
 				<div className="px-10 overflow-auto">
 					<div className="w-full pb-10 border-l-2 border-l-blue-900 ">

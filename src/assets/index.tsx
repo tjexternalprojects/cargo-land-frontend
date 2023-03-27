@@ -65,21 +65,21 @@ export { IoMdCart } from 'react-icons/io';
 
 // images
 export { default as logo } from './images/logo.png';
-export { default as loginGif } from './images/loginGif.gif';
-export { default as signupGif } from './images/signupGif2.gif';
 export { default as userImg } from './images/user.png';
-export { default as cargoBG } from './images/cargoBG.jpg';
 
 // Shipment Images
 export { default as package1 } from './images/shipment/package1.jpg';
 
 // Landing Page
 export { default as CircleBg } from './images/landingPage/circleBg';
-export { default as GoodsImg } from './images/landingPage/goods.jpg';
-export { default as Background7 } from './images/landingPage/Background7.jpeg';
-export { default as Background2 } from './images/landingPage/Background2.jpeg';
 export { default as TitleLine } from './images/landingPage/TitleLine';
 export { default as MapImg } from './images/landingPage/map.jpg';
 export { default as BusinessUser } from './images/landingPage/business_user.png';
 export { default as Background } from './images/landingPage/background.jpg';
 export { default as MapImg2 } from './images/landingPage/map_img.png';
+
+// Slide Image
+export { default as SlideImg1 } from './images/landingPage/Slider/SlideImg1.jpeg';
+export { default as SlideImg2 } from './images/landingPage/Slider/SlideImg2.jpg';
+export { default as SlideImg3 } from './images/landingPage/Slider/SlideImg3.jpeg';
+export { default as SlideImg4 } from './images/landingPage/Slider/SlideImg4.jpg';

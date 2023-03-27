@@ -1,35 +1,34 @@
 import { motion } from 'framer-motion';
 import HeroSlider, { Overlay, Slide, MenuNav, SideNav } from 'hero-slider';
-import { GoodsImg, cargoBG, Background7, Background2 } from '@/assets';
+import { SlideImg1, SlideImg2, SlideImg3, SlideImg4 } from '@/assets';
 
 const slides = [
 	{
 		label: 'welcome',
-		backgroundImageSrc: GoodsImg,
+		backgroundImageSrc: SlideImg1,
 		title: 'Efficient and Reliable Cargo Exchange Services',
 		subtitle:
-			'Welcome to our cargo exchange company, where we offer efficient and reliable services for all your shipping needs.'
+			'Welcome to our cargo exchange company, where we offer efficient and reliable services for all your shipping needs.',
 	},
 	{
 		label: 'cargo land',
-		backgroundImageSrc: cargoBG,
+		backgroundImageSrc: SlideImg2,
 		title: 'Cargo Land – Your Gateway to Seamless Shipping',
 		subtitle:
 			'Our cargo land services are designed to provide you with a seamless shipping experience.  ',
 	},
 	{
 		label: 'Exports',
-		backgroundImageSrc: Background7,
+		backgroundImageSrc: SlideImg3,
 		title: 'Export Services – Taking Your Business to New Heights',
 		subtitle:
 			'If you are looking to expand your business overseas, our export services can help you achieve your goals. ',
 	},
 	{
 		label: 'Import',
-		backgroundImageSrc: Background2,
+		backgroundImageSrc: SlideImg4,
 		title: 'Import Services – Bringing the World to Your Doorstep',
-		subtitle:
-			'Our import services are designed to bring the world to your doorstep.',
+		subtitle: 'Our import services are designed to bring the world to your doorstep.',
 	},
 ];
 

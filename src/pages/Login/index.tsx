@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { cargoBG } from '@/assets';
 import { Header, Services } from '@/components';
 import useLogin from '@/pages/Login/useLogin';
 import ReactSwipe from 'react-swipe';
@@ -17,9 +16,7 @@ const Login = () => {
 
 			<div
 				className={`relative h-screen bg-cover bg-center`}
-				style={{
-					backgroundImage: `url(${cargoBG})`,
-				}}
+				
 			>
 				<div className="opacity-50 absolute h-screen  bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-black  bg-cover bg-center "></div>
 				<div className="flex flex-wrap justify-center items-center space-y-12 h-screen">
