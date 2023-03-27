@@ -18,10 +18,8 @@ const Login = () => {
 			<div>
 				<div></div>
 				<div>
-					<motion.div
-						animate={fadeIn}
-						className="md:w-full mt-16 md:px-28 flex mb-8 b text-gray-500"
-					>
+				<div className="md:w-full  flex  text-gray-500">
+					<motion.div animate={fadeIn}>
 						<button
 							onClick={() => {
 								handleToggleBtn(false);
@@ -45,19 +43,21 @@ const Login = () => {
 							Sign&nbsp;up
 						</button>
 					</motion.div>
-					
-						<ReactSwipe
-							className="carousel w-96 m-0"
-							swipeOptions={{ continuous: false }}
-							ref={(el) => (reactSwipeEl = el)}
-						>
-							<div className="w-full flex justify-center md:block">
-								<LoginComponent showLogin={toggleLoginType} />
-							</div>
-							<div className="w-full flex justify-center md:block">
-								<SingupComponent showLogin={toggleLoginType} />
-							</div>
-						</ReactSwipe>
+
+					<ReactSwipe
+						className="carousel w-96 m-0"
+						swipeOptions={{ continuous: false }}
+						ref={(el) => (reactSwipeEl = el)}
+					>
+						<div className="w-full flex justify-center md:block">
+							<LoginComponent showLogin={toggleLoginType} />
+						</div>
+						<div className="w-full flex justify-center md:block">
+							<SingupComponent showLogin={toggleLoginType} />
+						</div>
+					</ReactSwipe>
+
+				</div>
 				</div>
 				<div></div>
 			</div>
