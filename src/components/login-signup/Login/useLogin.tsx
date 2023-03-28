@@ -19,6 +19,13 @@ function useLogin() {
 		console.log('Failed to sign up with Google.', response);
 	};
 
+	const showForgotPassword = () =>{
+		setState({
+			...state,
+			showForgetPassword: true,
+		});
+	}
+
 	const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -59,6 +66,7 @@ function useLogin() {
 		loginData,
 		showLoading,
 		GOOGLE_SIGNUP_CLIENT_ID,
+		showForgotPassword,
 		googleSignUpSuccess,
 		googleSignUpFailure,
 		setLoginData,

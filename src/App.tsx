@@ -7,6 +7,7 @@ import UnprotectedRoutes from '@/UnprotectedRoutes';
 import { AppProvider } from '@/context';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import "animate.css";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';

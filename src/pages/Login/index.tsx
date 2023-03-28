@@ -1,29 +1,29 @@
 import React, { useContext } from 'react';
-import { Header, LoginComponent, SingupComponent } from '@/components';
+import { ForgotPassword, Header, LoginComponent, SingupComponent } from '@/components';
 import useLogin from '@/pages/Login/useLogin';
 import ReactSwipe from 'react-swipe';
 import { ToastContainer } from 'react-toastify';
-import { BiMenuAltRight, logo } from '@/assets';
+import {  BiMenuAltRight, logo, MapImg2 } from '@/assets';
 import { motion } from 'framer-motion';
 import { scaleBg, reduceScaleBg, fadeIn } from '@/utils/animations';
-// youtu.be/VRszzGhzURY
-
-https: const Login = () => {
+ const Login = () => {
 	let reactSwipeEl: any;
-	const { toggleLoginType, handleToggleBtn } = useLogin();
-
+	const { toggleLoginType, state, handleToggleBtn } = useLogin();
 	return (
 		<>
-			<Header />
-			<div>
-				<div></div>
-				<div>
-					<div className="md:w-full  flex  text-gray-500">
-						<motion.div animate={fadeIn}>
+		<Header />
+		<div className=' bg-cover bg-center  bg-no-repeat'
+		style={{ backgroundImage: `url(${MapImg2})` }}>
+		<div className=" bg-gradient-to-b  from-white via-white/80 to-white  w-full">
+			<div className='relative'>
+				<div className='flex items-center justify-center  h-screen'>
+
+						<div className='p-5 bg-gradient-to-b  from-white/50 via-white to-white/50 max-w-md '>
+						{!state.showForgetPassword ? <div className='flex items-center flex-col justify-center'>
+						<motion.div animate={fadeIn} className="mb-4">
 							<button
 								onClick={() => {
 									handleToggleBtn(false);
-									reactSwipeEl.prev();
 								}}
 								className={` flex-grow px-5 py-2 font-bold border-b-2   ${
 									!toggleLoginType ? ' border-red-400' : 'border-b-gray-300'
@@ -34,7 +34,6 @@ https: const Login = () => {
 							<button
 								onClick={() => {
 									handleToggleBtn(true);
-									reactSwipeEl.next();
 								}}
 								className={`flex-grow font-bold  px-5 py-2  border-b-2  ${
 									toggleLoginType ? ' border-b-2 border-red-400' : 'border-b-gray-300'
@@ -44,23 +43,22 @@ https: const Login = () => {
 							</button>
 						</motion.div>
 
-						<ReactSwipe
-							className="carousel w-96 m-0"
-							swipeOptions={{ continuous: false }}
-							ref={(el) => (reactSwipeEl = el)}
-						>
+							{!toggleLoginType?<div className="w-full flex justify-center">
+								<LoginComponent showLogin={true} />
+							</div>:
 							<div className="w-full flex justify-center md:block">
-								<LoginComponent showLogin={toggleLoginType} />
-							</div>
-							<div className="w-full flex justify-center md:block">
-								<SingupComponent showLogin={toggleLoginType} />
-							</div>
-						</ReactSwipe>
-					</div>
+								<SingupComponent showLogin={true} />
+							</div>}
+					
+						</div>:
+						<ForgotPassword/>}
+						</div>
+			
 				</div>
-				<div></div>
 			</div>
-		</>
+			</div>
+	 </div>
+	 </>
 	);
 };
 

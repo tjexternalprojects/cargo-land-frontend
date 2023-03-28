@@ -25,6 +25,7 @@ export {
 	MdOutlineDeleteOutline,
 	MdViewInAr,
 	MdOutlineVerified,
+	
 } from 'react-icons/md';
 export { GoSignIn, GoPackage } from 'react-icons/go';
 export { TiBusinessCard } from 'react-icons/ti';
@@ -50,6 +51,7 @@ export {
 	AiOutlineEdit,
 	AiFillTwitterCircle,
 	AiFillInstagram,
+	AiOutlineArrowLeft
 } from 'react-icons/ai';
 export {
 	RiPriceTag2Line,

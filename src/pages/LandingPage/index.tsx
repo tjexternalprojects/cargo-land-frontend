@@ -1,4 +1,3 @@
-import { dottedImage } from '@/assets';
 import { AboutUs, Business, Contact, Header, Hero, GetStarted, Services } from '@/components';
 import Footer from '@/components/common/Footer';
 import React from 'react';
