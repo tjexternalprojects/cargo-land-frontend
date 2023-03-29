@@ -24,7 +24,7 @@ function App() {
 							<Route path="" element={<DashboardHome />} />
 							<Route path="/dashboard/shipment" element={<ShipmentPage />} />
 							<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
-							<Route path="/dashboard/price" element={<History />} />
+							<Route path="/dashboard/history" element={<History />} />
 						</Route>
 					</Route>
 					<Route path="/" element={<LandingPage />} />

@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "env-cmd -f .env vite --port 9000",
 		"build": "env-cmd -f .env tsc && vite build",
+		"start": "env-cmd -f .env vite --port 9000 --host 0.0.0.0",
 		"preview": "vite preview",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
