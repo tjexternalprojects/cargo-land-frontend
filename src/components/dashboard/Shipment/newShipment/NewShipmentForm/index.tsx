@@ -49,7 +49,8 @@ const NewShipmentForm = () => {
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
 				<form className=" w-9/12 my-5" onSubmit={handleSubmitNewShipmentForm}>
-					<div className="mt-3">
+					<div className='bg-white p-10 shadow-sm rounded-sm'>
+					<div>
 						<label className="text-sm text-gray-400">
 							Shipment title <span className="text-red-500"> * </span>
 						</label>
@@ -118,7 +119,7 @@ const NewShipmentForm = () => {
 							</div>
 						</div>
 					</div>
-
+					</div>
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">
 							Images

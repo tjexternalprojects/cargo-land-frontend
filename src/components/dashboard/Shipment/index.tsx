@@ -15,7 +15,7 @@ const Shipment = () => {
 			</div>
 			<div className="md:px-10  flex gap-3 ">
 				{/* SIDE NAVIGATION */}
-				<div className="fixed mt-16 bottom-0 pb-3 md:pb-0 md:bottom-auto bg-white md:bg-transparent w-full ">
+				<div className="fixed mt-16 xs:bottom-0 pb-3 md:pb-0 md:bottom-auto bg-white md:bg-transparent w-full ">
 					<div className="mt-3 md:mt-10 border-l-2 space-y-2 ">
 						<div
 							onClick={() => handleShowTab('item1', 1)}
