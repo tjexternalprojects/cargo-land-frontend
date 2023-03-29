@@ -7,7 +7,7 @@ const Notification = () => {
 	const { notificationData, showModal, setShowModal, handleShowDetails } = useNotification();
 	return (
 		<div className=" absolute bottom-0 w-full h-full top-0 left-0 right-0    flex justify-end">
-			<div className="bg-white h-full w-1/4 pt-20 px-5 pb-5 space-y-4 relative overflow-y-auto shadow-2xl  ">
+			<div className="bg-white h-full md:w-1/4 pt-20 px-5 pb-5 space-y-4 relative overflow-y-auto shadow-2xl  ">
 				{notificationData.map((data, index) => (
 					<div
 						key={index}

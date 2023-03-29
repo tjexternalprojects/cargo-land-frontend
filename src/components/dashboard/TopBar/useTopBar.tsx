@@ -17,9 +17,9 @@ function useTopBar() {
 			shipmentCurrentTab: 'item3',
 			form_level: 2,
 		});
-		navigation('/shipment');
+		navigation('/dashboard/shipment');
 	};
 
-	return { handleToggleNotification, showChartItems };
+	return { handleToggleNotification, showChartItems, setState, state };
 }
 export default useTopBar;

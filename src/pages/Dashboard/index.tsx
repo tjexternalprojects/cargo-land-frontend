@@ -9,25 +9,15 @@ const Dashboard = () => {
 	const { toggleAdminSideBar } = useApp();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	return (
-		<div className="flex bg-gradient-to-tr from-white via-white to-slate-50 min-h-screen">
+		<div className="flex bg-gray-200 min-h-screen">
 			<div className={` w-72 z-20 ${toggleAdminSideBar ? 'flex' : 'md:flex hidden'}`}>
 				<Sidebar />
 			</div>
-			<div className="bg-white flex items-center justify-center py-3 fixed z-10  w-full pl-72 pr-10  shadow-md ">
-				<div>
-					<GiHamburgerMenu
-						className={`md:hidden text-4xl`}
-						onClick={() =>
-							setState((prevState) => ({
-								...prevState,
-								toggleAdminSideBar: !toggleAdminSideBar,
-							}))
-						}
-					/>
-				</div>
-				<TopBar />
+			<div className="bg-gray-200 flex items-center justify-center py-3 fixed z-10  w-full pl-10 md:pl-72 pr-10  ">
+			<TopBar />
+				
 			</div>
-			<div className="pt-16 w-4/5 ">
+			<div className="pt-16 w-full ">
 				<Outlet />
 			</div>
 

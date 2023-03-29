@@ -16,19 +16,20 @@ const home = () => {
 	} = useHome();
 
 	return (
-		<div className="mt-10 space-y-10 p-5">
-			<div className="gap-4 flex justify-between flex-wrap md:flex-nowrap  w-full ">
-				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min w-72 flex-grow border  justify-between bg-slate-50 shadow-md items-center">
+		<div className="mt-10 space-y-10 p-5  w-full">
+			{/* Top */}
+			<div className="gap-4 flex justify-between flex-wrap md:flex-nowrap  w-full">
+				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min w-72 flex-grow   justify-between bg-slate-50 shadow-md items-center">
 					<div className=" w-20">
 						<SlGraph className="text-5xl text-blue-700" />
 					</div>
-					<div className="flex flex-col items-end text-blue-500">
+					<div className="flex flex-col md:items-end text-blue-500">
 						<div className="flex items-center justify-center space-x-2">
 							<div>Wallet Balance</div>
 							<div onClick={toggleShowBalance}>{showBalance ? <FaEyeSlash /> : <FaEye />}</div>
 						</div>
-						<div className=" text-2xl font-bold ">
-							{curency} {walletBalance}
+						<div className="text-md md:text-2xl font-bold flex">
+							{curency}{walletBalance}
 						</div>
 					</div>
 				</div>
@@ -54,7 +55,8 @@ const home = () => {
 				</div>
 			</div>
 
-			{/* <div className=" flex  gap-16  justify-between ">
+{/* Buttom */}
+			<div className=" flex  gap-16  justify-between  flex-wrap md:flex-nowrap">
 				<div className="">
 					<h4 className="text-xl mb-3">Latest Transaction</h4>
 					<hr />
@@ -161,7 +163,7 @@ const home = () => {
 						</div>
 					</div>
 				</div>
-			</div> */}
+			</div>
 		</div>
 	);
 };

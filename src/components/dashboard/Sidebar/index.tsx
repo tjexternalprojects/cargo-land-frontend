@@ -24,7 +24,7 @@ const sidebar = () => {
 				state.toggleAdminSideBar ? 'animate__slideInLeft' : 'animate__slideInLeft'
 			} animate_faster`}
 		>
-			<div className="bg-white  flex items-center justify-center rounded-xs p-2 m-8">
+			<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2 mb-8 ">
 				<img src={logo} className=" w-24 h-8" alt="" />
 			</div>
 			<div className="flex-grow mt-10 ">
@@ -74,7 +74,7 @@ const sidebar = () => {
 				</ul>
 			</div>
 			<div className="text-blue-900 flex flex-col items-center p-8">
-				<div className="flex flex-col gap-3 items-center">
+				<div className="flex flex-col gap-3 items-center mb-3">
 					<div className="w-10 h-10 rounded-full shadow-md border border-slate-200">
 						<img
 							src={!userInfo?.avatar ? userImg : userInfo?.avatar}
