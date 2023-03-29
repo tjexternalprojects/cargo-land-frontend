@@ -3,14 +3,18 @@ import { DashboardHome, ShipmentPage, History, TrackShipment } from '@/component
 import Dashboard from '@/pages/Dashboard';
 import { BusinessSignup, LandingPage, Login } from '@/pages/index';
 import ProtectedRoutes from '@/ProtectedRoutes';
-import UnprotectedRoutes from '@/UnprotectedRoutes';
 import { AppProvider } from '@/context';
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import "animate.css";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useEffect } from 'react';
 function App() {
+	useEffect(() => {
+		AOS.init();
+	}, []);
 	return (
 		<AppProvider>
 			<BrowserRouter>
@@ -23,10 +27,9 @@ function App() {
 							<Route path="/dashboard/price" element={<History />} />
 						</Route>
 					</Route>
-					<Route element={<UnprotectedRoutes />}>
-						<Route path="/login" element={<Login />} />
-						<Route path="/" element={<LandingPage />} />
-					</Route>
+					<Route path="/" element={<LandingPage />} />
+					<Route path="/business" element={<BusinessSignup />} />
+					<Route path="/login" element={<Login />} />
 				</Routes>
 			</BrowserRouter>
 		</AppProvider>

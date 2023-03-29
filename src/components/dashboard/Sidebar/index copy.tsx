@@ -13,30 +13,53 @@ import useLogin from '@/pages/Login/useLogin';
 import useSidebar from './useSidebar';
 const sidebar = () => {
 	const dashboardMatch = useMatch('/dashboard');
-	const shipmentMatch = useMatch('/dashboard/shipment');
+	const shipmentMatch = useMatch('/shipment');
 	const trackMatch = useMatch('/track_shipment');
 	const historyMatch = useMatch('/price');
 	const { handleLogout } = useLogin();
 	const { userInfo } = useSidebar();
 	return (
 		<div className=" bg-blue-900 fixed h-screen w-64 flex flex-col justify-between">
-			<div className="bg-white  flex items-center justify-center rounded-xs p-2 m-8">
+			<div className="bg-white shadow-md flex items-center justify-center rounded-md p-2 m-8">
 				<img src={logo} className=" w-24 h-8" alt="" />
 			</div>
-			<div className="flex-grow mt-10 ">
+			<div className="flex-grow mt-10 ml-8">
 				<ul className=" text-lg  font-bold">
 					<li>
-						<NavLink to="/dashboard" className={`${dashboardMatch && ' border-l-white'
-							}  pl-8 py-2 flex border-l-4 items-center space-x-3 text-white`}>
-							<TbLayoutDashboard /> <span>Dashboard</span>
+						<NavLink className="flex flex-col" to="/dashboard">
+							<div className={`${dashboardMatch ? 'bg-white' : 'bg-blue-900'}`}>
+								<div className="h-4 bg-blue-900 rounded-br-3xl"></div>
+							</div>
+							<div
+								className={`${
+									dashboardMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
+								} px-3 flex items-center space-x-3 `}
+							>
+								<TbLayoutDashboard /> <span>Dashboard</span>
+							</div>
+
+							<div className={`${dashboardMatch ? 'bg-white' : 'bg-blue-900'}`}>
+								<div className="h-4 bg-blue-900 rounded-tr-3xl"></div>
+							</div>
 						</NavLink>
 					</li>
 
 					<li>
-						<NavLink to="/dashboard/shipment" className={`${shipmentMatch && 'border-l-white border-l-4 '
-								} pl-8 py-2 flex items-center space-x-3 text-white`}
-						>
-							<MdTrackChanges /> <span>New Shipment</span>
+						<NavLink className="flex flex-col" to="/shipment">
+							<div className={`${shipmentMatch ? 'bg-white' : 'bg-blue-900'}`}>
+								<div className="h-4 bg-blue-900 rounded-br-3xl"></div>
+							</div>
+							<div
+								className={`${
+									shipmentMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
+								} px-3 flex items-center space-x-3 `}
+							>
+								<MdTrackChanges /> <span>New Shipment</span>
+							</div>
+
+							<div className={`${shipmentMatch ? 'bg-white' : 'bg-blue-900'}`}>
+								<div className="h-4 bg-blue-900 rounded-tr-3xl"></div>
+							</div>
 						</NavLink>
 					</li>
 
@@ -46,8 +69,9 @@ const sidebar = () => {
 								<div className="h-4 bg-blue-900 rounded-br-3xl"></div>
 							</div>
 							<div
-								className={`${trackMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
-									} px-3 flex items-center space-x-3 `}
+								className={`${
+									trackMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
+								} px-3 flex items-center space-x-3 `}
 							>
 								<TbTruckDelivery /> <span>Track Shipment</span>
 							</div>
@@ -63,8 +87,9 @@ const sidebar = () => {
 								<div className="h-4 bg-blue-900 rounded-br-3xl"></div>
 							</div>
 							<div
-								className={`${historyMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
-									} px-3 flex items-center space-x-3 `}
+								className={`${
+									historyMatch ? 'bg-white text-blue-900 rounded-l-3xl py-3' : 'text-white'
+								} px-3 flex items-center space-x-3 `}
 							>
 								<RiPriceTag2Line /> <span>History</span>
 							</div>

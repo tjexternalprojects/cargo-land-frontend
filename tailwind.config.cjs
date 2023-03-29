@@ -4,48 +4,21 @@ module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		extend: {
-			width: {
-				'40-screen': '40vw',
-				'45-screen': '45vw',
-				'50-screen': '50vw',
-				'60-screen': '60vw',
-				'70-screen': '70vw',
-				'72-screen': '72vw',
-				'80-screen': '80vw',
-				'85-screen': '85vw',
-				'90-screen': '90vw',
-				'95-screen': '95vw',
-				'110-screen': '110vw',
-				'120-screen': '120vw',
-				'140-screen': '140vw',
-				'150-screen': '150vw',
-				'160-screen': '160vw',
-				'170-screen': '170vw',
-				'180-screen': '180vw',
-				'190-screen': '190vw',
-				'200-screen': '200vw',
-				'210-screen': '210vw',
-				'220-screen': '220vw',
-				'230-screen': '230vw',
-				'240-screen': '240vw',
-				'250-screen': '250vw',
-				'260-screen': '260vw',
-				'270-screen': '270vw',
-				'280-screen': '280vw',
-				'290-screen': '290vw',
-				'300-screen': '300vw',
-				'320-screen': '320vw',
-				'340-screen': '340vw',
-				'360-screen': '360vw',
-				'380-screen': '380vw',
-				'400-screen': '400vw',
-				'420-screen': '420vw',
-				'440-screen': '440vw',
-				'460-screen': '460vw',
-				'480-screen': '480vw',
-				'500-screen': '500vw',
-				'540-screen': '540vw',
-				'560-screen': '560vw',
+			screens: {
+				sm: '340px',
+				// => @media (min-width: 640px) { ... }
+
+				md: '768px',
+				// => @media (min-width: 768px) { ... }
+
+				lg: '1024px',
+				// => @media (min-width: 1024px) { ... }
+
+				xl: '1280px',
+				// => @media (min-width: 1280px) { ... }
+
+				'2xl': '1536px',
+				// => @media (min-width: 1536px) { ... }
 			},
 			maxWidth: {
 				'50-screen': '50vw',

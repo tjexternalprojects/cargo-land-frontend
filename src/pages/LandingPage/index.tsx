@@ -1,5 +1,4 @@
-import { dottedImage } from '@/assets';
-import { Header, Hero } from '@/components';
+import { AboutUs, Business, Contact, Header, Hero, GetStarted, Services } from '@/components';
 import Footer from '@/components/common/Footer';
 import React from 'react';
 
@@ -8,13 +7,12 @@ const LandingPage = () => {
 		<div className="flex flex-col min-h-screen overflow-hidden">
 			{/*  Site header */}
 			<Header />
-
-			{/*  Page content */}
-			<main className="flex-grow">
-				{/*  Page sections */}
-				<Hero />
-			</main>
-
+			<Hero />
+			<Services />
+			<Business />
+			<AboutUs />
+			<GetStarted />
+			<Contact />
 			<Footer />
 		</div>
 	);

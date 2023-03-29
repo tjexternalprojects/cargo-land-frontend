@@ -19,6 +19,13 @@ function useLogin() {
 		console.log('Failed to sign up with Google.', response);
 	};
 
+	const showForgotPassword = () =>{
+		setState({
+			...state,
+			showForgetPassword: true,
+		});
+	}
+
 	const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -35,7 +42,7 @@ function useLogin() {
 						...prevState,
 						user: { loggedIn: response.data.token, user_info: response.data.user_info },
 					}));
-					navigate('/');
+					navigate('/dashboard');
 
 					toast.success(response.data.message, {
 						progressClassName: 'bg-green-500 h-1',
@@ -59,6 +66,7 @@ function useLogin() {
 		loginData,
 		showLoading,
 		GOOGLE_SIGNUP_CLIENT_ID,
+		showForgotPassword,
 		googleSignUpSuccess,
 		googleSignUpFailure,
 		setLoginData,

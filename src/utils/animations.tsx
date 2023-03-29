@@ -11,7 +11,7 @@ export const scaleRotate = {
 
 export const scaleBg = (width: string) => {
 	return {
-		height: ['0vh', '90vh'],
+		height: ['0%', '100%'],
 		width: ['0%', width],
 		transition: {
 			height: { duration: 0.5 },
@@ -51,6 +51,12 @@ export const fadeInFast = {
 		opacity: { duration: 1, exit: 0 },
 	},
 };
+
+export const slideDown = {
+	y:[0,100],
+	opacity: [0, 1],
+	transition:{ y: {duration: 0.5 }},
+  };
 
 export const slideUp = (delay: number, duration: number) => {
 	const animateSlideUp = {

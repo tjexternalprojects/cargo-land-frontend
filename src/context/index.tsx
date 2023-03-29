@@ -4,7 +4,7 @@ import SettingsContext from './SettingsContext';
 import GeneralContext from './ShipmentContext';
 
 const { user } = AuthContext();
-const { toggleNotification, notifications, theme, toggleAdminSideBar } = SettingsContext();
+const { toggleNotification, notifications, theme, toggleAdminSideBar, openSignUpMenu, showForgetPassword } = SettingsContext();
 const { shipmentDetails, shipmentCurrentTab, form_level } = GeneralContext();
 
 // Define the global state object
@@ -19,8 +19,10 @@ type AppState = {
 	notifications: Notification[];
 	toggleAdminSideBar: boolean;
 	toggleNotification: boolean;
+	openSignUpMenu: boolean;
 	shipmentCurrentTab: string;
 	form_level: number;
+	showForgetPassword:boolean
 };
 
 const initialState: AppState = {
@@ -30,8 +32,10 @@ const initialState: AppState = {
 	notifications,
 	toggleAdminSideBar,
 	toggleNotification,
+	openSignUpMenu,
 	shipmentCurrentTab,
 	form_level,
+	showForgetPassword,
 };
 
 export type AppContextType = {

@@ -1,97 +1,71 @@
-import React, { useContext } from 'react';
-import { cargoBG } from '@/assets';
-import { Header } from '@/components';
+
+import { ForgotPassword, Header, LoginComponent, SingupComponent } from '@/components';
 import useLogin from '@/pages/Login/useLogin';
-import ReactSwipe from 'react-swipe';
 import { ToastContainer } from 'react-toastify';
+import {  MapImg2 } from '@/assets';
+import { useApp } from '@/context';
+import { Navigate, useLocation } from "react-router-dom";
 
-const Login = () => {
-	let reactSwipeEl: any;
-	const { toggleLoginType, handleToggleBtn } = useLogin();
+ const Login = () => {
+	const { user } = useApp();
+	const { toggleLoginType, state, handleToggleBtn } = useLogin();
 
+
+	if(user.loggedIn){
+		return <Navigate to={"/dashboard"} />;
+	}
 	return (
 		<>
-			<Header />
-			<ToastContainer />
+		<Header />
+		<div className=' bg-cover bg-center  bg-no-repeat'
+		style={{ backgroundImage: `url(${MapImg2})` }}>
+		<div className=" bg-gradient-to-b  from-white via-white/40 to-white  w-full">
+			<div className='relative'>
+				<div className='flex items-center justify-center  h-screen '>
 
-			<div
-				className={`relative h-screen bg-cover bg-center`}
-				style={{
-					backgroundImage: `url(${cargoBG})`,
-				}}
-			>
-				<div className="opacity-50 absolute h-screen  bg-gradient-to-b lg:bg-gradient-to-r  from-white via-white to-black  bg-cover bg-center "></div>
-				<div className="flex flex-wrap justify-center items-center space-y-12 h-screen">
-					<div className="flex-grow">
-						{/* <img src={loginGif} className="backdrop-blur-md" /> */}
-					</div>
-
-					<div className="flex-grow w-80 space-y-10 px-10 bg-white py-10 rounded-l-xl">
-						<div className="bg-slate-200 rounded-3xl inline-flex shadow-md ">
+						<div className='p-5 bg-gradient-to-b  from-white/50 via-white to-white/50 w-96 '>
+						{!state.showForgetPassword ? 
+						<div className='flex items-center flex-col justify-center '>
+						<div className="mb-4 flex justify-around  w-full">
 							<button
 								onClick={() => {
 									handleToggleBtn(false);
-									reactSwipeEl.prev();
 								}}
-								className={`px-5 py-2 font-bold  ${
-									!toggleLoginType &&
-									'text-white bg-gradient-to-b from-slate-200 via-red-400 to-red-900  rounded-3xl shadow-lg border border-slate-100'
+								className={` flex-grow  py-2 font-bold border-b-2   ${
+									!toggleLoginType ? ' border-red-400' : 'border-b-gray-300'
 								}`}
 							>
-								Business
+								Login
 							</button>
 							<button
 								onClick={() => {
 									handleToggleBtn(true);
-									reactSwipeEl.next();
 								}}
-								className={`font-bold  px-5 py-2 ${
-									toggleLoginType &&
-									'text-white bg-gradient-to-b from-slate-200 via-red-400 to-red-900  rounded-3xl shadow-lg border border-slate-100'
+								className={`flex-grow font-bold  py-2  border-b-2  ${
+									toggleLoginType ? ' border-b-2 border-red-400' : 'border-b-gray-300'
 								}`}
 							>
-								Individual
+								Sign&nbsp;up
 							</button>
 						</div>
 
-						<ReactSwipe
-							className="carousel "
-							swipeOptions={{ continuous: false }}
-							ref={(el) => (reactSwipeEl = el)}
-						>
-							<div className="space-y-5">
-								<h1 className=" font-extrabold text-4xl text-gray-500">Deliver more, worry less</h1>
-								<p className="text-gray-400">
-									Signup as a Business and get cheaper rate of transporting goods
-								</p>
-
-								<p className="text-gray-400">
-									"Say goodbye to shipping headaches with our top-notch courier services. We offer
-									fast, reliable delivery options for businesses of all sizes. Contact us today to
-									find out how we can help streamline your shipping process."
-								</p>
-							</div>
-							<div className="space-y-5">
-								<h1 className=" font-extrabold text-4xl text-gray-500">Deliver more, worry less</h1>
-								<p className="text-gray-400">
-									Signup as a Business and get cheaper rate of transporting goods
-								</p>
-
-								<p className="text-gray-400">
-									"Say goodbye to shipping headaches with our top-notch courier services. We offer
-									fast, reliable delivery options for businesses of all sizes. Contact us today to
-									find out how we can help streamline your shipping process."
-								</p>
-							</div>
-						</ReactSwipe>
-						<div className="flex gap-8 mt-10 justify-center md:justify-start lg:absolute top-1/2 -mr-14 right-1/2"></div>
-						<button className=" font-bold text-xl bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300  text-red-400 rounded-3xl  px-8 py-2 hover:transition-all hover:shadow-red-100 duration-150 ease-in-out">
-							Book a Delivery
-						</button>
-					</div>
+							{!toggleLoginType?<div className="w-full flex justify-center">
+								<LoginComponent showLogin={true} />
+							</div>:
+							<div className="w-full flex justify-center md:block">
+								<SingupComponent showLogin={true} />
+							</div>}
+					
+						</div>:
+						<ForgotPassword/>}
+						</div>
+			
 				</div>
 			</div>
-		</>
+			</div>
+			<ToastContainer/>
+	 </div>
+	 </>
 	);
 };
 
