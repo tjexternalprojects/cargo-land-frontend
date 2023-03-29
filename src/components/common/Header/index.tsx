@@ -14,10 +14,10 @@ const Header = () => {
 
 	return (
 		<div className="text-xl z-20 box-border w-full backdrop-blur-lg bg-white pb-3   pt-4 px-10 md:px-20 lg:px-44  fixed ">
-			<div className='flex justify-between items-center z-40'>
-				<a href="/">
+			<div className='flex justify-between items-center  z-40'>
+				<Link to="/">
 					<img src={logo} className=" w-32" alt="" />
-				</a>
+				</Link>
 				<div className="z-20 hidden md:block">
 					<ul className="flex gap-5 text-md  text-red-400">
 						<li className="cursor-pointer">

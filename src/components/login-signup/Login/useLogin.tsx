@@ -42,7 +42,7 @@ function useLogin() {
 						...prevState,
 						user: { loggedIn: response.data.token, user_info: response.data.user_info },
 					}));
-					navigate('/');
+					navigate('/dashboard');
 
 					toast.success(response.data.message, {
 						progressClassName: 'bg-green-500 h-1',

@@ -9,10 +9,7 @@ function useLandingPage() {
 		if(state.user.loggedIn){
 			navigate('/dashaboard')
 		}else{
-			setState({
-				...state,
-				openSignUpMenu: true,
-			})
+			navigate('/login')
 		}
 	}
 	return {handleGetStarted};

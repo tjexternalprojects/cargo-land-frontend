@@ -1,43 +1,24 @@
-import { useEffect, useCallback } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Login } from './pages';
+
+
+
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useApp } from './context';
-
-
-
 const useAuth = () => {
-	const { user } = useApp();
-	return user && user.loggedIn;
+  const user = { loggedIn: localStorage.getItem("login_token") };
+  return user && user.loggedIn;
 };
 
-const unprotectedRoutes = ['/login', '/forgot_password']; // add more unprotected routes here
-
 const ProtectedRoutes = () => {
-	const isAuth = useAuth();
-	const navigate = useNavigate();
-	const location = useLocation();
+  const isAuth = useAuth();
+  const navigate = useNavigate();
 
-	const handleNavigate = useCallback(() => {
-		const isUnprotectedRoute = unprotectedRoutes.includes(location.pathname);
+  if (isAuth && window.location.pathname === "/login") {
+    navigate(-1);
+    return null;
+  }
 
-		if (isAuth && !isUnprotectedRoute) {
-			navigate(location.pathname);
-		} else if (!isAuth && !isUnprotectedRoute) {
-			navigate('/', { state: { from: location.pathname } });
-		}
-	}, [isAuth, location, navigate, unprotectedRoutes]);
-
-	useEffect(() => {
-		handleNavigate();
-	}, []);
-
-	if (isAuth === null) {
-		return <Outlet />;
-	} else if (!isAuth) {
-		throw new Error('Access denied');
-	} else {
-		return <Outlet />;
-	}
+  return isAuth ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoutes;
+

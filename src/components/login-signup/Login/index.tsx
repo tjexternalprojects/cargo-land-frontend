@@ -26,8 +26,7 @@ const login = ({ showLogin }: Props) => {
 			<form className=" text-gray-500 flex flex-col space-y-4" onSubmit={handleLogin}>
 				<div className="flex flex-col">
 					<div
-						className="bg-white h-11 px-3 border-b border-blue-800 flex items-center shadow-md"
-						data-aos="fade-up"
+						className="bg-white h-11 px-3 border-b border-blue-800 flex items-center shadow-md animate__animated animate__fadeInUp animate__faster"
 					>
 						<input
 							onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
@@ -41,9 +40,7 @@ const login = ({ showLogin }: Props) => {
 				</div>
 				<div className="flex flex-col">
 					<div
-						className="bg-white h-11 px-3 border-b border-blue-800  flex items-center shadow-md"
-						data-aos="fade-up"
-                        data-aos-delay="100"
+						className="bg-white h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster "
 					>
 						<input
 							onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
@@ -56,9 +53,7 @@ const login = ({ showLogin }: Props) => {
 					</div>
 				</div>
 				<div
-					className="space-y-3 w-full  "
-					data-aos="fade-up"
-                        data-aos-delay="200"
+					className="space-y-3 w-full  animate__animated animate__fadeInUp animate__faster"
 				>
 
 				<button
@@ -80,9 +75,7 @@ const login = ({ showLogin }: Props) => {
 				<div className="border border-gray-300 w-full"></div>
 			</div>
 			<div
-				className=" transition-all duration-75 ease-in-out bg-red-400 w-full text-white rounded-xl h-11 text-sm border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5 shadow-md"
-				data-aos="fade-up"
-                data-aos-delay="300"
+				className=" transition-all duration-75 ease-in-out bg-red-400 w-full text-white rounded-xl h-11 text-sm border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5 shadow-md animate__animated animate__fadeInUp animate__faster"
 			>
 				<GoogleLogin
 					className=" bg-transparent text-white border-none shadow-none"

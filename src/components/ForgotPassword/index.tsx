@@ -7,10 +7,9 @@ import { slideUp } from '@/utils/animations';
 const index = () => {
     const { closeForgotPassword } = useForgotPassword()
     return (
-        <form className=' space-y-3 w-96 px-2'>
+        <form className=' space-y-3 w-full '>
             <div
-                className="bg-white h-11 px-3 border-b border-blue-800 w-full  flex items-center shadow-md "
-                data-aos="fade-up"
+                className="bg-white h-11 px-3 border-b border-blue-800 w-full  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster "
             >
                 <input
                     type="email"
@@ -21,8 +20,7 @@ const index = () => {
                 <MdAttachEmail />
 
             </div>
-            <div data-aos="fade-up"
-                data-aos-delay="100">
+            <div className='animate__animated animate__fadeInUp animate__faster '>
 
                 <button
 
