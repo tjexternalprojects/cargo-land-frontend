@@ -20,7 +20,7 @@ const Dashboard = () => {
 						onClick={() =>
 							setState((prevState) => ({
 								...prevState,
-								toggleAdminSideBar: true,
+								toggleAdminSideBar: !toggleAdminSideBar,
 							}))
 						}
 					/>

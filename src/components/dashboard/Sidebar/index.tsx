@@ -17,9 +17,13 @@ const sidebar = () => {
 	const trackMatch = useMatch('/dashboard/track_shipment');
 	const historyMatch = useMatch('/dashboard/history');
 	const { handleLogout } = useLogin();
-	const { userInfo } = useSidebar();
+	const { userInfo, state } = useSidebar();
 	return (
-		<div className=" bg-white  fixed h-screen w-60 flex flex-col shadow justify-between">
+		<div
+			className={` bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
+				state.toggleAdminSideBar ? 'animate__slideInLeft' : 'animate__slideInLeft'
+			} animate_faster`}
+		>
 			<div className="bg-white  flex items-center justify-center rounded-xs p-2 m-8">
 				<img src={logo} className=" w-24 h-8" alt="" />
 			</div>
@@ -81,7 +85,6 @@ const sidebar = () => {
 						<h3 className="font-bold text-md">{userInfo?.name}</h3>
 						<p className=" font-light text-sm">{userInfo?.email}</p>
 					</div>
-
 				</div>
 				<div className="flex gap-2 text-2xl">
 					<div className=" transition-all duration-75 ease-linear rounded-full text-blue-900 p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">

@@ -17,9 +17,8 @@ const home = () => {
 
 	return (
 		<div className="mt-10 space-y-10 p-5">
-			{/* Top */}
-			<div className="gap-4 flex justify-between ">
-				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min w-72 flex-grow  justify-between bg-slate-50 shadow-md items-center">
+			<div className="gap-4 flex justify-between flex-wrap md:flex-nowrap  w-full ">
+				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min w-72 flex-grow border  justify-between bg-slate-50 shadow-md items-center">
 					<div className=" w-20">
 						<SlGraph className="text-5xl text-blue-700" />
 					</div>
@@ -55,8 +54,7 @@ const home = () => {
 				</div>
 			</div>
 
-			{/*  */}
-			<div className=" flex  gap-16  justify-between ">
+			{/* <div className=" flex  gap-16  justify-between ">
 				<div className="">
 					<h4 className="text-xl mb-3">Latest Transaction</h4>
 					<hr />
@@ -163,7 +161,7 @@ const home = () => {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 };
