@@ -17,14 +17,14 @@ const sidebar = () => {
 	const trackMatch = useMatch('/dashboard/track_shipment');
 	const historyMatch = useMatch('/dashboard/history');
 	const { handleLogout } = useLogin();
-	const { userInfo, state } = useSidebar();
+	const { userInfo, state, handleToggleSidebar } = useSidebar();
 	return (
 		<div
-			className={` bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
-				state.toggleAdminSideBar ? 'animate__slideInLeft' : 'animate__slideInLeft'
+			className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
+				state.toggleAdminSideBar ? 'flex animate__slideInLeft' : 'md:flex hidden animate__slideInLeft'
 			} animate_faster`}
 		>
-			<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2 mb-8 ">
+			<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2  ">
 				<img src={logo} className=" w-24 h-8" alt="" />
 			</div>
 			<div className="flex-grow mt-10 ">
@@ -32,6 +32,7 @@ const sidebar = () => {
 					<li>
 						<NavLink
 							to="/dashboard"
+							onClick={handleToggleSidebar}
 							className={`${
 								dashboardMatch ? 'border-l-blue-900 bg-blue-900/20' : 'border-l-white bg-white'
 							}  pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900`}
@@ -43,6 +44,7 @@ const sidebar = () => {
 					<li>
 						<NavLink
 							to="/dashboard/shipment"
+							onClick={handleToggleSidebar}
 							className={`${
 								shipmentMatch ? 'border-l-blue-900 bg-blue-900/20' : 'border-l-white bg-white'
 							} pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
@@ -54,6 +56,7 @@ const sidebar = () => {
 					<li>
 						<NavLink
 							to="/dashboard/track_shipment"
+							onClick={handleToggleSidebar}
 							className={`${
 								trackMatch ? '  bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
 							}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
@@ -64,6 +67,7 @@ const sidebar = () => {
 					<li>
 						<NavLink
 							to="/dashboard/history"
+							onClick={handleToggleSidebar}
 							className={`${
 								historyMatch ? 'bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
 							}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}

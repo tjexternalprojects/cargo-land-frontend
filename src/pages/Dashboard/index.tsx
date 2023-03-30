@@ -10,14 +10,14 @@ const Dashboard = () => {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
-			<div className={` w-72 z-20 ${toggleAdminSideBar ? 'flex' : 'md:flex hidden'}`}>
+			<div className={`  z-20 ${toggleAdminSideBar ? 'flex ' : 'md:flex md:w-72 hidden'}`}>
 				<Sidebar />
 			</div>
 			<div className="bg-gray-200 flex items-center justify-center py-3 fixed z-10  w-full pl-10 md:pl-72 pr-10  ">
 			<TopBar />
 				
 			</div>
-			<div className="pt-16 w-full ">
+			<div className="pt-16 w-full  ">
 				<Outlet />
 			</div>
 
