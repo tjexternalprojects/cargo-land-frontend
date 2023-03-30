@@ -10,12 +10,13 @@ const Shipment = () => {
 
 	return (
 		<>
-			<div className=" tracking-widest text-sm text-gray-500 p-10 font-bold fixed">
+			<div className=" tracking-widest text-sm text-gray-500 p-10 font-bold fixed  md:block hidden">
 				NEW SHIPMENT
 			</div>
-			<div className="md:px-10  flex gap-3 ">
+			<div className="md:px-10 flex gap-3 mb-32">
 				{/* SIDE NAVIGATION */}
-				<div className="fixed mt-16 xs:bottom-0 pb-3 md:pb-0 md:bottom-auto bg-white md:bg-transparent w-full ">
+				<div className="fixed mt-16 pb-3 md:pb-0 md:bg-transparent bg-gray-200 bottom-0 md:top-20 w-full md:w-auto ">
+
 					<div className="mt-3 md:mt-10 border-l-2 space-y-2 ">
 						<div
 							onClick={() => handleShowTab('item1', 1)}

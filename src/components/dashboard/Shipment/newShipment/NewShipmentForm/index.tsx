@@ -49,12 +49,12 @@ const NewShipmentForm = () => {
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
 				<form className=" w-9/12 my-5" onSubmit={handleSubmitNewShipmentForm}>
-					<div className='bg-white p-10 shadow-sm rounded-sm'>
+					<div className='bg-white p-4 shadow-sm rounded-sm'>
 					<div>
 						<label className="text-sm text-gray-400">
 							Shipment title <span className="text-red-500"> * </span>
 						</label>
-						<div className="border flex rounded-lg mt-2 p-2 bg-white">
+						<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 							<input
 								className="w-full outline-none"
 								type="text"
@@ -78,7 +78,7 @@ const NewShipmentForm = () => {
 							Shipment Description
 							<span className="text-red-500"> * </span>
 						</label>
-						<div className="border flex rounded-lg mt-2 p-2 bg-white">
+						<div className=" flex  border-b-2 mt-2 p-2 bg-white">
 							<textarea
 								className="w-full outline-none"
 								value={shipmentDetails.shipment_description as string}
@@ -101,7 +101,7 @@ const NewShipmentForm = () => {
 							Shipment Weight (Kg)
 							<span className="text-red-500"> * </span>
 						</label>
-						<div className="border flex rounded-lg mt-2 p-2 bg-white">
+						<div className=" flex  border-b-2 mt-2 p-2 bg-white">
 							<input
 								className="w-full outline-none"
 								type="number"
@@ -149,7 +149,7 @@ const NewShipmentForm = () => {
 							))}
 						</Slider>
 
-						<div className="mt-10 w-1/2 h-10 border-2 bg-slate-200 shadow flex items-center justify-between pl-5 rounded-xl overflow-hidden">
+						<div className="mt-10 w-1/2 h-10 border-2 bg-slate-200 shadow flex items-center justify-between pl-5 overflow-hidden">
 							<label className=" w-full h-20 flex items-center justify-between cursor-pointer">
 								<span>Upload shipment image</span>
 								<div className="border-gray-500 border-dotted w-20 h-20 border-4 rounded-xl flex items-center justify-center">
@@ -166,7 +166,7 @@ const NewShipmentForm = () => {
 						</div>
 					</div>
 
-					<div className="mt-7 border rounded-lg p-5 bg-white">
+					<div className="mt-7  shadow-sm rounded-sm p-4 bg-white">
 						<label className="text-lg text-gray-400">Shipment Current Location for pickup</label>
 
 						<div className="flex flex-col space-y-5 mt-3">
