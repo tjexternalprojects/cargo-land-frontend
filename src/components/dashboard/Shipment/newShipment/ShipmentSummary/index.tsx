@@ -42,7 +42,6 @@ const RecipientDetails = () => {
 										<th>Price</th>
 										<th></th>
 										<th></th>
-										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -84,10 +83,10 @@ const RecipientDetails = () => {
 									Total Amount: <span>#400,000</span>
 								</div>
 							</div>
-							<div className="flex justify-between p-5 ">
+							<div className="flex justify-between p-5 flex-wrap md:flex-nowrap">
 								<button
 									onClick={handlePayment}
-									className="flex items-center justify-center px-5 py-2 space-x-3 text-blue-900 rounded-md hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300"
+									className="flex items-center justify-center px-5 py-2 space-x-3 text-white-900 rounded-md hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300"
 								>
 									<BsCartCheck /> <span>Checkout</span>
 								</button>
