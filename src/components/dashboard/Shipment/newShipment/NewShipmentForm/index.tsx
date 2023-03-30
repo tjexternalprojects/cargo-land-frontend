@@ -129,7 +129,7 @@ const NewShipmentForm = () => {
 							{previewImage.map((image, index) => (
 								<div
 									key={index}
-									className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
+									className="relative w-32 h-32 border-2 -z-10  bg-slate-200 shadow flex items-center justify-center rounded-sm"
 								>
 									<img
 										src={typeof image === 'string' ? image : undefined}
@@ -137,9 +137,9 @@ const NewShipmentForm = () => {
 										className="object-cover w-full  h-full rounded-xl"
 									/>
 
-									<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100 opacity-0 hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+									<div className="cursor-pointer absolute transition-all ease-in-out duration-150 hover:opacity-100  bg-black bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-sm" onClick={() => removeImage(index)}>
 										<div
-											className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
+											className=" cursor-pointer transition-all ease-in-out duration-75 bg-red-900/90 p-2  rounded-full border border-slate-50"
 											onClick={() => removeImage(index)}
 										>
 											<AiOutlineClose />
@@ -149,11 +149,11 @@ const NewShipmentForm = () => {
 							))}
 						</Slider>
 
-						<div className="mt-10 w-1/2 h-10 border-2 bg-slate-200 shadow flex items-center justify-between pl-5 overflow-hidden">
-							<label className=" w-full h-20 flex items-center justify-between cursor-pointer">
-								<span>Upload shipment image</span>
-								<div className="border-gray-500 border-dotted w-20 h-20 border-4 rounded-xl flex items-center justify-center">
-									<BiCloudUpload className="text-3xl text-gray-500" />
+						<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
+							<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
+								<span className='text-sm md:text-md'>Upload shipment image</span>
+								<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
+									<BiCloudUpload className="text-3xl text-white" />
 									<input
 										id="fileInput"
 										type="file"
@@ -175,7 +175,7 @@ const NewShipmentForm = () => {
 									Country
 									<span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
 										className="w-full outline-none"
 										value={countryCode}
@@ -200,7 +200,7 @@ const NewShipmentForm = () => {
 									State
 									<span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
 										className="w-full outline-none"
 										value={stateCode}
@@ -227,7 +227,7 @@ const NewShipmentForm = () => {
 									City
 									<span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
 										disabled={stateCode === '' || stateCode === '0'}
 										className="w-full outline-none"
@@ -254,13 +254,13 @@ const NewShipmentForm = () => {
 									Address
 									<span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" flex  border-b-2 mt-2 p-2">
 									<div className="text-xl text-gray-500">
 										<RiSearch2Line />
 									</div>
 									<input
 										type="text"
-										className="w-full outline-none px-2"
+										className="w-full outline-none px-2 bg-white"
 										value={address}
 										placeholder="type in shipment street address location"
 										onChange={(e) => setAddress(e.target.value)}
@@ -293,12 +293,12 @@ const NewShipmentForm = () => {
 					</div>
 
 					<hr className="mt-5" />
-					<div className="mt-5">
+					<div className="mt-4">
 						{formattedAddress == '' ? (
 							<button
 								disabled={showLoader}
 								type="submit"
-								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md  bg-blue-100 font-bold text-blue-900 text-md"
+								className="hover:shadow-md  shadow-gray-50 shadow-sm w-full p-2 rounded-sm  bg-blue-700 font-bold text-white text-md"
 							>
 								Validate Address
 							</button>
@@ -306,7 +306,7 @@ const NewShipmentForm = () => {
 							<button
 								type="button"
 								onClick={moveNext}
-								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-100 font-bold text-blue-900 text-md"
+								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
 							>
 								Next
 							</button>
