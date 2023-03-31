@@ -1,33 +1,63 @@
 import { useState, useEffect } from 'react';
 const GOOGLE_SIGNUP_CLIENT_ID = import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 import { gapi } from 'gapi-script';
+import axios from '@/context/baseURL';
+import { toast } from 'react-toastify';
+
 function useSignUp() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [showLoading, setShowLoading] = useState(false);
+	const [signUpData, setSignUpData] = useState({
+		name: '',
+		email: '',
+		password: '',
+		confirmPassword: '',
+	});
+
 	const handleSingupSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		setShowLoading(true);
+
+		 setSignUpData({ ...signUpData, confirmPassword: signUpData.password })
+
+		axios
+			.post('/user/register', signUpData)
+			.then((response) => {
+				console.log(response);
+				setShowLoading(false);
+				if (response.status == 200) {
+					toast.success(response.data.message, {
+						progressClassName: 'bg-green-500 h-1',
+						autoClose: 3000,
+					});
+				}
+			})
+			.catch((error) => {
+				setShowLoading(false);
+				console.log(error);
+				if (error.response.status == 401) {
+					toast.error(error.response.data.message, {
+						progressClassName: 'bg-red-500 h-1',
+						autoClose: 3000,
+					});
+				}
+			});
 	};
 
 	const googleSignUpSuccess = (response: any) => {
 		console.log('Successfully signed up with Google!', response);
-		// Send the user's info to your backend for authentication and account creation
 	};
 
 	const googleSignUpFailure = (response: any) => {
 		console.log('Failed to sign up with Google.', response);
 	};
 
-	// useEffect(() => {
-	// 	function start() {
-	// 		gapi.client.init({
-	// 			client_id: GOOGLE_SIGNUP_CLIENT_ID,
-	// 			scope: 'https://www.googleapis.com/auth/calendar',
-	// 		});
-	// 	}
-	// 	gapi.load('client:auth2', start);
-	// });
 	return {
 		showPassword,
 		GOOGLE_SIGNUP_CLIENT_ID,
+		showLoading,
+		signUpData,
+		setSignUpData,
 		setShowPassword,
 		handleSingupSubmit,
 		googleSignUpSuccess,

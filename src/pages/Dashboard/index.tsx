@@ -17,7 +17,7 @@ const Dashboard = () => {
 			<TopBar />
 				
 			</div>
-			<div className="pt-16 w-full  ">
+			<div className="pt-16 w-full md:ml-16 ">
 				<Outlet />
 			</div>
 
