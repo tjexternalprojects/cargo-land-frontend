@@ -11,7 +11,7 @@ const shipmentModal: FC<shipmentModalProps> = ({ setShowModal }) => {
 	const { image_slider_settings, handleRemoveItem, handleEdit, handleCloseModal } =
 		useShipmentModal(setShowModal);
 	return (
-		<div className=" absolute h-full w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
+		<div className=" fixed h-full w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" w-11/12  fixed bg-white rounded-xl shadow-lg  ">
 				<div className="flex justify-between p-5  bg-blue-50 rounded-t-xl ">
 					<span>ship-xxxxxxxxxx</span>
@@ -22,7 +22,7 @@ const shipmentModal: FC<shipmentModalProps> = ({ setShowModal }) => {
 						<AiOutlineClose />
 					</div>
 				</div>
-				<div className="flex">
+				<div className="flex md:flex-nowrap   ">
 					<div className="flex-grow w-1/2 h-full m-10">
 						<Slider {...image_slider_settings}>
 							<div className="h-full w-full">
@@ -68,27 +68,27 @@ const shipmentModal: FC<shipmentModalProps> = ({ setShowModal }) => {
 							<div className="flex">
 								<div className="p-3">
 									<button
-										className="bg-blue-800 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md"
 										onClick={handleEdit}
-									>
-										<AiOutlineEdit />
-										<span>Edit</span>
+										className="bg-blue-700 rounded-full text-white flex space-x-2 items-center shadow-md">
+										<span className=' px-3 py-1'>Edit</span>
+										<div className='rounded-full h-8 w-8 object-contain flex items-center justify-center bg-blue-900'><AiOutlineEdit /></div>
 									</button>
+
 								</div>
 
 								<div className="p-3">
 									<button
-										className="bg-red-500 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md"
 										onClick={handleRemoveItem}
+										className="bg-red-500 rounded-full text-white flex space-x-2 items-center shadow-md"
 									>
-										<AiOutlineClose />
-										<span>Remove</span>
+										<span className=' px-3 py-1'>Remove</span>
+										<div className='rounded-full h-8 w-8 object-contain flex items-center justify-center bg-red-700'><AiOutlineClose /></div>
 									</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>	
 			</div>
 		</div>
 	);

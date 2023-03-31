@@ -13,7 +13,7 @@ const TrackShipment = () => {
 	const address2 =
 		'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos';
 	return (
-		<div className="flex mt-8 gap-5">
+		<div className="flex mt-8 gap-5  ">
 			<div className=" w-6/12">
 				<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
 					Shipment Tracking

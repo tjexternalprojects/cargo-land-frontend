@@ -80,7 +80,7 @@ const Shipment = () => {
 				</div>
 
 				{/* PAGE */}
-				<div className=" w-full md:pl-16 ">
+				<div className=" w-full md:pl-16 mb-36 md:mb-0 ">
 					<motion.div
 						className={`${
 							state.shipmentCurrentTab == 'item1' ? 'inline-flex' : 'hidden'

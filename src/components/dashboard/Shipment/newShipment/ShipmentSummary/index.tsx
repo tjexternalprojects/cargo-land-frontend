@@ -29,73 +29,58 @@ const RecipientDetails = () => {
 	} = useShipmentSummary();
 	return (
 		<>
-			<div className="inline-flex flex-col  w-full ml-40">
-				<div className="flex gap-5">
-					<div className="bg-white h-screen-82 rounded-md shadow-md  relative box-border w-full">
-						<div className=" h-screen-55 rounded-md overflow-auto w-full p-5 ">
-							<table className=" w-full  bg-white rounded-lg shadow-sm">
-								<thead className=" text-left bg-slate-100 ">
-									<tr>
+			<div className="inline-flex flex-col  w-full  md:ml-40 ">
+				<div className="flex gap-5 px-3">
+					<div className="bg-white  rounded-sm shadow-md  box-border w-full">
+						<div className=" h-screen-55 rounded-md overflow-auto w-full p-1 ">
+							<table className=" w-full  bg-white rounded-sm  ">
+								<thead className=" text-left  w-full bg-slate-100 ">
+									<tr >
 										<th className="p-3">Shipment Id</th>
 										<th>Current Location</th>
 										<th>Destination</th>
 										<th>Price</th>
-										<th></th>
-										<th></th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody className=' overflow-y-auto'>
 									{shipmentData.map((val, index) => (
 										<tr
 											key={index}
-											className=" border-b hover:bg-slate-300 cursor-pointer"
+											className=" border-b hover:bg-slate-300 cursor-pointer text-sm"
 											onClick={handleShowModal}
 										>
 											<td className="p-3">KH921B</td>
 											<td className="p-3 w-1/4">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
 											<td className="p-3 w-1/4">20, Adebayo Close, Okota, isolo, Lagos Nigeria</td>
 											<td className="p-3">#50,000</td>
-											<td className="p-3">
-												<button className="bg-blue-800 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md">
-													<AiOutlineEdit />
-													<span>Edit</span>
-												</button>
-											</td>
-
-											<td className="p-3">
-												<button
-													onClick={handleRemoveItem}
-													className="bg-red-500 rounded-full text-white px-3 py-1 flex space-x-2 items-center shadow-md"
-												>
-													<AiOutlineClose />
-													<span>Remove</span>
-												</button>
-											</td>
 										</tr>
 									))}
 								</tbody>
 							</table>
 						</div>
-						<div className="absolute bottom-5 w-full  ">
+						<div className=" bottom-5 w-full  ">
 							<div className="bg-slate-100 p-5">
 								<div>Total Packages: 10</div>
 								<div>
 									Total Amount: <span>#400,000</span>
 								</div>
 							</div>
-							<div className="flex justify-between p-5 flex-wrap md:flex-nowrap">
+							<div className="flex justify-between p-5 gap-4 flex-wrap md:flex-nowrap">
 								<button
 									onClick={handlePayment}
-									className="flex items-center justify-center px-5 py-2 space-x-3 text-white-900 rounded-md hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300"
+									className="flex md:flex-grow-0 flex-grow items-center bg-red-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
 								>
-									<BsCartCheck /> <span>Checkout</span>
+									<div className='p-2'>Checkout</div><div className='bg-red-900 rounded-l-full h-full w-10  flex items-center justify-center
+									'><BsCartCheck /></div> 
 								</button>
 
 								<button
 									onClick={handleAddShipment}
-									className="flex items-center justify-center px-5 py-2 space-x-3 text-blue-900 rounded-md hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 bg-gradient-to-t from-white via-slate-100 to-slate-100 shadow-lg shadow-slate-300"
+									className="flex md:flex-grow-0 flex-grow items-center bg-blue-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
 								>
-									+ Add More Shipment
+										<div className='p-2'>Add More Shipment</div><div className='bg-blue-900 rounded-l-full h-full w-10  flex items-center justify-center
+									'>+</div> 
+									
 								</button>
 							</div>
 						</div>
