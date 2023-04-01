@@ -137,7 +137,7 @@ const NewShipmentForm = () => {
 								className="object-cover w-full  h-full rounded-xl"
 							/>
 
-							<div className="absolute transition-all ease-in-out duration-150 opacity-0 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+							<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
 								<div
 									className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
 									onClick={() => removeImage(index)}

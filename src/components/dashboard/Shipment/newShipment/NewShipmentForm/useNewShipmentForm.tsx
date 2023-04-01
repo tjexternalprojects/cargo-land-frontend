@@ -49,29 +49,6 @@ function useNewShipmentForm() {
 	};
 
 	const removeImage = (indexToRemove: number) => {
-		alert(indexToRemove)
-console.log(previewImage)
-console.log(shipmentDetails.images)
-		// setPreviewImage((prevState) => {
-		// 	const images = Array.isArray(prevState)
-		// 		? prevState.filter((image, index) => index !== indexToRemove)
-		// 		: [];
-		// 	return {
-		// 		...prevState
-		// 	};
-		// });
-
-
-
-		// setShipmentDetails((prevState) => {
-		// 	const images = Array.isArray(prevState.images)
-		// 		? prevState.images.filter((image, index) => index !== indexToRemove)
-		// 		: [];
-		// 	return {
-		// 		...prevState,
-		// 		images,
-		// 	};
-		// });
 
 		const newPreviewImage = [...previewImage];
 		newPreviewImage.splice(indexToRemove, 1);
@@ -81,8 +58,6 @@ console.log(shipmentDetails.images)
 		newShipmentImages.splice(indexToRemove, 1);
 		setShipmentDetails({...shipmentDetails, images: newShipmentImages});
 
-		console.log(previewImage)
-console.log(shipmentDetails.images)
 	};
 
 

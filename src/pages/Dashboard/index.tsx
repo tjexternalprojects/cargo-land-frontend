@@ -1,12 +1,10 @@
-import { ReactNode, useState, useContext } from 'react';
+import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Notification, Sidebar, TopBar } from '@/components';
-import { GiHamburgerMenu } from '@/assets';
-import { useApp, AppContext, AppContextType } from '@/context';
+import {  AppContext, AppContextType } from '@/context';
 import { motion } from 'framer-motion';
 import { slideInFromRight } from '@/utils/animations';
 const Dashboard = () => {
-	const { toggleAdminSideBar } = useApp();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
