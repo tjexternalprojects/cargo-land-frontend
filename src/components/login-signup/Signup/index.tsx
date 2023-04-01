@@ -57,7 +57,7 @@ const signup = ({ showLogin }: Props) => {
 				</div>
 				<div className="bg-white  h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 					<input
-						onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
+						onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value, confirmPassword:e.target.value })}
 						type={!showPassword ? 'password' : 'text'}
 						placeholder="create password"
 						className="text-sm  flex-grow h-10 outline-none"
@@ -72,7 +72,7 @@ const signup = ({ showLogin }: Props) => {
 				</div>
 				<button
 					disabled={showLoading}
-					className="hover:shadow-blue-100 hover:shadow-md  bg-gradient-to-br from-slate-50 via-white  to-slate-50 h-11 text-sm shadow-md animate__animated animate__fadeInUp animate__faster "
+					className="hover:shadow-blue-100 hover:shadow-md  flex items-center justify-center bg-gradient-to-br from-slate-50 via-white  to-slate-50 h-11 text-sm shadow-md animate__animated animate__fadeInUp animate__faster "
 					type="submit"
 				>
 					{!showLoading ? <span>Sign Up</span> : <RingLoader size={50} textColor="text-blue-900" />}

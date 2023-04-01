@@ -18,8 +18,9 @@ function useSignUp() {
 		e.preventDefault();
 		setShowLoading(true);
 
-		 setSignUpData({ ...signUpData, confirmPassword: signUpData.password })
 
+		console.log(signUpData.confirmPassword);
+		console.log(signUpData)
 		axios
 			.post('/user/register', signUpData)
 			.then((response) => {
@@ -30,16 +31,32 @@ function useSignUp() {
 						progressClassName: 'bg-green-500 h-1',
 						autoClose: 3000,
 					});
+				}else{
+					toast.error(response.data.message,{
+						progressClassName:'bg-red-500 h-1',
+						autoClose:3000,
+					})
 				}
 			})
 			.catch((error) => {
 				setShowLoading(false);
-				console.log(error);
+				console.log(error.response.data);
+				if(!error.response.status){
+					toast.error('network error', {
+						progressClassName: 'bg-red-500 h-1',
+						autoClose: 3000,
+					});
+				}
 				if (error.response.status == 401) {
 					toast.error(error.response.data.message, {
 						progressClassName: 'bg-red-500 h-1',
 						autoClose: 3000,
-					});
+					}); 
+				}else{
+						toast.error(error.response.data.Error, {
+							progressClassName: 'bg-red-500 h-1',
+							autoClose: 3000,
+						});
 				}
 			});
 	};
