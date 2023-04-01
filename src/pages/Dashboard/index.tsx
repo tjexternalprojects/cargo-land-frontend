@@ -11,7 +11,7 @@ const Dashboard = () => {
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
 			<div className={`md:flex md:w-72 z-20 ${state.toggleAdminSideBar? 'flex fixed md:relative':'hidden md:flex'}`}>
-				{/* <Sidebar /> */}
+				<Sidebar />
 			</div>
 			<div className="bg-gray-200 flex items-center justify-center py-3 fixed z-10  w-full pl-3 md:pl-72 pr-3 md:pr-14  ">
 			<TopBar />
