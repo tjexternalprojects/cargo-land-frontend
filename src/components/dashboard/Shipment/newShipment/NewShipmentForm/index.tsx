@@ -50,75 +50,75 @@ const NewShipmentForm = () => {
 				<p className="text-xl mt-4">Your shipment details</p>
 				<form className=" md:w-9/12 my-5  px-3 md:px-0" onSubmit={handleSubmitNewShipmentForm}>
 					<div className='bg-white p-4 shadow-sm rounded-sm'>
-					<div>
-						<label className="text-sm text-gray-400">
-							Shipment title <span className="text-red-500"> * </span>
-						</label>
-						<div className=" border-b-2 flex  mt-2 p-2 bg-white">
-							<input
-								className="w-full outline-none"
-								type="text"
-								value={shipmentDetails.shipment_title as string}
-								onChange={(e) =>
-									setShipmentDetails({
-										...shipmentDetails,
-										shipment_title: e.target.value,
-									})
-								}
-								required
-							/>
-							<div className="text-xl text-gray-500">
-								<MdOutlineSubtitles />
+						<div>
+							<label className="text-sm text-gray-400">
+								Shipment title <span className="text-red-500"> * </span>
+							</label>
+							<div className=" border-b-2 flex  mt-2 p-2 bg-white">
+								<input
+									className="w-full outline-none"
+									type="text"
+									value={shipmentDetails.shipment_title as string}
+									onChange={(e) =>
+										setShipmentDetails({
+											...shipmentDetails,
+											shipment_title: e.target.value,
+										})
+									}
+									required
+								/>
+								<div className="text-xl text-gray-500">
+									<MdOutlineSubtitles />
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div className="mt-3">
-						<label className="text-sm text-gray-400">
-							Shipment Description
-							<span className="text-red-500"> * </span>
-						</label>
-						<div className=" flex  border-b-2 mt-2 p-2 bg-white">
-							<textarea
-								className="w-full outline-none"
-								value={shipmentDetails.shipment_description as string}
-								onChange={(e) =>
-									setShipmentDetails({
-										...shipmentDetails,
-										shipment_description: e.target.value,
-									})
-								}
-								required
-							></textarea>
-							<div className="text-xl text-gray-500">
-								<MdDescription />
+						<div className="mt-3">
+							<label className="text-sm text-gray-400">
+								Shipment Description
+								<span className="text-red-500"> * </span>
+							</label>
+							<div className=" flex  border-b-2 mt-2 p-2 bg-white">
+								<textarea
+									className="w-full outline-none"
+									value={shipmentDetails.shipment_description as string}
+									onChange={(e) =>
+										setShipmentDetails({
+											...shipmentDetails,
+											shipment_description: e.target.value,
+										})
+									}
+									required
+								></textarea>
+								<div className="text-xl text-gray-500">
+									<MdDescription />
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div className="mt-3">
-						<label className="text-sm text-gray-400">
-							Shipment Weight (Kg)
-							<span className="text-red-500"> * </span>
-						</label>
-						<div className=" flex  border-b-2 mt-2 p-2 bg-white">
-							<input
-								className="w-full outline-none"
-								type="number"
-								value={shipmentDetails.shipment_weight as string}
-								onChange={(e) =>
-									setShipmentDetails({
-										...shipmentDetails,
-										shipment_weight: e.target.value,
-									})
-								}
-								required
-							/>
-							<div className="text-xl text-gray-500">
-								<GiWeight />
+						<div className="mt-3">
+							<label className="text-sm text-gray-400">
+								Shipment Weight (Kg)
+								<span className="text-red-500"> * </span>
+							</label>
+							<div className=" flex  border-b-2 mt-2 p-2 bg-white">
+								<input
+									className="w-full outline-none"
+									type="number"
+									value={shipmentDetails.shipment_weight as string}
+									onChange={(e) =>
+										setShipmentDetails({
+											...shipmentDetails,
+											shipment_weight: e.target.value,
+										})
+									}
+									required
+								/>
+								<div className="text-xl text-gray-500">
+									<GiWeight />
+								</div>
 							</div>
 						</div>
-					</div>
 					</div>
 					<div className="mt-3">
 						<label className="text-sm text-gray-400">
@@ -127,25 +127,25 @@ const NewShipmentForm = () => {
 						</label>
 						<Slider {...image_slider_settings}>
 							{previewImage.map((image, index) => (
-								<div
-									key={index}
-									className="relative w-32 h-32 border-2 -z-10  bg-slate-200 shadow flex items-center justify-center rounded-sm"
-								>
-									<img
-										src={typeof image === 'string' ? image : undefined}
-										alt="Shipment"
-										className="object-cover w-full  h-full rounded-xl"
-									/>
+							<div
+							key={index}
+							className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
+						>
+							<img
+								src={typeof image === 'string' ? image : undefined}
+								alt="Shipment"
+								className="object-cover w-full  h-full rounded-xl"
+							/>
 
-									<div className="cursor-pointer absolute transition-all ease-in-out duration-150 hover:opacity-100  bg-black bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-sm" onClick={() => removeImage(index)}>
-										<div
-											className=" cursor-pointer transition-all ease-in-out duration-75 bg-red-900/90 p-2  rounded-full border border-slate-50"
-											onClick={() => removeImage(index)}
-										>
-											<AiOutlineClose />
-										</div>
-									</div>
+							<div className="absolute transition-all ease-in-out duration-150 opacity-0 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+								<div
+									className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
+									onClick={() => removeImage(index)}
+								>
+									<AiOutlineClose />
 								</div>
+							</div>
+						</div>
 							))}
 						</Slider>
 

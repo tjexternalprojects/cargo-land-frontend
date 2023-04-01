@@ -9,12 +9,10 @@ import {
 import { MapDirection } from '@/components/';
 import { useGeocode } from '@/components';
 const TrackShipment = () => {
-	const address1 = 'No. 56, Felly Akurunwa Street, Ago Palace Way, Okota, Nigeria, Lagos';
-	const address2 =
-		'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos';
+
 	return (
 		<div className="flex mt-8 gap-5 flex-col md:flex-row ">
-			<div className=" w-6/12">
+			<div className=" md:w-6/12">
 				<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
 					Shipment Tracking
 				</div>
@@ -74,9 +72,9 @@ const TrackShipment = () => {
 					</div>
 				</div>
 			</div>
-			<div className=" w-full p-5">
-				<div className="flex flex-col md:flex-row items-center  justify-between w-full gap-5">
-					<div className="border-2 p-3 rounded-md flex-grow">
+			<div className=" w-full py-5">
+				<div className="flex flex-col md:flex-row    justify-between w-full gap-5">
+					<div className="border-2 p-3 rounded-md flex-grow w-full">
 						<div className="flex items-center text-sm space-x-2 text-slate-500">
 							<RiUserReceivedLine />
 							<span>Receiver</span>
@@ -86,17 +84,17 @@ const TrackShipment = () => {
 						</div>
 					</div>
 
-					<div className="border-2 p-3 rounded-md flex-grow">
+					<div className="border-2 p-3 rounded-md flex-grow w-full">
 						<div className="flex items-center text-sm space-x-2 text-slate-500">
 							<BsTelephoneForward />
 							<span>Phone Number</span>
 						</div>
 						<div>
-							<h1 className="text-xl font-bold">+234 8144139845</h1>
+							<h1 className="text-xl font-bold">+2348144139845</h1>
 						</div>
 					</div>
 
-					<div className="border-2 p-3 rounded-md flex-grow">
+					<div className="border-2 p-3 rounded-md flex-grow w-full">
 						<div className="flex items-center text-sm space-x-2 text-slate-500">
 							<BiCurrentLocation />
 							<span>Address</span>
