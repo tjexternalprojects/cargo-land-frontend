@@ -13,7 +13,7 @@ const TrackShipment = () => {
 	const address2 =
 		'Blenco Bustop, 4 Gani Adedayo Close, Idowu Dabiri Street, Lekki - Epe Expy, Aja, Lagos';
 	return (
-		<div className="flex mt-8 gap-5  ">
+		<div className="flex mt-8 gap-5 flex-col md:flex-row ">
 			<div className=" w-6/12">
 				<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
 					Shipment Tracking
@@ -75,7 +75,7 @@ const TrackShipment = () => {
 				</div>
 			</div>
 			<div className=" w-full p-5">
-				<div className="flex items-center  justify-between w-full gap-5">
+				<div className="flex flex-col md:flex-row items-center  justify-between w-full gap-5">
 					<div className="border-2 p-3 rounded-md flex-grow">
 						<div className="flex items-center text-sm space-x-2 text-slate-500">
 							<RiUserReceivedLine />
@@ -109,7 +109,7 @@ const TrackShipment = () => {
 				<div className="mt-5 ">
 					<MapDirection height="80vh" />
 				</div>
-				<div className="mt-5">
+				{/* <div className="mt-5">
 					<h3>Item List</h3>
 					<table className=" w-full">
 						<thead>
@@ -126,7 +126,7 @@ const TrackShipment = () => {
 							<tr></tr>
 						</tbody>
 					</table>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

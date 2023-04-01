@@ -48,7 +48,7 @@ const NewShipmentForm = () => {
 					<GoPackage />
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
-				<form className=" w-9/12 my-5 " onSubmit={handleSubmitNewShipmentForm}>
+				<form className=" md:w-9/12 my-5  px-3 md:px-0" onSubmit={handleSubmitNewShipmentForm}>
 					<div className='bg-white p-4 shadow-sm rounded-sm'>
 					<div>
 						<label className="text-sm text-gray-400">

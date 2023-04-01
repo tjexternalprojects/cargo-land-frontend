@@ -16,7 +16,7 @@ const home = () => {
 	} = useHome();
 
 	return (
-		<div className="mt-10 space-y-10 p-5  w-full">
+		<div className="mt-10 space-y-10   w-full">
 			{/* Top */}
 			<div className="gap-4 flex justify-between flex-wrap md:flex-nowrap  w-full">
 				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min w-72 flex-grow   justify-between bg-slate-50 shadow-md items-center">
