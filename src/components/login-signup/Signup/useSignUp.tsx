@@ -18,9 +18,8 @@ function useSignUp() {
 		e.preventDefault();
 		setShowLoading(true);
 
-
 		console.log(signUpData.confirmPassword);
-		console.log(signUpData)
+		console.log(signUpData);
 		axios
 			.post('/user/register', signUpData)
 			.then((response) => {
@@ -31,32 +30,31 @@ function useSignUp() {
 						progressClassName: 'bg-green-500 h-1',
 						autoClose: 3000,
 					});
-				}else{
-					toast.error(response.data.message,{
-						progressClassName:'bg-red-500 h-1',
-						autoClose:3000,
-					})
+				} else {
+					toast.error(response.data.message, {
+						progressClassName: 'bg-red-500 h-1',
+						autoClose: 3000,
+					});
 				}
 			})
 			.catch((error) => {
 				setShowLoading(false);
 				console.log(error.response.data);
-				if(!error.response.status){
-					toast.error('network error', {
+				if (error.code == 'ERR_NETWORK') {
+					toast.error(error.message, {
 						progressClassName: 'bg-red-500 h-1',
 						autoClose: 3000,
 					});
-				}
-				if (error.response.status == 401) {
+				} else if (error.response.status == 401) {
 					toast.error(error.response.data.message, {
 						progressClassName: 'bg-red-500 h-1',
 						autoClose: 3000,
-					}); 
-				}else{
-						toast.error(error.response.data.Error, {
-							progressClassName: 'bg-red-500 h-1',
-							autoClose: 3000,
-						});
+					});
+				} else {
+					toast.error(error.response.data.Error, {
+						progressClassName: 'bg-red-500 h-1',
+						autoClose: 3000,
+					});
 				}
 			});
 	};
