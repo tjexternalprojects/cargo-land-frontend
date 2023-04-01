@@ -53,7 +53,13 @@ function useLogin() {
 			.catch((error) => {
 				setShowLoading(false);
 				console.log(error);
-				if (error.response.status == 401) {
+					if (error.code =="ERR_NETWORK") {
+						toast.error(error.message, {
+							progressClassName: 'bg-red-500 h-1',
+							autoClose: 3000,
+						});
+					}
+				else if (error.response.status == 401) {
 					toast.error(error.response.data.message, {
 						progressClassName: 'bg-red-500 h-1',
 						autoClose: 3000,

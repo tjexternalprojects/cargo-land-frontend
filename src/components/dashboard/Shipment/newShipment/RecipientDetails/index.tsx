@@ -216,7 +216,7 @@ const RecipientDetails = () => {
 							<button
 								disabled={showLoading}
 								type="submit"
-								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md  bg-blue-100 font-bold text-blue-900 text-md"
+								className="hover:shadow-md  shadow-gray-50 shadow-sm w-full p-2 rounded-sm  bg-blue-700 font-bold text-white text-md"
 							>
 								Validate Address
 							</button>
@@ -225,7 +225,7 @@ const RecipientDetails = () => {
 								type="button"
 								onClick={moveNext}
 								// disabled={showLoading}
-								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-100 font-bold text-blue-900 text-md"
+								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
 							>
 								Next
 								{/* {!showLoading ? <span>Next</span> : <RingLoader size={50} textColor="text-blue-900" />} */}

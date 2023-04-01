@@ -6,7 +6,7 @@ const Payment = () => {
 	const { handlePayment } = usePayment();
 	return (
 		<>
-			<div className="inline-flex flex-col items-center w-full">
+			<div className="inline-flex flex-col items-center w-full border-4 ">
 				<div className="bg-blue-900 rounded-full text-white text-3xl p-2">
 					<RiUserReceivedLine />
 				</div>

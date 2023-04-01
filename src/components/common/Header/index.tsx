@@ -37,7 +37,8 @@ const Header = () => {
 						className="text-md md:text-md  text-red-400 rounded-md p-2 hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100"
 					>
 						<span>Sign&nbsp;in</span>
-					</button></Link>
+					</button>
+					</Link>
 					{location.pathname !== '/login' && <BiMenuAltRight  className=" md:hidden text-3xl" onClick={toggleShowLoin} />}
 				</div>
 			</div>
@@ -48,8 +49,6 @@ const Header = () => {
 							? ' overflow-hidden  '
 							: ' hidden'
 						}`}
-
-
 				>
 
 					<ul className="flex gap-2 items-center text-md flex-col text-red-400">

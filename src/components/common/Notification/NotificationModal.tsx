@@ -9,7 +9,7 @@ const NotificationModal: FC<NotificationModalProps> = ({ setShowModal }) => {
 		<div className="absolute h-full w-full top-0 bottom-0 left-0 right-0">
 			<div className="bg-black bg-opacity-25 fixed h-full  flex justify-center items-center">
 				<div className="m-10 ">
-					<div className="flex justify-end py-2 px-5  bg-blue-50 rounded-t-xl ">
+					<div className="flex justify-end py-2 px-3  bg-blue-50  ">
 						<div
 							className="rounded-full shadow-lg hover:shadow-blue-200 hover:bg-blue-400 hover:text-white transition-all duration-75 ease-in-out cursor-pointer p-2 "
 							onClick={() => setShowModal(false)}

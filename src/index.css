@@ -22,9 +22,11 @@ body {
 }
 
 .xscroll::-webkit-scrollbar {
+	/* background: linear-gradient(transparent, #da5151, #19289b); */
+
 	height: 5px;
 }
 
-.xscroll::-webkit-scrollbar-thumb {
+/* .xscroll::-webkit-scrollbar-thumb {
 	background: linear-gradient(transparent, #19289b);
-}
+} */

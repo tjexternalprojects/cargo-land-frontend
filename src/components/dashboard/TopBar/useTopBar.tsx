@@ -10,6 +10,12 @@ function useTopBar() {
 			toggleNotification: !state.toggleNotification,
 		});
 	};
+const handleToggleSidebar = () =>{
+	setState((prevState) => ({
+		...prevState,
+		toggleAdminSideBar: !state.toggleAdminSideBar,
+	}))
+}
 
 	const showChartItems = () => {
 		setState({
@@ -17,9 +23,9 @@ function useTopBar() {
 			shipmentCurrentTab: 'item3',
 			form_level: 2,
 		});
-		navigation('/shipment');
+		navigation('/dashboard/shipment');
 	};
 
-	return { handleToggleNotification, showChartItems };
+	return { handleToggleNotification, handleToggleSidebar, showChartItems, setState, state };
 }
 export default useTopBar;

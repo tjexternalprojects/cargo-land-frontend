@@ -49,6 +49,7 @@ function useNewShipmentForm() {
 	};
 
 	const removeImage = (indexToRemove: number) => {
+		alert(indexToRemove)
 		setShipmentDetails((prevState) => {
 			const images = Array.isArray(prevState.images)
 				? prevState.images.filter((image, index) => index !== indexToRemove)
