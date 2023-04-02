@@ -92,5 +92,3 @@ const Users = () => {
 };
 
 export default Users;
-
-// https://www.youtube.com/watch?v=vSzefMcioDk
