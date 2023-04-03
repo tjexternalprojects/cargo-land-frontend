@@ -10,7 +10,7 @@ const Shipment = () => {
 
 	return (
 		<div className="space-y-10 md:p-5 w-full ">
-			<div className=" tracking-widest text-sm text-gray-500 p-10 font-bold fixed  md:block hidden">
+			<div className="tracking-widest text-sm text-gray-500 p-10 font-bold fixed  md:block hidden">
 				NEW SHIPMENT
 			</div>
 			<div className="md:px-10 flex gap-3 mb-32 mb:mb-0 w-full ">
