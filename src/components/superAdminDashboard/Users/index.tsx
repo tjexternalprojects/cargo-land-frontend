@@ -2,62 +2,22 @@ import React, { useMemo } from 'react';
 import MaterialReactTable, { type MRT_ColumnDef } from 'material-react-table';
 
 type Person = {
-  name: {
-    firstName: string;
-    lastName: string;
-  };
-  address: string;
-  city: string;
-  state: string;
+  full_name: string
+  email: string;
+  phone_number: string;
+  account_type: string;
+  account_status: string
 };
 
 //nested data is ok, see accessorKeys in ColumnDef below
 const data: Person[] = [
   {
-    name: {
-      firstName: 'John',
-      lastName: 'Doe',
-    },
-    address: '261 Erdman Ford',
-    city: 'East Daphne',
-    state: 'Kentucky',
-  },
-  {
-    name: {
-      firstName: 'Jane',
-      lastName: 'Doe',
-    },
-    address: '769 Dominic Grove',
-    city: 'Columbus',
-    state: 'Ohio',
-  },
-  {
-    name: {
-      firstName: 'Joe',
-      lastName: 'Doe',
-    },
-    address: '566 Brakus Inlet',
-    city: 'South Linda',
-    state: 'West Virginia',
-  },
-  {
-    name: {
-      firstName: 'Kevin',
-      lastName: 'Vandy',
-    },
-    address: '722 Emie Stream',
-    city: 'Lincoln',
-    state: 'Nebraska',
-  },
-  {
-    name: {
-      firstName: 'Joshua',
-      lastName: 'Rolluffs',
-    },
-    address: '32188 Larkin Turnpike',
-    city: 'Omaha',
-    state: 'Nebraska',
-  },
+    full_name: 'John Doe',
+    email: 'johndoe@gmail.com',
+    phone_number: '08144153062',
+    account_type: 'regular',
+    account_status: 'active'
+  }
 ];
 
 const Users = () => {
@@ -65,30 +25,30 @@ const Users = () => {
   const columns = useMemo<MRT_ColumnDef<Person>[]>(
     () => [
       {
-        accessorKey: 'name.firstName', //access nested data with dot notation
-        header: 'First Name',
+        accessorKey: 'full_name',
+        header: 'Full Name',
       },
       {
-        accessorKey: 'name.lastName',
-        header: 'Last Name',
+        accessorKey: 'email', //normal accessorKey
+        header: 'Email',
       },
       {
-        accessorKey: 'address', //normal accessorKey
-        header: 'Address',
+        accessorKey: 'phone_number',
+        header: 'Phone Number',
       },
       {
-        accessorKey: 'city',
-        header: 'City',
+        accessorKey: 'account_type',
+        header: 'Account Type',
       },
       {
-        accessorKey: 'state',
-        header: 'State',
+        accessorKey: 'account_status',
+        header: 'Account Status',
       },
     ],
     [],
   );
 
-  return <MaterialReactTable columns={columns} data={data} />;
+  return <MaterialReactTable enableFilters={false} enableFullScreenToggle={false} enableDensityToggle={false} enableColumnActions={false} enableSorting={false}  columns={columns} data={data} />;
 };
 
 export default Users;
