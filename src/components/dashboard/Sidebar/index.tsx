@@ -64,7 +64,7 @@ const sidebar = () => {
 							<TbTruckDelivery /> <span>Track Shipment</span>
 						</NavLink>
 					</li>
-					<li>
+					{/* <li>
 						<NavLink
 							to="/dashboard/history"
 							onClick={handleToggleSidebar}
@@ -74,7 +74,7 @@ const sidebar = () => {
 						>
 							<RiPriceTag2Line /> <span>History</span>
 						</NavLink>
-					</li>
+					</li> */}
 				</ul>
 			</div>
 			<div className="text-blue-900 flex flex-col items-center p-8">

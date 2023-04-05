@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DashboardHome, ShipmentPage, History, TrackShipment } from '@/components';
-import Dashboard from '@/pages/Dashboard';
-import { BusinessSignup, LandingPage, Login } from '@/pages/index';
+import { DashboardHome, ShipmentPage, History, TrackShipment, AdminHome, AUsers, ATrackShipment, ATransactions, AShipment } from '@/components';
+import { BusinessSignup, LandingPage, Login, Dashboard, Admin } from '@/pages';
 import ProtectedRoutes from '@/ProtectedRoutes';
 import { AppProvider } from '@/context';
 import AOS from 'aos';
@@ -25,6 +24,13 @@ function App() {
 							<Route path="/dashboard/shipment" element={<ShipmentPage />} />
 							<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 							<Route path="/dashboard/history" element={<History />} />
+						</Route>
+						<Route path="/admin" element={<Admin/>}>
+							<Route path="" element={<AdminHome />} />
+							<Route path="/admin/users" element={<AUsers />} />
+							<Route path="/admin/track_shipment" element={<ATrackShipment />} />
+							<Route path="/admin/transactions" element={<ATransactions />} />
+							<Route path="/admin/shipment" element={<AShipment />} />
 						</Route>
 					</Route>
 					<Route path="/" element={<LandingPage />} />
