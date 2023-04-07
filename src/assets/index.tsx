@@ -1,5 +1,5 @@
 // icons
-export { GrClose, GrContactInfo, GrDocumentText, GrBusinessService } from 'react-icons/gr';
+export { GrClose, GrContactInfo, GrDocumentText, GrBusinessService, GrTransaction } from 'react-icons/gr';
 export {
 	BiUserPin,
 	BiShow,
