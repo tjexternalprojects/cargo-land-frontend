@@ -56,7 +56,6 @@
 		"leaflet": "^1.9.3",
 		"leaflet-geosearch": "^3.7.0",
 		"leaflet-routing-machine": "^3.2.12",
-		"material-react-table": "^1.9.2",
 		"ol": "^7.3.0",
 		"path": "^0.12.7",
 		"react": "^18.2.0",
