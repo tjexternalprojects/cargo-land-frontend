@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import AuthContext from './AuthContext';
 import SettingsContext from './SettingsContext';
-import GeneralContext from './ShipmentContext';
+import ShipmentContext from './ShipmentContext';
 
 const { user } = AuthContext();
 const { toggleNotification, notifications, theme, toggleAdminSideBar, openSignUpMenu, showForgetPassword } = SettingsContext();
-const { shipmentDetails, shipmentCurrentTab, form_level } = GeneralContext();
+const { shipmentDetails, shipmentCurrentTab, form_level } = ShipmentContext();
 
 // Define the global state object
 
