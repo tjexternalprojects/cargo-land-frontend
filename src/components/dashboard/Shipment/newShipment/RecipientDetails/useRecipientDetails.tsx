@@ -3,8 +3,7 @@ import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
-import axios from '@/context/baseURL';
-// import axios from 'axios';
+import {ShipmentServices} from '@/services'
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -99,14 +98,20 @@ function useRecipientDetails() {
 	// This is use to control the active tab design
 	const moveNext = async () => {
 		setShowLoading(true);
-		console.log(state.shipmentDetails);
-		console.log(state.user.loggedIn);
-		await axios
-			.post('/shipment/create-shipment', state.shipmentDetails, {
-				headers: {
-					Authorization: `Bearer ${state.user.loggedIn}`,
-				},
-			})
+		let shipment_images = state.shipmentDetails.images as [];
+		const { images, ...newPayload } = state.shipmentDetails;
+		const payload = JSON.stringify(newPayload);
+
+		const formData = new FormData();
+		formData.append('payload', payload);
+		for (let i = 0; i < shipment_images.length ; i++) {
+			console.log(shipment_images[i], 'form data images');
+			formData.append('images', shipment_images[i]);
+		}
+
+		
+		await ShipmentServices.createShipment
+			(formData)
 			.then((response) => {
 				setShowLoading(false);
 				console.log(response);
@@ -115,12 +120,11 @@ function useRecipientDetails() {
 					shipmentCurrentTab: 'item3',
 					form_level: 2,
 				});
-			})
-			.catch((error) => {
+			},
+			(error) => {
 				setShowLoading(false);
 				console.log(error);
-			});
-		console.log('why');
+			})
 	};
 
 	const updateMapAddress = () => {

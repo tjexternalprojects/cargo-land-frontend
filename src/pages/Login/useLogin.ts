@@ -42,6 +42,8 @@ function useLogin() {
 							...state,
 							user: { loggedIn: null },
 						});
+
+						
 						navigate('/login');
 						toast.success('Logged out successfully', {
 							progressClassName: 'bg-green-500 h-1',

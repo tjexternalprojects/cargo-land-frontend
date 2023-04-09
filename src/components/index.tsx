@@ -48,6 +48,7 @@ export { default as ATopBar } from './superAdminDashboard/TopBar';
 export { default as ASidebar } from './superAdminDashboard/Sidebar';
 export { default as AdminHome} from './superAdminDashboard/Home'
 export { default as AUsers} from './superAdminDashboard/Users'
+export {default as AUserDetailsModal} from './superAdminDashboard/Users/UserDetailsModal'
 export { default as ATrackShipment} from './superAdminDashboard/TrackShipment'
 export { default as ATransactions } from './superAdminDashboard/Transactions'
 export { default as AShipment } from './superAdminDashboard/Shipment'

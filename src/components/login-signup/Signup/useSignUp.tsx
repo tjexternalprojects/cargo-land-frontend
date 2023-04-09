@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 const GOOGLE_SIGNUP_CLIENT_ID = import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
-import { gapi } from 'gapi-script';
-import axios from '@/context/baseURL';
+import { AuthServices } from '@/services';
 import { toast } from 'react-toastify';
 
 function useSignUp() {
@@ -20,8 +19,7 @@ function useSignUp() {
 
 		console.log(signUpData.confirmPassword);
 		console.log(signUpData);
-		axios
-			.post('/user/register', signUpData)
+		AuthServices.signup(signUpData)
 			.then((response) => {
 				console.log(response);
 				setShowLoading(false);
@@ -36,8 +34,8 @@ function useSignUp() {
 						autoClose: 3000,
 					});
 				}
-			})
-			.catch((error) => {
+			},
+			(error) => {
 				setShowLoading(false);
 				console.log(error.response.data);
 				if (error.code == 'ERR_NETWORK') {
