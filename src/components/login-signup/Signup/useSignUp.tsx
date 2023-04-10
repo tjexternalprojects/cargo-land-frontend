@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 function useSignUp() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
+
+
 	const [signUpData, setSignUpData] = useState({
 		name: '',
 		email: '',
@@ -17,19 +19,18 @@ function useSignUp() {
 		e.preventDefault();
 		setShowLoading(true);
 
-		console.log(signUpData.confirmPassword);
-		console.log(signUpData);
 		AuthServices.signup(signUpData)
 			.then((response) => {
-				console.log(response);
 				setShowLoading(false);
-				if (response.status == 200) {
-					toast.success(response.data.message, {
+				if (response.status === 201) {
+				console.log(response);
+
+					toast.success('Profile Created Successfully', {
 						progressClassName: 'bg-green-500 h-1',
 						autoClose: 3000,
 					});
 				} else {
-					toast.error(response.data.message, {
+					toast.error('Oops! an Error occured, please retry', {
 						progressClassName: 'bg-red-500 h-1',
 						autoClose: 3000,
 					});
@@ -55,6 +56,7 @@ function useSignUp() {
 					});
 				}
 			});
+
 	};
 
 	const googleSignUpSuccess = (response: any) => {

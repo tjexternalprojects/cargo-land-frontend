@@ -47,25 +47,25 @@ instance.interceptors.response.use(
       console.log(err)
       const originalConfig = err.config;
       console.log(originalConfig)
-      // if ((originalConfig.url !== "/user/login" && err.response )|| (originalConfig.url !== "/user/register")) {
-      //   // Access Token was expired
-      //   if (err.response.status === 401 && !originalConfig._retry) {
-      //     originalConfig._retry = true;
+      if ((originalConfig.url !== "/user/login" && err.response )|| (originalConfig.url !== "/user/register")) {
+        // Access Token was expired
+        if (err.response.status === 401 && !originalConfig._retry) {
+          originalConfig._retry = true;
   
-      //     try {
-      //       const rs = await instance.post("/user/regenerate-access-token", {
-      //         refreshToken: TokenServices.getRefreshToken(),
-      //       });
+          try {
+            const rs = await instance.post("/user/regenerate-access-token", {
+              refreshToken: TokenServices.getRefreshToken(),
+            });
   
-      //       const { accessToken } = rs.data;
-      //       TokenServices.updateLocalAccessToken(accessToken);
+            const { accessToken } = rs.data;
+            TokenServices.updateLocalAccessToken(accessToken);
   
-      //       return instance(originalConfig);
-      //     } catch (_error) {
-      //       return Promise.reject(_error);
-      //     }
-      //   }
-      // }
+            return instance(originalConfig);
+          } catch (_error) {
+            return Promise.reject(_error);
+          }
+        }
+      } 
   
       return Promise.reject(err);
     }
