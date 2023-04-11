@@ -3,8 +3,8 @@ import TokenServices from "./token.services";
 
 
 const instance = axios.create({
-    // baseURL: 'https://server.cargolandglobal.com/',
-    baseURL: 'http://localhost:4300/',
+    baseURL: 'https://server.cargolandglobal.com/',
+    // baseURL: 'http://localhost:4300/',
     headers: {
       "Content-Type": "application/json",
     },
