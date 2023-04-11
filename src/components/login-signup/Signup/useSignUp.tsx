@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 const GOOGLE_SIGNUP_CLIENT_ID = import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 import { AuthServices } from '@/services';
 import { toast } from 'react-toastify';
+import { AppContextType, AppContext } from '@/context';
 
 function useSignUp() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
+	const { state, setState } = useContext<AppContextType>(AppContext);
 
 
 	const [signUpData, setSignUpData] = useState({
@@ -29,6 +31,11 @@ function useSignUp() {
 						progressClassName: 'bg-green-500 h-1',
 						autoClose: 3000,
 					});
+					setState({
+						...state,
+						showResendToken: true,
+						resendTokenMessage:'Profile created successfully, please check your email to verify your account'
+					});
 				} else {
 					toast.error('Oops! an Error occured, please retry', {
 						progressClassName: 'bg-red-500 h-1',
@@ -38,7 +45,7 @@ function useSignUp() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error.response.data);
+				console.log(error);
 				if (error.code == 'ERR_NETWORK') {
 					toast.error(error.message, {
 						progressClassName: 'bg-red-500 h-1',

@@ -1,16 +1,11 @@
 import React, { useCallback } from 'react';
 import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail, BiUserPin } from '@/assets';
-import { motion } from 'framer-motion';
-import { slideUp } from '@/utils/animations';
+
 import useSignUp from './useSignUp';
 import GoogleLogin from 'react-google-login';
 import RingLoader from '@/components/common/RingLoader';
 import { ToastContainer } from 'react-toastify';
 
-import { Link } from 'react-router-dom';
-
-import { IResolveParams, LoginSocialGoogle } from 'reactjs-social-login';
-import { GoogleLoginButton } from 'react-social-login-buttons';
 
 interface Props {
 	showLogin: boolean;

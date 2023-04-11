@@ -28,7 +28,14 @@ function useLogin() {
 		});
 	}
 	
-
+	const handleNavigate=(location:string)=>{
+		setState({
+			...state,
+			showResendToken: false,
+			resendTokenMessage:''
+		});
+		navigate(location)
+	}
 	const handleLogout = () => {
 		confirmAlert({
 			title: 'Logout?',
@@ -62,6 +69,7 @@ function useLogin() {
 	return {
 		toggleLoginType,
 		state,
+		handleNavigate,
 		showLogin,
 		toggleShowLoin,
 		setLoginData,

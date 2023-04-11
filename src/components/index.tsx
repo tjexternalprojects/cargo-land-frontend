@@ -12,6 +12,7 @@ export { default as RingLoader } from './common/RingLoader';
 export { default as LoginComponent } from './login-signup/Login';
 export { default as SingupComponent } from './login-signup/Signup';
 export { default as ForgotPassword } from './ForgotPassword'
+export { default as ResendToken } from './resendVerification'
 
 // Business SignUp
 export { default as BasicInfo } from './businessSignup/BasicInfo';
