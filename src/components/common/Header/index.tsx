@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
 const Header = () => {
-	const { toggleLoginType, state, toggleShowLoin, handleToggleBtn } = useLogin();
+	const { toggleLoginType, state,handleNavigate, toggleShowLoin, handleToggleBtn } = useLogin();
 	const location = useLocation();
 
 	return (
@@ -32,13 +32,13 @@ const Header = () => {
 					</ul>
 				</div>
 				<div className="  flex   items-center  justify-center space-x-5">
-					<Link to="/login"><button
-
+					<button
+						onClick={()=>handleNavigate('/login')}
 						className="text-md md:text-md  text-red-400 rounded-md p-2 hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100"
 					>
 						<span>Sign&nbsp;in</span>
 					</button>
-					</Link>
+					
 					{location.pathname !== '/login' && <BiMenuAltRight  className=" md:hidden text-3xl" onClick={toggleShowLoin} />}
 				</div>
 			</div>

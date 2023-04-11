@@ -12,6 +12,7 @@ export { default as RingLoader } from './common/RingLoader';
 export { default as LoginComponent } from './login-signup/Login';
 export { default as SingupComponent } from './login-signup/Signup';
 export { default as ForgotPassword } from './ForgotPassword'
+export { default as ResendToken } from './resendVerification'
 
 // Business SignUp
 export { default as BasicInfo } from './businessSignup/BasicInfo';
@@ -48,6 +49,7 @@ export { default as ATopBar } from './superAdminDashboard/TopBar';
 export { default as ASidebar } from './superAdminDashboard/Sidebar';
 export { default as AdminHome} from './superAdminDashboard/Home'
 export { default as AUsers} from './superAdminDashboard/Users'
+export {default as AUserDetailsModal} from './superAdminDashboard/Users/UserDetailsModal'
 export { default as ATrackShipment} from './superAdminDashboard/TrackShipment'
 export { default as ATransactions } from './superAdminDashboard/Transactions'
 export { default as AShipment } from './superAdminDashboard/Shipment'

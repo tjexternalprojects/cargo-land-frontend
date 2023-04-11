@@ -2,9 +2,8 @@
 
 
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import { useApp } from './context';
 const useAuth = () => {
-  const user = { loggedIn: localStorage.getItem("login_token") };
+  const user = { loggedIn: localStorage.getItem("access_token") };
   return user && user.loggedIn;
 };
 

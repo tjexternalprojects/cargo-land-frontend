@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 const GOOGLE_SIGNUP_CLIENT_ID = import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
-import { gapi } from 'gapi-script';
-import axios from '@/context/baseURL';
+import { AuthServices } from '@/services';
 import { toast } from 'react-toastify';
+import { AppContextType, AppContext } from '@/context';
 
 function useSignUp() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
+	const { state, setState } = useContext<AppContextType>(AppContext);
+
+
 	const [signUpData, setSignUpData] = useState({
 		name: '',
 		email: '',
@@ -18,28 +21,31 @@ function useSignUp() {
 		e.preventDefault();
 		setShowLoading(true);
 
-		console.log(signUpData.confirmPassword);
-		console.log(signUpData);
-		axios
-			.post('/user/register', signUpData)
+		AuthServices.signup(signUpData)
 			.then((response) => {
-				console.log(response);
 				setShowLoading(false);
-				if (response.status == 200) {
-					toast.success(response.data.message, {
+				if (response.status === 201) {
+				console.log(response);
+
+					toast.success('Profile Created Successfully', {
 						progressClassName: 'bg-green-500 h-1',
 						autoClose: 3000,
 					});
+					setState({
+						...state,
+						showResendToken: true,
+						resendTokenMessage:'Profile created successfully, please check your email to verify your account'
+					});
 				} else {
-					toast.error(response.data.message, {
+					toast.error('Oops! an Error occured, please retry', {
 						progressClassName: 'bg-red-500 h-1',
 						autoClose: 3000,
 					});
 				}
-			})
-			.catch((error) => {
+			},
+			(error) => {
 				setShowLoading(false);
-				console.log(error.response.data);
+				console.log(error);
 				if (error.code == 'ERR_NETWORK') {
 					toast.error(error.message, {
 						progressClassName: 'bg-red-500 h-1',
@@ -57,6 +63,7 @@ function useSignUp() {
 					});
 				}
 			});
+
 	};
 
 	const googleSignUpSuccess = (response: any) => {

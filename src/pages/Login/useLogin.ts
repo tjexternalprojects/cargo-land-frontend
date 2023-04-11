@@ -28,7 +28,14 @@ function useLogin() {
 		});
 	}
 	
-
+	const handleNavigate=(location:string)=>{
+		setState({
+			...state,
+			showResendToken: false,
+			resendTokenMessage:''
+		});
+		navigate(location)
+	}
 	const handleLogout = () => {
 		confirmAlert({
 			title: 'Logout?',
@@ -42,6 +49,8 @@ function useLogin() {
 							...state,
 							user: { loggedIn: null },
 						});
+
+						
 						navigate('/login');
 						toast.success('Logged out successfully', {
 							progressClassName: 'bg-green-500 h-1',
@@ -60,6 +69,7 @@ function useLogin() {
 	return {
 		toggleLoginType,
 		state,
+		handleNavigate,
 		showLogin,
 		toggleShowLoin,
 		setLoginData,

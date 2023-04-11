@@ -1,15 +1,11 @@
 import React, { useCallback } from 'react';
 import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail, BiUserPin } from '@/assets';
-import { motion } from 'framer-motion';
-import { slideUp } from '@/utils/animations';
+
 import useSignUp from './useSignUp';
 import GoogleLogin from 'react-google-login';
 import RingLoader from '@/components/common/RingLoader';
+import { ToastContainer } from 'react-toastify';
 
-import { Link } from 'react-router-dom';
-
-import { IResolveParams, LoginSocialGoogle } from 'reactjs-social-login';
-import { GoogleLoginButton } from 'react-social-login-buttons';
 
 interface Props {
 	showLogin: boolean;
@@ -55,13 +51,16 @@ const signup = ({ showLogin }: Props) => {
 					/>
 					<MdAttachEmail />
 				</div>
+				<div className='text-red-600 w-full text-xs'>
+					* Minimum lenght should be 6 characters 
+				</div>
 				<div className="bg-white  h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 					<input
 						onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value, confirmPassword:e.target.value })}
 						type={!showPassword ? 'password' : 'text'}
 						placeholder="create password"
+						minLength={6}
 						className="text-sm  flex-grow h-10 outline-none"
-						min={6}
 						required
 					/>
 					{!showPassword ? (
@@ -93,6 +92,8 @@ const signup = ({ showLogin }: Props) => {
 					cookiePolicy={'single_host_origin'}
 				/>
 			</div>
+			<ToastContainer />
+
 		</div>
 	);
 };
