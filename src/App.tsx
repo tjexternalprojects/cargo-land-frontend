@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { DashboardHome, ShipmentPage, History, TrackShipment, AdminHome, AUsers, ATrackShipment, ATransactions, AShipment } from '@/components';
-import { BusinessSignup, LandingPage, Login, Dashboard, Admin } from '@/pages';
+import { BusinessSignup, LandingPage, Login, Dashboard, Admin, RestPassword } from '@/pages';
 import ProtectedRoutes from '@/ProtectedRoutes';
 import { AppProvider } from '@/context';
 import AOS from 'aos';
@@ -36,6 +36,7 @@ function App() {
 					<Route path="/" element={<LandingPage />} />
 					<Route path="/business" element={<BusinessSignup />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/resetpassword/:token" element={<RestPassword />} />
 				</Routes>
 			</BrowserRouter>
 		</AppProvider>

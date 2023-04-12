@@ -4,7 +4,7 @@ import SettingsContext from './SettingsContext';
 import ShipmentContext from './ShipmentContext';
 
 const { user } = AuthContext();
-const { toggleNotification, notifications, theme, toggleAdminSideBar, openSignUpMenu, showForgetPassword } = SettingsContext();
+const { toggleNotification, notifications, theme, toggleAdminSideBar, openSignUpMenu, showForgetPassword, showResendToken, resendTokenMessage } = SettingsContext();
 const { shipmentDetails, shipmentCurrentTab, form_level } = ShipmentContext();
 
 // Define the global state object
@@ -22,7 +22,9 @@ type AppState = {
 	openSignUpMenu: boolean;
 	shipmentCurrentTab: string;
 	form_level: number;
-	showForgetPassword:boolean
+	showForgetPassword: boolean;
+	showResendToken: boolean;
+	resendTokenMessage: string;
 };
 
 const initialState: AppState = {
@@ -36,6 +38,8 @@ const initialState: AppState = {
 	shipmentCurrentTab,
 	form_level,
 	showForgetPassword,
+	showResendToken,
+	resendTokenMessage
 };
 
 export type AppContextType = {
@@ -45,7 +49,7 @@ export type AppContextType = {
 
 export const AppContext = createContext<AppContextType>({
 	state: initialState,
-	setState: () => {},
+	setState: () => { },
 });
 
 // Create a custom hook to get the global state from the context

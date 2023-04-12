@@ -7,6 +7,8 @@ function SettingsContext() {
 	const toggleAdminSideBar = false;
 	const openSignUpMenu = false
 	const showForgetPassword = false
+	const showResendToken = false
+	const resendTokenMessage = ''
 	return {
 		notifications,
 		toggleNotification,
@@ -14,6 +16,8 @@ function SettingsContext() {
 		toggleAdminSideBar,
 		openSignUpMenu,
 		showForgetPassword,
+		showResendToken,
+		resendTokenMessage,
 	};
 }
 
