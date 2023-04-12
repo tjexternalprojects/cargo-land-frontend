@@ -1,12 +1,12 @@
 import React from 'react'
 import useResendVerification from './useResendVerification'
-import { MdAttachEmail} from '@/assets'
+import { AiOutlineArrowLeft, MdAttachEmail} from '@/assets'
 import RingLoader from '@/components/common/RingLoader';
 
 
 
 const resendVerificationToken = () => {
-    const {resendToken, setToken, state, showLoading}= useResendVerification()
+    const {resendToken, setEmail, showLogin, state, showLoading}= useResendVerification()
   return (
     <div>
         <div className='text-sm text-blue-800 mb-3 text-center'>
@@ -20,7 +20,7 @@ const resendVerificationToken = () => {
 						className="bg-white h-11 px-3 border-b border-blue-800 flex items-center shadow-md animate__animated animate__fadeInUp animate__faster"
 					>
 						<input
-							onChange={(e) => setToken( e.target.value)}
+							onChange={(e) => setEmail( e.target.value)}
 							type="email"
 							placeholder="Registered email address"
 							className="text-sm flex-grow h-10 outline-none bg-white"
@@ -42,7 +42,7 @@ const resendVerificationToken = () => {
 					{!showLoading ? <span>Resend Link</span> : <RingLoader size={50} textColor="text-blue-900" />}
 				</button>
 			
-
+				<div className='p-4 w-full flex items-center text-blue-800 space-x-3 cursor-pointer' onClick={showLogin}><AiOutlineArrowLeft /> Login</div>
 					</div>
 			</form>
 			

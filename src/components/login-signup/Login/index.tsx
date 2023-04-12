@@ -1,25 +1,27 @@
-import React, { useContext } from 'react';
 import { BiUserPin, Si1Password, SiGmail } from '@/assets';
-import { motion } from 'framer-motion';
-import { slideUp } from '@/utils/animations';
 import useLogin from './useLogin';
 import RingLoader from '@/components/common/RingLoader';
-import GoogleLogin from 'react-google-login';
+import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode'
 
-interface Props {
-	showLogin: boolean;
-}
-const login = ({ showLogin }: Props) => {
+
+const login = () => {
+
 	const {
-		handleLogin,
-		setLoginData,
 		loginData,
 		showLoading,
-		GOOGLE_SIGNUP_CLIENT_ID,
+		GOOGLE_LOGIN_CLIENT_ID,
+		verifyEmail,
+		googleLoginSuccess,
+		googleLoginFailure,
+		hadleVerifyEmail,
+		handleLogin,
+		setLoginData,
 		showForgotPassword,
-		googleSignUpSuccess,
-		googleSignUpFailure,
 	} = useLogin();
+
+
+
 
 	return (
 		<div className=" space-y-5 w-full">
@@ -56,18 +58,22 @@ const login = ({ showLogin }: Props) => {
 					className="space-y-3 w-full  animate__animated animate__fadeInUp animate__faster"
 				>
 
-				<button
-					disabled={showLoading}
-					className="w-full  flex items-center justify-center hover:shadow-blue-100 hover:shadow-md  bg-gradient-to-br from-slate-50 via-white shadow-md to-slate-50 rounded-sm h-11 te	xt-sm"
-					type="submit"
-				>
-					{!showLoading ? <span>Login</span> : <RingLoader size={50} textColor="text-blue-900" />}
-				</button>
-				<div className='text-blue-800 w-full text-sm cursor-pointer' onClick={showForgotPassword}>
-					Forgotten Password?
-				</div>
-
+					<button
+						disabled={showLoading}
+						className="w-full  flex items-center justify-center hover:shadow-blue-100 hover:shadow-md  bg-gradient-to-br from-slate-50 via-white shadow-md to-slate-50 rounded-sm h-11 text-sm mb-2"
+						type="submit"
+					>
+						{!showLoading ? <span>Login</span> : <RingLoader size={50} textColor="text-blue-900" />}
+					</button>
+					<div className='space-x-3 flex items-center justify-between'>
+						<span className='text-blue-800 text-sm cursor-pointer' onClick={showForgotPassword}>
+							Forgotten Password?
+						</span>
+						{verifyEmail && <span className='text-red-800 text-sm cursor-pointer' onClick={hadleVerifyEmail}>
+							Verifiy Email
+						</span>}
 					</div>
+				</div>
 			</form>
 			<div className="text-sm text-gray-500 flex items-center ">
 				<div className="border border-gray-300 w-full"></div>
@@ -75,17 +81,29 @@ const login = ({ showLogin }: Props) => {
 				<div className="border border-gray-300 w-full"></div>
 			</div>
 			<div
-				className=" transition-all duration-75 ease-in-out bg-red-400 w-full text-white rounded-xl h-11 text-sm border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5 shadow-md animate__animated animate__fadeInUp animate__faster"
+				className=" animate__animated animate__fadeInUp animate__faster flex justify-center "
 			>
+
+				<GoogleOAuthProvider clientId={GOOGLE_LOGIN_CLIENT_ID} >
+
 				<GoogleLogin
-					className=" bg-transparent text-white border-none shadow-none"
-					clientId={GOOGLE_SIGNUP_CLIENT_ID}
-					buttonText="Login with Google"
-					onSuccess={googleSignUpSuccess}
-					onFailure={googleSignUpFailure}
-					cookiePolicy={'single_host_origin'}
-				/>
+						theme="outline"
+						text='signup_with'
+						ux_mode="popup"
+						onSuccess={credentialResponse => {
+							console.log(credentialResponse)
+							const details = jwt_decode(credentialResponse.credential as string) as Record<string,string>
+							googleLoginSuccess(details)
+						}}
+						onError={() => {
+							googleLoginFailure()
+							console.log('Login Failed');
+						}}
+					/>
+				</GoogleOAuthProvider>
+
 			</div>
+
 		</div>
 	);
 };

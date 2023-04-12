@@ -2,15 +2,13 @@ import React, { useCallback } from 'react';
 import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail, BiUserPin } from '@/assets';
 
 import useSignUp from './useSignUp';
-import GoogleLogin from 'react-google-login';
 import RingLoader from '@/components/common/RingLoader';
 import { ToastContainer } from 'react-toastify';
+import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode'
 
 
-interface Props {
-	showLogin: boolean;
-}
-const signup = ({ showLogin }: Props) => {
+const signup = () => {
 	const {
 		showPassword,
 		GOOGLE_SIGNUP_CLIENT_ID,
@@ -22,9 +20,7 @@ const signup = ({ showLogin }: Props) => {
 		googleSignUpSuccess,
 		googleSignUpFailure,
 	} = useSignUp();
-	const onLoginStart = useCallback(() => {
-		alert('login start');
-	}, []);
+
 
 
 
@@ -82,15 +78,28 @@ const signup = ({ showLogin }: Props) => {
 				<span>Or</span>
 				<div className="border border-gray-300 w-full"></div>
 			</div>
-			<div className=" transition-all duration-75 ease-in-out bg-red-400 w-full text-white rounded-xl h-11 text-sm border-slate-200 border hover:shadow-blue-100 hover:shadow-xl flex items-center justify-center gap-5 shadow-md animate__animated animate__fadeInUp animate__faster ">
-				<GoogleLogin
-					className=" bg-transparent text-white border-none shadow-none"
-					clientId={GOOGLE_SIGNUP_CLIENT_ID}
-					buttonText="Sign up with Google"
-					onSuccess={googleSignUpSuccess}
-					onFailure={googleSignUpFailure}
-					cookiePolicy={'single_host_origin'}
-				/>
+			<div
+				className=" animate__animated animate__fadeInUp animate__faster flex justify-center "
+			>
+
+				<GoogleOAuthProvider clientId={GOOGLE_SIGNUP_CLIENT_ID} >
+
+					<GoogleLogin
+						theme="outline"
+						text='signup_with'
+						ux_mode="popup"
+						onSuccess={credentialResponse => {
+							console.log(credentialResponse)
+							const details = jwt_decode(credentialResponse.credential as string) as Record<string,string>
+							googleSignUpSuccess(details)
+						}}
+						onError={() => {
+							googleSignUpFailure()
+							console.log('Login Failed');
+						}}
+					/>
+				</GoogleOAuthProvider>
+
 			</div>
 			<ToastContainer />
 

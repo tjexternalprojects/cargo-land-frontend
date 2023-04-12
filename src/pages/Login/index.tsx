@@ -6,6 +6,9 @@ import { MapImg2 } from '@/assets';
 import { useApp } from '@/context';
 import { Navigate, useLocation } from "react-router-dom";
 
+
+
+
 const Login = () => {
 	const { user } = useApp();
 	const { toggleLoginType, state, handleToggleBtn } = useLogin();
@@ -49,10 +52,10 @@ const Login = () => {
 										</div>
 
 										{!toggleLoginType ? <div className="w-full flex justify-center">
-											<LoginComponent showLogin={true} />
+											<LoginComponent />
 										</div> :
 											<div className="w-full flex justify-center md:block">
-												<SingupComponent showLogin={true} />
+												<SingupComponent  />
 											</div>}
 
 									</div> :

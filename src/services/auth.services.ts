@@ -8,8 +8,17 @@ const signup = (signUpData:Record<string, string>)=>{
     return api.post('/user/register', signUpData)
 }
 
+const resendVerification = (email:string)=>{
+    return api.post('/user/resend-verification', {email})
+}
+
+const forgotPassword = (email:string)=>{
+    return api.post('/user/forgot-password', {email})
+}
 const AuthServices = {
     login,
-    signup
+    signup, 
+    resendVerification,
+    forgotPassword
 }
 export default AuthServices
