@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { AppContext, AppContextType } from '@/context';
-import {AuthServices} from '@/services'
+import { AuthServices } from '@/services'
 import { toast } from "react-toastify";
 
-function useForgotPassword(){
-    const { state, setState } = useContext<AppContextType>(AppContext);
+function useForgotPassword() {
+	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [email, setEmail] = useState('')
-	const [showLoaindg, setShowLoading]= useState(false)
-    const closeForgotPassword = () =>{
+	const [showLoading, setShowLoading] = useState(false)
+	const closeForgotPassword = () => {
 		setState({
 			...state,
 			showForgetPassword: false,
@@ -20,48 +20,50 @@ function useForgotPassword(){
 		e.preventDefault();
 		setShowLoading(true);
 		AuthServices.forgotPassword(email).then(
-		  (response) => {
-			setShowLoading(false);
-			console.log(response)
-			if (response.status === 200) {
-			  toast.success(response.data.message, {
-				progressClassName: "bg-green-500 h-1",
-				autoClose: 3000,
-			  });
-			  setState({
-				...state,
-				showForgetPassword: false,
-			});
-			} else {
-			  toast.error("Oops! an Error occured, please retry", {
-				progressClassName: "bg-red-500 h-1",
-				autoClose: 3000,
-			  });
-			}
-		  },
-		  (error) => {
-			setShowLoading(false);
-			console.log(error);
-			if (error.code == "ERR_NETWORK") {
-			  toast.error(error.message, {
-				progressClassName: "bg-red-500 h-1",
-				autoClose: 3000,
-			  });
-			} else if (error.response.status == 401) {
-			  toast.error(error.response.data.message, {
-				progressClassName: "bg-red-500 h-1",
-				autoClose: 3000,
-			  });
-			} else {
-			  toast.error(error.response.data.Error, {
-				progressClassName: "bg-red-500 h-1",
-				autoClose: 3000,
-			  });
-			}
-		  }
-		);
-	  };
+			(response) => {
+				setShowLoading(false);
+				console.log(response)
+				if (response.status === 200) {
+					toast.success(response.data.message, {
+						progressClassName: "bg-green-500 h-1",
+						autoClose: 3000,
+					});
+					setState({
+						...state,
+						showForgetPassword: false,
+					});
+				} else {
+					toast.error("Oops! an Error occured, please retry", {
+						progressClassName: "bg-red-500 h-1",
+						autoClose: 3000,
+					});
+				}
+			},
+			(error) => {
+				setShowLoading(false);
+				console.log(error);
+				if (error.code == "ERR_NETWORK") {
+					toast.error(error.message, {
+						progressClassName: "bg-red-500 h-1",
+						autoClose: 3000,
+					});
+				} else if (error.response.data.Error) {
+					toast.error(error.response.data.Error, {
+						progressClassName: "bg-red-500 h-1",
+						autoClose: 3000,
+					});
 
-    return {closeForgotPassword, handleForgotPassword, setEmail, email}
+				} else {
+					toast.error(error.response.data.message, {
+						progressClassName: "bg-red-500 h-1",
+						autoClose: 3000,
+					});
+				}
+			}
+
+		);
+	};
+
+	return { closeForgotPassword, handleForgotPassword, setEmail, showLoading, email }
 }
 export default useForgotPassword
