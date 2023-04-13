@@ -40,7 +40,7 @@ function useLogin() {
 					// if(response.data.role==='user'){
 						navigate("/dashboard");
 					// }else if(response.data.role==="admin"){
-						navigate("/admin")
+						// navigate("/admin")
 					// }
 
 
