@@ -37,11 +37,11 @@ function useLogin() {
 					TokenServices.setLocalRefreshToken(response.data.refreshToken);
 					TokenServices.setUserInfo(response.data.user_info);
 					console.log(response.data)
-					// if(response.data.role==='user'){
+					if(response.data.user_info.role <= 2){
 						navigate("/dashboard");
-					// }else if(response.data.role==="admin"){
-						// navigate("/admin")
-					// }
+					}else if(response.data.user_info.role >= 3 ){
+						navigate("/admin")
+					}
 
 
 					toast.success(response.data.message, {

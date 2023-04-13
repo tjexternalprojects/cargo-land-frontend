@@ -15,12 +15,12 @@ const ProtectedRoutes = () => {
 
 	console.log(isAuth.user_info.role);
 
-	if (isAuth.user_info.role < 2 && window.location.pathname === '/login') {
+	if (isAuth.user_info.role <= 2 && window.location.pathname === '/login') {
 		navigate(-1);
 		return null;
 	}
 
-	return isAuth.user_info.role < 2 ? <Outlet /> : <Navigate to="/login" />;
+	return isAuth.user_info.role <= 2 ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoutes;
