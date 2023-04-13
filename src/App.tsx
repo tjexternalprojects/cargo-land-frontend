@@ -1,6 +1,7 @@
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DashboardHome, ShipmentPage, History, TrackShipment, AdminHome, AUsers, ATrackShipment, ATransactions, AShipment } from '@/components';
-import { BusinessSignup, LandingPage, Login, Dashboard, Admin } from '@/pages';
+import { DashboardHome, ShipmentPage, History, TrackShipment, AdminHome, AUsers, ATrackShipment, ATransactions, AShipment, LoadingPage } from '@/components';
+import { BusinessSignup, LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
 import ProtectedRoutes from '@/ProtectedRoutes';
 import { AppProvider } from '@/context';
 import AOS from 'aos';
@@ -17,6 +18,7 @@ function App() {
 	return (
 		<AppProvider>
 			<BrowserRouter>
+			<Suspense fallback={<LoadingPage />}>
 				<Routes>
 					<Route element={<ProtectedRoutes />}>
 						<Route path="/dashboard" element={<Dashboard />}>
@@ -36,7 +38,9 @@ function App() {
 					<Route path="/" element={<LandingPage />} />
 					<Route path="/business" element={<BusinessSignup />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/resetpassword/:token" element={<ResetPassword />} />
 				</Routes>
+				</Suspense>
 			</BrowserRouter>
 		</AppProvider>
 	);

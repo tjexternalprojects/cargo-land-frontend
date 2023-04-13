@@ -1,34 +1,20 @@
-import axios from 'axios'
+import axios from "axios";
 import TokenServices from "./token.services";
-
+const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
 const instance = axios.create({
-    // baseURL: 'https://server.cargolandglobal.com/',
-    baseURL: 'http://localhost:4300/',
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  
-  instance.interceptors.request.use(
-    (config) => {
-      const token = `Bearer ${TokenServices.getAccessToken()}`;
-      if (token) {
-        config.headers["authorization"] = token;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-  
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-  // Add a new interceptor to handle FormData objects with images
 instance.interceptors.request.use(
   (config) => {
-    if (config.data instanceof FormData) {
-      config.headers['Content-Type'] = 'multipart/form-data';
+    const token = `Bearer ${TokenServices.getAccessToken()}`;
+    console.log(token, "tokeen");
+    if (token) {
+      config.headers["authorization"] = token;
     }
     return config;
   },
@@ -37,38 +23,58 @@ instance.interceptors.request.use(
   }
 );
 
+// Add a new interceptor to handle FormData objects with images
+instance.interceptors.request.use(
+  (config) => {
+    if (config.data instanceof FormData) {
+      config.headers["Content-Type"] = "multipart/form-data";
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 instance.interceptors.response.use(
-    (res) => {
-      console.log(res)
-      return res;
-    },
-    async (err) => {
-      console.log(err)
-      const originalConfig = err.config;
-      console.log(originalConfig)
-      if ((originalConfig.url !== "/user/login" && err.response )|| (originalConfig.url !== "/user/register")) {
-        // Access Token was expired
-        if (err.response.status === 401 && !originalConfig._retry) {
-          originalConfig._retry = true;
-  
-          try {
-            const rs = await instance.post("/user/regenerate-access-token", {
-              refreshToken: TokenServices.getRefreshToken(),
-            });
-  
-            const { accessToken } = rs.data;
-            TokenServices.updateLocalAccessToken(accessToken);
-  
-            return instance(originalConfig);
-          } catch (_error) {
-            return Promise.reject(_error);
-          }
+  (res) => {
+    console.log(res);
+    return res;
+  },
+  async (err) => {
+    console.log(err);
+    const originalConfig = err.config;
+    console.log(originalConfig);
+    if (
+      (originalConfig.url !== "/user/login" ||
+        originalConfig.url !== "/user/register") &&
+      err.response
+    ) {
+      // Access Token was expired
+      if (
+        err.response.status === 401 &&
+        err.response.Error == "token expired" &&
+        !originalConfig._retry
+      ) {
+        originalConfig._retry = true;
+
+        try {
+          const rs = await instance.post("/user/regenerate-access-token", {
+            refreshToken: TokenServices.getRefreshToken(),
+          });
+
+          const { accessToken } = rs.data;
+          TokenServices.updateLocalAccessToken(accessToken);
+
+          return instance(originalConfig);
+        } catch (_error) {
+          return Promise.reject(_error);
         }
-      } 
-  
-      return Promise.reject(err);
+      }
     }
-  );
-  
-  export default instance;
+
+    return Promise.reject(err);
+  }
+);
+
+export default instance;

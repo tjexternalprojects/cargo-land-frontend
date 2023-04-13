@@ -1,5 +1,8 @@
-export { default as LandingPage } from './LandingPage';
-export { default as Login } from './Login';
-export { default as BusinessSignup } from './BusinessSignup';
-export { default as Dashboard } from './Dashboard'
-export { default as Admin } from './SuperAdminDashboard'
+import { lazy } from 'react';
+
+export const LandingPage = lazy(() => import('./LandingPage'));
+export const Login = lazy(() => import('./Login'));
+export const ResetPassword = lazy(() => import('./ResetPassword'));
+export const BusinessSignup = lazy(() => import('./BusinessSignup'));
+export const Dashboard = lazy(() => import('./Dashboard'));
+export const Admin = lazy(() => import('./SuperAdminDashboard'));

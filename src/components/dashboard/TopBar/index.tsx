@@ -34,7 +34,7 @@ const TopBar = () => {
 				</div>
 			</div>
 				<BiMenuAltRight
-					className={`md:hidden text-4xl`}
+					className={`md:hidden text-4xl cursor-pointer`}
 					onClick={handleToggleSidebar}
 				/>
 		</div>

@@ -3,22 +3,16 @@ import { AppContext, AppContextType } from "@/context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthServices, TokenServices } from "@/services";
-const GOOGLE_SIGNUP_CLIENT_ID = import.meta.env
+const GOOGLE_LOGIN_CLIENT_ID = import.meta.env
 	.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 function useLogin() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const navigate = useNavigate();
 	const [loginData, setLoginData] = useState({ email: "", password: "" });
 	const [showLoading, setShowLoading] = useState(false);
+	const [verifyEmail, setVerifiyEmail]= useState(false)
+		
 
-	const googleSignUpSuccess = (response: any) => {
-		console.log("Successfully signed up with Google!", response);
-		// Send the user's info to your backend for authentication and account creation
-	};
-
-	const googleSignUpFailure = (response: any) => {
-		console.log("Failed to sign up with Google.", response);
-	};
 
 	const showForgotPassword = () => {
 		setState({
@@ -30,16 +24,25 @@ function useLogin() {
 	const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		setVerifiyEmail(false)
 		setShowLoading(true);
 
 		AuthServices.login(loginData).then(
 			(response) => {
 				setShowLoading(false);
+
+				console.log(response)
 				if (response.status == 200) {
 					TokenServices.updateLocalAccessToken(response.data.AccessToken);
 					TokenServices.setLocalRefreshToken(response.data.refreshToken);
 					TokenServices.setUserInfo(response.data.user_info);
-					navigate("/dashboard");
+					console.log(response.data)
+					// if(response.data.role==='user'){
+						navigate("/dashboard");
+					// }else if(response.data.role==="admin"){
+						// navigate("/admin")
+					// }
+
 
 					toast.success(response.data.message, {
 						progressClassName: "bg-green-500 h-1",
@@ -56,6 +59,9 @@ function useLogin() {
 						autoClose: 3000,
 					});
 				} else if (error.response.status == 401) {
+					if(error.response.data.message ==='Please verify your email'){
+						setVerifiyEmail(true)
+					}
 					toast.error(error.response.data.message, {
 						progressClassName: "bg-red-500 h-1",
 						autoClose: 3000,
@@ -67,15 +73,48 @@ function useLogin() {
 		
 	};
 
+	const hadleVerifyEmail = ()=>{
+		setState({
+			...state,
+			showResendToken: true,
+		});
+	}
+
+	const googleLoginSuccess = (credentialResponse:Record<string,string>) => {
+
+	
+		const user_info = {
+			name:credentialResponse.name,
+			email:credentialResponse.email,
+			avatar:credentialResponse.picture
+		}
+
+		TokenServices.setUserInfo(user_info)
+		TokenServices.updateLocalAccessToken(credentialResponse.jti)
+		navigate('/dashboard');
+
+		console.log(credentialResponse)
+	
+		
+	};
+
+	const googleLoginFailure = () => {
+		toast.error("An error occured", {
+			progressClassName: 'bg-red-500 h-1',
+			autoClose: 3000,
+		});
+	};
 	return {
-		loginData,
-		showLoading,
-		GOOGLE_SIGNUP_CLIENT_ID,
+		hadleVerifyEmail,
 		showForgotPassword,
-		googleSignUpSuccess,
-		googleSignUpFailure,
 		setLoginData,
 		handleLogin,
+		googleLoginSuccess,
+		googleLoginFailure,
+		loginData,
+		showLoading,
+		GOOGLE_LOGIN_CLIENT_ID,
+		verifyEmail,
 	};
 }
 
