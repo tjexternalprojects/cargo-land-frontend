@@ -14,7 +14,7 @@ const sidebar = () => {
 	return (
 		<div
 			className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
-				state.toggleAdminSideBar ? 'flex animate__slideInLeft' : 'md:flex hidden animate__slideInLeft'
+				state.toggleAdminSideBar ? 'flex animate__slideInLeft' : 'md:flex hidden'
 			} animate_faster`}
 		>
 			<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2  ">

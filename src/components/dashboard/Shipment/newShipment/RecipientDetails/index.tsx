@@ -43,11 +43,11 @@ const RecipientDetails = () => {
 				<p className="text-xl mt-4">Recipient Details</p>
 
 				<form className=" w-9/12 my-5" onSubmit={handleRecipientDetails}>
-					<div className="mt-3">
+					<div className="bg-white p-4 shadow-sm rounded-sm">
 						<label className="text-sm text-gray-400">
 							Recipient Full Name <span className="text-red-500"> * </span>{' '}
 						</label>
-						<div className="border flex rounded-lg mt-2 p-2 bg-white">
+						<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 							<input
 								className="w-full outline-none"
 								type="text"
@@ -64,39 +64,39 @@ const RecipientDetails = () => {
 								<FaUserEdit />
 							</div>
 						</div>
-					</div>
 
-					<div className="mt-3">
-						<label className="text-sm text-gray-400">
-							Recipient Email <span className="text-red-500"> * </span>
-						</label>
-						<div className="border flex rounded-lg mt-2 p-2 bg-white">
-							<input
-								className="w-full outline-none"
-								type="email"
-								value={shipmentDetails.recipient_email as string}
-								onChange={(e) =>
-									setShipmentDetails({
-										...shipmentDetails,
-										recipient_email: e.target.value,
-									})
-								}
-								required
-							/>
-							<div className="text-xl text-gray-500">
-								<MdAttachEmail />
+						<div className="mt-3">
+							<label className="text-sm text-gray-400">
+								Recipient Email <span className="text-red-500"> * </span>
+							</label>
+							<div className=" border-b-2 flex  mt-2 p-2 bg-white">
+								<input
+									className="w-full outline-none"
+									type="email"
+									value={shipmentDetails.recipient_email as string}
+									onChange={(e) =>
+										setShipmentDetails({
+											...shipmentDetails,
+											recipient_email: e.target.value,
+										})
+									}
+									required
+								/>
+								<div className="text-xl text-gray-500">
+									<MdAttachEmail />
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div className="mt-7 border rounded-lg p-5 bg-white">
+					<div className="bg-white p-4 shadow-sm rounded-sm mt-10">
 						<label className="text-lg text-gray-400">Shipment Destination Address</label>
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
 								<small className="text-gray-400 font-bold">
 									Country <span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 									<select
 										className="w-full outline-none"
 										value={countryCode}
@@ -120,7 +120,7 @@ const RecipientDetails = () => {
 								<small className="text-gray-400 font-bold">
 									State <span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 									<select
 										className="w-full outline-none"
 										value={stateCode}
@@ -146,7 +146,7 @@ const RecipientDetails = () => {
 								<small className="text-gray-400 font-bold">
 									City <span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 									<select
 										disabled={stateCode === '' || stateCode === '0'}
 										className="w-full outline-none"
@@ -172,13 +172,13 @@ const RecipientDetails = () => {
 								<small className=" text-gray-400 font-bold">
 									Address <span className="text-red-500"> * </span>
 								</small>
-								<div className="border flex rounded-lg mt-2 p-2">
+								<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 									<div className="text-xl text-gray-500">
 										<RiSearch2Line />
 									</div>
 									<input
 										type="text"
-										className="w-full outline-none px-2"
+										className="w-full outline-none px-2 bg-white"
 										value={address}
 										placeholder="type in shipment street address location"
 										onChange={(e) => setAddress(e.target.value)}

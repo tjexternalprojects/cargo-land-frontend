@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import { AppContext, AppContextType } from '@/context';
-import { v4 as uuidv4 } from 'uuid';
 
 function useShipmentSummary() {
 	const { state, setState } = useContext<AppContextType>(AppContext);

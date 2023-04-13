@@ -51,9 +51,10 @@ instance.interceptors.response.use(
       err.response
     ) {
       // Access Token was expired
+      console.log(err.response.data.Error, 'HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
       if (
         err.response.status === 401 &&
-        err.response.Error == "token expired" &&
+        err.response.data.Error == "token expired" &&
         !originalConfig._retry
       ) {
         originalConfig._retry = true;

@@ -21,12 +21,15 @@ const sidebar = () => {
 	return (
 		<>
 <div className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
-    state.toggleAdminSideBar ? 'flex animate__slideInLeft' : 'md:flex hidden animate__slideOutLeft'
+    state.toggleAdminSideBar ? 'flex animate__slideInLeft ' : 'md:flex hidden'
 } animate__faster`}
 >
 
+
+
 			<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2  ">
 				<img src={logo} className=" w-24 h-8" alt="" />
+				
 			</div>
 			<div className="flex-grow mt-10 ">
 				<ul className=" text-lg  font-bold ">
