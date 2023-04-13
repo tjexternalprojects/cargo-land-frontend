@@ -1,7 +1,7 @@
 import React from 'react'
 import useForgotPassword from './useForgotPassword'
 import { AiOutlineArrowLeft, MdAttachEmail } from '@/assets'
-import RingLoader from '@/components/common/RingLoader';
+import {RingLoader} from '@/components';
 
 
 const index = () => {

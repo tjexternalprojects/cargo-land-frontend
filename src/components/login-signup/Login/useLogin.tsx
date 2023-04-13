@@ -36,7 +36,13 @@ function useLogin() {
 					TokenServices.updateLocalAccessToken(response.data.AccessToken);
 					TokenServices.setLocalRefreshToken(response.data.refreshToken);
 					TokenServices.setUserInfo(response.data.user_info);
-					navigate("/dashboard");
+					console.log(response.data)
+					if(response.data.role==='user'){
+						navigate("/dashboard");
+					}else if(response.data.role==="admin"){
+						navigate("/admin")
+					}
+
 
 					toast.success(response.data.message, {
 						progressClassName: "bg-green-500 h-1",

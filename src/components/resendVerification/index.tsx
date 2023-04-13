@@ -1,7 +1,7 @@
 import React from 'react'
 import useResendVerification from './useResendVerification'
 import { AiOutlineArrowLeft, MdAttachEmail} from '@/assets'
-import RingLoader from '@/components/common/RingLoader';
+import {RingLoader} from '@/components';
 
 
 

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail, BiUserPin } from '@/assets';
 
 import useSignUp from './useSignUp';
-import RingLoader from '@/components/common/RingLoader';
+import {RingLoader} from '@/components';
 import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode'

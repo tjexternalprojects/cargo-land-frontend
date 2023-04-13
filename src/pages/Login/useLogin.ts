@@ -19,7 +19,7 @@ function useLogin() {
 		setState({
 			...state,
 			openSignUpMenu: !state.openSignUpMenu,
-		});
+		}); 
 	}
 	const showLogin = () =>{
 		setState({

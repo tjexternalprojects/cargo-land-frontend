@@ -1,43 +1,10 @@
-import React, { lazy, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Loading from './Loading';
+import { RingLoader } from "@/components";
 
-const Home = lazy(() => import('./Home'));
-const About = lazy(() => import('./About'));
-const Contact = lazy(() => import('./Contact'));
 
 function App() {
 	return (
-		<div>
-			<Switch>
-				<Route
-					exact
-					path="/"
-					render={() => (
-						<Suspense fallback={<Loading />}>
-							<Home />
-						</Suspense>
-					)}
-				/>
-				<Route
-					exact
-					path="/about"
-					render={() => (
-						<Suspense fallback={<Loading />}>
-							<About />
-						</Suspense>
-					)}
-				/>
-				<Route
-					exact
-					path="/contact"
-					render={() => (
-						<Suspense fallback={<Loading />}>
-							<Contact />
-						</Suspense>
-					)}
-				/>
-			</Switch>
+		<div className="h-full fixed top-0 left-0 bottom-0 right-0 w-full bg-white flex justify-center items-center">
+			<RingLoader size={300} textColor="text-blue-900" />
 		</div>
 	);
 }

@@ -1,6 +1,6 @@
 import { BiUserPin, Si1Password, SiGmail } from '@/assets';
 import useLogin from './useLogin';
-import RingLoader from '@/components/common/RingLoader';
+import {RingLoader} from '@/components';
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode'
 

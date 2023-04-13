@@ -15,10 +15,15 @@ const resendVerification = (email:string)=>{
 const forgotPassword = (email:string)=>{
     return api.post('/user/forgot-password', {email})
 }
+
+const resetPassword = (payload:Record<string, string | undefined>)=>{
+    return api.post('/user/reset-password', payload)
+}
 const AuthServices = {
     login,
     signup, 
     resendVerification,
-    forgotPassword
+    forgotPassword,
+    resetPassword,
 }
 export default AuthServices

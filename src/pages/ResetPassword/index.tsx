@@ -1,13 +1,12 @@
-import { Header } from '@/components';
+import { Header, RingLoader } from '@/components';
 
 import { ToastContainer } from 'react-toastify';
 import { BiUserPin, MapImg2, Si1Password } from '@/assets';
-import RingLoader from '@/components/common/RingLoader';
 
 import useResetPassword from './useResetPassword';
 
 const Login = () => {
-	const { handleRestPassword, setResetPassword, resetPassword, showLoading } = useResetPassword();
+	const { handleRestPassword, setResetPassword, setErrorMessage, errorMessage, resetPassword, showLoading } = useResetPassword();
 	return (
 		<>
 			<Header />
@@ -23,14 +22,18 @@ const Login = () => {
 									className=" text-gray-500 flex flex-col space-y-4"
 									onSubmit={handleRestPassword}
 								>
+									<div className='text-red-500 text-sm'>{errorMessage}</div>
 									<div className="flex flex-col">
 										<div className="bg-white h-11 px-3 border-b border-blue-800 flex items-center shadow-md animate__animated animate__fadeInUp animate__faster">
 											<input
-												onChange={(e) =>
+												onChange={(e) => {
+													setErrorMessage(""),
 													setResetPassword({ ...resetPassword, new_password: e.target.value })
 												}
-												type="text"
+												}
+												type="password"
 												value={resetPassword.new_password}
+												minLength={6}
 												placeholder="Password"
 												className="text-sm flex-grow h-10 outline-none bg-white"
 												required
@@ -41,12 +44,15 @@ const Login = () => {
 									<div className="flex flex-col">
 										<div className="bg-white h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 											<input
-												onChange={(e) =>
+												onChange={(e) => {
+													setErrorMessage(""),
 													setResetPassword({ ...resetPassword, confirm_password: e.target.value })
 												}
+												}
 												value={resetPassword.confirm_password}
+												minLength={6}
 												type="password"
-												placeholder="password"
+												placeholder="Confirm password"
 												className="text-sm flex-grow h-10 outline-none "
 												required
 											/>
@@ -56,11 +62,12 @@ const Login = () => {
 									<div className="space-y-3 w-full  animate__animated animate__fadeInUp animate__faster">
 										<button
 											disabled={showLoading}
-											className="w-full  flex items-center justify-center hover:shadow-blue-100 hover:shadow-md  bg-gradient-to-br from-slate-50 via-white shadow-md to-slate-50 rounded-sm h-11 text-sm mb-2"
+											className=" flex items-center justify-center hover:shadow-blue-100 hover:shadow-md w-full bg-gradient-to-br from-red-50 via-red  to-red-50 h-11 text-sm shadow-md "
+
 											type="submit"
 										>
 											{!showLoading ? (
-												<span>Login</span>
+												<span>Reset Password</span>
 											) : (
 												<RingLoader size={50} textColor="text-blue-900" />
 											)}

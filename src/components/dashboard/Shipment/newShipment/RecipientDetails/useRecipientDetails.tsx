@@ -4,7 +4,7 @@ import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import {ShipmentServices} from '@/services'
-
+import axios from 'axios'
 import 'react-toastify/dist/ReactToastify.css';
 
 function useRecipientDetails() {
@@ -108,6 +108,19 @@ function useRecipientDetails() {
 			console.log(shipment_images[i], 'form data images');
 			formData.append('images', shipment_images[i]);
 		}
+
+		// axios.post('https://server.cargolandglobal.com/shipment/create-shipment', formData, {
+		// 	headers: {
+		// 	  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+		// 	  'Content-Type': 'multipart/form-data'
+		// 	}
+		//   })
+		//   .then(response => {
+		// 	console.log(response);
+		//   })
+		//   .catch(error => {
+		// 	console.log(error);
+		//   });
 
 		
 		await ShipmentServices.createShipment

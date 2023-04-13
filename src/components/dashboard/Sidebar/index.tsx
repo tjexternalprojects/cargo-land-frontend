@@ -19,11 +19,12 @@ const sidebar = () => {
 	const { handleLogout } = useLogin();
 	const { userInfo, state, handleToggleSidebar } = useSidebar();
 	return (
-		<div
-			className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
-				state.toggleAdminSideBar ? 'flex animate__slideInLeft' : 'md:flex hidden animate__slideInLeft'
-			} animate_faster`}
-		>
+		<>
+<div className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
+    state.toggleAdminSideBar ? 'flex animate__slideInLeft' : 'md:flex hidden animate__slideOutLeft'
+} animate__faster`}
+>
+
 			<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2  ">
 				<img src={logo} className=" w-24 h-8" alt="" />
 			</div>
@@ -104,6 +105,8 @@ const sidebar = () => {
 				</div>
 			</div>
 		</div>
+		<div className='w-screen h-screen fixed z-10 bg-blue-900 bg-opacity-50 block md:hidden' onClick={handleToggleSidebar}></div>
+		</>
 	);
 };
 
