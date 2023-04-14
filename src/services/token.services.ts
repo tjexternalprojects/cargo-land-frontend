@@ -1,5 +1,6 @@
  const getAccessToken = () => localStorage.getItem("access_token");
  const getRefreshToken = () => localStorage.getItem("refresh_token");
+ const getUserInfo = () => localStorage.getItem("user_info")
 const updateLocalAccessToken = (token: string) => {
     localStorage.setItem("access_token", token);
 };
@@ -14,6 +15,7 @@ const setUserInfo = (user_info:Record<string, string>)=>{
 const TokenServices = {
     getAccessToken,
     getRefreshToken,
+    getUserInfo,
     updateLocalAccessToken,
     setLocalRefreshToken,
     setUserInfo

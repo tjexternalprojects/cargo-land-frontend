@@ -33,9 +33,10 @@ function useLogin() {
 
 				console.log(response)
 				if (response.status == 200) {
+					const user_info = {...response.data.user_info, id: response.data.id}
 					TokenServices.updateLocalAccessToken(response.data.AccessToken);
 					TokenServices.setLocalRefreshToken(response.data.refreshToken);
-					TokenServices.setUserInfo(response.data.user_info);
+					TokenServices.setUserInfo(user_info);
 					console.log(response.data)
 					if(response.data.user_info.role <= 2){
 						navigate("/dashboard");

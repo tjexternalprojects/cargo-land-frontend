@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import AuthContext from './AuthContext';
-import SettingsContext from './SettingsContext';
-import ShipmentContext from './ShipmentContext';
+import AuthContext from './auth.context';
+import SettingsContext from './settings.context';
+import ShipmentContext from './shipment.context';
+import UserContext from './user.context';
 
 const { user } = AuthContext();
+const {user_data} = UserContext();
 const { toggleNotification, notifications, theme, toggleAdminSideBar, openSignUpMenu, showForgetPassword, showResendToken, resendTokenMessage } = SettingsContext();
 const { shipmentDetails, shipmentCurrentTab, form_level } = ShipmentContext();
 
@@ -11,6 +13,7 @@ const { shipmentDetails, shipmentCurrentTab, form_level } = ShipmentContext();
 
 type AppState = {
 	user: Record<string, string | null>;
+	user_data:Record<string, string | null | unknown[] | string[]| number[]> | null;
 	shipmentDetails: Record<
 		string,
 		Array<unknown> | number | string | Record<string, string | number>
@@ -29,6 +32,7 @@ type AppState = {
 
 const initialState: AppState = {
 	user,
+	user_data,
 	shipmentDetails,
 	settings: theme,
 	notifications,

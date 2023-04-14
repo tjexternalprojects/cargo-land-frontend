@@ -1,17 +1,28 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Notification, Sidebar, TopBar } from '@/components';
 import { AppContext, AppContextType } from '@/context';
 import { motion } from 'framer-motion';
 import { slideInFromRight } from '@/utils/animations';
+import { UserServices } from '@/services';
 const Dashboard = () => {
 	const { state, setState } = useContext<AppContextType>(AppContext);
+	const { getSingleUser } = UserServices()
+	useEffect(() => {
+		// if (state.user_data) {
+			getSingleUser()
+			setState({
+                ...state,
+                user_data: {resp:'response'},
+            });
+	
+		// }
+	}, [])
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
 			<div
-				className={`md:flex md:w-72 z-20 ${
-					state.toggleAdminSideBar ? 'flex fixed md:relative' : 'hidden md:flex'
-				}`}
+				className={`md:flex md:w-72 z-20 ${state.toggleAdminSideBar ? 'flex fixed md:relative' : 'hidden md:flex'
+					}`}
 			>
 				<Sidebar />
 			</div>

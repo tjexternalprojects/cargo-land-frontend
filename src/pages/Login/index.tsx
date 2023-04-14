@@ -3,20 +3,22 @@ import { ForgotPassword, Header, LoginComponent, ResendToken, SingupComponent } 
 import useLogin from '@/pages/Login/useLogin';
 import { ToastContainer } from 'react-toastify';
 import { MapImg2 } from '@/assets';
-import { useApp } from '@/context';
 import { Navigate, useLocation } from "react-router-dom";
-
-
+import { TokenServices } from '@/services';
 
 
 const Login = () => {
-	const { user } = useApp();
 	const { toggleLoginType, state, handleToggleBtn } = useLogin();
 
-
-	if (user.loggedIn) {
+	const user_info =TokenServices.getUserInfo();
+	const user = user_info? JSON.parse(user_info):null
+	if(user){
+	if (user?.role && user?.role <= 2) {
 		return <Navigate to={"/dashboard"} />;
-	}
+	}else if(user?.role && user?.role >= 3){
+		return <Navigate to={"/admin"} />;
+	}}
+
 	return (
 		<>
 			<Header />
