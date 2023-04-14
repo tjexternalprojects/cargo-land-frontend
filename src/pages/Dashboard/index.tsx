@@ -11,10 +11,10 @@ const Dashboard = () => {
 	useEffect(() => {
 		// if (state.user_data) {
 			getSingleUser()
-			setState({
-                ...state,
-                user_data: {resp:'response'},
-            });
+			// setState({
+            //     ...state,
+            //     user_data: {resp:'response'},
+            // });
 	
 		// }
 	}, [])

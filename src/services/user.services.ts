@@ -15,7 +15,7 @@ const getSingleUser=()=>{
                 ...state,
                 user_data: resp,
             });
-     
+     console.log(state.user_data)
          },
          (error)=>{
             console.log(error)
