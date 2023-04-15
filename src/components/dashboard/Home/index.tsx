@@ -5,13 +5,12 @@ import useHome from './useHome';
 import { Link } from 'react-router-dom';
 const home = () => {
 	const {
-		received_data,
-		sent_data,
+		graph_data,
 		showBalance,
-		walletBalance,
 		curency,
 		transaction_history,
 		activeShipment,
+		balance,
 		toggleShowBalance,
 	} = useHome();
 
@@ -26,39 +25,46 @@ const home = () => {
 					<div className="flex flex-col md:items-end text-blue-500">
 						<div className="flex items-center justify-center space-x-2">
 							<div>Wallet Balance</div>
-							<div onClick={toggleShowBalance}>{showBalance ? <FaEyeSlash /> : <FaEye />}</div>
+							<div onClick={toggleShowBalance} className='cursor-pointer'>{showBalance ? <FaEyeSlash /> : <FaEye />}</div>
 						</div>
 						<div className="text-md md:text-2xl font-bold flex">
-							{curency}{walletBalance}
+							{curency}{showBalance ? "*********" : balance}
 						</div>
 					</div>
 				</div>
 
-				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min bg-green-50  flex-grow w-72 justify-between  shadow-md items-center">
-					<div className=" w-20">
-						<LineGraph data={received_data} />
+				<div className=" inline-flex rounded-md px-6 py-2 min-w-min bg-green-50  flex-grow w-72 justify-between  shadow-md items-center">
+					<div className='w-full'>
+						<div className='text-green-500 mb-1'>Package Received</div>
+						<div className=' h-28 w-full'><LineGraph labels={graph_data.labels} datasets={graph_data.datasets} /></div>
 					</div>
-					<div className="flex flex-col items-end text-green-500">
-						<div>Package Received</div>
+					<div className=" text-green-500">
+
 						<div className=" text-5xl font-thin">0</div>
 					</div>
 				</div>
 
-				<div className=" inline-flex rounded-md gap-3 p-4 min-w-min flex-grow  w-72 justify-between bg-slate-50 shadow-md items-center">
-					<div className=" w-20">
-						<LineGraph data={sent_data} />
+				<div className=" inline-flex rounded-md px-6 py-2 min-w-min flex-grow  w-72 justify-between bg-slate-50 shadow-md items-center">
+					<div className='w-full'>
+						<div className='text-red-500  mb-1'>Package Sent</div>
+						<div className=' h-28  w-full '><LineGraph labels={graph_data.labels} datasets={graph_data.datasets} /></div>
+
 					</div>
-					<div className="flex flex-col items-end text-red-500">
-						<div>Package Sent</div>
+					<div className=" text-red-500">
 						<div className=" text-5xl font-thin ">0</div>
 					</div>
 				</div>
 			</div>
 
-{/* Buttom */}
+			{/* Buttom */}
 			<div className=" flex  gap-16  justify-between  flex-wrap md:flex-nowrap">
 				<div className="">
-					<h4 className="text-xl mb-3">Latest Transaction</h4>
+					<div className='flex justify-between items-center'>
+						<h4 className="text-xl mb-3">Latest Transaction</h4>
+						<button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
+							View all ...
+						</button>
+					</div>
 					<hr />
 					<div className=" space-y-3 mt-3">
 						{transaction_history.map((val, index) => (

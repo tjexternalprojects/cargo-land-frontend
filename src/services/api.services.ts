@@ -12,7 +12,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const token = `Bearer ${TokenServices.getAccessToken()}`;
-    console.log(token, "tokeen");
     if (token) {
       config.headers["authorization"] = token;
     }
@@ -38,27 +37,23 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (res) => {
-    console.log(res);
     return res;
   },
   async (err) => {
-    console.log(err);
     const originalConfig = err.config;
-    console.log(originalConfig);
     if (
       (originalConfig.url !== "/user/login" ||
         originalConfig.url !== "/user/register") &&
       err.response
     ) {
       // Access Token was expired
-      console.log(err.response.data.Error, 'HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
       if (
         err.response.status === 401 &&
         err.response.data.Error == "token expired" &&
         !originalConfig._retry
       ) {
         originalConfig._retry = true;
-
+        console.log(TokenServices.getRefreshToken())
         try {
           const rs = await instance.post("/user/regenerate-access-token", {
             refreshToken: TokenServices.getRefreshToken(),

@@ -13,7 +13,6 @@ const ProtectedRoutes = () => {
 	const isAuth = useAuth();
 	const navigate = useNavigate();
 
-	console.log(isAuth.user_info.role);
 
 	if (isAuth.user_info.role <= 2 && window.location.pathname === '/login') {
 		navigate(-1);

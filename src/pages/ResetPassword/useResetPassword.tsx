@@ -19,11 +19,9 @@ function useResetPassword() {
 		}
 		setShowLoading(true)
 		AuthServices.resetPassword(resetPassword).then((response)=>{
-			console.log(response)
 			setShowLoading(false)
 		},
 		(error)=>{
-			console.log(error)
 			setShowLoading(false)
 
 		}

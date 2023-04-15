@@ -22,7 +22,6 @@ function useForgotPassword() {
 		AuthServices.forgotPassword(email).then(
 			(response) => {
 				setShowLoading(false);
-				console.log(response)
 				if (response.status === 200) {
 					toast.success(response.data.message, {
 						progressClassName: "bg-green-500 h-1",
@@ -41,7 +40,6 @@ function useForgotPassword() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error);
 				if (error.code == "ERR_NETWORK") {
 					toast.error(error.message, {
 						progressClassName: "bg-red-500 h-1",

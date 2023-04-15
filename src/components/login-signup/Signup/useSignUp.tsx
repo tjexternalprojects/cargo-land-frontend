@@ -27,7 +27,6 @@ function useSignUp() {
 			.then((response) => {
 				setShowLoading(false);
 				if (response.status === 201) {
-				console.log(response);
 
 					toast.success('Profile Created Successfully', {
 						progressClassName: 'bg-green-500 h-1',
@@ -47,7 +46,6 @@ function useSignUp() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error);
 				if (error.code == 'ERR_NETWORK') {
 					toast.error(error.message, {
 						progressClassName: 'bg-red-500 h-1',
@@ -81,7 +79,6 @@ function useSignUp() {
 		TokenServices.updateLocalAccessToken(credentialResponse.jti)
 		navigate('/dashboard');
 
-		console.log(credentialResponse)
 	
 		
 	};

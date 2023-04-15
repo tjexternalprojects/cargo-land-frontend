@@ -30,14 +30,11 @@ function useLogin() {
 		AuthServices.login(loginData).then(
 			(response) => {
 				setShowLoading(false);
-
-				console.log(response)
 				if (response.status == 200) {
 					const user_info = {...response.data.user_info, id: response.data.id}
 					TokenServices.updateLocalAccessToken(response.data.AccessToken);
 					TokenServices.setLocalRefreshToken(response.data.refreshToken);
 					TokenServices.setUserInfo(user_info);
-					console.log(response.data)
 					if(response.data.user_info.role <= 2){
 						navigate("/dashboard");
 					}else if(response.data.user_info.role >= 3 ){
@@ -53,7 +50,6 @@ function useLogin() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error);
 				if (error.code == "ERR_NETWORK") {
 					toast.error(error.message, {
 						progressClassName: "bg-red-500 h-1",
@@ -94,7 +90,6 @@ function useLogin() {
 		TokenServices.updateLocalAccessToken(credentialResponse.jti)
 		navigate('/dashboard');
 
-		console.log(credentialResponse)
 	
 		
 	};

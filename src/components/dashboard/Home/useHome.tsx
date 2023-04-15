@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { AppContextType, AppContext } from '@/context';
+import { useContext, useState } from 'react';
 
 function useHome() {
+	const { state, setState } = useContext<AppContextType>(AppContext);
+	const user_data = state.user_data
 	const [activeShipment, setActiveShipment] = useState([
 		{
 			shipment_id: 'KH921B',
@@ -22,80 +25,30 @@ function useHome() {
 		},
 	]);
 	const [curency, setCurency] = useState('\u20A6');
-	const balance = '200,000';
-	const [walletBalance, setWalletBalance] = useState<number | string>('200,000');
-	const [showBalance, setShowBalance] = useState(false);
+	const balance = state.user_data?.wallet;
+	const [showBalance, setShowBalance] = useState(true);
 	const toggleShowBalance = () => {
-		setShowBalance(!showBalance);
-		const asterisks = '*'.repeat(walletBalance.toString().length);
-		!showBalance ? setWalletBalance(asterisks) : setWalletBalance(balance);
-	};
-	// Items Delivered
-	const labels = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December',
-	];
-
-	const received_data = {
-		labels,
-		datasets: [
-			{
-				data: [2, 3, 3, 5, 6, 7, 8, 1, 3, 5, 3, 0],
-				backgroundColor: [
-					'red',
-					'green',
-					'yellow',
-					'black',
-					'pink',
-					'blue',
-					'purple',
-					'violet',
-					'lightbrown',
-					'indigo',
-					'silver',
-					'gold',
-					'peach',
-				],
-				borderWidth: 0,
-			},
-		],
+	 setShowBalance(!showBalance)
 	};
 
-	const sent_data = {
-		labels,
-		datasets: [
-			{
-				data: [12, 13, 13, 15, 16, 17, 18, 11, 13, 15, 13, 10],
-				backgroundColor: [
-					'red',
-					'green',
-					'yellow',
-					'black',
-					'pink',
-					'blue',
-					'purpule',
-					'violet',
-					'lightbrown',
-					'indigo',
-					'silver',
-					'gold',
-					'peach',
-				],
-				borderWidth: 0,
-			},
-		],
-	};
 
+const graph_data = {
+ labels:  ['January', 'February', 'March', 'April', 'May', 'June'],
+ datasets: [
+   {
+     data: [0,0,0,0,0,0],
+     borderColor: 'rgb(255, 99, 132)',
+     backgroundColor: 'rgba(255, 99, 132, 0.5)',
+   },
+ ],
+};
+
+
+
+
+
+
+	
 	const transaction_history = [
 		{
 			type: 'debit',
@@ -155,13 +108,13 @@ function useHome() {
 
 	return {
 		toggleShowBalance,
+		graph_data,
+		balance,
+		user_data,
 		activeShipment,
 		transaction_history,
 		curency,
-		walletBalance,
 		showBalance,
-		received_data,
-		sent_data,
 	};
 }
 export default useHome;
