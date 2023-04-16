@@ -4,14 +4,15 @@ import { Notification, Sidebar, TopBar } from '@/components';
 import { AppContext, AppContextType } from '@/context';
 import { motion } from 'framer-motion';
 import { slideInFromRight } from '@/utils/animations';
+import { LocalStorageServices } from '@/services';
+import {  useUserData } from '@/customHooks';
 
 
-import { useUAllShipment, useUserData } from '@/customHooks';
 const Dashboard = () => {
-	const { state } = useContext<AppContextType>(AppContext);
-	useUserData()
-	useUAllShipment();
-	
+	const { state } = useContext<AppContextType>(AppContext);	
+		LocalStorageServices.setDefaultValue(true)
+		useUserData(LocalStorageServices.setDefaultValue(true))
+		
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
 			<div

@@ -4,7 +4,7 @@ import { AuthServices } from '@/services';
 import { toast } from 'react-toastify';
 import { AppContextType, AppContext } from '@/context';
 import { useNavigate } from 'react-router-dom';
-import {TokenServices} from '@/services'
+import {LocalStorageServices} from '@/services'
 
 function useSignUp() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -75,8 +75,8 @@ function useSignUp() {
 			avatar:credentialResponse.picture
 		}
 
-		TokenServices.setUserInfo(user_info)
-		TokenServices.updateLocalAccessToken(credentialResponse.jti)
+		LocalStorageServices.setUserInfo(user_info)
+		LocalStorageServices.setLocalAccessToken(credentialResponse.jti)
 		navigate('/dashboard');
 
 	

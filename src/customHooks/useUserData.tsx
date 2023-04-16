@@ -3,7 +3,7 @@ import { UserServices } from '@/services';
 import { AppContextType, AppContext } from '@/context';
 import { toast } from 'react-toastify';
 
-function useUserData() {
+function useUserData(loadVal:boolean| void) {
     const { state, setState } = useContext<AppContextType>(AppContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -13,10 +13,11 @@ function useUserData() {
             setLoading(true)
             await UserServices.getSingleUser().then(res => {
                 setLoading(false)
-                setState({
-                    ...state,
-                    user_data: res.data.user
-                })
+                setState((prevState) => ({
+                    ...prevState,
+                    single_user_data: res.data.user,
+                }))
+                console.log(res.data.user.wallet, 'i am here')
             },
                 err => {
                     setLoading(false)
@@ -30,7 +31,7 @@ function useUserData() {
             )
         }
         userData();
-    }, []);
+    }, [loadVal]);
 
     return [loading, error];
 }

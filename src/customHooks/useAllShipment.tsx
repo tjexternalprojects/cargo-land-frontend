@@ -3,7 +3,7 @@ import { ShipmentServices } from '@/services';
 import { AppContextType, AppContext } from '@/context';
 import { toast } from 'react-toastify';
 
-function useUAllShipment() {
+function useUAllShipment(loadVal:boolean| void) {
     const { state, setState } = useContext<AppContextType>(AppContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -14,10 +14,11 @@ function useUAllShipment() {
             await ShipmentServices.getAllUserShipment().then(res => {
                 setLoading(false)
                 console.log(res.data.allUserShipment)
-                // setState({
-                //     ...state,
-                //     user_data: res.data.user
-                // })
+   
+                setState((prevState) => ({
+                    ...prevState,
+                    allShipments: res.data.allUserShipment,
+                }))
             },
                 err => {
                     setLoading(false)
@@ -31,7 +32,7 @@ function useUAllShipment() {
             )
         }
         userShipments();
-    }, []);
+    }, [loadVal]);
 
     return [loading, error];
 }

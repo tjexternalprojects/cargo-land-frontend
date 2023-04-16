@@ -1,6 +1,6 @@
 
 function UserContext(){
-    const user_data = null
-    return{user_data}
+    const single_user_data = null
+    return{single_user_data}
 }
 export default UserContext

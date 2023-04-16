@@ -173,6 +173,7 @@ function useNewShipmentForm() {
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
 
+
 	return {
 		countryCode,
 		stateCode,

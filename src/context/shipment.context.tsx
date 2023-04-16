@@ -27,7 +27,7 @@ function GeneralContext() {
 		},
 	};
 
-	const allShipments  = null
+	const allShipments: never[]  = []
 	const shipmentCurrentTab = 'item1';
 	const form_level = 0;
 	return {
