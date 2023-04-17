@@ -26,12 +26,15 @@ function GeneralContext() {
 			latitude: 0,
 		},
 	};
+
+	const allShipments: never[]  = []
 	const shipmentCurrentTab = 'item1';
 	const form_level = 0;
 	return {
 		shipmentDetails,
 		shipmentCurrentTab,
 		form_level,
+		allShipments,
 	};
 }
 

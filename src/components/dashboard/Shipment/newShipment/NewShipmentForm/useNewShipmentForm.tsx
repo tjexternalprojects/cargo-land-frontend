@@ -70,7 +70,6 @@ function useNewShipmentForm() {
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
-		console.log(shipmentDetails);
 		if (
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
@@ -173,6 +172,7 @@ function useNewShipmentForm() {
 		setFormattedAddress('');
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
+
 
 	return {
 		countryCode,

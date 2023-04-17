@@ -14,7 +14,6 @@ function useResendVerification() {
     AuthServices.resendVerification(email).then(
       (response) => {
         setShowLoading(false);
-        console.log(response)
         if (response.status === 201) {
           toast.success("Verification Resend sucessful, check your email", {
             progressClassName: "bg-green-500 h-1",
@@ -29,7 +28,6 @@ function useResendVerification() {
       },
       (error) => {
         setShowLoading(false);
-        console.log(error);
         if (error.code == "ERR_NETWORK") {
           toast.error(error.message, {
             progressClassName: "bg-red-500 h-1",

@@ -1,5 +1,5 @@
 import axios from "axios";
-import TokenServices from "./token.services";
+import LocalStorageServices from "./localstorage.services";
 const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
 const instance = axios.create({
@@ -11,8 +11,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = `Bearer ${TokenServices.getAccessToken()}`;
-    console.log(token, "tokeen");
+    const token = `Bearer ${LocalStorageServices.getAccessToken()}`;
     if (token) {
       config.headers["authorization"] = token;
     }
@@ -38,36 +37,36 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (res) => {
-    console.log(res);
     return res;
   },
   async (err) => {
-    console.log(err);
     const originalConfig = err.config;
-    console.log(originalConfig);
     if (
       (originalConfig.url !== "/user/login" ||
         originalConfig.url !== "/user/register") &&
       err.response
     ) {
+      console.log(err.response.data.Error)
       // Access Token was expired
       if (
-        err.response.status === 401 &&
-        err.response.data.Error == "token expired" &&
-        !originalConfig._retry
-      ) {
+        (LocalStorageServices.getAccessToken() &&
+          err.response.data.Error == "User not logged in") ||
+        (err.response.status === 401 &&
+          err.response.data.Error == "token expired" &&
+          !originalConfig._retry)
+      ) 
+      {
         originalConfig._retry = true;
-
+       
         try {
           const rs = await instance.post("/user/regenerate-access-token", {
-            refreshToken: TokenServices.getRefreshToken(),
+            refreshToken: LocalStorageServices.getRefreshToken(),
           });
-
-          const { accessToken } = rs.data;
-          TokenServices.updateLocalAccessToken(accessToken);
-
+          const { AccessToken } = rs.data;
+          LocalStorageServices.setLocalAccessToken(AccessToken);
           return instance(originalConfig);
         } catch (_error) {
+          console.log(_error)
           return Promise.reject(_error);
         }
       }

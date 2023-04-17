@@ -89,13 +89,11 @@ const signup = () => {
 						text='signup_with'
 						ux_mode="popup"
 						onSuccess={credentialResponse => {
-							console.log(credentialResponse)
 							const details = jwt_decode(credentialResponse.credential as string) as Record<string,string>
 							googleSignUpSuccess(details)
 						}}
 						onError={() => {
 							googleSignUpFailure()
-							console.log('Login Failed');
 						}}
 					/>
 				</GoogleOAuthProvider>

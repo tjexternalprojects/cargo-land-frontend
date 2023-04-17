@@ -4,7 +4,7 @@ import { AuthServices } from '@/services';
 import { toast } from 'react-toastify';
 import { AppContextType, AppContext } from '@/context';
 import { useNavigate } from 'react-router-dom';
-import {TokenServices} from '@/services'
+import {LocalStorageServices} from '@/services'
 
 function useSignUp() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +27,6 @@ function useSignUp() {
 			.then((response) => {
 				setShowLoading(false);
 				if (response.status === 201) {
-				console.log(response);
 
 					toast.success('Profile Created Successfully', {
 						progressClassName: 'bg-green-500 h-1',
@@ -47,7 +46,6 @@ function useSignUp() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error);
 				if (error.code == 'ERR_NETWORK') {
 					toast.error(error.message, {
 						progressClassName: 'bg-red-500 h-1',
@@ -77,11 +75,10 @@ function useSignUp() {
 			avatar:credentialResponse.picture
 		}
 
-		TokenServices.setUserInfo(user_info)
-		TokenServices.updateLocalAccessToken(credentialResponse.jti)
+		LocalStorageServices.setUserInfo(user_info)
+		LocalStorageServices.setLocalAccessToken(credentialResponse.jti)
 		navigate('/dashboard');
 
-		console.log(credentialResponse)
 	
 		
 	};

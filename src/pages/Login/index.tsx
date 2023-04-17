@@ -4,13 +4,13 @@ import useLogin from '@/pages/Login/useLogin';
 import { ToastContainer } from 'react-toastify';
 import { MapImg2 } from '@/assets';
 import { Navigate, useLocation } from "react-router-dom";
-import { TokenServices } from '@/services';
+import { LocalStorageServices } from '@/services';
 
 
 const Login = () => {
 	const { toggleLoginType, state, handleToggleBtn } = useLogin();
 
-	const user_info =TokenServices.getUserInfo();
+	const user_info =LocalStorageServices.getUserInfo();
 	const user = user_info? JSON.parse(user_info):null
 	if(user){
 	if (user?.role && user?.role <= 2) {

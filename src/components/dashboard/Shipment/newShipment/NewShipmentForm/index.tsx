@@ -37,7 +37,6 @@ const NewShipmentForm = () => {
 		shipmentDetails,
 		citySelected,
 		address,
-		mapAddress,
 		countryCode,
 		stateCode,
 	} = useNewShipmentForm();

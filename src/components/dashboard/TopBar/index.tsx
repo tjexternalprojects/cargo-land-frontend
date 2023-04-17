@@ -20,9 +20,9 @@ const TopBar = () => {
 			</div>
 			<div className="flex items-center justify-center text-2xl gap-4">
 				<div className="relative cursor-pointer" onClick={handleToggleNotification}>
-					<div className="text-white bg-red-400 rounded-full absolute h-full w-full p-2 text-xs flex items-center justify-center -top-3 left-2">
+					{/* <div className="text-white bg-red-400 rounded-full absolute h-full w-full p-2 text-xs flex items-center justify-center -top-3 left-2">
 						2
-					</div>
+					</div> */}
 					<MdNotificationsNone />
 				</div>
 				<div className="relative cursor-pointer" onClick={showChartItems}>

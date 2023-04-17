@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { AppContext, AppContextType } from "@/context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AuthServices, TokenServices } from "@/services";
+import { AuthServices, LocalStorageServices } from "@/services";
 const GOOGLE_LOGIN_CLIENT_ID = import.meta.env
 	.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 function useLogin() {
@@ -10,8 +10,8 @@ function useLogin() {
 	const navigate = useNavigate();
 	const [loginData, setLoginData] = useState({ email: "", password: "" });
 	const [showLoading, setShowLoading] = useState(false);
-	const [verifyEmail, setVerifiyEmail]= useState(false)
-		
+	const [verifyEmail, setVerifiyEmail] = useState(false)
+
 
 
 	const showForgotPassword = () => {
@@ -30,17 +30,14 @@ function useLogin() {
 		AuthServices.login(loginData).then(
 			(response) => {
 				setShowLoading(false);
-
-				console.log(response)
 				if (response.status == 200) {
-					const user_info = {...response.data.user_info, id: response.data.id}
-					TokenServices.updateLocalAccessToken(response.data.AccessToken);
-					TokenServices.setLocalRefreshToken(response.data.refreshToken);
-					TokenServices.setUserInfo(user_info);
-					console.log(response.data)
-					if(response.data.user_info.role <= 2){
+					const user_info = { ...response.data.user_info, id: response.data.id }
+					LocalStorageServices.setLocalAccessToken(response.data.AccessToken);
+					LocalStorageServices.setLocalRefreshToken(response.data.refreshToken);
+					LocalStorageServices.setUserInfo(user_info);
+					if (response.data.user_info.role <= 2) {
 						navigate("/dashboard");
-					}else if(response.data.user_info.role >= 3 ){
+					} else if (response.data.user_info.role >= 3) {
 						navigate("/admin")
 					}
 
@@ -53,14 +50,13 @@ function useLogin() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error);
 				if (error.code == "ERR_NETWORK") {
 					toast.error(error.message, {
 						progressClassName: "bg-red-500 h-1",
 						autoClose: 3000,
 					});
 				} else if (error.response.status == 401) {
-					if(error.response.data.message ==='Please verify your email'){
+					if (error.response.data.message === 'Please verify your email') {
 						setVerifiyEmail(true)
 					}
 					toast.error(error.response.data.message, {
@@ -71,32 +67,31 @@ function useLogin() {
 			}
 		);
 
-		
+
 	};
 
-	const hadleVerifyEmail = ()=>{
+	const hadleVerifyEmail = () => {
 		setState({
 			...state,
 			showResendToken: true,
 		});
 	}
 
-	const googleLoginSuccess = (credentialResponse:Record<string,string>) => {
+	const googleLoginSuccess = (credentialResponse: Record<string, string>) => {
 
-	
+
 		const user_info = {
-			name:credentialResponse.name,
-			email:credentialResponse.email,
-			avatar:credentialResponse.picture
+			name: credentialResponse.name,
+			email: credentialResponse.email,
+			avatar: credentialResponse.picture
 		}
 
-		TokenServices.setUserInfo(user_info)
-		TokenServices.updateLocalAccessToken(credentialResponse.jti)
+		LocalStorageServices.setUserInfo(user_info)
+		LocalStorageServices.setLocalAccessToken(credentialResponse.jti)
 		navigate('/dashboard');
 
-		console.log(credentialResponse)
-	
-		
+
+
 	};
 
 	const googleLoginFailure = () => {

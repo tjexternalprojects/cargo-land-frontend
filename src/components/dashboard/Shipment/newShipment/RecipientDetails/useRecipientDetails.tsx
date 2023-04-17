@@ -105,29 +105,15 @@ function useRecipientDetails() {
 		const formData = new FormData();
 		formData.append('payload', payload);
 		for (let i = 0; i < shipment_images.length ; i++) {
-			console.log(shipment_images[i], 'form data images');
 			formData.append('images', shipment_images[i]);
 		}
 
-		// axios.post('https://server.cargolandglobal.com/shipment/create-shipment', formData, {
-		// 	headers: {
-		// 	  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-		// 	  'Content-Type': 'multipart/form-data'
-		// 	}
-		//   })
-		//   .then(response => {
-		// 	console.log(response);
-		//   })
-		//   .catch(error => {
-		// 	console.log(error);
-		//   });
 
 		
 		await ShipmentServices.createShipment
 			(formData)
 			.then((response) => {
 				setShowLoading(false);
-				console.log(response);
 				setState({
 					...state,
 					shipmentCurrentTab: 'item3',
@@ -136,7 +122,6 @@ function useRecipientDetails() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error);
 			})
 	};
 

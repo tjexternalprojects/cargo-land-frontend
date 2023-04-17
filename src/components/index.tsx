@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 // common components
 export const Header = lazy(() => import('./common/Header'));
-export const LineGraph = lazy(() => import('./common/Graph'));
+export const LineGraph = lazy(() => import('./common/Graph/LingGraph'));
 export const MapDirection = lazy(() => import('./common/Maps/GoogleMap/Direction'));
 export const AddressMap = lazy(() => import('./common/Maps/GoogleMap/AddressMap'));
 export { default as useGeocode } from './common/Maps/GoogleMap/useGeocode';
