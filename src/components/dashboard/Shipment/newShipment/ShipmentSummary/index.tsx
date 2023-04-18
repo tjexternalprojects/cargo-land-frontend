@@ -20,6 +20,7 @@ const RecipientDetails = () => {
 		image_slider_settings,
 		shipmentData,
 		showShipmentModal,
+		unCheckedShipment,
 		handleAddShipment,
 		handleRemoveItem,
 		handleShowModal,
@@ -35,15 +36,15 @@ const RecipientDetails = () => {
 						<div className=" h-screen-55 rounded-md overflow-auto w-full p-1 ">
 							<table className=" w-full  bg-white rounded-sm  ">
 								<thead className=" text-left  w-full bg-slate-100 ">
-									<tr >
+									<tr>
 										<th className="p-3">Shipment Id</th>
 										<th>Current Location</th>
 										<th>Destination</th>
 										<th>Price</th>
 									</tr>
 								</thead>
-								<tbody className=' overflow-y-auto'>
-									{shipmentData.map((val, index) => (
+								<tbody className=" overflow-y-auto">
+									{unCheckedShipment.map((val, index) => (
 										<tr
 											key={index}
 											className=" border-b hover:bg-slate-300 cursor-pointer text-sm"
@@ -70,17 +71,26 @@ const RecipientDetails = () => {
 									onClick={handlePayment}
 									className="flex md:flex-grow-0 flex-grow items-center bg-red-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
 								>
-									<div className='p-2'>Checkout</div><div className='bg-red-900 rounded-l-full h-full w-10  flex items-center justify-center
-									'><BsCartCheck /></div> 
+									<div className="p-2">Checkout</div>
+									<div
+										className="bg-red-900 rounded-l-full h-full w-10  flex items-center justify-center
+									"
+									>
+										<BsCartCheck />
+									</div>
 								</button>
 
 								<button
 									onClick={handleAddShipment}
 									className="flex md:flex-grow-0 flex-grow items-center bg-blue-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
 								>
-										<div className='p-2'>Add More Shipment</div><div className='bg-blue-900 rounded-l-full h-full w-10  flex items-center justify-center
-									'>+</div> 
-									
+									<div className="p-2">Add More Shipment</div>
+									<div
+										className="bg-blue-900 rounded-l-full h-full w-10  flex items-center justify-center
+									"
+									>
+										+
+									</div>
 								</button>
 							</div>
 						</div>

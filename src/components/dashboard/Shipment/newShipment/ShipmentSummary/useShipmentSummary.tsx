@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext, AppContextType } from '@/context';
 
 function useShipmentSummary() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showShipmentModal, setShowShipmentModal] = useState(false);
+	const [unCheckedShipment, setUnCheckedShipment] = useState([])
 	const image_slider_settings = {
 		dots: true,
 		infinite: false,
@@ -12,6 +13,17 @@ function useShipmentSummary() {
 		slidesToScroll: 1,
 		initialSlide: 0,
 	};
+
+	const getCheckedShipment = ()=>{
+		const unchecked = state.allShipments.filter((obj: any) => obj.shipment_Status == 'UNCHECK');
+		setUnCheckedShipment(unchecked)
+		console.log(unchecked)
+	}
+
+	useEffect(()=>{
+		getCheckedShipment()
+	}, [state.allShipments])
+
 
 	const handleShowModal = () => {
 		setShowShipmentModal(true);
@@ -195,6 +207,7 @@ function useShipmentSummary() {
 		handleRemoveItem,
 		handleAddShipment,
 		handlePayment,
+		unCheckedShipment,
 		showShipmentModal,
 		shipmentData,
 		state,
