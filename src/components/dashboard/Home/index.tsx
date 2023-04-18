@@ -21,6 +21,7 @@ const home = () => {
 		state,
 		balance,
 		toggleShowBalance,
+		getPackageRecived,
 	} = useHome();
 	return (
 		<div className="mt-10 space-y-10   w-full">
@@ -43,7 +44,6 @@ const home = () => {
 						</div>
 					</div>
 				</div>
-
 				<div className=" inline-flex rounded-md px-6 py-2 min-w-min bg-green-50  flex-grow w-72 justify-between  shadow-md items-center">
 					<div className="w-full">
 						<div className="text-green-500 mb-1">Package Received</div>
@@ -80,7 +80,7 @@ const home = () => {
 				<div className=" flex-grow">
 					<div className="flex justify-between items-center">
 						<h4 className="text-xl mb-3">Latest Transaction</h4>
-						{transaction_history.length >0 && <button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg mb-3">
+						{transaction_history.length ==0 && <button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg mb-3">
 							View all ...
 						</button>}
 					</div>
@@ -204,7 +204,7 @@ const home = () => {
 								<div className="text-2xl text-red-300">
 									No active shipment
 								</div>
-								<Link to="dashboard/shipment">
+								<Link to="/dashboard/shipment">
 									{" "}
 									<button className=" cursor-pointer hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md">
 										Create Shipment

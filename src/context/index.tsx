@@ -7,7 +7,7 @@ import UserContext from './user.context';
 const { user } = AuthContext();
 const {single_user_data} = UserContext();
 const { toggleNotification, notifications, theme, toggleAdminSideBar, openSignUpMenu, showForgetPassword, showResendToken, resendTokenMessage } = SettingsContext();
-const { shipmentDetails, shipmentCurrentTab, form_level, allShipments } = ShipmentContext();
+const { shipmentDetails, shipmentCurrentTab, form_level, trackingShipments, allShipments } = ShipmentContext();
 
 // Define the global state object
 
@@ -20,6 +20,7 @@ type AppState = {
 	>;
 	shipmentCurrentTab: string;
 	allShipments:any ;
+	trackingShipments: never[];
 	settings: string;
 	notifications: Notification[];
 	toggleAdminSideBar: boolean;
@@ -36,6 +37,7 @@ const initialState: AppState = {
 	single_user_data,
 	shipmentDetails,
 	allShipments,
+	trackingShipments,
 	settings: theme,
 	notifications,
 	toggleAdminSideBar,

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { slideInFromRight } from '@/utils/animations';
 import { LocalStorageServices } from '@/services';
 import {  useUserData } from '@/customHooks';
+import { ToastContainer } from 'react-toastify';
 
 
 const Dashboard = () => {
@@ -35,6 +36,8 @@ const Dashboard = () => {
 			>
 				<Notification />
 			</motion.div>
+			<ToastContainer />
+
 		</div>
 	);
 };

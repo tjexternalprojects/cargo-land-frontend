@@ -17,7 +17,6 @@ function useUserData(loadVal:boolean| void) {
                     ...prevState,
                     single_user_data: res.data.user,
                 }))
-                console.log(res.data.user.wallet, 'i am here')
             },
                 err => {
                     setLoading(false)

@@ -1,8 +1,14 @@
 import { AppContext, AppContextType } from '@/context';
-import { useContext } from 'react';
+import { ShipmentServices } from '@/services';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 function useTopBar() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
+	const [itemInChart, setItemInCart] = useState(0)
+	const [shipmentId, setShipmentId]= useState("")
+	const [searchLoading, setSearchLoading] = useState(false)
+	const [mobileSearch, setMobileSearch] = useState(false)
 	const navigation = useNavigate();
 	const handleToggleNotification = () => {
 		setState({
@@ -18,14 +24,46 @@ const handleToggleSidebar = () =>{
 }
 
 	const showChartItems = () => {
+		if(itemInChart > 0){
 		setState({
 			...state,
 			shipmentCurrentTab: 'item3',
 			form_level: 2,
 		});
 		navigation('/dashboard/shipment');
+	}
 	};
 
-	return { handleToggleNotification, handleToggleSidebar, showChartItems, setState, state };
+	const getTotalChart = async() =>{
+		const unchecked = state.allShipments.filter((obj:any) => obj.shipment_Status == "UNCHECK");
+		console.log(unchecked)
+		setItemInCart(unchecked.length)
+	}
+	useEffect(()=>{
+		getTotalChart()
+	},[state.allShipments])
+
+const handSearchShipment =(e: React.FormEvent<HTMLFormElement>)=>{
+	setSearchLoading(true)
+	setMobileSearch(false)
+	e.preventDefault()
+	const filtered_shipment = state.allShipments.filter((obj:any) => obj.id === shipmentId);
+	setSearchLoading(false)
+	if(filtered_shipment.length === 0 ){
+		toast.error("Item Not found, you can re confirm the shipment Id", {
+			progressClassName: "bg-red-500 h-1",
+			autoClose: 3000,
+		});
+	}else{
+		setShipmentId("")
+		setState((prevState) => ({
+			...prevState,
+			trackingShipments: filtered_shipment,
+		}))
+		navigation('/dashboard/track_shipment')
+	}
+}
+
+	return { handleToggleNotification, handleToggleSidebar, showChartItems, setState, handSearchShipment, setShipmentId, setMobileSearch, mobileSearch, searchLoading, shipmentId, itemInChart, state };
 }
 export default useTopBar;
