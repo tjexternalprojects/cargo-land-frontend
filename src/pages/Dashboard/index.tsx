@@ -10,9 +10,8 @@ import { ToastContainer } from 'react-toastify';
 
 
 const Dashboard = () => {
-	const { state } = useContext<AppContextType>(AppContext);	
-		LocalStorageServices.setDefaultValue(true)
-		useUserData(LocalStorageServices.setDefaultValue(true))
+	const { state } = useContext<AppContextType>(AppContext);
+		useUserData()
 		
 	return (
 		<div className="flex bg-gray-200 min-h-screen">

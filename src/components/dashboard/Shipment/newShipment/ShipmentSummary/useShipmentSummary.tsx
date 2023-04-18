@@ -4,7 +4,8 @@ import { AppContext, AppContextType } from '@/context';
 function useShipmentSummary() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showShipmentModal, setShowShipmentModal] = useState(false);
-	const [unCheckedShipment, setUnCheckedShipment] = useState([])
+	const [unCheckedShipment, setUnCheckedShipment] = useState<any>([])
+	const [totalPrice, setTotalPrice] = useState<any>([]);
 	const image_slider_settings = {
 		dots: true,
 		infinite: false,
@@ -17,7 +18,12 @@ function useShipmentSummary() {
 	const getCheckedShipment = ()=>{
 		const unchecked = state.allShipments.filter((obj: any) => obj.shipment_Status == 'UNCHECK');
 		setUnCheckedShipment(unchecked)
-		console.log(unchecked)
+		const deliveryPriceTotal = state.allShipments.reduce((total: any, obj: { delivery_price: any; }) => total + obj.delivery_price, 0);
+		setTotalPrice(unchecked);
+	}
+
+	const minusAmount =(amount:number)=>{
+		setTotalPrice(totalPrice - amount)
 	}
 
 	useEffect(()=>{
@@ -207,6 +213,8 @@ function useShipmentSummary() {
 		handleRemoveItem,
 		handleAddShipment,
 		handlePayment,
+		minusAmount,
+		totalPrice,
 		unCheckedShipment,
 		showShipmentModal,
 		shipmentData,
