@@ -97,6 +97,7 @@ function useRecipientDetails() {
 
 	// This is use to control the active tab design
 	const moveNext = async () => {
+		console.log(state.shipmentDetails)
 		setShowLoading(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
