@@ -11,6 +11,7 @@ import {
 	ATransactions,
 	AShipment,
 	LoadingPage,
+	UserProfile,
 } from '@/components';
 import { BusinessSignup, LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
 import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
@@ -39,6 +40,7 @@ function App() {
 								<Route path="/dashboard/shipment" element={<ShipmentPage />} />
 								<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 								<Route path="/dashboard/history" element={<History />} />
+								<Route path='/dashboard/user' element={<UserProfile/>}/>
 							</Route>
 						</Route>
 						<Route element={<ProtectedAdminRoutes />}>

@@ -1,6 +1,4 @@
 import { NewShipmentForm, Payment, RecipientDetails, ShipmentSummary } from '@/components';
-import { Link } from 'react-scroll';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeSlide } from '@/utils/animations';
 import useShipment from '@/components/dashboard/Shipment/useShipment';

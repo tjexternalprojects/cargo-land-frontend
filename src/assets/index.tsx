@@ -51,7 +51,8 @@ export {
 	AiOutlineEdit,
 	AiFillTwitterCircle,
 	AiFillInstagram,
-	AiOutlineArrowLeft
+	AiOutlineArrowLeft,
+	AiOutlineDown,
 } from 'react-icons/ai';
 export {
 	RiPriceTag2Line,

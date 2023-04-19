@@ -31,6 +31,11 @@ export const TopBar = lazy(() => import('./dashboard/TopBar'));
 export const ShipmentModal = lazy(() => import('./dashboard/Shipment/ShipmentModal'));
 export const TrackShipment = lazy(() => import('./dashboard/TrackShipment'));
 
+// Dashboard User
+export const UserProfile = lazy(()=> import('./dashboard/UserProfile'))
+export const PersonalDetails = lazy(()=> import('./dashboard/UserProfile/PersonalDetails'))
+export const AccountType = lazy(()=> import('./dashboard/UserProfile/AccountType'))
+
 // Dashboard New_Shipment
 export const NewShipmentForm = lazy(
 	() => import('./dashboard/Shipment/newShipment/NewShipmentForm')

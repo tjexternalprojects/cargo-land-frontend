@@ -5,49 +5,65 @@ import ShipmentContext from './shipment.context';
 import UserContext from './user.context';
 
 const { user } = AuthContext();
-const {single_user_data} = UserContext();
+const { single_user_data, userCurrentTab } = UserContext();
 const { toggleNotification, notifications, theme, toggleAdminSideBar, openSignUpMenu, showForgetPassword, showResendToken, resendTokenMessage } = SettingsContext();
 const { shipmentDetails, shipmentCurrentTab, form_level, trackingShipments, allShipments } = ShipmentContext();
 
 // Define the global state object
 
 type AppState = {
+	// user
 	user: Record<string, string | null>;
-	single_user_data:Record<string,string | number> | null ;
+	single_user_data: Record<string, string | number> | null;
+	userCurrentTab: String;
+	
+	// Auth
+	showForgetPassword: boolean;
+	showResendToken: boolean;
+	openSignUpMenu: boolean;
+	resendTokenMessage: string;
+
+	// shipment
 	shipmentDetails: Record<
 		string,
 		Array<unknown> | number | string | Record<string, string | number>
-	>;
-	shipmentCurrentTab: string;
-	allShipments:any ;
-	trackingShipments: never[];
+		>;
+		shipmentCurrentTab: string;
+		allShipments: any;
+		trackingShipments: never[];
+		form_level: number;
+		
+		// settings
 	settings: string;
 	notifications: Notification[];
 	toggleAdminSideBar: boolean;
 	toggleNotification: boolean;
-	openSignUpMenu: boolean;
-	form_level: number;
-	showForgetPassword: boolean;
-	showResendToken: boolean;
-	resendTokenMessage: string;
 };
 
 const initialState: AppState = {
+	// user
 	user,
 	single_user_data,
+	userCurrentTab,
+	
+	// Auth
+	showForgetPassword,
+	showResendToken,
+	resendTokenMessage,
+	
+	// shipment
 	shipmentDetails,
 	allShipments,
 	trackingShipments,
+	form_level,
+
+	// settings
 	settings: theme,
 	notifications,
 	toggleAdminSideBar,
 	toggleNotification,
 	openSignUpMenu,
 	shipmentCurrentTab,
-	form_level,
-	showForgetPassword,
-	showResendToken,
-	resendTokenMessage
 };
 
 export type AppContextType = {
