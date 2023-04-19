@@ -1,5 +1,5 @@
 import { AppContextType, AppContext } from '@/context';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -60,6 +60,9 @@ function useHome() {
 
 	}
 
+	useEffect(()=>{
+		console.log(state.allShipments)
+		})
 
 	const transaction_history = [
 		{

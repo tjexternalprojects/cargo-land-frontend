@@ -4,8 +4,7 @@ import api from './api.services'
 import {LocalStorageServices} from '@/services'
 
  const getSingleUser = () => {
-    const user_info = LocalStorageServices.getUserInfo();
-    const user = user_info ? JSON.parse(user_info) : null;
+    const user = LocalStorageServices.getUserInfo();
 
      return api
       .get('/user/single-user/' + user.id)

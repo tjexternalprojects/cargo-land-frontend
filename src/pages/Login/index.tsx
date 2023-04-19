@@ -10,8 +10,7 @@ import { LocalStorageServices } from '@/services';
 const Login = () => {
 	const { toggleLoginType, state, handleToggleBtn } = useLogin();
 
-	const user_info =LocalStorageServices.getUserInfo();
-	const user = user_info? JSON.parse(user_info):null
+	const user =LocalStorageServices.getUserInfo();
 	if(user){
 	if (user?.role && user?.role <= 2) {
 		return <Navigate to={"/dashboard"} />;
