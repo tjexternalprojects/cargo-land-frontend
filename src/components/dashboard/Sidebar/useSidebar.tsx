@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AppContext, AppContextType } from '@/context';
+import { LocalStorageServices } from '@/services';
 function useSidebar() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
-	const user_info = localStorage.getItem('user_info');
-	const userInfo = user_info ? JSON.parse(user_info) : null;
+	const userInfo = LocalStorageServices.getUserInfo();
 	const handleToggleSidebar = () =>{
 		setState((prevState) => ({
 			...prevState,

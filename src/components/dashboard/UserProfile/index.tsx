@@ -40,11 +40,11 @@ const index = () => {
 				</div>
 
 				{/* PAGE */}
-				<div className=" w-full md:pl-16 mb-36 md:mb-0  ">
+				<div className=" w-full md:pl-16 mb-10 md:mb-0  ">
 					<motion.div
 						className={`${
 							state.userCurrentTab == 'item1' ? 'inline-flex' : 'hidden'
-						} w-full pt-10  `}
+						} w-full md:pt-10  `}
 						variants={fadeSlide(animationDirection.direction)}
 						animate={state.userCurrentTab == 'item1' ? 'animate' : 'initial'}
 					>
