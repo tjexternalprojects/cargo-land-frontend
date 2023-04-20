@@ -1,23 +1,22 @@
-import { useContext, } from 'react';
+import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Notification, Sidebar, TopBar } from '@/components';
 import { AppContext, AppContextType } from '@/context';
 import { motion } from 'framer-motion';
 import { slideInFromRight } from '@/utils/animations';
-import { LocalStorageServices } from '@/services';
-import {  useUserData } from '@/customHooks';
+import { useUserData } from '@/customHooks';
 import { ToastContainer } from 'react-toastify';
-
 
 const Dashboard = () => {
 	const { state } = useContext<AppContextType>(AppContext);
-		useUserData()
-		
+	useUserData();
+
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
 			<div
-				className={`md:flex md:w-72 z-20 ${state.toggleAdminSideBar ? 'flex fixed md:relative' : 'hidden md:flex'
-					}`}
+				className={`md:flex md:w-72 z-20 ${
+					state.toggleAdminSideBar ? 'flex fixed md:relative' : 'hidden md:flex'
+				}`}
 			>
 				<Sidebar />
 			</div>
@@ -36,7 +35,6 @@ const Dashboard = () => {
 				<Notification />
 			</motion.div>
 			<ToastContainer />
-
 		</div>
 	);
 };

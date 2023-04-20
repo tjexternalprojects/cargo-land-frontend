@@ -26,6 +26,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 
 function App() {
+
 	useEffect(() => {
 		AOS.init();
 	}, []);
@@ -40,7 +41,7 @@ function App() {
 								<Route path="/dashboard/shipment" element={<ShipmentPage />} />
 								<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 								<Route path="/dashboard/history" element={<History />} />
-								<Route path='/dashboard/user' element={<UserProfile/>}/>
+								<Route path="/dashboard/user" element={<UserProfile />} />
 							</Route>
 						</Route>
 						<Route element={<ProtectedAdminRoutes />}>

@@ -40,7 +40,7 @@ const index = () => {
 				</div>
 
 				{/* PAGE */}
-				<div className=" w-full md:pl-16 mb-10 md:mb-0  ">
+				<div className=" w-full md:pl-16 mb-14 md:mb-0  ">
 					<motion.div
 						className={`${
 							state.userCurrentTab == 'item1' ? 'inline-flex' : 'hidden'

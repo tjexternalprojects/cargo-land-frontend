@@ -3,14 +3,13 @@ import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
-	const user_data = state.single_user_data
+	const user_data = state.single_user_data;
 	const [curency, setCurency] = useState('\u20A6');
 	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
 	const toggleShowBalance = () => {
-		setShowBalance(!showBalance)
+		setShowBalance(!showBalance);
 	};
-
 
 	const graph_data = {
 		labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -26,43 +25,48 @@ function useHome() {
 	// start_time: new Date(current_year, current_month, 1).getTime(),
 	// end_time: new Date(current_year, current_month + 1, 0).getTime()
 
-
 	const getPackageRecived = (month_to_show: number) => {
-		const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-		const payload_array = []
+		const month = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December',
+		];
+		const payload_array = [];
 
-		let current_year = new Date().getFullYear()
-		let current_month = new Date().getMonth()
+		let current_year = new Date().getFullYear();
+		let current_month = new Date().getMonth();
 
-		
 		for (let i = month_to_show; i >= 0; i--) {
 			const start_time = new Date(Date.UTC(current_year, current_month, 1)).toISOString();
 			const end_time = new Date(Date.UTC(current_year, current_month + 1, 0)).toISOString();
-			
+
 			const payload_obj = {
 				year: current_year,
 				month: month[current_month],
 				start_time: start_time,
-				end_time: end_time
-			}
-			payload_array.unshift(payload_obj)
+				end_time: end_time,
+			};
+			payload_array.unshift(payload_obj);
 
 			if (current_month == 0) {
-				current_year = current_year - 1
-				current_month = 11
+				current_year = current_year - 1;
+				current_month = 11;
 			}
-			current_month = current_month - 1
-
-
+			current_month = current_month - 1;
 		}
 
-		console.log(payload_array)
+		console.log(payload_array);
+	};
 
-	}
-
-	useEffect(()=>{
-		console.log(state.allShipments)
-		})
 
 	const transaction_history = [
 		{
@@ -130,7 +134,7 @@ function useHome() {
 		transaction_history,
 		curency,
 		showBalance,
-		state
+		state,
 	};
 }
 export default useHome;

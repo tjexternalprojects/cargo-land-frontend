@@ -20,14 +20,16 @@ const sidebar = () => {
 	const { userInfo, state, handleToggleSidebar } = useSidebar();
 	return (
 		<>
-			<div className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${state.toggleAdminSideBar ? 'flex animate__slideInLeft ' : 'md:flex hidden'
+			<div
+				className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
+					state.toggleAdminSideBar ? 'flex animate__slideInLeft ' : 'md:flex hidden'
 				} animate__faster`}
 			>
-
-
-
 				<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2 ">
-					<Link to='/'>	<img src={logo} className=" w-24 h-8" alt="" /></Link>
+					<Link to="/">
+						{' '}
+						<img src={logo} className=" w-24 h-8" alt="" />
+					</Link>
 				</div>
 				<div className="flex-grow mt-10 ">
 					<ul className=" text-lg  font-bold ">
@@ -35,8 +37,9 @@ const sidebar = () => {
 							<NavLink
 								to="/dashboard"
 								onClick={handleToggleSidebar}
-								className={`${dashboardMatch ? 'border-l-blue-900 bg-blue-900/20' : 'border-l-white bg-white'
-									}  pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900`}
+								className={`${
+									dashboardMatch ? 'border-l-blue-900 bg-blue-900/20' : 'border-l-white bg-white'
+								}  pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900`}
 							>
 								<TbLayoutDashboard /> <span>Dashboard</span>
 							</NavLink>
@@ -46,8 +49,9 @@ const sidebar = () => {
 							<NavLink
 								to="/dashboard/shipment"
 								onClick={handleToggleSidebar}
-								className={`${shipmentMatch ? 'border-l-blue-900 bg-blue-900/20' : 'border-l-white bg-white'
-									} pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
+								className={`${
+									shipmentMatch ? 'border-l-blue-900 bg-blue-900/20' : 'border-l-white bg-white'
+								} pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
 							>
 								<MdTrackChanges /> <span>New Shipment</span>
 							</NavLink>
@@ -57,8 +61,9 @@ const sidebar = () => {
 							<NavLink
 								to="/dashboard/track_shipment"
 								onClick={handleToggleSidebar}
-								className={`${trackMatch ? '  bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
-									}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
+								className={`${
+									trackMatch ? '  bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
+								}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
 							>
 								<TbTruckDelivery /> <span>Track Shipment</span>
 							</NavLink>
@@ -80,19 +85,25 @@ const sidebar = () => {
 					<div className="flex flex-col gap-3 items-center mb-3">
 						<div className="w-10 h-10 rounded-full shadow-md border border-slate-200">
 							<img
-								src={!userInfo?.avatar ? userImg : userInfo?.avatar}
+								src={
+									!state.single_user_data?.avatar
+										? userImg
+										: (state.single_user_data?.avatar as string)
+								}
 								className="w-full h-full object-contain rounded-full"
 							/>
 						</div>
 						<div className="text-center">
-							<h3 className="font-bold text-md">{userInfo?.name}</h3>
-							<p className=" font-light text-sm">{userInfo?.email}</p>
+							<h3 className="font-bold text-md">{state.single_user_data?.name}</h3>
+							<p className=" font-light text-sm">{state.single_user_data?.email}</p>
 						</div>
 					</div>
 					<div className="flex gap-2 text-2xl">
-						<Link to="/dashboard/user"><div className=" transition-all duration-75 ease-linear rounded-full text-blue-900 p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">
-							<CiSettings />
-						</div></Link>
+						<Link to="/dashboard/user" onClick={handleToggleSidebar}>
+							<div className=" transition-all duration-75 ease-linear rounded-full text-blue-900 p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">
+								<CiSettings />
+							</div>
+						</Link>
 						<div
 							onClick={handleLogout}
 							className="transition-all duration-75 ease-linear rounded-full p-2 text-blue-900 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer"
@@ -102,7 +113,10 @@ const sidebar = () => {
 					</div>
 				</div>
 			</div>
-			<div className='w-screen h-screen fixed z-10 bg-blue-900 bg-opacity-50 block md:hidden' onClick={handleToggleSidebar}></div>
+			<div
+				className="w-screen h-screen fixed z-10 bg-blue-900 bg-opacity-50 block md:hidden"
+				onClick={handleToggleSidebar}
+			></div>
 		</>
 	);
 };

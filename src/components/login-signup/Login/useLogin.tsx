@@ -35,6 +35,10 @@ function useLogin() {
 					LocalStorageServices.setLocalAccessToken(response.data.AccessToken);
 					LocalStorageServices.setLocalRefreshToken(response.data.refreshToken);
 					LocalStorageServices.setUserInfo(user_info);
+					setState({
+						...state,
+						updateUser: !state.updateUser,
+					});
 					if (response.data.user_info.role <= 2) {
 						navigate("/dashboard");
 					} else if (response.data.user_info.role >= 3) {
