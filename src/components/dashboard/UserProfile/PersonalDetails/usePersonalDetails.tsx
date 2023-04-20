@@ -1,4 +1,8 @@
+import { LocalStorageServices } from "@/services";
+import { useState } from "react";
+
 function usePersonalDetails(){
-    return{}
+
+    return{ }
 }
 export default usePersonalDetails
