@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { UserServices } from '@/services';
+import { LocalStorageServices, UserServices } from '@/services';
 import { AppContextType, AppContext } from '@/context';
 import { toast } from 'react-toastify';
 
@@ -14,6 +14,7 @@ function useUserData() {
 			await UserServices.getSingleUser().then(
 				(res) => {
 					setLoading(false);
+					console.log(res.data.user);
 					setState((prevState) => ({
 						...prevState,
 						single_user_data: res.data.user,

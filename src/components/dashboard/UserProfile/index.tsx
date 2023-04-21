@@ -12,7 +12,7 @@ const index = () => {
 			</div>
 			<div className=" flex gap-3 mb-32 mb:mb-0 w-full ">
 				{/* SIDE NAVIGATION */}
-				<div className="fixed mt-16 pb-3 md:pb-0 md:bg-transparent bg-gray-200 bottom-0 md:top-20 w-full md:w-auto ">
+				<div className="fixed mt-16 pb-3 md:pb-0 md:bg-transparent z-10 bg-gray-200 bottom-0 md:top-20 w-full md:w-auto ">
 					<div className="mt-3 md:mt-10 border-l-2 space-y-2 ">
 						<div
 							onClick={() => handleShowTab('item1', 1)}
@@ -40,7 +40,7 @@ const index = () => {
 				</div>
 
 				{/* PAGE */}
-				<div className=" w-full md:pl-16 mb-10 md:mb-0  ">
+				<div className=" w-full md:pl-16 mb-14 md:mb-0  ">
 					<motion.div
 						className={`${
 							state.userCurrentTab == 'item1' ? 'inline-flex' : 'hidden'
