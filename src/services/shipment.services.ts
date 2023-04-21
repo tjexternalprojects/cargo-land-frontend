@@ -8,8 +8,15 @@ const getAllUserShipment = ()=>{
     return api.get('/shipment/get-all-user-shipment')
 }
 
-const ShipmentServices = {
-    createShipment,
-    getAllUserShipment
+const getShipmentInRange = (duration:Record<string, string>)=>{
+    return api.get(
+			`/shipment/get-user-month-shipment?startMonth=${duration.startMonth}&endMonth=${duration.endMonth}`
+		);
 }
+
+const ShipmentServices = {
+	createShipment,
+	getAllUserShipment,
+	getShipmentInRange,
+};
 export default ShipmentServices

@@ -1,44 +1,58 @@
 import { AppContextType, AppContext } from '@/context';
+import { ShipmentServices } from '@/services';
 import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const user_data = state.single_user_data;
-	const [curency, setCurency] = useState('\u20A6');
+	const [currency, setCurrency] = useState('\u20A6');
 	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
+	const [gPackageLabel, setGPackageLabel] = useState<string[]>([]);
+	const [gPackageData, setGPackageData] = useState<number[]>([]);
+	const [gPackageLoader, setGPackageLoader] = useState(false);
+
 	const toggleShowBalance = () => {
 		setShowBalance(!showBalance);
 	};
 
 	const graph_data = {
-		labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+		labels: gPackageLabel,
 		datasets: [
 			{
-				data: [0, 0, 0, 0, 0, 0],
+				data: gPackageData,
 				borderColor: 'rgb(255, 99, 132)',
 				backgroundColor: 'rgba(255, 99, 132, 0.5)',
 			},
 		],
 	};
 
-	// start_time: new Date(current_year, current_month, 1).getTime(),
-	// end_time: new Date(current_year, current_month + 1, 0).getTime()
+	const getGraphData = (duration: Record<string, string | number>) => {
+		ShipmentServices.getShipmentInRange(duration as Record<string, string>).then(
+			(response) => {
+				setGPackageData((prevState) => [...prevState, response.data.allSHipment.length]);
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
 
-	const getPackageRecived = (month_to_show: number) => {
+	const getPackageReceived = async (month_to_show: number) => {
+		setGPackageLoader(true);
 		const month = [
-			'January',
-			'February',
-			'March',
-			'April',
+			'Jan',
+			'Feb',
+			'Mar',
+			'Apr',
 			'May',
-			'June',
-			'July',
-			'August',
-			'September',
-			'October',
-			'November',
-			'December',
+			'Jun',
+			'Jul',
+			'Aug',
+			'Sep',
+			'Oct',
+			'Nov',
+			'Dec',
 		];
 		const payload_array = [];
 
@@ -50,10 +64,10 @@ function useHome() {
 			const end_time = new Date(Date.UTC(current_year, current_month + 1, 0)).toISOString();
 
 			const payload_obj = {
-				year: current_year,
+				year: current_year.toString().slice(-2),
 				month: month[current_month],
-				start_time: start_time,
-				end_time: end_time,
+				startMonth: start_time,
+				endMonth: end_time,
 			};
 			payload_array.unshift(payload_obj);
 
@@ -63,11 +77,16 @@ function useHome() {
 			}
 			current_month = current_month - 1;
 		}
-
-		console.log(payload_array);
+		setGPackageData([]);
+		const formatted_array = payload_array.map((payload) => `${payload.month}, ${payload.year}`);
+		setGPackageLabel(formatted_array);
+		await payload_array.map((obj, index) => getGraphData(obj));
+		setGPackageLoader(false);
 	};
-
-
+	
+	useEffect(()=>{
+		getPackageReceived(6);
+	},[])
 	const transaction_history = [
 		{
 			type: 'debit',
@@ -127,12 +146,14 @@ function useHome() {
 
 	return {
 		toggleShowBalance,
-		getPackageRecived,
+		getPackageReceived,
+		getGraphData,
+		gPackageLoader,
 		graph_data,
 		balance,
 		user_data,
 		transaction_history,
-		curency,
+		currency,
 		showBalance,
 		state,
 	};
