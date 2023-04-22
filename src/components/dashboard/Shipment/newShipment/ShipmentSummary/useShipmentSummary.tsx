@@ -9,6 +9,7 @@ function useShipmentSummary() {
   const [showShipmentModal, setShowShipmentModal] = useState(false);
   const [unCheckedShipment, setUnCheckedShipment] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState<any>([]);
+  const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false)
   const image_slider_settings = {
     dots: true,
     infinite: false,
@@ -99,152 +100,7 @@ function useShipmentSummary() {
     });
   };
 
-  const shipmentData = [
-    {
-      shipment_title: "Yam",
-      shipment_description: " lorem lorem lorem loreml orelksdkflkd ",
-      shipment_weight: 200,
-      images: [],
-      current_location: {
-        country: "Nigeria",
-        state: "Lagos",
-        city: "Ikeja",
-        address: "40, James Street",
-        longitude: 0.444455,
-        latitude: 0.444434,
-      },
-      recipient_full_name: "Kemi Lawal",
-      recipient_email: "kkmi@gmail.com",
-      shipment_destination: {
-        country: "Ughada",
-        state: "Ugli",
-        city: "lluuu",
-        address: "30, dddsd. damaturu",
-        longitude: 0.4444,
-        latitude: 0.444,
-      },
-    },
-    {
-      shipment_title: "Yam",
-      shipment_description: " lorem lorem lorem loreml orelksdkflkd ",
-      shipment_weight: 200,
-      images: [],
-      current_location: {
-        country: "Nigeria",
-        state: "Lagos",
-        city: "Ikeja",
-        address: "40, James Street",
-        longitude: 0.444455,
-        latitude: 0.444434,
-      },
-      recipient_full_name: "Kemi Lawal",
-      recipient_email: "kkmi@gmail.com",
-      shipment_destination: {
-        country: "Ughada",
-        state: "Ugli",
-        city: "lluuu",
-        address: "30, dddsd. damaturu",
-        longitude: 0.4444,
-        latitude: 0.444,
-      },
-    },
-    {
-      shipment_title: "Yam",
-      shipment_description: " lorem lorem lorem loreml orelksdkflkd ",
-      shipment_weight: 200,
-      images: [],
-      current_location: {
-        country: "Nigeria",
-        state: "Lagos",
-        city: "Ikeja",
-        address: "40, James Street",
-        longitude: 0.444455,
-        latitude: 0.444434,
-      },
-      recipient_full_name: "Kemi Lawal",
-      recipient_email: "kkmi@gmail.com",
-      shipment_destination: {
-        country: "Ughada",
-        state: "Ugli",
-        city: "lluuu",
-        address: "30, dddsd. damaturu",
-        longitude: 0.4444,
-        latitude: 0.444,
-      },
-    },
-    {
-      shipment_title: "Yam",
-      shipment_description: " lorem lorem lorem loreml orelksdkflkd ",
-      shipment_weight: 200,
-      images: [],
-      current_location: {
-        country: "Nigeria",
-        state: "Lagos",
-        city: "Ikeja",
-        address: "40, James Street",
-        longitude: 0.444455,
-        latitude: 0.444434,
-      },
-      recipient_full_name: "Kemi Lawal",
-      recipient_email: "kkmi@gmail.com",
-      shipment_destination: {
-        country: "Ughada",
-        state: "Ugli",
-        city: "lluuu",
-        address: "30, dddsd. damaturu",
-        longitude: 0.4444,
-        latitude: 0.444,
-      },
-    },
-    {
-      shipment_title: "Yam",
-      shipment_description: " lorem lorem lorem loreml orelksdkflkd ",
-      shipment_weight: 200,
-      images: [],
-      current_location: {
-        country: "Nigeria",
-        state: "Lagos",
-        city: "Ikeja",
-        address: "40, James Street",
-        longitude: 0.444455,
-        latitude: 0.444434,
-      },
-      recipient_full_name: "Kemi Lawal",
-      recipient_email: "kkmi@gmail.com",
-      shipment_destination: {
-        country: "Ughada",
-        state: "Ugli",
-        city: "lluuu",
-        address: "30, dddsd. damaturu",
-        longitude: 0.4444,
-        latitude: 0.444,
-      },
-    },
-    {
-      shipment_title: "Yam",
-      shipment_description: " lorem lorem lorem loreml orelksdkflkd ",
-      shipment_weight: 200,
-      images: [],
-      current_location: {
-        country: "Nigeria",
-        state: "Lagos",
-        city: "Ikeja",
-        address: "40, James Street",
-        longitude: 0.444455,
-        latitude: 0.444434,
-      },
-      recipient_full_name: "Kemi Lawal",
-      recipient_email: "kkmi@gmail.com",
-      shipment_destination: {
-        country: "Ughada",
-        state: "Ugli",
-        city: "lluuu",
-        address: "30, dddsd. damaturu",
-        longitude: 0.4444,
-        latitude: 0.444,
-      },
-    },
-  ];
+
 
   return {
     handleSummary,
@@ -254,10 +110,10 @@ function useShipmentSummary() {
     handleAddShipment,
     handlePayment,
     minusAmount,
+	removeShipmentLoader,
     totalPrice,
     unCheckedShipment,
     showShipmentModal,
-    shipmentData,
     state,
     image_slider_settings,
   };

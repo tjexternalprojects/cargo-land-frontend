@@ -15,7 +15,7 @@ const getShipmentInRange = (duration:Record<string, string>)=>{
 }
 const removeShipment = (shipment_id:string)=>{
 	return api.delete(
-		`/shipment/delete-shipment/:${shipment_id}`
+		`/shipment/delete-shipment/${shipment_id}`
 	)
 }
 
