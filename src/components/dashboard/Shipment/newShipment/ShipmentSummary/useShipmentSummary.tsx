@@ -17,6 +17,7 @@ function useShipmentSummary() {
 
 	const getCheckedShipment = ()=>{
 		const unchecked = state.allShipments.filter((obj: any) => obj.shipment_Status == 'UNCHECK');
+		console.log(unchecked)
 		setUnCheckedShipment(unchecked)
 		const deliveryPriceTotal = state.allShipments.reduce((total: any, obj: { delivery_price: any; }) => total + obj.delivery_price, 0);
 		setTotalPrice(unchecked);
@@ -35,7 +36,10 @@ function useShipmentSummary() {
 		setShowShipmentModal(true);
 	};
 
-	const handleRemoveItem = () => {};
+	const handleRemoveItem = () => {
+
+		// HANDLE REMOVE SHIPMENT 
+	};
 	const handleAddShipment = () => {
 		setState({
 			...state,

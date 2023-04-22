@@ -63,8 +63,8 @@ const RecipientDetails = () => {
 											>
 												{val.id}
 											</td>
-											<td className="p-3 w-1/4"></td>
-											<td className="p-3 w-1/4"></td>
+											<td className="p-3 w-1/4">{val.sendersAddress}</td>
+											<td className="p-3 w-1/4">{val.recepientAddress}</td>
 											<td className="p-3">{val.delivery_price.toLocaleString()}</td>
 											<td>
 												<button

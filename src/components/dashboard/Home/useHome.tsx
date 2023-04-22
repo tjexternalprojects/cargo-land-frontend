@@ -31,6 +31,8 @@ function useHome() {
 		ShipmentServices.getShipmentInRange(duration as Record<string, string>).then(
 			(response) => {
 				setGPackageData((prevState) => [...prevState, response.data.allSHipment.length]);
+		setGPackageLoader(false);
+
 			},
 			(error) => {
 				console.log(error);
@@ -81,11 +83,11 @@ function useHome() {
 		const formatted_array = payload_array.map((payload) => `${payload.month}, ${payload.year}`);
 		setGPackageLabel(formatted_array);
 		await payload_array.map((obj, index) => getGraphData(obj));
-		setGPackageLoader(false);
 	};
 	
 	useEffect(()=>{
 		getPackageReceived(6);
+
 	},[])
 	const transaction_history = [
 		{

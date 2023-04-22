@@ -212,6 +212,7 @@ const RecipientDetails = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-5">
+						{formattedAddress}
 						{formattedAddress == '' ? (
 							<button
 								disabled={showLoading}
@@ -224,11 +225,11 @@ const RecipientDetails = () => {
 							<button
 								type="button"
 								onClick={moveNext}
-								// disabled={showLoading}
+								disabled={showLoading}
 								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
 							>
 								Next
-								{/* {!showLoading ? <span>Next</span> : <RingLoader size={50} textColor="text-blue-900" />} */}
+								{!showLoading ? <span>Next</span> : <RingLoader size={50} textColor="text-blue-900" text="Sumitting data..." />}
 							</button>
 						)}
 					</div>

@@ -13,6 +13,11 @@ const getShipmentInRange = (duration:Record<string, string>)=>{
 			`/shipment/get-user-month-shipment?startMonth=${duration.startMonth}&endMonth=${duration.endMonth}`
 		);
 }
+const removeShipment = (shipment_id:string)=>{
+	return api.delete(
+		`/shipment/delete-shipment/:${shipment_id}`
+	)
+}
 
 const ShipmentServices = {
 	createShipment,
