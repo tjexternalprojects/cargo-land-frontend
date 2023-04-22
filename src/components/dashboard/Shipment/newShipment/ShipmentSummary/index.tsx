@@ -68,7 +68,7 @@ const RecipientDetails = () => {
 											<td className="p-3">{val.delivery_price.toLocaleString()}</td>
 											<td>
 												<button
-													onClick={handleRemoveItem}
+													onClick={()=>handleRemoveItem(val.id)}
 													className="bg-red-500 rounded-full flex-grow md:flex-grow-0 w-full justify-between text-white flex space-x-2 items-center shadow-md"
 												>
 													<span className=" px-3 py-1">Remove</span>
