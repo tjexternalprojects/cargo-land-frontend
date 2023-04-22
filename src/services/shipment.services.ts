@@ -23,5 +23,6 @@ const ShipmentServices = {
 	createShipment,
 	getAllUserShipment,
 	getShipmentInRange,
+	removeShipment,
 };
 export default ShipmentServices
