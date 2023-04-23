@@ -3,7 +3,7 @@ import { ShipmentServices } from '@/services';
 import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
-	const {getShipmentInRange} = ShipmentServices()
+	const { getShipmentInRange } = ShipmentServices();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const user_data = state.single_user_data;
 	const [currency, setCurrency] = useState('\u20A6');
@@ -32,8 +32,7 @@ function useHome() {
 		getShipmentInRange(duration as Record<string, string>).then(
 			(response) => {
 				setGPackageData((prevState) => [...prevState, response.data.allSHipment.length]);
-		setGPackageLoader(false);
-
+				setGPackageLoader(false);
 			},
 			(error) => {
 				console.log(error);
@@ -85,11 +84,10 @@ function useHome() {
 		setGPackageLabel(formatted_array);
 		await payload_array.map((obj, index) => getGraphData(obj));
 	};
-	
-	useEffect(()=>{
-		getPackageReceived(6);
 
-	},[])
+	useEffect(() => {
+		getPackageReceived(6);
+	}, []);
 	const transaction_history = [
 		{
 			type: 'debit',
