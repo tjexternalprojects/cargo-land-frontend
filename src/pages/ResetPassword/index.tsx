@@ -1,6 +1,5 @@
 import { Header, RingLoader } from '@/components';
 
-import { ToastContainer } from 'react-toastify';
 import { BiUserPin, MapImg2, Si1Password } from '@/assets';
 
 import useResetPassword from './useResetPassword';
@@ -78,7 +77,6 @@ const Login = () => {
 						</div>
 					</div>
 				</div>
-				<ToastContainer />
 			</div>
 		</>
 	);

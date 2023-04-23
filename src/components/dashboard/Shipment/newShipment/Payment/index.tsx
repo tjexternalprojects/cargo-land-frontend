@@ -1,6 +1,5 @@
 import { RiUserReceivedLine } from '@/assets';
 import usePayment from './usePayment';
-import { ToastContainer } from 'react-toastify';
 
 const Payment = () => {
 	const { handlePayment } = usePayment();
@@ -12,7 +11,6 @@ const Payment = () => {
 				</div>
 				<p className="text-xl mt-4">Checkout Shipment</p>
 				<form className=" w-9/12 my-5" onSubmit={handlePayment}></form>
-				<ToastContainer />
 			</div>
 		</>
 	);

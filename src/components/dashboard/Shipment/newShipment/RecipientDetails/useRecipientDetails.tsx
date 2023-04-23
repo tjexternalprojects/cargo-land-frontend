@@ -4,10 +4,9 @@ import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import {ShipmentServices} from '@/services'
-import axios from 'axios'
 import 'react-toastify/dist/ReactToastify.css';
-
 function useRecipientDetails() {
+	const {createShipment, getAllUserShipment} = ShipmentServices()
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [countryCode, setCountryCode] = useState('');
 	const [stateCode, setStateCode] = useState('');
@@ -97,7 +96,7 @@ function useRecipientDetails() {
 
 	// This is use to control the active tab design
 	const moveNext = async () => {
-		console.log(state.shipmentDetails)
+		// console.log(state.shipmentDetails)
 		setShowLoading(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
@@ -111,7 +110,7 @@ function useRecipientDetails() {
 
 
 		
-		await ShipmentServices.createShipment
+		await createShipment
 			(formData)
 			.then((response) => {
 				setShowLoading(false);
@@ -120,6 +119,8 @@ function useRecipientDetails() {
 					shipmentCurrentTab: 'item3',
 					form_level: 2,
 				});
+				getAllUserShipment()
+
 			},
 			(error) => {
 				setShowLoading(false);

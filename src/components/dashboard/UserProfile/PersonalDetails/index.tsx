@@ -1,6 +1,5 @@
 import React from 'react';
 import {FaUserEdit, } from '@/assets';
-import { ToastContainer } from 'react-toastify';
 import usePersonalDetails from './usePersonalDetails';
 import { UpdatePassword, UserDetails, UserImage } from '@/components';
 const index = () => {
@@ -14,7 +13,6 @@ const index = () => {
 			<UserImage/>
 			<UserDetails/>
 			<UpdatePassword/>
-			<ToastContainer />
 		</div>
 	);
 };

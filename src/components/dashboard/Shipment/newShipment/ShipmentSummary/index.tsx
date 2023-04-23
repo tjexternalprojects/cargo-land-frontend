@@ -9,7 +9,6 @@ import {
   RiUserReceivedLine,
   userImg,
 } from "@/assets";
-import { ToastContainer } from "react-toastify";
 import Slider from "react-slick";
 
 import useShipmentSummary from "./useShipmentSummary";
@@ -21,8 +20,8 @@ const RecipientDetails = () => {
     showShipmentModal,
     unCheckedShipment,
     totalPrice,
+    itemIndexToRemove,
     removeShipmentLoader,
-    minusAmount,
     handleAddShipment,
     handleRemoveItem,
     handleShowModal,
@@ -39,7 +38,6 @@ const RecipientDetails = () => {
               <table className=" w-full  bg-white rounded-sm">
                 <thead className=" text-left  w-full bg-slate-100 ">
                   <tr>
-                    <th></th>
                     <th className="p-3">Shipment Id</th>
                     <th>Current Location</th>
                     <th>Destination</th>
@@ -53,13 +51,6 @@ const RecipientDetails = () => {
                       key={index}
                       className=" border-b hover:bg-slate-300  text-sm"
                     >
-                      <td>
-                        <input
-                          type="checkbox"
-                          checked
-                          onChange={() => minusAmount(val.delivery_price)}
-                        />
-                      </td>
                       <td
                         className="p-3 underline cursor-pointer text-blue-800"
                         onClick={handleShowModal}
@@ -77,8 +68,8 @@ const RecipientDetails = () => {
                           className="bg-red-500 rounded-full flex-grow md:flex-grow-0 w-full justify-between text-white flex space-x-2 items-center shadow-md"
                         >
                           <span className=" px-3 py-1">Remove</span>
-                          {removeShipmentLoader ? (
-                            <RingLoader size={50} textColor="text-blue-900" />
+                          {removeShipmentLoader && itemIndexToRemove === val.id ? (
+                            <RingLoader loaderColor={'white'} size={30} textColor="text-blue-900" />
                           ) : (
                             <div className="rounded-full h-8 w-8 object-contain flex items-center justify-center bg-red-700">
                               <AiOutlineClose />

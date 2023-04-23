@@ -3,7 +3,6 @@ import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail, BiUserPin } 
 
 import useSignUp from './useSignUp';
 import {RingLoader} from '@/components';
-import { ToastContainer } from 'react-toastify';
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode'
 
@@ -99,7 +98,6 @@ const signup = () => {
 				</GoogleOAuthProvider>
 
 			</div>
-			<ToastContainer />
 
 		</div>
 	);

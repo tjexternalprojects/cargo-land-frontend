@@ -5,11 +5,13 @@ import { confirmAlert } from "react-confirm-alert";
 import { toast } from "react-toastify";
 
 function useShipmentSummary() {
+  const {deleteShipment, getAllUserShipment}=ShipmentServices()
   const { state, setState } = useContext<AppContextType>(AppContext);
   const [showShipmentModal, setShowShipmentModal] = useState(false);
   const [unCheckedShipment, setUnCheckedShipment] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState<any>([]);
-  const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false)
+  const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false);
+  const [itemIndexToRemove, setItemIndexToRemove] = useState<string>();
   const image_slider_settings = {
     dots: true,
     infinite: false,
@@ -23,7 +25,15 @@ function useShipmentSummary() {
     const unchecked = state.allShipments.filter(
       (obj: any) => obj.shipment_Status == "UNCHECK"
     );
-    console.log(unchecked);
+
+    if(unchecked.length ===0){
+      setState({
+				...state,
+				shipmentCurrentTab: 'item1',
+				form_level: 0,
+			});
+    }
+
     setUnCheckedShipment(unchecked);
     const deliveryPriceTotal = state.allShipments.reduce(
       (total: any, obj: { delivery_price: any }) => total + obj.delivery_price,
@@ -33,9 +43,6 @@ function useShipmentSummary() {
     setTotalPrice(deliveryPriceTotal);
   };
 
-  const minusAmount = (amount: number) => {
-    setTotalPrice(totalPrice - amount);
-  };
 
   useEffect(() => {
     getCheckedShipment();
@@ -45,17 +52,22 @@ function useShipmentSummary() {
     setShowShipmentModal(true);
   };
 
-  const removeShipment = (shipment_id: string) => {
-    ShipmentServices.removeShipment(shipment_id).then(
+  const removeShipment = async (shipment_id: string) => {
+    setRemoveShipmentLoader(true);
+    setItemIndexToRemove(shipment_id);
+    await deleteShipment(shipment_id).then(
       (response) => {
         console.log(response);
         toast.success("Item Removed Successfully", {
           progressClassName: "bg-green-500 h-1",
           autoClose: 3000,
         });
+        getAllUserShipment()
+        setRemoveShipmentLoader(false);
       },
       (error) => {
         console.log(error);
+        setRemoveShipmentLoader(false);
       }
     );
   };
@@ -100,8 +112,6 @@ function useShipmentSummary() {
     });
   };
 
-
-
   return {
     handleSummary,
     setShowShipmentModal,
@@ -109,8 +119,8 @@ function useShipmentSummary() {
     handleRemoveItem,
     handleAddShipment,
     handlePayment,
-    minusAmount,
-	removeShipmentLoader,
+    itemIndexToRemove,
+    removeShipmentLoader,
     totalPrice,
     unCheckedShipment,
     showShipmentModal,

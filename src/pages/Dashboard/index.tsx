@@ -5,7 +5,6 @@ import { AppContext, AppContextType } from '@/context';
 import { motion } from 'framer-motion';
 import { slideInFromRight } from '@/utils/animations';
 import { useUserData } from '@/customHooks';
-import { ToastContainer } from 'react-toastify';
 
 const Dashboard = () => {
 	const { state } = useContext<AppContextType>(AppContext);
@@ -34,7 +33,6 @@ const Dashboard = () => {
 			>
 				<Notification />
 			</motion.div>
-			<ToastContainer />
 		</div>
 	);
 };

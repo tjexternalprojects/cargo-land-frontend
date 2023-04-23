@@ -3,6 +3,7 @@ import { ShipmentServices } from '@/services';
 import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
+	const {getShipmentInRange} = ShipmentServices()
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const user_data = state.single_user_data;
 	const [currency, setCurrency] = useState('\u20A6');
@@ -28,7 +29,7 @@ function useHome() {
 	};
 
 	const getGraphData = (duration: Record<string, string | number>) => {
-		ShipmentServices.getShipmentInRange(duration as Record<string, string>).then(
+		getShipmentInRange(duration as Record<string, string>).then(
 			(response) => {
 				setGPackageData((prevState) => [...prevState, response.data.allSHipment.length]);
 		setGPackageLoader(false);

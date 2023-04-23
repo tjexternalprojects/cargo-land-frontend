@@ -1,7 +1,6 @@
 
 import { ForgotPassword, Header, LoginComponent, ResendToken, SingupComponent } from '@/components';
 import useLogin from '@/pages/Login/useLogin';
-import { ToastContainer } from 'react-toastify';
 import { MapImg2 } from '@/assets';
 import { Navigate, useLocation } from "react-router-dom";
 import { LocalStorageServices } from '@/services';
@@ -66,7 +65,6 @@ const Login = () => {
 						</div>
 					</div>
 				</div>
-				<ToastContainer />
 			</div>
 		</>
 	);

@@ -12,7 +12,6 @@ import { AddressMap, RingLoader } from '@/components';
 import { Country, State, City } from 'country-state-city';
 
 import useRecipientDetails from './useRecipientDetails';
-import { ToastContainer } from 'react-toastify';
 
 const RecipientDetails = () => {
 	const {
@@ -228,13 +227,11 @@ const RecipientDetails = () => {
 								disabled={showLoading}
 								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
 							>
-								Next
 								{!showLoading ? <span>Next</span> : <RingLoader size={50} textColor="text-blue-900" text="Sumitting data..." />}
 							</button>
 						)}
 					</div>
 				</form>
-				<ToastContainer />
 			</div>
 		</>
 	);

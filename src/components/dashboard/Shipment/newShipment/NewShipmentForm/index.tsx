@@ -14,7 +14,6 @@ import {
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
 import { AddressMap, RingLoader } from '@/components';
-import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
 
 const NewShipmentForm = () => {
@@ -312,7 +311,6 @@ const NewShipmentForm = () => {
 						)}
 					</div>
 				</form>
-				<ToastContainer />
 			</div>
 		</>
 	);
