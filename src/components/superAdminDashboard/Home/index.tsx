@@ -36,7 +36,7 @@ const home = () => {
 
 				<div className=" inline-flex rounded-md gap-3 p-4  bg-green-50  flex-grow  justify-between  shadow-md items-center">
 					<div className=" w-20">
-						<LineGraph data={received_data} />
+						{/* <LineGraph data={received_data} /> */}
 					</div>
 					<div className="flex flex-col items-end text-green-500">
 						<div>Total Users</div>
@@ -46,7 +46,7 @@ const home = () => {
 
 				<div className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center">
 					<div className=" w-20">
-						<LineGraph data={sent_data} />
+						{/* <LineGraph data={sent_data} /> */}
 					</div>
 					<div className="flex flex-col items-end text-red-500">
 						<div>Pending Shipment</div>

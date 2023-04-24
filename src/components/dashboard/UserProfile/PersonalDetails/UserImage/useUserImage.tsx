@@ -10,14 +10,13 @@ function useUserImage() {
 	const [previewImage, setPreviewImage] = useState<string | null>(
 		state.single_user_data?.avatar as string
 	);
+	const { updateUserAvatar, getSingleUser } = UserServices();
+	useEffect(() => {
+		setShowLoader(false);
+		!state.single_user_data?.avatar ? setShowLoader(true) : setShowLoader(false);
 
-		useEffect(() => {
-			setShowLoader(false);
-			!state.single_user_data?.avatar ? setShowLoader(true) : setShowLoader(false);
-
-			setPreviewImage(state.single_user_data?.avatar as string);
-		}, [state.single_user_data?.avatar]);
-
+		setPreviewImage(state.single_user_data?.avatar as string);
+	}, [state.single_user_data?.avatar]);
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setShowLoader(true);
@@ -27,9 +26,10 @@ function useUserImage() {
 			if (file.type.startsWith('image/')) {
 				const formData = new FormData();
 				formData.append('avatar', file);
-				UserServices.updateUserAvatar(formData).then(
+				updateUserAvatar(formData).then(
 					(response) => {
 						console.log(response);
+						getSingleUser();
 						if (response.status == 202) {
 							toast.success('Profile Avatar updated successfully', {
 								progressClassName: 'bg-blue-500 h-1',

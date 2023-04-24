@@ -105,7 +105,7 @@ const TrackShipment = () => {
 					</div>
 				</div>
 				<div className="mt-5 ">
-					<MapDirection height="80vh" />
+					{/* <MapDirection height="80vh" /> */}
 				</div>
 				{/* <div className="mt-5">
 					<h3>Item List</h3>

@@ -1,8 +1,13 @@
 import { AboutUs, Business, Contact, Header, Hero, GetStarted, Services } from '@/components';
 import Footer from '@/components/common/Footer';
-import React from 'react';
+import { UserServices } from '@/services';
+import React, { useEffect } from 'react';
 
 const LandingPage = () => {
+	const { getSingleUser } = UserServices();
+	useEffect(() => {
+		getSingleUser();
+	});
 	return (
 		<div className="flex flex-col min-h-screen overflow-hidden">
 			{/*  Site header */}
@@ -14,7 +19,6 @@ const LandingPage = () => {
 			<GetStarted />
 			<Contact />
 			<Footer />
-
 		</div>
 	);
 };

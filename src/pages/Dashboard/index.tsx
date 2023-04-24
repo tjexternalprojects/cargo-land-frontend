@@ -1,15 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Notification, Sidebar, TopBar } from '@/components';
 import { AppContext, AppContextType } from '@/context';
 import { motion } from 'framer-motion';
 import { slideInFromRight } from '@/utils/animations';
-import { useUserData } from '@/customHooks';
+import { UserServices, ShipmentServices } from '@/services';
 
 const Dashboard = () => {
 	const { state } = useContext<AppContextType>(AppContext);
-	useUserData();
-
+	const { getSingleUser } = UserServices();
+	const { getAllUserShipment } = ShipmentServices();
+	useEffect(() => {
+		getSingleUser();
+		getAllUserShipment();
+	}, []);
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
 			<div

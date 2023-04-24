@@ -4,11 +4,9 @@ import { useContext, useState } from 'react';
 function usePayment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-	const [amount, setAmount] = useState('0');
-
 	const config = {
-		public_key: 'FLWPUBK_TEST-fzz564e56d0a69d492987b95ffe668e009-X',
-		amount: parseFloat(amount),
+		public_key: 'FLWPUBK_TEST-ab9110a6e892c4d8003972c67262c709-X',
+		amount: 200,
 		currency: 'NGN',
 		payment_options: 'card,mobilemoney,ussd',
 		redirect_url: 'http://localhost:4300/payment/verify',

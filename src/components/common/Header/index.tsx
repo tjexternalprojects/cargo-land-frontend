@@ -8,7 +8,7 @@ import { userImg, BiMenuAltRight, logo, TbLogout } from '@/assets';
 import useHeader from './useHeader';
 const Header = () => {
 	const { state, handleNavigate, toggleShowLoin } = useLogin();
-	const userInfo = LocalStorageServices.getUserInfo();
+	const access_token = LocalStorageServices.getAccessToken;
 	const location = useLocation();
 	const { handleLogout } = useHeader();
 
@@ -94,10 +94,12 @@ const Header = () => {
 							<a href="#Contact">Contact Us</a>
 						</li>
 						<hr />
-						<li className="flex items-center cursor-pointer" onClick={handleLogout}>
-							<span className="text-sm font-bold">Logout</span>{' '}
-							<TbLogout className="text-red-400 ml-5  md:hidden" />
-						</li>
+						{access_token() && (
+							<li className="flex items-center cursor-pointer" onClick={handleLogout}>
+								<span className="text-sm font-bold">Logout</span>
+								<TbLogout className="text-red-400 ml-5  md:hidden" />
+							</li>
+						)}
 					</ul>
 				</motion.div>
 			</div>
