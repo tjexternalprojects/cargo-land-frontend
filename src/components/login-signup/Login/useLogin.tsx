@@ -6,6 +6,7 @@ import { AuthServices, LocalStorageServices } from "@/services";
 const GOOGLE_LOGIN_CLIENT_ID = import.meta.env
 	.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 function useLogin() {
+	const {login} = AuthServices()
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const navigate = useNavigate();
 	const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -27,7 +28,7 @@ function useLogin() {
 		setVerifiyEmail(false)
 		setShowLoading(true);
 
-		AuthServices.login(loginData).then(
+		login(loginData).then(
 			(response) => {
 				setShowLoading(false);
 				if (response.status == 200) {

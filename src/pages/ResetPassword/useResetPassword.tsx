@@ -4,21 +4,22 @@ import { useParams } from 'react-router-dom';
 
 function useResetPassword() {
 	const {token} = useParams()
+	const {resetPassword} = AuthServices()
 	const [errorMessage, setErrorMessage] = useState("")
 	const [showLoading, setShowLoading] = useState(false);
-	const [resetPassword, setResetPassword] = useState({
+	const [resetPasswordObj, setResetPassword] = useState({
 		new_password: '',
 		confirm_password: '',
 		token: token,
 	});
 	const handleRestPassword = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		if(resetPassword.new_password !== resetPassword.confirm_password){
+		if(resetPasswordObj.new_password !== resetPasswordObj.confirm_password){
 			setErrorMessage("password does not match")
 			return
 		}
 		setShowLoading(true)
-		AuthServices.resetPassword(resetPassword).then((response)=>{
+		resetPassword(resetPasswordObj).then((response)=>{
 			setShowLoading(false)
 		},
 		(error)=>{
@@ -27,6 +28,6 @@ function useResetPassword() {
 		}
 		)
 	};
-	return { handleRestPassword, setResetPassword,  setErrorMessage, errorMessage, showLoading, resetPassword };
+	return { handleRestPassword, setResetPassword,  setErrorMessage, errorMessage, showLoading, resetPasswordObj };
 }
 export default useResetPassword;

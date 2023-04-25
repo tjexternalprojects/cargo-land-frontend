@@ -45,7 +45,7 @@ const Header = () => {
 												? userImg
 												: (state.single_user_data?.avatar as string)
 										}
-										className="w-full h-full object-cover rounded-full"
+										className="w-full h-full object-cover object-top rounded-full"
 									/>
 								</div>
 								<h3 className="text-sm mx-2 hidden md:block">

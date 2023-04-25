@@ -4,6 +4,7 @@ import { AuthServices } from '@/services'
 import { toast } from "react-toastify";
 
 function useForgotPassword() {
+	const {forgotPassword} = AuthServices()
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [email, setEmail] = useState('')
 	const [showLoading, setShowLoading] = useState(false)
@@ -19,7 +20,7 @@ function useForgotPassword() {
 	const handleForgotPassword = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setShowLoading(true);
-		AuthServices.forgotPassword(email).then(
+		forgotPassword(email).then(
 			(response) => {
 				setShowLoading(false);
 				if (response.status === 200) {

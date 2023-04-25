@@ -5,7 +5,7 @@ import { BiUserPin, MapImg2, Si1Password } from '@/assets';
 import useResetPassword from './useResetPassword';
 
 const Login = () => {
-	const { handleRestPassword, setResetPassword, setErrorMessage, errorMessage, resetPassword, showLoading } = useResetPassword();
+	const { handleRestPassword, setResetPassword, setErrorMessage, errorMessage, resetPasswordObj, showLoading } = useResetPassword();
 	return (
 		<>
 			<Header />
@@ -27,11 +27,11 @@ const Login = () => {
 											<input
 												onChange={(e) => {
 													setErrorMessage(""),
-													setResetPassword({ ...resetPassword, new_password: e.target.value })
+													setResetPassword({ ...resetPasswordObj, new_password: e.target.value })
 												}
 												}
 												type="password"
-												value={resetPassword.new_password}
+												value={resetPasswordObj.new_password}
 												minLength={6}
 												placeholder="Password"
 												className="text-sm flex-grow h-10 outline-none bg-white"
@@ -45,10 +45,10 @@ const Login = () => {
 											<input
 												onChange={(e) => {
 													setErrorMessage(""),
-													setResetPassword({ ...resetPassword, confirm_password: e.target.value })
+													setResetPassword({ ...resetPasswordObj, confirm_password: e.target.value })
 												}
 												}
-												value={resetPassword.confirm_password}
+												value={resetPasswordObj.confirm_password}
 												minLength={6}
 												type="password"
 												placeholder="Confirm password"

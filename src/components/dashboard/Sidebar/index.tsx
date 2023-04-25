@@ -90,7 +90,7 @@ const sidebar = () => {
 										? userImg
 										: (state.single_user_data?.avatar as string)
 								}
-								className="w-full h-full object-cover rounded-full"
+								className="w-full h-full object-cover object-top rounded-full"
 							/>
 						</div>
 						<div className="text-center">

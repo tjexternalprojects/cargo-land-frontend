@@ -1,7 +1,10 @@
 import axios from "axios";
-import LocalStorageServices from "./localstorage.services";
+import {LocalStorageServices, AuthServices} from ".";
+import { useNavigate } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
+
+// const navigate = useNavigate();
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -65,8 +68,13 @@ instance.interceptors.response.use(
           const { AccessToken } = rs.data;
           LocalStorageServices.setLocalAccessToken(AccessToken);
           return instance(originalConfig);
-        } catch (_error) {
-          console.log(_error)
+        } catch (_error:any) {
+          console.log(_error.response.data)
+          if(_error.response.data =="invalid refresh token"){
+            localStorage.clear();
+            // navigate('/login'); 
+            
+          }
           return Promise.reject(_error);
         }
       }

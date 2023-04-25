@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useUAllShipment } from '@/customHooks';
 import { LocalStorageServices } from '@/services';
 const home = () => {
-	const [shipment_loading] = useUAllShipment(LocalStorageServices.setDefaultValue(true));
+	
 	const {
 		graph_data,
 		showBalance,
@@ -140,7 +140,7 @@ const home = () => {
 					<div className="flex justify-between px-3 pb-3">
 						<h4 className="text-xl">Active Shipment</h4>
 						<span>
-							{state.allShipments.length > 1 && (
+							{state.allShipments.length > 0 && (
 								<button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
 									View all ...
 								</button>
@@ -150,13 +150,7 @@ const home = () => {
 					<hr />
 					<div className="mt-3">
 						<div className="w-full flex items-center">
-							{shipment_loading ? (
-								<div className="flex flex-col w-full items-center justify-center">
-									<RingLoader size={50} textColor="text-blue-900" />
-									<div>Loading...</div>
-								</div>
-							) : (
-								<>
+							
 									{state.allShipments.length > 0 ? (
 										<div className="flex flex-col w-full space-y-8">
 											{state.allShipments.slice(0, 1).map((val: any, index: number) => (
@@ -213,8 +207,7 @@ const home = () => {
 											</Link>
 										</div>
 									)}
-								</>
-							)}
+							
 						</div>
 					</div>
 				</div>

@@ -4,6 +4,7 @@ import { AuthServices } from "@/services";
 import { toast } from "react-toastify";
 
 function useResendVerification() {
+  const {resendVerification} = AuthServices()
   const [email, setEmail] = useState("");
   const [showLoading, setShowLoading] = useState(false);
   const { state ,setState} = useContext<AppContextType>(AppContext);
@@ -11,7 +12,7 @@ function useResendVerification() {
   const resendToken = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setShowLoading(true);
-    AuthServices.resendVerification(email).then(
+    resendVerification(email).then(
       (response) => {
         setShowLoading(false);
         if (response.status === 201) {

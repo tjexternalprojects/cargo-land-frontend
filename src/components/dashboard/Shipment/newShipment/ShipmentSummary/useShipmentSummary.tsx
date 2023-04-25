@@ -12,6 +12,7 @@ function useShipmentSummary() {
   const [totalPrice, setTotalPrice] = useState<any>([]);
   const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false);
   const [itemIndexToRemove, setItemIndexToRemove] = useState<string>();
+  const [selectedShipment, setSelectedShipment] = useState<Record<string, string | undefined> | undefined>()
   const image_slider_settings = {
     dots: true,
     infinite: false,
@@ -48,7 +49,9 @@ function useShipmentSummary() {
     getCheckedShipment();
   }, [state.allShipments]);
 
-  const handleShowModal = () => {
+  const handleShowModal = (selected_shipment: Record<string, string>) => {
+    console.log(selected_shipment.images[0])
+    setSelectedShipment(selected_shipment)
     setShowShipmentModal(true);
   };
 
@@ -119,6 +122,7 @@ function useShipmentSummary() {
     handleRemoveItem,
     handleAddShipment,
     handlePayment,
+    selectedShipment,
     itemIndexToRemove,
     removeShipmentLoader,
     totalPrice,

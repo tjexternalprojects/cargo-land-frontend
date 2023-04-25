@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import {LocalStorageServices} from '@/services'
 
 function useSignUp() {
+	const {signup} = AuthServices()
 	const [showPassword, setShowPassword] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -23,7 +24,7 @@ function useSignUp() {
 		e.preventDefault();
 		setShowLoading(true);
 
-		AuthServices.signup(signUpData)
+		signup(signUpData)
 			.then((response) => {
 				setShowLoading(false);
 				if (response.status === 201) {

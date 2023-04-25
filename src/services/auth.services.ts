@@ -1,4 +1,10 @@
 import api from './api.services'
+import { LocalStorageServices } from '.'
+import { useNavigate } from 'react-router-dom';
+
+function AuthServices(){
+	const navigate = useNavigate();
+
 
 const login=(loginData:Record<string,string>)=>{
     return api.post('/user/login', loginData)
@@ -19,11 +25,24 @@ const forgotPassword = (email:string)=>{
 const resetPassword = (payload:Record<string, string | undefined>)=>{
     return api.post('/user/reset-password', payload)
 }
-const AuthServices = {
+
+const logout = () =>{
+    const refreshToken = LocalStorageServices.getRefreshToken()
+    alert('here')
+    localStorage.clear();
+    navigate('/login'); 
+    // api.post('/user/logout', {refreshToken}).then(response=>{
+    //     console.log(response)
+    // })
+}
+
+return{
     login,
     signup, 
+    logout,
     resendVerification,
     forgotPassword,
-    resetPassword,
+    resetPassword, 
+}
 }
 export default AuthServices

@@ -22,6 +22,7 @@ const RecipientDetails = () => {
     totalPrice,
     itemIndexToRemove,
     removeShipmentLoader,
+    selectedShipment,
     handleAddShipment,
     handleRemoveItem,
     handleShowModal,
@@ -53,7 +54,7 @@ const RecipientDetails = () => {
                     >
                       <td
                         className="p-3 underline cursor-pointer text-blue-800"
-                        onClick={handleShowModal}
+                        onClick={()=>handleShowModal(val)}
                       >
                         {val.id}
                       </td>
@@ -123,7 +124,7 @@ const RecipientDetails = () => {
       </div>
 
       {showShipmentModal && (
-        <ShipmentModal setShowModal={setShowShipmentModal} />
+        <ShipmentModal selectedShipment={selectedShipment} setShowModal={setShowShipmentModal} />
       )}
     </>
   );
