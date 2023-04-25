@@ -5,7 +5,7 @@ function usePayment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
 	const config = {
-		public_key: 'FLWPUBK_TEST-ab9110a6e892c4d8003972c67262c709-X',
+		public_key: import.meta.env.VITE_REACT_APP_FLUTTERWAVE_TEST_KEY,
 		amount: 200,
 		currency: 'NGN',
 		payment_options: 'card,mobilemoney,ussd',
