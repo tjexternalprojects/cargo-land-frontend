@@ -26,12 +26,18 @@ function GeneralContext() {
 			latitude: 0,
 		},
 	};
-
+  interface ShipmentSummaryInterface {
+		id: number;
+		month: string;
+		totalValue: number;
+	}
 	const allShipments: never[]  = []
 	const trackingShipments: never[]  = []
 	const shipmentCurrentTab = 'item1';
+	const shipmentSummary: ShipmentSummaryInterface[] = [];
 	const form_level = 0;
 	return {
+		shipmentSummary,
 		shipmentDetails,
 		shipmentCurrentTab,
 		form_level,

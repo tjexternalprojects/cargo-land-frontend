@@ -9,89 +9,47 @@ function useHome() {
 	const [currency, setCurrency] = useState('\u20A6');
 	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
-	const [gPackageLabel, setGPackageLabel] = useState<string[]>([]);
-	const [gPackageData, setGPackageData] = useState<number[]>([]);
-	const [gPackageLoader, setGPackageLoader] = useState(false);
 
+	const [successfulShipmentLabel, setSuccessfulShipmentLabel] = useState([]);
+	const [successfulShipmentData, setSuccessfulShipmentData] = useState([]);
+	const [successfulShipmentLoader, setSuccessfulShipmentLoader] = useState(false);
 	const toggleShowBalance = () => {
 		setShowBalance(!showBalance);
 	};
 
-	const graph_data = {
-		labels: gPackageLabel,
+	const successful_shipment_graph = {
+		labels: successfulShipmentLabel,
 		datasets: [
 			{
-				data: gPackageData,
+				data: successfulShipmentData,
 				borderColor: 'rgb(255, 99, 132)',
 				backgroundColor: 'rgba(255, 99, 132, 0.5)',
 			},
 		],
 	};
 
-	const getGraphData = (duration: Record<string, string | number>) => {
-		getShipmentInRange(duration as Record<string, string>).then(
-			(response) => {
-				const successful_shipment =  response.data.allSHipment.filter(
-					(obj: any) => obj.shipment_Status == "SUCCESSFUL"
-				  );
-			  
-				setGPackageData((prevState) => [...prevState, successful_shipment.length]);
-				setGPackageLoader(false);
-			},
-			(error) => {
-				console.log(error);
+	const successfulShipment = () => {
+		const successfulShipments = state.shipmentSummary.filter(
+			(shipment: { shipmentDetails: any[] }) => {
+				return shipment.shipmentDetails.some((detail) => detail.shipment_Status === 'UNCHECK');
 			}
 		);
-	};
 
-	const getPackageReceived = async (month_to_show: number) => {
-		setGPackageLoader(true);
-		const month = [
-			'Jan',
-			'Feb',
-			'Mar',
-			'Apr',
-			'May',
-			'Jun',
-			'Jul',
-			'Aug',
-			'Sep',
-			'Oct',
-			'Nov',
-			'Dec',
-		];
-		const payload_array = [];
+		const unchecked = state.shipmentSummary.map((obj: any, index: number) => {
+			return obj.shipmentDetails.map((details: any) => {
+				return details.shipment_status === 'UNCHECK' ? details : 0;
+			});
+		});
 
-		let current_year = new Date().getFullYear();
-		let current_month = new Date().getMonth();
-
-		for (let i = month_to_show; i >= 0; i--) {
-			const start_time = new Date(Date.UTC(current_year, current_month, 1)).toISOString();
-			const end_time = new Date(Date.UTC(current_year, current_month + 1, 0)).toISOString();
-
-			const payload_obj = {
-				year: current_year.toString().slice(-2),
-				month: month[current_month],
-				startMonth: start_time,
-				endMonth: end_time,
-			};
-			payload_array.unshift(payload_obj);
-
-			if (current_month == 0) {
-				current_year = current_year - 1;
-				current_month = 11;
-			}
-			current_month = current_month - 1;
-		}
-		setGPackageData([]);
-		const formatted_array = payload_array.map((payload) => `${payload.month}, ${payload.year}`);
-		setGPackageLabel(formatted_array);
-		await payload_array.map((obj, index) => getGraphData(obj));
+		setSuccessfulShipmentLabel(state.shipmentSummary.map((obj: any) => obj.month));
+		// setSuccessfulShipmentData();
+		const months = successfulShipments.map((obj: any) => obj.month);
+		console.log(unchecked);
 	};
 
 	useEffect(() => {
-		getPackageReceived(6);
-	}, []);
+		successfulShipment();
+	}, [state.shipmentSummary]);
 	const transaction_history = [
 		{
 			type: 'debit',
@@ -151,10 +109,8 @@ function useHome() {
 
 	return {
 		toggleShowBalance,
-		getPackageReceived,
-		getGraphData,
-		gPackageLoader,
-		graph_data,
+		successfulShipmentLoader,
+		successful_shipment_graph,
 		balance,
 		user_data,
 		transaction_history,

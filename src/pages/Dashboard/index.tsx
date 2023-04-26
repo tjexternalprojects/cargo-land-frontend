@@ -9,8 +9,9 @@ import { UserServices, ShipmentServices } from '@/services';
 const Dashboard = () => {
 	const { state } = useContext<AppContextType>(AppContext);
 	const { getSingleUser } = UserServices();
-	const { getAllUserShipment } = ShipmentServices();
+	const { getAllUserShipment, getShipmentDateRange } = ShipmentServices();
 	useEffect(() => {
+		getShipmentDateRange(6)
 		getSingleUser();
 		getAllUserShipment();
 	}, []);
