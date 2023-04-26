@@ -41,7 +41,7 @@ const home = () => {
 				</div>
 				<div className=" inline-flex rounded-md px-6 py-2 min-w-min bg-green-50  flex-grow w-72 justify-between  shadow-md items-center">
 					<div className="w-full relative">
-						<div className="text-green-500 mb-1">Package Received</div>
+						<div className="text-green-500 mb-1">Shipment Delivered</div>
 						<div className=" h-28 w-full">
 							<LineGraph labels={graph_data.labels} datasets={graph_data.datasets} />
 						</div>

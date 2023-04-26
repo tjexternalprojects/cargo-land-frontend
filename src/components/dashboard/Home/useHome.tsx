@@ -31,7 +31,11 @@ function useHome() {
 	const getGraphData = (duration: Record<string, string | number>) => {
 		getShipmentInRange(duration as Record<string, string>).then(
 			(response) => {
-				setGPackageData((prevState) => [...prevState, response.data.allSHipment.length]);
+				const successful_shipment =  response.data.allSHipment.filter(
+					(obj: any) => obj.shipment_Status == "SUCCESSFUL"
+				  );
+			  
+				setGPackageData((prevState) => [...prevState, successful_shipment.length]);
 				setGPackageLoader(false);
 			},
 			(error) => {
