@@ -19,6 +19,39 @@ function useRecipientDetails() {
 	const { fetchLocation } = useGeocode();
 	const [showLoading, setShowLoading] = useState(false);
 
+
+	const resetShipment = () =>{
+		const shipmentDetails = {
+			shipment_title: '',
+			shipment_description: '',
+			shipment_weight: 0,
+			images: [],
+			current_location: {
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				formattedAddress: '',
+				longitude: 0,
+				latitude: 0,
+			},
+			recipient_full_name: '',
+			recipient_email: '',
+			shipment_destination: {
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				longitude: 0,
+				latitude: 0,
+			},
+		};
+		setState({
+			...state,
+			shipmentDetails,
+		});
+	}
+
 	interface ShipmentDetails {
 		recipient_full_name: string;
 		recipient_email: string;
@@ -26,15 +59,15 @@ function useRecipientDetails() {
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
-		recipient_full_name: '',
-		recipient_email: '',
+		recipient_full_name: state.shipmentDetails.recipient_full_name as string,
+		recipient_email: state.shipmentDetails.recipient_email as string,
 		shipment_destination: {
-			country: '',
-			state: '',
-			city: '',
-			address: '',
-			longitude: 0,
-			latitude: 0,
+			country: state.shipmentDetails.country as string,
+			state: state.shipmentDetails.state as string,
+			city: state.shipmentDetails.city as string,
+			address: state.shipmentDetails.address as string,
+			longitude: state.shipmentDetails.longitude as number,
+			latitude: state.shipmentDetails.latitude as number,
 		},
 	});
 
@@ -120,7 +153,7 @@ function useRecipientDetails() {
 					form_level: 2,
 				});
 				getAllUserShipment()
-
+				resetShipment()
 			},
 			(error) => {
 				setShowLoading(false);

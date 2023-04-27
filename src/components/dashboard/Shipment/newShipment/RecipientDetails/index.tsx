@@ -201,7 +201,7 @@ const RecipientDetails = () => {
 									</div>
 								</>
 							)}
-							{showLoading && (
+							{showLoading && formattedAddress ===''  && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />
 								</div>
@@ -211,8 +211,7 @@ const RecipientDetails = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-5">
-						{formattedAddress}
-						{formattedAddress == '' ? (
+						{formattedAddress === '' ? (
 							<button
 								disabled={showLoading}
 								type="submit"
@@ -225,9 +224,9 @@ const RecipientDetails = () => {
 								type="button"
 								onClick={moveNext}
 								disabled={showLoading}
-								className="hover:shadow-xl hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
+								className="hover:shadow-xl flex items-center justify-center hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
 							>
-								{!showLoading ? <span>Next</span> : <RingLoader size={50} textColor="text-blue-900" text="Sumitting data..." />}
+								{!showLoading ? <span>Next</span> : <RingLoader size={30} textColor="text-blue-900" loaderColor="#fff"  />}
 							</button>
 						)}
 					</div>

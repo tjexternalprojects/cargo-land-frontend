@@ -25,17 +25,17 @@ function useNewShipmentForm() {
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
-		shipment_title: '',
-		shipment_description: '',
-		shipment_weight: '',
-		images: [],
+		shipment_title: state.shipmentDetails.shipment_title as string,
+		shipment_description: state.shipmentDetails.shipment_description as string,
+		shipment_weight: state.shipmentDetails.shipment_weight as string,
+		images: state.shipmentDetails.images as (string | ArrayBuffer | null | File)[],
 		current_location: {
-			country: '',
-			state: '',
-			city: '',
-			address: '',
-			longitude: 0,
-			latitude: 0,
+			country: state.shipmentDetails.country as string,
+			state: state.shipmentDetails.state as string,
+			city: state.shipmentDetails.city as string,
+			address: state.shipmentDetails.address as string,
+			longitude: state.shipmentDetails.longitude as number,
+			latitude: state.shipmentDetails.latitude as number,
 		},
 	});
 

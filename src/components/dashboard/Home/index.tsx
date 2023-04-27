@@ -4,12 +4,19 @@ import { BsArrowDownRight, BsArrowUpRight, FaEye, FaEyeSlash, SlGraph } from '@/
 import useHome from './useHome';
 import { Link } from 'react-router-dom';
 import { useUAllShipment } from '@/customHooks';
-import { LocalStorageServices } from '@/services';
+import { LocalStorageServices, ShipmentServices } from '@/services';
 const home = () => {
-	
+	const {  getShipmentDateRange } = ShipmentServices();
+	useEffect(() => {
+		getShipmentDateRange(6)
+	}, []);
 	const {
 		successful_shipment_graph,
 		successfulShipmentLoader,
+		totalSuccessfulShipment,
+		shipment_created_graph,
+		shipmentCreatedLoader,
+		totalShipmentCreated,
 		showBalance,
 		currency,
 		transaction_history,
@@ -54,7 +61,7 @@ const home = () => {
 						)}
 					</div>
 					<div className=" text-green-500">
-						<div className=" text-5xl font-thin">0</div>
+						<div className=" text-5xl font-thin">{totalSuccessfulShipment}</div>
 					</div>
 				</div>
 
@@ -63,18 +70,18 @@ const home = () => {
 						<div className="text-red-500  mb-1">Shipment Created</div>
 						<div className=" h-28  w-full ">
 							<LineGraph
-								labels={successful_shipment_graph.labels}
-								datasets={successful_shipment_graph.datasets}
+								labels={shipment_created_graph.labels}
+								datasets={shipment_created_graph.datasets}
 							/>
 						</div>
-						{successfulShipmentLoader && (
+						{shipmentCreatedLoader && (
 							<div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
 								<RingLoader size={50} textColor="text-blue-900" />
 							</div>
 						)}
 					</div>
-					<div className=" text-red-500">
-						<div className=" text-5xl font-thin ">0</div>
+					<div className=" text-red-500">	
+						<div className=" text-5xl font-thin ">{totalShipmentCreated}</div>
 					</div>
 				</div>
 			</div>

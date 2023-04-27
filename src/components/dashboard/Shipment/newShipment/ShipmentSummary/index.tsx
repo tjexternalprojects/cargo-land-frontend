@@ -23,6 +23,7 @@ const RecipientDetails = () => {
     itemIndexToRemove,
     removeShipmentLoader,
     selectedShipment,
+    shipmentLoader,
     handleAddShipment,
     handleRemoveItem,
     handleShowModal,
@@ -93,6 +94,7 @@ const RecipientDetails = () => {
               </div>
               <div className="flex justify-between p-5 gap-4 flex-wrap md:flex-nowrap">
                 <button
+                disabled={shipmentLoader}
                   onClick={handlePayment}
                   className="flex md:flex-grow-0 flex-grow items-center bg-red-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
                 >
@@ -101,7 +103,10 @@ const RecipientDetails = () => {
                     className="bg-red-900 rounded-l-full h-full w-10  flex items-center justify-center
 									"
                   >
-                    <BsCartCheck />
+                   {shipmentLoader ?
+						<RingLoader size={30} loaderColor="#fff" />
+                   
+                   : <BsCartCheck />}
                   </div>
                 </button>
 

@@ -10,9 +10,20 @@ function useHome() {
 	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
 
+	// STATES FOR GRAPH 
+	// ***successful shipment graph
 	const [successfulShipmentLabel, setSuccessfulShipmentLabel] = useState([]);
-	const [successfulShipmentData, setSuccessfulShipmentData] = useState([]);
+	const [successfulShipmentData, setSuccessfulShipmentData] = useState<any>([]);
 	const [successfulShipmentLoader, setSuccessfulShipmentLoader] = useState(false);
+	const [totalSuccessfulShipment, setTotalSuccessfulShipment]= useState(0)
+
+	// ***total created graph
+	const [shipmentCreatedLabel, setShipmentCreatedLabel] = useState([]);
+	const [shipmentCreatedData, setShipmentCreatedData] = useState<any>([]);
+	const [shipmentCreatedLoader, setShipmentCreatedLoader] = useState(false);
+	const [totalShipmentCreated, setTotalShipmentCreated]= useState(0)
+
+
 	const toggleShowBalance = () => {
 		setShowBalance(!showBalance);
 	};
@@ -28,28 +39,43 @@ function useHome() {
 		],
 	};
 
+
 	const successfulShipment = () => {
-		const successfulShipments = state.shipmentSummary.filter(
-			(shipment: { shipmentDetails: any[] }) => {
-				return shipment.shipmentDetails.some((detail) => detail.shipment_Status === 'UNCHECK');
-			}
-		);
-
-		const unchecked = state.shipmentSummary.map((obj: any, index: number) => {
-			return obj.shipmentDetails.map((details: any) => {
-				return details.shipment_status === 'UNCHECK' ? details : 0;
-			});
-		});
-
+		setSuccessfulShipmentLoader(true)
 		setSuccessfulShipmentLabel(state.shipmentSummary.map((obj: any) => obj.month));
-		// setSuccessfulShipmentData();
-		const months = successfulShipments.map((obj: any) => obj.month);
-		console.log(unchecked);
+		setSuccessfulShipmentData(state.shipmentSummary.map((obj:any) => obj.shipmentDetails.some((sd:any) => sd.shipment_Status === 'SUCCESSFUL') ? obj.shipmentDetails.length : 0))
+		setTotalSuccessfulShipment(successfulShipmentData?.reduce((accumulator:number, currentValue:number) => accumulator + currentValue, 0));
+
+		setSuccessfulShipmentLoader(false)
+
+	};
+
+
+	const shipment_created_graph = {
+		labels: shipmentCreatedLabel,
+		datasets: [
+			{
+				data: shipmentCreatedData,
+				borderColor: 'rgb(255, 99, 132)',
+				backgroundColor: 'rgba(255, 99, 132, 0.5)',
+			},
+		],
+	};
+
+	const shipmentCreated = () => {
+		setShipmentCreatedLoader(true)
+		setShipmentCreatedLabel(state.shipmentSummary.map((obj: any) => obj.month));
+		setShipmentCreatedData(state.shipmentSummary.map((obj:any)=> obj.shipmentDetails.length))
+		setTotalShipmentCreated(shipmentCreatedData.reduce((accumulator:number, currentValue:number) => accumulator + currentValue,0));
+		setShipmentCreatedLoader(false)
 	};
 
 	useEffect(() => {
 		successfulShipment();
+		shipmentCreated()
 	}, [state.shipmentSummary]);
+
+
 	const transaction_history = [
 		{
 			type: 'debit',
@@ -109,8 +135,15 @@ function useHome() {
 
 	return {
 		toggleShowBalance,
+		successfulShipment,
 		successfulShipmentLoader,
 		successful_shipment_graph,
+		totalSuccessfulShipment,
+
+		shipmentCreated,
+		shipment_created_graph,
+		shipmentCreatedLoader,
+		totalShipmentCreated,
 		balance,
 		user_data,
 		transaction_history,

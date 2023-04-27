@@ -1,11 +1,8 @@
-import { AppContextType, AppContext } from '@/context';
-import { useContext, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import api from './api.services';
-
-function ShipmentServices() {
-	const { state, setState } = useContext<AppContextType>(AppContext);
-	interface ShipmentSummaryInterface {
+import { useContext, useEffect, useState } from "react";
+import { ShipmentServices } from "@/services";
+import { AppContextType, AppContext } from "@/context";
+function HomeGraph(){
+    interface ShipmentSummaryInterface {
 		id: number;
 		month: string;
 		totalValue: number;
@@ -13,47 +10,11 @@ function ShipmentServices() {
 	}
 
 	const [shipmentSummary, setShipmentSummary] = useState<ShipmentSummaryInterface[]>([]);
-
-	const createShipment = (shipmentData: FormData) => {
-		return api.post('/shipment/create-shipment', shipmentData);
-	};
-
-	const getAllUserShipment = async () => {
-		await api.get('/shipment/get-all-user-shipment').then(
-			(res) => {
-				setState((prevState) => ({
-					...prevState,
-					allShipments: res.data.allUserShipment,
-				}));
-			},
-			(err) => {
-				toast.error(err.response.data.message, {
-					progressClassName: 'bg-red-500 h-1',
-					autoClose: 3000,
-				});
-			}
-		);
-	};
-
-	const getShipmentInRange = (duration: Record<string, string>) => {
-		return api.get(
-			`/shipment/get-user-month-shipment?startMonth=${duration.startMonth}&endMonth=${duration.endMonth}`
-		);
-	};
-	
-	const deleteShipment = (shipment_id: string) => {
-		return api.delete(`/shipment/delete-shipment/${shipment_id}`);
-	};
-
-
-	const initiatePayment = (payload:any)=>{
-		return api.post('/payment/initiate', payload)
-	}
-
-
-	const getGraphData = (duration: Record<string, string | number>) => {
+	const { state, setState } = useContext<AppContextType>(AppContext);
+    
+    const getGraphData = (duration: Record<string, string | number>) => {
 		let newData: ShipmentSummaryInterface;
-		getShipmentInRange(duration as Record<string, string>).then(
+		ShipmentServices().getShipmentInRange(duration as Record<string, string>).then(
 			(response) => {
 				newData = {
 					id: duration.id as number,
@@ -69,8 +30,8 @@ function ShipmentServices() {
 			}
 		);
 	};
-
-	const getShipmentDateRange = async (month_to_show: number) => {
+	
+    const getShipmentDateRange = async (month_to_show: number) => {
 		const month = [
 			'Jan',
 			'Feb',
@@ -112,10 +73,12 @@ function ShipmentServices() {
 		for (let index = 0; index < payload_array.length; index++) {
 			await getGraphData(payload_array[index]);
 		}
+
+
+
 	};
 
-
-	useEffect(() => {
+    useEffect(() => {
 		const uniqueData = Object.values(
 			shipmentSummary.reduce<Record<string, any>>(
 				(acc, cur) => Object.assign(acc, { [cur.id]: cur }),
@@ -128,14 +91,7 @@ function ShipmentServices() {
 			shipmentSummary: uniqueData,
 		}));
 	}, [shipmentSummary]);
-	return {
-		initiatePayment,
-		createShipment,
-		getShipmentDateRange,
-		getAllUserShipment,
-		getShipmentInRange,
-		deleteShipment,
-	};
+    
+    return {getShipmentDateRange}
 }
-
-export default ShipmentServices;
+export default HomeGraph
