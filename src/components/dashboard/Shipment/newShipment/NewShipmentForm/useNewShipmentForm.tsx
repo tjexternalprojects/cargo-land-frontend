@@ -15,7 +15,7 @@ function useNewShipmentForm() {
 	const [showLoader, setShowLoader] = useState(false);
 	const [formattedAddress, setFormattedAddress] = useState('');
 	const { fetchLocation } = useGeocode();
-	const [previewImage, setPreviewImage] = useState<(string | ArrayBuffer | null | File)[]>([]);
+	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.images);
 	interface ShipmentDetails {
 		shipment_title: string;
 		shipment_description: string;
@@ -49,17 +49,14 @@ function useNewShipmentForm() {
 	};
 
 	const removeImage = (indexToRemove: number) => {
-
 		const newPreviewImage = [...previewImage];
 		newPreviewImage.splice(indexToRemove, 1);
 		setPreviewImage(newPreviewImage);
 
 		const newShipmentImages = [...shipmentDetails.images];
 		newShipmentImages.splice(indexToRemove, 1);
-		setShipmentDetails({...shipmentDetails, images: newShipmentImages});
-
+		setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
 	};
-
 
 	useEffect(() => {
 		setState((prevState) => ({
@@ -144,7 +141,7 @@ function useNewShipmentForm() {
 						...prevDetails,
 						images: [...prevDetails.images, file],
 					}));
-					setPreviewImage((prevImages) => [...prevImages, dataUrl]);
+					setPreviewImage((prevImages:any) => [...prevImages, dataUrl]);
 				};
 				reader.readAsDataURL(file);
 			} else {
@@ -173,7 +170,6 @@ function useNewShipmentForm() {
 		updateMapAddress();
 	}, [address, citySelected, stateCode, countryCode]);
 
-
 	return {
 		countryCode,
 		stateCode,
@@ -187,6 +183,7 @@ function useNewShipmentForm() {
 		showLoader,
 		formattedAddress,
 		previewImage,
+		state,
 		moveNext,
 		removeImage,
 		handleImageChange,

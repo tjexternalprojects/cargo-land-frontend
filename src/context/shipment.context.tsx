@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-
+import { ShipmentSummaryInterface, ShipmentDetails } from '@/interfaces/shipmentInterface';
 function GeneralContext() {
-	const shipmentDetails = {
+	const shipmentDetails: ShipmentDetails = {
 		shipment_title: '',
 		shipment_description: '',
 		shipment_weight: 0,
@@ -26,13 +26,9 @@ function GeneralContext() {
 			latitude: 0,
 		},
 	};
-  interface ShipmentSummaryInterface {
-		id: number;
-		month: string;
-		totalValue: number;
-	}
-	const allShipments: never[]  = []
-	const trackingShipments: never[]  = []
+
+	const allShipments: never[] = [];
+	const trackingShipments: never[] = [];
 	const shipmentCurrentTab = 'item1';
 	const shipmentSummary: ShipmentSummaryInterface[] = [];
 	const form_level = 0;

@@ -27,6 +27,7 @@ const NewShipmentForm = () => {
 		handleImageChange,
 		removeImage,
 		moveNext,
+		state,
 		previewImage,
 		formattedAddress,
 		showLoader,
@@ -47,7 +48,7 @@ const NewShipmentForm = () => {
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
 				<form className=" md:w-9/12 my-5  px-3 md:px-0" onSubmit={handleSubmitNewShipmentForm}>
-					<div className='bg-white p-4 shadow-sm rounded-sm'>
+					<div className="bg-white p-4 shadow-sm rounded-sm">
 						<div>
 							<label className="text-sm text-gray-400">
 								Shipment title <span className="text-red-500"> * </span>
@@ -56,7 +57,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="text"
-									value={shipmentDetails.shipment_title as string}
+									value={state.shipmentDetails.shipment_title as string}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -79,7 +80,7 @@ const NewShipmentForm = () => {
 							<div className=" flex  border-b-2 mt-2 p-2 bg-white">
 								<textarea
 									className="w-full outline-none"
-									value={shipmentDetails.shipment_description as string}
+									value={state.shipmentDetails.shipment_description as string}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -103,7 +104,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="number"
-									value={shipmentDetails.shipment_weight as string}
+									value={state.shipmentDetails.shipment_weight as string}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -124,32 +125,32 @@ const NewShipmentForm = () => {
 							<span className="text-red-500"> * </span>
 						</label>
 						<Slider {...image_slider_settings}>
-							{previewImage.map((image, index) => (
-							<div
-							key={index}
-							className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
-						>
-							<img
-								src={typeof image === 'string' ? image : undefined}
-								alt="Shipment"
-								className="object-cover w-full  h-full rounded-xl"
-							/>
-
-							<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+							{previewImage.map((image:any, index:number) => (
 								<div
-									className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
-									onClick={() => removeImage(index)}
+									key={index}
+									className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
 								>
-									<AiOutlineClose />
+									<img
+										src={typeof image === 'string' ? image : undefined}
+										alt="Shipment"
+										className="object-cover w-full  h-full rounded-xl"
+									/>
+
+									<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+										<div
+											className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
+											onClick={() => removeImage(index)}
+										>
+											<AiOutlineClose />
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
 							))}
 						</Slider>
 
 						<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
 							<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
-								<span className='text-sm md:text-md'>Upload shipment image</span>
+								<span className="text-sm md:text-md">Upload shipment image</span>
 								<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
 									<BiCloudUpload className="text-3xl text-white" />
 									<input
