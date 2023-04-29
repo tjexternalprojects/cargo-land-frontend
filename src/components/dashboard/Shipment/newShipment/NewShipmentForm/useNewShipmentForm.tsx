@@ -9,7 +9,8 @@ function useNewShipmentForm() {
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
 	const [previewImage, setPreviewImage] = useState<any>([]);
-	const [country, setCountry] = useState<any>({});
+	const [country, setCountry] = useState<Record<string, string> | number>({});
+	const [countryState, setCountryState] = useState<any>({});
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 	const { getCountryCovered } = ShipmentServices();
 
@@ -83,9 +84,24 @@ function useNewShipmentForm() {
 	// 	}));
 	// }, [shipmentDetails]);
 
-	const handleSetCountry = (country: string) => {
-		const valueExists = d.some((obj: Record<string, string>) => obj.name === country);
-		console.log(valueExists)
+	const handleSetCountry = (country: Record<string, string>) => {
+		if (country) {
+			const selectedCountry = countryCovered.some(
+				(obj: Record<string, string>) => obj.name === country.name
+			);
+
+			if (selectedCountry === false) {
+				toast.info('Selected country is not covered', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+				setCountry(0);
+			} else {
+				setCountry(country);
+			}
+		} else {
+			setCountry(country);
+		}
 	};
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -198,7 +214,7 @@ function useNewShipmentForm() {
 	const getCounteryCovered = () => {
 		getCountryCovered().then(
 			(response) => {
-				// setCountryCovered(Object.values(response.data))
+				setCountryCovered(Object.values(response.data));
 				console.log(Object.values(response.data));
 			},
 			(error) => {
@@ -228,10 +244,12 @@ function useNewShipmentForm() {
 		// latitude,
 		// longitude,
 		handleSetCountry,
+		setCountryState,
 		country,
 		showLoader,
 		previewImage,
 		state,
+		countryState,
 		moveNext,
 		removeImage,
 		handleImageChange,

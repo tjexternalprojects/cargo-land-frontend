@@ -23,10 +23,12 @@ const NewShipmentForm = () => {
 		// setStateCode,
 		// setCitySelected,
 		// setAddress,
+		setCountryState,
 		setShipmentDetails,
 		handleImageChange,
 		removeImage,
 		moveNext,
+		countryState,
 		state,
 		previewImage,
 		showLoader,
@@ -183,10 +185,14 @@ const NewShipmentForm = () => {
 										onChange={(e) => handleSetCountry(JSON.parse(e.target.value))}
 										required
 									>
-										<option value="0">Select Country</option>
-										{Country.getAllCountries().map((country, index) => {
+										<option value={0}>Select Country</option>
+										{Country.getAllCountries().map((country) => {
 											return (
-												<option key={index} value={JSON.stringify(country)} className="space-x-10">
+												<option
+													key={country.isoCode}
+													value={JSON.stringify(country)}
+													className="space-x-10"
+												>
 													{country.name}
 												</option>
 											);
@@ -202,18 +208,18 @@ const NewShipmentForm = () => {
 									State
 									<span className="text-red-500"> * </span>
 								</small>
-								{/* <div className=" flex  border-b-2 mt-2 p-2">
+								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
 										className="w-full outline-none"
-										value={stateCode}
-										onChange={(e) => setStateCode(e.target.value)}
-										disabled={countryCode === '' || countryCode === '0'}
+										value={JSON.stringify(countryState)}
+										onChange={(e) => setCountryState(JSON.parse(e.target.value))}
+										disabled={!country}
 										required
 									>
-										<option value="">Select State</option>
+										<option value={0}>Select State</option>
 
-										{State.getStatesOfCountry(countryCode).map((states) => (
-											<option value={states.isoCode} key={states.isoCode}>
+										{State.getStatesOfCountry(country.isoCode).map((states) => (
+											<option value={JSON.stringify(states)} key={states.isoCode}>
 												{states.name}
 											</option>
 										))}
@@ -221,7 +227,7 @@ const NewShipmentForm = () => {
 									<div className="text-xl text-gray-500">
 										<MdOutlineShareLocation />
 									</div>
-								</div> */}
+								</div>
 							</div>
 							<div>
 								<small className="text-gray-400 font-bold">
