@@ -3,7 +3,6 @@ import { ShipmentServices } from '@/services';
 import { useContext, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
-import { ShipmentDetails } from '@/interfaces/shipmentInterface';
 
 function useShipmentModal(setShowModal: (value: boolean) => void) {
 	const { deleteShipment, getAllUserShipment } = ShipmentServices();
@@ -56,6 +55,7 @@ function useShipmentModal(setShowModal: (value: boolean) => void) {
 			...state,
 			shipmentDetails,
 			shipmentCurrentTab: 'item1',
+			editShipment: !state.editShipment
 		});
 		setShowModal(false);
 		console.log(state.shipmentDetails);

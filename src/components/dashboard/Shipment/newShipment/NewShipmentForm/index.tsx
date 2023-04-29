@@ -18,27 +18,29 @@ import Slider from 'react-slick';
 
 const NewShipmentForm = () => {
 	const {
-		setCountryCode,
+		// setCountryCode,
 		handleSubmitNewShipmentForm,
-		setStateCode,
-		setCitySelected,
-		setAddress,
+		// setStateCode,
+		// setCitySelected,
+		// setAddress,
 		setShipmentDetails,
 		handleImageChange,
 		removeImage,
 		moveNext,
 		state,
+		handleGetCountry,
 		previewImage,
-		formattedAddress,
 		showLoader,
-		latitude,
-		longitude,
+		// latitude,
+		// longitude,
+		countryCovered,
+		fullAddress,
 		image_slider_settings,
 		shipmentDetails,
-		citySelected,
-		address,
-		countryCode,
-		stateCode,
+		// citySelected,
+		// address,
+		// countryCode,
+		// stateCode,
 	} = useNewShipmentForm();
 	return (
 		<>
@@ -57,7 +59,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="text"
-									value={state.shipmentDetails.shipment_title as string}
+									value={shipmentDetails.shipment_title as string}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -80,7 +82,7 @@ const NewShipmentForm = () => {
 							<div className=" flex  border-b-2 mt-2 p-2 bg-white">
 								<textarea
 									className="w-full outline-none"
-									value={state.shipmentDetails.shipment_description as string}
+									value={shipmentDetails.shipment_description as string}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -104,7 +106,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="number"
-									value={state.shipmentDetails.shipment_weight as string}
+									value={shipmentDetails.shipment_weight as string}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -175,31 +177,37 @@ const NewShipmentForm = () => {
 									<span className="text-red-500"> * </span>
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
+									{fullAddress.country}
 									<select
 										className="w-full outline-none"
-										value={countryCode}
-										onChange={(e) => setCountryCode(e.target.value)}
+										value={shipmentDetails.current_location?.country}
+										onChange={(e) => handleGetCountry(e.target.value)}
 										required
 									>
 										<option value="0">Select Country</option>
-										{Country.getAllCountries().map((country) => (
-											<option key={country.isoCode} value={country.isoCode} className="space-x-10">
+										{countryCovered.map((country, index) => {
+											return(
+											<option key={index} value={country.name} className="space-x-10">
 												{country.name}
 											</option>
-										))}
+										)})}
 									</select>
 									<div className="text-xl text-gray-500">
-										{Country.getCountryByCode(countryCode)?.flag}
+										{/* {Country.getCountryByCode(countryCode)?.flag} */}
 									</div>
 								</div>
 							</div>
+[
+	{
 
+	}
+]
 							<div>
 								<small className="text-gray-400 font-bold">
 									State
 									<span className="text-red-500"> * </span>
 								</small>
-								<div className=" flex  border-b-2 mt-2 p-2">
+								{/* <div className=" flex  border-b-2 mt-2 p-2">
 									<select
 										className="w-full outline-none"
 										value={stateCode}
@@ -218,7 +226,7 @@ const NewShipmentForm = () => {
 									<div className="text-xl text-gray-500">
 										<MdOutlineShareLocation />
 									</div>
-								</div>
+								</div> */}
 							</div>
 
 							<div>
@@ -227,7 +235,7 @@ const NewShipmentForm = () => {
 									<span className="text-red-500"> * </span>
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
-									<select
+									{/* <select
 										disabled={stateCode === '' || stateCode === '0'}
 										className="w-full outline-none"
 										value={citySelected}
@@ -241,7 +249,7 @@ const NewShipmentForm = () => {
 												{cities.name}
 											</option>
 										))}
-									</select>
+									</select> */}
 									<div className="text-xl text-gray-500">
 										<MdOutlineMyLocation />
 									</div>
@@ -257,7 +265,7 @@ const NewShipmentForm = () => {
 									<div className="text-xl text-gray-500">
 										<RiSearch2Line />
 									</div>
-									<input
+									{/* <input
 										type="text"
 										className="w-full outline-none px-2 bg-white"
 										value={address}
@@ -265,16 +273,16 @@ const NewShipmentForm = () => {
 										onChange={(e) => setAddress(e.target.value)}
 										disabled={citySelected === '' || citySelected === '0'}
 										required
-									/>
+									/> */}
 									<div className="text-xl text-gray-500">
 										<MdAddLocationAlt />
 									</div>
 								</div>
 							</div>
-							{latitude && longitude && (
+							{/* {latitude && longitude && (
 								<>
 									<AddressMap
-										formatted_address={formattedAddress}
+										formatted_address={shipmentDetails?.current_location?.formattedAddress as string}
 										geoLocation={{ lng: longitude, lat: latitude }}
 									/>
 									<div className=" font-extrabold text-xl text-red-500">
@@ -282,7 +290,7 @@ const NewShipmentForm = () => {
 										{formattedAddress}
 									</div>
 								</>
-							)}
+							)} */}
 							{showLoader && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />
@@ -293,7 +301,7 @@ const NewShipmentForm = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-4">
-						{formattedAddress == '' ? (
+						{shipmentDetails.current_location?.formattedAddress == '' ? (
 							<button
 								disabled={showLoader}
 								type="submit"

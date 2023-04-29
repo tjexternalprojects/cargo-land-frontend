@@ -41,6 +41,10 @@ function ShipmentServices() {
 		);
 	};
 	
+	const getCountryCovered = ()=>{
+		return api.get( '/shipment/get-shipment-export-countries')
+	}
+
 	const deleteShipment = (shipment_id: string) => {
 		return api.delete(`/shipment/delete-shipment/${shipment_id}`);
 	};
@@ -129,6 +133,7 @@ function ShipmentServices() {
 		}));
 	}, [shipmentSummary]);
 	return {
+		getCountryCovered,
 		initiatePayment,
 		createShipment,
 		getShipmentDateRange,

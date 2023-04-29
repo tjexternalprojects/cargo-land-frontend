@@ -1,4 +1,6 @@
-export interface ShipmentDetails {
+export interface ShipmentDetailsInterface {
+	state: string;
+	country: string;
 	shipment_title: string;
 	shipment_description: string;
 	shipment_weight: number;
@@ -19,6 +21,7 @@ export interface ShipmentDetails {
 		state: string;
 		city: string;
 		address: string;
+		formattedAddress: string;
 		longitude: number;
 		latitude: number;
 	};

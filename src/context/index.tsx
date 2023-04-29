@@ -16,7 +16,7 @@ const {
 	showResendToken,
 	resendTokenMessage,
 } = SettingsContext();
-const { shipmentDetails,shipmentSummary, shipmentCurrentTab, form_level, trackingShipments, allShipments } =
+const { shipmentDetails,shipmentSummary, shipmentCurrentTab, editShipment, form_level, trackingShipments, allShipments } =
 	ShipmentContext();
 
 // Define the global state object
@@ -35,14 +35,12 @@ type AppState = {
 	resendTokenMessage: string;
 
 	// shipment
-	shipmentDetails: Record<
-		string,
-		Array<unknown> | number | string | Record<string, string | number>
-	>;
+	shipmentDetails: any;
 	shipmentSummary: any;
 	shipmentCurrentTab: string;
 	allShipments: any;
 	trackingShipments: never[];
+	editShipment:boolean;
 	form_level: number;
 
 	// settings
@@ -69,6 +67,7 @@ const initialState: AppState = {
 	shipmentSummary,
 	allShipments,
 	trackingShipments,
+	editShipment,
 	form_level,
 
 	// settings

@@ -3,25 +3,27 @@ import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
-import { ShipmentServices } from '@/services';
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
+	const [countryCode, setCountryCode] = useState('');
+	const [stateCode, setStateCode] = useState('');
+	const [citySelected, setCitySelected] = useState('');
+	const [address, setAddress] = useState('');
+	const [mapAddress, setMapAddress] = useState('');
+	const [latitude, setLatitude] = useState(null);
+	const [longitude, setLongitude] = useState(null);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [previewImage, setPreviewImage] = useState<any>([]);
-	const [fullAddress, setFullAddress] = useState<Record<string, string>>({})
-	const [countryCovered, setCountryCovered]= useState<Record<string,string>[]>([])
-	const {getCountryCovered} = ShipmentServices()
+	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.images);
 
-	// function to handle shipment data details
 	interface CurrentLocation {
-		country:  string;
-		state: string;
-		city:  string;
-		address:  string;
-		formattedAddress:  string;
-		longitude:number;
-		latitude: number;
+		country:  string,
+		state: string,
+		city:  string,
+		address:  string,
+		formattedAddress:  string,
+		longitude:number,
+		latitude: number,
 	  }
 
 	interface ShipmentDetails {
@@ -54,7 +56,6 @@ function useNewShipmentForm() {
 		console.log(state.shipmentDetails.current_location.formattedAddress  )
 	}
 
-	// Function to handle shipment images
 	const image_slider_settings = {
 		dots: true,
 		infinite: false,
@@ -75,22 +76,12 @@ function useNewShipmentForm() {
 		}
 	};
 
-	// useEffect(() => {
-	// 	setState((prevState) => ({
-	// 		...prevState,
-	// 		shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
-	// 	}));
-	// }, [shipmentDetails]);
-
-	const handleGetCountry = (country:string)=>{
-		setFullAddress({...fullAddress, country: country})
-
-// setShipmentDetails({ ...shipmentDetails.current_location, country: 'tLocation' });
-
-
-
-		console.log( shipmentDetails.current_location?.country)
-	}
+	useEffect(() => {
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
+		}));
+	}, [shipmentDetails]);
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
@@ -98,7 +89,14 @@ function useNewShipmentForm() {
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
 			shipmentDetails.shipment_weight == '' ||
-			shipmentDetails.images?.length == 0
+			shipmentDetails.images?.length == 0 ||
+			countryCode == '' ||
+			countryCode == '0' ||
+			stateCode == '' ||
+			stateCode == '0' ||
+			citySelected == '' ||
+			citySelected == '0' ||
+			address == ''
 		) {
 			setShowLoader(false);
 			toast.info('Please fill the important fields (*)', {
@@ -107,9 +105,10 @@ function useNewShipmentForm() {
 			});
 			return;
 		}
-
-		// await updateMapAddress();
-		fetchLocation(shipmentDetails.current_location?.address as string).then((data) => {
+		setLatitude(null);
+		setLongitude(null);
+		await updateMapAddress();
+		fetchLocation(mapAddress).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
@@ -120,22 +119,23 @@ function useNewShipmentForm() {
 
 			const { lat, lng } = data.results[0].geometry.location;
 
-		
+			setLatitude(lat);
+			setLongitude(lng);
 			// setFormattedAddress(data.results[0].formatted_address);
 
-			// setShipmentDetails({
-			// 	...shipmentDetails,
-			// 	current_location: {
-			// 		...shipmentDetails.current_location,
-			// 		country: Country.getCountryByCode(countryCode)?.name as string,
-			// 		state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
-			// 		city: citySelected,
-			// 		address: address,
-			// 		formattedAddress: data.results[0].formatted_address,
-			// 		longitude: lng,
-			// 		latitude: lat,
-			// 	},
-			// });
+			setShipmentDetails({
+				...shipmentDetails,
+				current_location: {
+					...shipmentDetails.current_location,
+					country: Country.getCountryByCode(countryCode)?.name as string,
+					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
+					city: citySelected,
+					address: address,
+					formattedAddress: data.results[0].formatted_address,
+					longitude: lng,
+					latitude: lat,
+				},
+			});
 		});
 	};
 
@@ -171,19 +171,19 @@ function useNewShipmentForm() {
 		}
 	};
 
-	// const updateMapAddress = () => {
-	// 	const c_address = address != '' ? address + ', ' : '';
-	// 	const c_city = citySelected != '' && citySelected !== '0' ? citySelected + ', ' : '';
-	// 	const c_state = State.getStateByCodeAndCountry(stateCode, countryCode)?.name
-	// 		? State.getStateByCodeAndCountry(stateCode, countryCode)?.name + ', '
-	// 		: '';
-	// 	const c_country = Country.getCountryByCode(countryCode)?.name
-	// 		? Country.getCountryByCode(countryCode)?.name
-	// 		: '';
+	const updateMapAddress = () => {
+		const c_address = address != '' ? address + ', ' : '';
+		const c_city = citySelected != '' && citySelected !== '0' ? citySelected + ', ' : '';
+		const c_state = State.getStateByCodeAndCountry(stateCode, countryCode)?.name
+			? State.getStateByCodeAndCountry(stateCode, countryCode)?.name + ', '
+			: '';
+		const c_country = Country.getCountryByCode(countryCode)?.name
+			? Country.getCountryByCode(countryCode)?.name
+			: '';
 
-	// 	setMapAddress(c_address + c_city + c_state + c_country);
-	// };
-	// useEffect(() => {
+		setMapAddress(c_address + c_city + c_state + c_country);
+	};
+	useEffect(() => {
 		// setShipmentDetails({
 		// 	...shipmentDetails,
 		// 	// current_location: {
@@ -197,41 +197,22 @@ function useNewShipmentForm() {
 		// 		// latitude: lat,
 		// 	// },
 		// });
-		// updateMapAddress();
-	// }, [address, citySelected, stateCode, countryCode]);
+		updateMapAddress();
+	}, [address, citySelected, stateCode, countryCode]);
 
-	const getCounteryCovered = () =>{
-		getCountryCovered().then(response=>{
-			setCountryCovered(Object.values(response.data))
-			console.log(Object.values(response.data))
-		},error=>{
-			console.log(error)
-			toast.error('Error getting countries', {
-				progressClassName: 'bg-red-500 h-1',
-				autoClose: 3000,
-			});
-		})
-	}
-	useEffect(()=>{
-		getCounteryCovered()
-	},[])
 	useEffect(()=>{
 		resetInputs()
 	},[state.editShipment])
-
-	
 	return {
-		// countryCode,
-		// stateCode,
-		// address,
-		// citySelected,
-		// mapAddress,
+		countryCode,
+		stateCode,
+		address,
+		citySelected,
+		mapAddress,
 		shipmentDetails,
 		image_slider_settings,
-		// latitude,
-		// longitude,
-		fullAddress,
-		handleGetCountry,
+		latitude,
+		longitude,
 		showLoader,
 		previewImage,
 		state,
@@ -239,12 +220,11 @@ function useNewShipmentForm() {
 		removeImage,
 		handleImageChange,
 		setShipmentDetails,
-		countryCovered,
-		// setCitySelected,
-		// setAddress,
+		setCitySelected,
+		setAddress,
 		handleSubmitNewShipmentForm,
-		// setCountryCode,
-		// setStateCode,
+		setCountryCode,
+		setStateCode,
 	};
 }
 export default useNewShipmentForm;
