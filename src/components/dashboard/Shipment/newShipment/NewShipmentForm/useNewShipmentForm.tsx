@@ -9,33 +9,34 @@ function useNewShipmentForm() {
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
 	const [previewImage, setPreviewImage] = useState<any>([]);
-	const [fullAddress, setFullAddress] = useState<Record<string, string>>({})
-	const [countryCovered, setCountryCovered]= useState<Record<string,string>[]>([])
-	const {getCountryCovered} = ShipmentServices()
+	const [country, setCountry] = useState<any>({});
+	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
+	const { getCountryCovered } = ShipmentServices();
 
 	// function to handle shipment data details
 	interface CurrentLocation {
-		country:  string;
+		country: string;
 		state: string;
-		city:  string;
-		address:  string;
-		formattedAddress:  string;
-		longitude:number;
+		city: string;
+		address: string;
+		formattedAddress: string;
+		longitude: number;
 		latitude: number;
-	  }
+	}
 
 	interface ShipmentDetails {
 		shipment_title?: string;
 		shipment_description?: string;
 		shipment_weight?: string;
-		images?:any;
+		images?: any;
 		current_location?: CurrentLocation;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
 
-	const resetInputs = ()=>{
-		setShipmentDetails({...shipmentDetails, 
+	const resetInputs = () => {
+		setShipmentDetails({
+			...shipmentDetails,
 			shipment_title: state.shipmentDetails.shipment_title as string,
 			shipment_description: state.shipmentDetails.shipment_description as string,
 			shipment_weight: state.shipmentDetails.shipment_weight as string,
@@ -49,10 +50,10 @@ function useNewShipmentForm() {
 				longitude: state.shipmentDetails.current_location.longitude as number,
 				latitude: state.shipmentDetails.current_location.latitude as number,
 			},
-		})
-		setPreviewImage(state.shipmentDetails.images)
-		console.log(state.shipmentDetails.current_location.formattedAddress  )
-	}
+		});
+		setPreviewImage(state.shipmentDetails.images);
+		console.log(state.shipmentDetails.current_location.formattedAddress);
+	};
 
 	// Function to handle shipment images
 	const image_slider_settings = {
@@ -69,9 +70,9 @@ function useNewShipmentForm() {
 		newPreviewImage.splice(indexToRemove, 1);
 		setPreviewImage(newPreviewImage);
 		if (shipmentDetails.images) {
-		const newShipmentImages = [...shipmentDetails.images];
-		newShipmentImages.splice(indexToRemove, 1);
-		setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
+			const newShipmentImages = [...shipmentDetails.images];
+			newShipmentImages.splice(indexToRemove, 1);
+			setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
 		}
 	};
 
@@ -82,15 +83,10 @@ function useNewShipmentForm() {
 	// 	}));
 	// }, [shipmentDetails]);
 
-	const handleGetCountry = (country:string)=>{
-		setFullAddress({...fullAddress, country: country})
-
-// setShipmentDetails({ ...shipmentDetails.current_location, country: 'tLocation' });
-
-
-
-		console.log( shipmentDetails.current_location?.country)
-	}
+	const handleSetCountry = (country: string) => {
+		const valueExists = d.some((obj: Record<string, string>) => obj.name === country);
+		console.log(valueExists)
+	};
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
@@ -120,7 +116,6 @@ function useNewShipmentForm() {
 
 			const { lat, lng } = data.results[0].geometry.location;
 
-		
 			// setFormattedAddress(data.results[0].formatted_address);
 
 			// setShipmentDetails({
@@ -149,7 +144,7 @@ function useNewShipmentForm() {
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
-		if (files && files.length > 0 ) {
+		if (files && files.length > 0) {
 			const file = files[0];
 			if (file.type.startsWith('image/')) {
 				const reader = new FileReader();
@@ -159,7 +154,7 @@ function useNewShipmentForm() {
 						...prevDetails,
 						images: [...prevDetails.images, file],
 					}));
-					setPreviewImage((prevImages:any) => [...prevImages, dataUrl]);
+					setPreviewImage((prevImages: any) => [...prevImages, dataUrl]);
 				};
 				reader.readAsDataURL(file);
 			} else {
@@ -184,42 +179,44 @@ function useNewShipmentForm() {
 	// 	setMapAddress(c_address + c_city + c_state + c_country);
 	// };
 	// useEffect(() => {
-		// setShipmentDetails({
-		// 	...shipmentDetails,
-		// 	// current_location: {
-		// 		...shipmentDetails.current_location,
-		// 		// country: Country.getCountryByCode(countryCode)?.name as string,
-		// 		// state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
-		// 		// city: citySelected,
-		// 		// address: address,
-		// 		formattedAddress:''
-		// 		// longitude: lng,
-		// 		// latitude: lat,
-		// 	// },
-		// });
-		// updateMapAddress();
+	// setShipmentDetails({
+	// 	...shipmentDetails,
+	// 	// current_location: {
+	// 		...shipmentDetails.current_location,
+	// 		// country: Country.getCountryByCode(countryCode)?.name as string,
+	// 		// state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
+	// 		// city: citySelected,
+	// 		// address: address,
+	// 		formattedAddress:''
+	// 		// longitude: lng,
+	// 		// latitude: lat,
+	// 	// },
+	// });
+	// updateMapAddress();
 	// }, [address, citySelected, stateCode, countryCode]);
 
-	const getCounteryCovered = () =>{
-		getCountryCovered().then(response=>{
-			setCountryCovered(Object.values(response.data))
-			console.log(Object.values(response.data))
-		},error=>{
-			console.log(error)
-			toast.error('Error getting countries', {
-				progressClassName: 'bg-red-500 h-1',
-				autoClose: 3000,
-			});
-		})
-	}
-	useEffect(()=>{
-		getCounteryCovered()
-	},[])
-	useEffect(()=>{
-		resetInputs()
-	},[state.editShipment])
+	const getCounteryCovered = () => {
+		getCountryCovered().then(
+			(response) => {
+				// setCountryCovered(Object.values(response.data))
+				console.log(Object.values(response.data));
+			},
+			(error) => {
+				console.log(error);
+				toast.error('Error getting countries', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
+	};
+	useEffect(() => {
+		getCounteryCovered();
+	}, []);
+	useEffect(() => {
+		resetInputs();
+	}, [state.editShipment]);
 
-	
 	return {
 		// countryCode,
 		// stateCode,
@@ -230,8 +227,8 @@ function useNewShipmentForm() {
 		image_slider_settings,
 		// latitude,
 		// longitude,
-		fullAddress,
-		handleGetCountry,
+		handleSetCountry,
+		country,
 		showLoader,
 		previewImage,
 		state,

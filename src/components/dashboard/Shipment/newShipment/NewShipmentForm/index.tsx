@@ -28,13 +28,13 @@ const NewShipmentForm = () => {
 		removeImage,
 		moveNext,
 		state,
-		handleGetCountry,
 		previewImage,
 		showLoader,
 		// latitude,
 		// longitude,
 		countryCovered,
-		fullAddress,
+		country,
+		handleSetCountry,
 		image_slider_settings,
 		shipmentDetails,
 		// citySelected,
@@ -127,7 +127,7 @@ const NewShipmentForm = () => {
 							<span className="text-red-500"> * </span>
 						</label>
 						<Slider {...image_slider_settings}>
-							{previewImage.map((image:any, index:number) => (
+							{previewImage.map((image: any, index: number) => (
 								<div
 									key={index}
 									className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
@@ -177,31 +177,26 @@ const NewShipmentForm = () => {
 									<span className="text-red-500"> * </span>
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
-									{fullAddress.country}
 									<select
 										className="w-full outline-none"
-										value={shipmentDetails.current_location?.country}
-										onChange={(e) => handleGetCountry(e.target.value)}
+										value={JSON.stringify(country)}
+										onChange={(e) => handleSetCountry(JSON.parse(e.target.value))}
 										required
 									>
 										<option value="0">Select Country</option>
-										{countryCovered.map((country, index) => {
-											return(
-											<option key={index} value={country.name} className="space-x-10">
-												{country.name}
-											</option>
-										)})}
+										{Country.getAllCountries().map((country, index) => {
+											return (
+												<option key={index} value={JSON.stringify(country)} className="space-x-10">
+													{country.name}
+												</option>
+											);
+										})}
 									</select>
 									<div className="text-xl text-gray-500">
 										{/* {Country.getCountryByCode(countryCode)?.flag} */}
 									</div>
 								</div>
 							</div>
-[
-	{
-
-	}
-]
 							<div>
 								<small className="text-gray-400 font-bold">
 									State
@@ -228,7 +223,6 @@ const NewShipmentForm = () => {
 									</div>
 								</div> */}
 							</div>
-
 							<div>
 								<small className="text-gray-400 font-bold">
 									City
@@ -255,7 +249,6 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
-
 							<div className="mt-3">
 								<small className=" text-gray-400 font-bold">
 									Address
