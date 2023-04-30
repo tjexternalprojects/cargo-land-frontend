@@ -1,27 +1,116 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
-import {ShipmentServices} from '@/services'
-import 'react-toastify/dist/ReactToastify.css';
-function useRecipientDetails() {
-	const {createShipment, getAllUserShipment} = ShipmentServices()
+import { ShipmentServices } from '@/services';
+function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
-	const [countryCode, setCountryCode] = useState('');
-	const [stateCode, setStateCode] = useState('');
-	const [citySelected, setCitySelected] = useState('');
-	const [address, setAddress] = useState('');
-	const [mapAddress, setMapAddress] = useState('');
-	const [latitude, setLatitude] = useState(null);
-	const [longitude, setLongitude] = useState(null);
-	const [formattedAddress, setFormattedAddress] = useState('');
+	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [showLoading, setShowLoading] = useState(false);
+	const {createShipment, getAllUserShipment, getCountryCovered} = ShipmentServices()
+	
+	// Current address
+	const [country, setCountry] = useState<Record<string, string>>({});
+	const [countryState, setCountryState] = useState<Record<string, string>>({});
+	const [stateCity, setStateCity] = useState<Record<string, string>>({})
+	const [address, setAddress] = useState<string>("")
+	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
+
+	// function to handle shipment data details
+	interface ShipmentDetails {
+		recipient_full_name?: string;
+		recipient_email?: string;
+		shipment_destination?: Record<string, string | number | null>;
+	}
+
+	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
+
+	const resetInputs = () => {
+		setShipmentDetails({
+			...shipmentDetails,
+			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
+			recipient_email: state.shipmentDetails.recipient_email as string,
+			shipment_destination: {
+				country: state.shipmentDetails.current_location.country as string,
+				state: state.shipmentDetails.current_location.state as string,
+				city: state.shipmentDetails.current_location.city as string,
+				address: state.shipmentDetails.current_location.address as string,
+				formattedAddress: state.shipmentDetails.current_location.formattedAddress as string,
+				longitude: state.shipmentDetails.current_location.longitude as number,
+				latitude: state.shipmentDetails.current_location.latitude as number,
+			},
+		});
+		
+	};
+
+
+	const handleSetCountry = (country: Record<string, string>) => {
+		if (country) {
+			const selectedCountry = countryCovered.some(
+				(obj: Record<string, string>) => obj.name === country.name
+			);
+
+			if (selectedCountry === false) {
+				toast.info('Sorry our services dosnt cover ' + country.name + ' yet', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+				setCountry({});
+			} else {
+				setCountry(country);
+			}
+		} else {
+			setCountry(country);
+		}
+	};
+	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		setShowLoader(true);
+		if (
+			shipmentDetails.recipient_full_name == '' ||
+			shipmentDetails.recipient_email == '' ||
+			Object.keys(country).length === 0
+		) {
+			setShowLoader(false);
+			toast.info('Please fill the important fields (*)', {
+				progressClassName: 'bg-red-500 h-1',
+				autoClose: 3000,
+			});
+			return;
+		}
+
+		// await updateMapAddress();
+		fetchLocation(address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name).then((data) => {
+			setShowLoader(false);
+			if (data.results.length > 1) {
+				toast.error(
+					'Multiple address match please re-check your address, you can add local government area to be specific'
+				);
+				return;
+			}
+
+			const { lat, lng } = data.results[0].geometry.location;
+
+
+			setShipmentDetails({
+				...shipmentDetails,
+				shipment_destination: {
+					...shipmentDetails.shipment_destination,
+					country: country.name,
+					state: countryState.name,
+					city: stateCity.name,
+					address: address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name,
+					formattedAddress: data.results[0].formatted_address,
+					longitude: lng,
+					latitude: lat,
+				},
+			});
+		});
+	};
 
 
 	const resetShipment = () =>{
-		const shipmentDetails = {
+		const resetShipmentDetails = {
 			shipment_title: '',
 			shipment_description: '',
 			shipment_weight: 0,
@@ -32,8 +121,8 @@ function useRecipientDetails() {
 				city: '',
 				address: '',
 				formattedAddress: '',
-				longitude: 0,
-				latitude: 0,
+				longitude: null,
+				latitude: null,
 			},
 			recipient_full_name: '',
 			recipient_email: '',
@@ -42,95 +131,20 @@ function useRecipientDetails() {
 				state: '',
 				city: '',
 				address: '',
-				longitude: 0,
-				latitude: 0,
+				longitude: null,
+				latitude: null,
 			},
 		};
-		setState({
-			...state,
-			shipmentDetails,
-		});
+
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: { ...prevState.shipmentDetails, resetShipmentDetails },
+		}));
 	}
 
-	interface ShipmentDetails {
-		recipient_full_name: string;
-		recipient_email: string;
-		shipment_destination: Record<string, string | number>;
-	}
-
-	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
-		recipient_full_name: state.shipmentDetails.recipient_full_name as string,
-		recipient_email: state.shipmentDetails.recipient_email as string,
-		shipment_destination: {
-			country: state.shipmentDetails.country as string,
-			state: state.shipmentDetails.state as string,
-			city: state.shipmentDetails.city as string,
-			address: state.shipmentDetails.address as string,
-			longitude: state.shipmentDetails.longitude as number,
-			latitude: state.shipmentDetails.latitude as number,
-		},
-	});
-
-	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		setShowLoading(true);
-
-		if (
-			shipmentDetails.recipient_full_name == '' ||
-			shipmentDetails.recipient_email == '' ||
-			countryCode == '' ||
-			countryCode == '0' ||
-			stateCode == '' ||
-			stateCode == '0' ||
-			citySelected == '' ||
-			citySelected == '0' ||
-			address == ''
-		) {
-			setShowLoading(false);
-			toast.info('Please fill the important fields (*)', {
-				progressClassName: 'bg-red-500 h-1',
-				autoClose: 3000,
-			});
-			return;
-		}
-
-		setLatitude(null);
-		setLongitude(null);
-		await updateMapAddress();
-		fetchLocation(mapAddress).then((data) => {
-			setShowLoading(false);
-
-			if (data.results.length > 1) {
-				toast.error(
-					'Multiple address match please re-check your address, you can add local government area to be specific'
-				);
-				return;
-			}
-			const { lat, lng } = data.results[0].geometry.location;
-
-			setLatitude(lat);
-			setLongitude(lng);
-			setFormattedAddress(data.results[0].formatted_address);
-			setShipmentDetails({
-				...shipmentDetails,
-				shipment_destination: {
-					...shipmentDetails.shipment_destination,
-					country: Country.getCountryByCode(countryCode)?.name as string,
-					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
-					city: citySelected,
-					address: address,
-					formattedAddress: data.results[0].formatted_address,
-					longitude: lng,
-					latitude: lat,
-				},
-			});
-		});
-	};
-
-	// This is use to control the active tab design
 	const moveNext = async () => {
 		// console.log(state.shipmentDetails)
-		setShowLoading(true);
+		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
@@ -146,33 +160,62 @@ function useRecipientDetails() {
 		await createShipment
 			(formData)
 			.then((response) => {
-				setShowLoading(false);
+				console.log(response)
+				setShowLoader(false);
 				setState({
 					...state,
 					shipmentCurrentTab: 'item3',
 					form_level: 2,
 				});
+			console.log(state.shipmentCurrentTab, state.form_level)
+
 				getAllUserShipment()
 				resetShipment()
 			},
 			(error) => {
-				setShowLoading(false);
+				setShowLoader(false);
 			})
+
+			console.log(state.shipmentCurrentTab, state.form_level)
 	};
 
-	const updateMapAddress = () => {
-		const c_address = address != '' ? address + ', ' : '';
-		const c_city = citySelected != '' && citySelected !== '0' ? citySelected + ', ' : '';
-		const c_state = State.getStateByCodeAndCountry(stateCode, countryCode)?.name
-			? State.getStateByCodeAndCountry(stateCode, countryCode)?.name + ', '
-			: '';
-		const c_country = Country.getCountryByCode(countryCode)?.name
-			? Country.getCountryByCode(countryCode)?.name
-			: '';
 
-		setMapAddress(c_address + c_city + c_state + c_country);
+
+	const getCounteryCovered = () => {
+		getCountryCovered().then(
+			(response) => {
+				setCountryCovered(Object.values(response.data));
+			},
+			(error) => {
+				console.log(error);
+				toast.error('Error getting countries', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
 	};
 
+	// RESET CURRENT LOCATION IF CURRENT LOCATION CHANGES
+	useEffect(() => {
+		if (shipmentDetails.shipment_destination?.formattedAddress !=="" && shipmentDetails.shipment_destination?.longitude !== null && shipmentDetails.shipment_destination?.latitude !== null){
+		setShipmentDetails({
+			...shipmentDetails,
+			shipment_destination: {
+				...shipmentDetails.shipment_destination,
+				country: country.name,
+				state: countryState.name,
+				city: stateCity.name,
+				address: address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name,
+				formattedAddress: "",
+				longitude: null,
+				latitude: null,
+			},
+		});
+		}
+	}, [ country, countryState, stateCity, address]);
+
+	// UPDATE THE GLOBAL STATE 
 	useEffect(() => {
 		setState((prevState) => ({
 			...prevState,
@@ -180,28 +223,30 @@ function useRecipientDetails() {
 		}));
 	}, [shipmentDetails]);
 
+	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
 	useEffect(() => {
-		updateMapAddress();
-	}, [address, citySelected, stateCode, countryCode]);
+		getCounteryCovered();
+	}, []);
+
+	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
+	useEffect(() => {
+		// resetInputs();
+	}, [state.editShipment]);
 
 	return {
-		countryCode,
-		stateCode,
-		address,
-		citySelected,
-		mapAddress,
-		shipmentDetails,
-		longitude,
-		latitude,
-		formattedAddress,
-		showLoading,
-		moveNext,
-		setShipmentDetails,
-		setCitySelected,
-		setAddress,
 		handleRecipientDetails,
-		setCountryCode,
-		setStateCode,
+		setCountryState,
+		setShipmentDetails,
+		moveNext,
+		setStateCity,
+		setAddress,
+		handleSetCountry,
+		stateCity,
+		address,
+		countryState,
+		showLoader,
+		country,
+		shipmentDetails,
 	};
 }
-export default useRecipientDetails;
+export default useNewShipmentForm;

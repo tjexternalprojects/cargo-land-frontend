@@ -12,8 +12,8 @@ function GeneralContext() {
 			city: '',
 			address: '',
 			formattedAddress: '',	
-			longitude: 0,
-			latitude: 0,
+			longitude: null,
+			latitude: null,
 		},
 		recipient_full_name: '',
 		recipient_email: '',
@@ -23,8 +23,8 @@ function GeneralContext() {
 			city: '',
 			address: '',
 			formattedAddress: '',	
-			longitude: 0,
-			latitude: 0,
+			longitude: null,
+			latitude: null,
 		},
 	};
 

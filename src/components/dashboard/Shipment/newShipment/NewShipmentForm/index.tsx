@@ -18,31 +18,23 @@ import Slider from 'react-slick';
 
 const NewShipmentForm = () => {
 	const {
-		// setCountryCode,
 		handleSubmitNewShipmentForm,
-		// setStateCode,
-		// setCitySelected,
-		// setAddress,
 		setCountryState,
 		setShipmentDetails,
 		handleImageChange,
 		removeImage,
 		moveNext,
+		setStateCity,
+		setAddress,
+		handleSetCountry,
+		stateCity,
+		address,
 		countryState,
-		state,
 		previewImage,
 		showLoader,
-		// latitude,
-		// longitude,
-		countryCovered,
 		country,
-		handleSetCountry,
 		image_slider_settings,
 		shipmentDetails,
-		// citySelected,
-		// address,
-		// countryCode,
-		// stateCode,
 	} = useNewShipmentForm();
 	return (
 		<>
@@ -199,7 +191,7 @@ const NewShipmentForm = () => {
 										})}
 									</select>
 									<div className="text-xl text-gray-500">
-										{/* {Country.getCountryByCode(countryCode)?.flag} */}
+										{Country.getCountryByCode(country.isoCode)?.flag}
 									</div>
 								</div>
 							</div>
@@ -213,7 +205,7 @@ const NewShipmentForm = () => {
 										className="w-full outline-none"
 										value={JSON.stringify(countryState)}
 										onChange={(e) => setCountryState(JSON.parse(e.target.value))}
-										disabled={!country}
+										disabled={Object.keys(country).length === 0}
 										required
 									>
 										<option value={0}>Select State</option>
@@ -235,21 +227,21 @@ const NewShipmentForm = () => {
 									<span className="text-red-500"> * </span>
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
-									{/* <select
-										disabled={stateCode === '' || stateCode === '0'}
+									<select
+										disabled={Object.keys(countryState).length === 0 }
 										className="w-full outline-none"
-										value={citySelected}
-										onChange={(e) => setCitySelected(e.target.value)}
+										value={JSON.stringify(stateCity)}
+										onChange={(e) => setStateCity(JSON.parse(e.target.value))}
 										required
 									>
-										<option value="0">Select City</option>
+										<option value={0}>Select City</option>
 
-										{City.getCitiesOfState(countryCode, stateCode).map((cities, key) => (
-											<option value={cities.name} key={key}>
+										{City.getCitiesOfState(country.isoCode, countryState.isoCode).map((cities, key) => (
+											<option value={JSON.stringify(cities)} key={key}>
 												{cities.name}
 											</option>
 										))}
-									</select> */}
+									</select>
 									<div className="text-xl text-gray-500">
 										<MdOutlineMyLocation />
 									</div>
@@ -264,32 +256,32 @@ const NewShipmentForm = () => {
 									<div className="text-xl text-gray-500">
 										<RiSearch2Line />
 									</div>
-									{/* <input
+									<input
 										type="text"
 										className="w-full outline-none px-2 bg-white"
 										value={address}
 										placeholder="type in shipment street address location"
 										onChange={(e) => setAddress(e.target.value)}
-										disabled={citySelected === '' || citySelected === '0'}
+										disabled={Object.keys(stateCity).length === 0 }
 										required
-									/> */}
+									/>
 									<div className="text-xl text-gray-500">
 										<MdAddLocationAlt />
 									</div>
 								</div>
 							</div>
-							{/* {latitude && longitude && (
+							{shipmentDetails.current_location?.latitude && shipmentDetails.current_location?.longitude && (
 								<>
 									<AddressMap
 										formatted_address={shipmentDetails?.current_location?.formattedAddress as string}
-										geoLocation={{ lng: longitude, lat: latitude }}
+										geoLocation={{ lng: shipmentDetails.current_location?.longitude, lat: shipmentDetails.current_location?.latitude }}
 									/>
 									<div className=" font-extrabold text-xl text-red-500">
 										<span className="underline">Address Found: </span>
-										{formattedAddress}
+										{shipmentDetails.current_location?.formattedAddress}
 									</div>
 								</>
-							)} */}
+							)}
 							{showLoader && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />
