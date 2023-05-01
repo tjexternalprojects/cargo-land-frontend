@@ -3,19 +3,19 @@ import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
-import { Country, State, City } from 'country-state-city';
+import { Country, State, City, IState } from 'country-state-city';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [previewImage, setPreviewImage] = useState<any>([]);
+	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.images);
 	const { getCountryCovered } = ShipmentServices();
-	
+
 	// Current address
 	const [country, setCountry] = useState<any>({});
-	const [countryState, setCountryState] = useState<Record<string, string>>({});
-	const [stateCity, setStateCity] = useState<Record<string, string>>({})
+	const [countryState, setCountryState] = useState<any>({});
+	const [stateCity, setStateCity] = useState<any>({})
 	const [address, setAddress] = useState<string>("")
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
@@ -57,11 +57,17 @@ function useNewShipmentForm() {
 				latitude: state.shipmentDetails.current_location.latitude as number,
 			},
 		});
-		setPreviewImage(state.shipmentDetails.images);
-		if(state.shipmentDetails.current_location.country !== ""){
-		const getCountryDetails = Country.getCountryByCode(state.shipmentDetails.current_location.country)
-		setCountry(getCountryDetails)
-
+		if (state.shipmentDetails.current_location.country !== "") {
+			setPreviewImage(state.shipmentDetails.images);
+			const getCountryDetails = Country.getCountryByCode(state.shipmentDetails.current_location.country)
+			const getStateDetails = State.getStateByCodeAndCountry(state.shipmentDetails.current_location.state, state.shipmentDetails.current_location.country)
+			const getAllCityDetails = City.getCitiesOfState(state.shipmentDetails.current_location.country, state.shipmentDetails.current_location.state)
+			const getCityDetails = getAllCityDetails.find(location => location.name ===  state.shipmentDetails.current_location.city);
+			setCountry(getCountryDetails)
+			console.log(country)
+			setCountryState(getStateDetails)
+			setStateCity(getCityDetails)
+			setAddress(state.shipmentDetails.current_location.address)
 		}
 	};
 
@@ -89,7 +95,7 @@ function useNewShipmentForm() {
 
 
 	const handleSetCountry = (country: Record<string, string>) => {
-	
+
 		if (country) {
 			const selectedCountry = countryCovered.some(
 				(obj: Record<string, string>) => obj.name === country.name
@@ -115,7 +121,7 @@ function useNewShipmentForm() {
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
 			shipmentDetails.shipment_weight == '' ||
-			shipmentDetails.images?.length == 0 || 
+			shipmentDetails.images?.length == 0 ||
 			Object.keys(country).length === 0
 		) {
 			setShowLoader(false);
@@ -133,8 +139,7 @@ function useNewShipmentForm() {
 			return;
 		}
 
-		// await updateMapAddress();
-		fetchLocation(address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name).then((data) => {
+		fetchLocation(address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
@@ -150,10 +155,10 @@ function useNewShipmentForm() {
 				...shipmentDetails,
 				current_location: {
 					...shipmentDetails.current_location,
-					country: country.isoCode,
-					state: countryState.isoCode,
-					city: stateCity.name,
-					address: address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name,
+					country: country,
+					state: countryState,
+					city: stateCity,
+					address: address,
 					formattedAddress: data.results[0].formatted_address,
 					longitude: lng,
 					latitude: lat,
@@ -212,27 +217,27 @@ function useNewShipmentForm() {
 
 	// RESET CURRENT LOCATION IF CURRENT LOCATION CHANGES
 	useEffect(() => {
-		if (shipmentDetails.current_location?.formattedAddress !=="" && shipmentDetails.current_location?.longitude !== null && shipmentDetails.current_location?.latitude !== null){
+		if (shipmentDetails.current_location?.formattedAddress !== "" && shipmentDetails.current_location?.longitude !== null && shipmentDetails.current_location?.latitude !== null) {
 			setState({
 				...state,
 				shipmentCurrentTab: 'item1',
 				form_level: 0,
 			});
-		setShipmentDetails({
-			...shipmentDetails,
-			current_location: {
-				...shipmentDetails.current_location,
-				country: country.isoCode,
-				state: countryState.isoCode,
-				city: stateCity.name,
-				address: address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name,
-				formattedAddress: "",
-				longitude: null,
-				latitude: null,
-			},
-		});
-	}
-	}, [ country, countryState, stateCity, address]);
+			setShipmentDetails({
+				...shipmentDetails,
+				current_location: {
+					...shipmentDetails.current_location,
+					country: country,
+					state: countryState,
+					city: stateCity,
+					address: address,
+					formattedAddress: "",
+					longitude: null,
+					latitude: null,
+				},
+			});
+		}
+	}, [country, countryState, stateCity, address]);
 
 	// UPDATE THE GLOBAL STATE 
 	useEffect(() => {
@@ -249,7 +254,7 @@ function useNewShipmentForm() {
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
 	useEffect(() => {
-		// resetInputs();
+		resetInputs();
 	}, [state.editShipment]);
 
 	return {

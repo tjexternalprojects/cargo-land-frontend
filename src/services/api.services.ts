@@ -48,7 +48,7 @@ instance.interceptors.response.use(
 			(originalConfig.url !== '/user/login' || originalConfig.url !== '/user/register') &&
 			err.response
 		) {
-			console.log(err.response.data.Error);
+			console.log(err.response);
 			// Access Token was expired
 			if (
 				(LocalStorageServices.getAccessToken() &&

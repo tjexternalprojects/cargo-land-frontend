@@ -3,6 +3,7 @@ import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
+import { Country, State, City } from 'country-state-city';
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
@@ -10,9 +11,9 @@ function useNewShipmentForm() {
 	const {createShipment, getAllUserShipment, getCountryCovered} = ShipmentServices()
 	
 	// Current address
-	const [country, setCountry] = useState<Record<string, string>>({});
-	const [countryState, setCountryState] = useState<Record<string, string>>({});
-	const [stateCity, setStateCity] = useState<Record<string, string>>({})
+	const [country, setCountry] = useState<any>({});
+	const [countryState, setCountryState] = useState<any>({});
+	const [stateCity, setStateCity] = useState<any>({})
 	const [address, setAddress] = useState<string>("")
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
@@ -31,16 +32,26 @@ function useNewShipmentForm() {
 			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
 			recipient_email: state.shipmentDetails.recipient_email as string,
 			shipment_destination: {
-				country: state.shipmentDetails.current_location.country as string,
-				state: state.shipmentDetails.current_location.state as string,
-				city: state.shipmentDetails.current_location.city as string,
-				address: state.shipmentDetails.current_location.address as string,
-				formattedAddress: state.shipmentDetails.current_location.formattedAddress as string,
-				longitude: state.shipmentDetails.current_location.longitude as number,
-				latitude: state.shipmentDetails.current_location.latitude as number,
+				country: state.shipmentDetails.shipment_destination.country as string,
+				state: state.shipmentDetails.shipment_destination.state as string,
+				city: state.shipmentDetails.shipment_destination.city as string,
+				address: state.shipmentDetails.shipment_destination.address as string,
+				formattedAddress: state.shipmentDetails.shipment_destination.formattedAddress as string,
+				longitude: state.shipmentDetails.shipment_destination.longitude as number,
+				latitude: state.shipmentDetails.shipment_destination.latitude as number,
 			},
 		});
-		
+		if (state.shipmentDetails.current_location.country !== "") {
+			const getCountryDetails = Country.getCountryByCode(state.shipmentDetails.shipment_destination.country)
+			const getStateDetails = State.getStateByCodeAndCountry(state.shipmentDetails.shipment_destination.state, state.shipmentDetails.shipment_destination.country)
+			const getAllCityDetails = City.getCitiesOfState(state.shipmentDetails.shipment_destination.country, state.shipmentDetails.current_location.state)
+			const getCityDetails = getAllCityDetails.find(location => location.name ===  state.shipmentDetails.shipment_destination.city);
+			setCountry(getCountryDetails)
+			setCountryState(getStateDetails)
+			setStateCity(getCityDetails)
+			setAddress(state.shipmentDetails.shipment_destination.address)
+
+		}
 	};
 
 
@@ -96,9 +107,9 @@ function useNewShipmentForm() {
 				...shipmentDetails,
 				shipment_destination: {
 					...shipmentDetails.shipment_destination,
-					country: country.name,
-					state: countryState.name,
-					city: stateCity.name,
+					country: country,
+					state: countryState,
+					city: stateCity,
 					address: address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name,
 					formattedAddress: data.results[0].formatted_address,
 					longitude: lng,
@@ -143,7 +154,7 @@ function useNewShipmentForm() {
 	}
 
 	const moveNext = async () => {
-		// console.log(state.shipmentDetails)
+		console.log(state.shipmentDetails)
 		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
@@ -203,10 +214,10 @@ function useNewShipmentForm() {
 			...shipmentDetails,
 			shipment_destination: {
 				...shipmentDetails.shipment_destination,
-				country: country.name,
-				state: countryState.name,
-				city: stateCity.name,
-				address: address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name,
+				country: country,
+				state: countryState,
+				city: stateCity,
+				address: address,
 				formattedAddress: "",
 				longitude: null,
 				latitude: null,
@@ -230,7 +241,7 @@ function useNewShipmentForm() {
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
 	useEffect(() => {
-		// resetInputs();
+		resetInputs();
 	}, [state.editShipment]);
 
 	return {

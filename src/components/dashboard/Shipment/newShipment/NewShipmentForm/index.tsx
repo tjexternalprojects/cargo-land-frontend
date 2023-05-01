@@ -116,9 +116,9 @@ const NewShipmentForm = () => {
 						</div>
 					</div>
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">
+						<label className="text-sm text-gray-400 mb-3">
 							Images
-							<span className="text-red-500"> * </span>
+							<span className="text-red-500"> * | Upload maximum of 5 images</span>
 						</label>
 						<Slider {...image_slider_settings}>
 							{previewImage.map((image: any, index: number) => (
@@ -144,7 +144,7 @@ const NewShipmentForm = () => {
 							))}
 						</Slider>
 
-						<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
+						{previewImage.length < 5 && <div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
 							<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
 								<span className="text-sm md:text-md">Upload shipment image</span>
 								<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
@@ -158,7 +158,7 @@ const NewShipmentForm = () => {
 									/>
 								</div>
 							</label>
-						</div>
+						</div>}
 					</div>
 
 					<div className="mt-7  shadow-sm rounded-sm p-4 bg-white">

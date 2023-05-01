@@ -3,7 +3,6 @@ import { LineGraph, MapDirection, RingLoader } from '@/components';
 import { BsArrowDownRight, BsArrowUpRight, FaEye, FaEyeSlash, SlGraph } from '@/assets';
 import useHome from './useHome';
 import { Link } from 'react-router-dom';
-import { useUAllShipment } from '@/customHooks';
 import { LocalStorageServices, ShipmentServices } from '@/services';
 const home = () => {
 	const {  getShipmentDateRange } = ShipmentServices();
