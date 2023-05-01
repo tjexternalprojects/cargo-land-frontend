@@ -8,9 +8,9 @@ function UserServices() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
 	const getSingleUser = async () => {
-		const user = LocalStorageServices.getUserInfo();
-		await api.get('/user/single-user/' + user?.id).then(
+		await api.get('/user/single-user/').then(
 			(res) => {
+				console.log(res);
 				setState((prevState) => ({
 					...prevState,
 					single_user_data: res.data.user,
@@ -33,10 +33,30 @@ function UserServices() {
 		return api.patch('/user/update', user_data);
 	};
 
+	// SERVICES FOR ADMIN
+	const getAllUsers = () => {
+		return api.get('/user/all-users').then(
+			(res) => {
+				console.log(res);
+				setState((prevState) => ({
+					...prevState,
+					all_users: res.data.users,
+				}));
+			},
+			(err) => {
+				console.log(err);
+				toast.error(err.response.data.message, {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
+	};
 	return {
 		getSingleUser,
 		updateUser,
 		updateUserAvatar,
+		getAllUsers,
 	};
 }
 export default UserServices;

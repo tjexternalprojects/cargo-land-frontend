@@ -21,12 +21,14 @@ function ShipmentServices() {
 	const getAllUserShipment = async () => {
 		await api.get('/shipment/get-all-user-shipment').then(
 			(res) => {
+				console.log(res);
 				setState((prevState) => ({
 					...prevState,
 					allShipments: res.data.allUserShipment,
 				}));
 			},
 			(err) => {
+				console.log(err);
 				toast.error(err.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
@@ -40,20 +42,18 @@ function ShipmentServices() {
 			`/shipment/get-user-month-shipment?startMonth=${duration.startMonth}&endMonth=${duration.endMonth}`
 		);
 	};
-	
-	const getCountryCovered = ()=>{
-		return api.get( '/shipment/get-shipment-export-countries')
-	}
+
+	const getCountryCovered = () => {
+		return api.get('/shipment/get-shipment-export-countries');
+	};
 
 	const deleteShipment = (shipment_id: string) => {
 		return api.delete(`/shipment/delete-shipment/${shipment_id}`);
 	};
 
-
-	const initiatePayment = (payload:any)=>{
-		return api.post('/payment/initiate', payload)
-	}
-
+	const initiatePayment = (payload: any) => {
+		return api.post('/payment/initiate', payload);
+	};
 
 	const getGraphData = (duration: Record<string, string | number>) => {
 		let newData: ShipmentSummaryInterface;
@@ -66,7 +66,6 @@ function ShipmentServices() {
 					shipmentDetails: response.data.allSHipment,
 				};
 				setShipmentSummary((prevState) => [...prevState, newData]);
-
 			},
 			(error) => {
 				console.log(error);
@@ -117,7 +116,6 @@ function ShipmentServices() {
 			await getGraphData(payload_array[index]);
 		}
 	};
-
 
 	useEffect(() => {
 		const uniqueData = Object.values(

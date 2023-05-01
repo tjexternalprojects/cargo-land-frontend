@@ -5,7 +5,7 @@ import ShipmentContext from './shipment.context';
 import UserContext from './user.context';
 
 const { user } = AuthContext();
-const { single_user_data, userCurrentTab, updateUser } = UserContext();
+const { single_user_data, userCurrentTab, updateUser, all_users } = UserContext();
 const {
 	toggleNotification,
 	notifications,
@@ -16,8 +16,15 @@ const {
 	showResendToken,
 	resendTokenMessage,
 } = SettingsContext();
-const { shipmentDetails,shipmentSummary, shipmentCurrentTab, editShipment, form_level, trackingShipments, allShipments } =
-	ShipmentContext();
+const {
+	shipmentDetails,
+	shipmentSummary,
+	shipmentCurrentTab,
+	editShipment,
+	form_level,
+	trackingShipments,
+	allShipments,
+} = ShipmentContext();
 
 // Define the global state object
 
@@ -27,6 +34,7 @@ type AppState = {
 	single_user_data: Record<string, string | number> | null;
 	userCurrentTab: String;
 	updateUser: Boolean;
+	all_users: Record<string, string>[];
 
 	// Auth
 	showForgetPassword: boolean;
@@ -40,7 +48,7 @@ type AppState = {
 	shipmentCurrentTab: string;
 	allShipments: any;
 	trackingShipments: never[];
-	editShipment:boolean;
+	editShipment: boolean;
 	form_level: number;
 
 	// settings
@@ -56,6 +64,7 @@ const initialState: AppState = {
 	single_user_data,
 	userCurrentTab,
 	updateUser,
+	all_users,
 
 	// Auth
 	showForgetPassword,
