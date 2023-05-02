@@ -24,9 +24,11 @@ const NewShipmentForm = () => {
 		handleImageChange,
 		removeImage,
 		moveNext,
-		setStateCity,
-		setAddress,
-		handleSetCountry,
+		handleChangeCountry,
+		handleChangeState,
+		handleChangeCity,
+		handleChangeAddress,
+		state,
 		stateCity,
 		address,
 		countryState,
@@ -164,6 +166,7 @@ const NewShipmentForm = () => {
 					<div className="mt-7  shadow-sm rounded-sm p-4 bg-white">
 						<label className="text-lg text-gray-400">Shipment Current Location for pickup</label>
 
+{/* COUNTRY */}
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
 								<small className="text-gray-400 font-bold">
@@ -174,12 +177,12 @@ const NewShipmentForm = () => {
 									<select
 										className="w-full outline-none"
 										value={JSON.stringify(country)}
-										onChange={(e) => handleSetCountry(JSON.parse(e.target.value))}
+										onChange={(e) => handleChangeCountry(JSON.parse(e.target.value))}
 										required
 									>
 										<option value={0}>Select Country</option>
-										{Country.getAllCountries().map((country) => {
-											return (
+										{Country.getAllCountries().map((country) => 
+											 (
 												<option
 													key={country.isoCode}
 													value={JSON.stringify(country)}
@@ -187,14 +190,15 @@ const NewShipmentForm = () => {
 												>
 													{country.name}
 												</option>
-											);
-										})}
+											))}
 									</select>
 									<div className="text-xl text-gray-500">
 										{Country.getCountryByCode(country.isoCode)?.flag}
 									</div>
 								</div>
 							</div>
+
+{/* STATE */}
 							<div>
 								<small className="text-gray-400 font-bold">
 									State
@@ -204,7 +208,7 @@ const NewShipmentForm = () => {
 									<select
 										className="w-full outline-none"
 										value={JSON.stringify(countryState)}
-										onChange={(e) => setCountryState(JSON.parse(e.target.value))}
+										onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
 										disabled={Object.keys(country).length === 0}
 										required
 									>
@@ -221,6 +225,8 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
+
+							{/* CITY */}
 							<div>
 								<small className="text-gray-400 font-bold">
 									City
@@ -231,7 +237,7 @@ const NewShipmentForm = () => {
 										disabled={Object.keys(countryState).length === 0 }
 										className="w-full outline-none"
 										value={JSON.stringify(stateCity)}
-										onChange={(e) => setStateCity(JSON.parse(e.target.value))}
+										onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
 										required
 									>
 										<option value={0}>Select City</option>
@@ -261,7 +267,7 @@ const NewShipmentForm = () => {
 										className="w-full outline-none px-2 bg-white"
 										value={address}
 										placeholder="type in shipment street address location"
-										onChange={(e) => setAddress(e.target.value)}
+										onChange={(e) => handleChangeAddress(e.target.value)}
 										disabled={Object.keys(stateCity).length === 0 }
 										required
 									/>
@@ -274,14 +280,14 @@ const NewShipmentForm = () => {
 								<>
 									<AddressMap
 										formatted_address={shipmentDetails?.current_location?.formattedAddress as string}
-										geoLocation={{ lng: shipmentDetails.current_location?.longitude, lat: shipmentDetails.current_location?.latitude }}
+										geoLocation={{ lng: shipmentDetails.current_location?.longitude as number, lat: shipmentDetails.current_location?.latitude as number }}
 									/>
 									<div className=" font-extrabold text-xl text-red-500">
 										<span className="underline">Address Found: </span>
 										{shipmentDetails.current_location?.formattedAddress}
 									</div>
 								</>
-							)}
+			)} 
 							{showLoader && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />

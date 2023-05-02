@@ -16,12 +16,12 @@ import useRecipientDetails from "./useRecipientDetails";
 const RecipientDetails = () => {
   const {
     handleRecipientDetails,
-    setCountryState,
     setShipmentDetails,
     moveNext,
-    setStateCity,
-    setAddress,
-    handleSetCountry,
+    handleChangeCountry,
+		handleChangeState,
+		handleChangeCity,
+		handleChangeAddress,
     stateCity,
     address,
     countryState,
@@ -98,7 +98,7 @@ const RecipientDetails = () => {
                     className="w-full outline-none"
                     value={JSON.stringify(country)}
                     onChange={(e) =>
-                      handleSetCountry(JSON.parse(e.target.value))
+                      handleChangeCountry(JSON.parse(e.target.value))
                     }
                     required
                   >
@@ -128,7 +128,7 @@ const RecipientDetails = () => {
                     className="w-full outline-none"
                     value={JSON.stringify(countryState)}
                     onChange={(e) =>
-                      setCountryState(JSON.parse(e.target.value))
+                      handleChangeState(JSON.parse(e.target.value))
                     }
                     disabled={Object.keys(country).length === 0}
                     required
@@ -159,7 +159,7 @@ const RecipientDetails = () => {
                     disabled={Object.keys(countryState).length === 0}
                     className="w-full outline-none"
                     value={JSON.stringify(stateCity)}
-                    onChange={(e) => setStateCity(JSON.parse(e.target.value))}
+                    onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
                     required
                   >
                     <option value="0">Select City</option>
@@ -192,7 +192,7 @@ const RecipientDetails = () => {
                     className="w-full outline-none px-2 bg-white"
                     value={address}
                     placeholder="type in shipment street address location"
-                    onChange={(e) => setAddress(e.target.value)}
+                    onChange={(e) => handleChangeAddress(e.target.value)}
                     disabled={Object.keys(stateCity).length === 0}
                     required
                   />

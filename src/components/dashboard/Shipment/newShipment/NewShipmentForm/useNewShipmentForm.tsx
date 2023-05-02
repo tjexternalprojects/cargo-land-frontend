@@ -1,29 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AppContext, AppContextType } from '@/context';
-import { toast } from 'react-toastify';
-import { useGeocode } from '@/components';
-import { ShipmentServices } from '@/services';
-import { Country, State, City, IState } from 'country-state-city';
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext, AppContextType } from "@/context";
+import { toast } from "react-toastify";
+import { useGeocode } from "@/components";
+import { ShipmentServices } from "@/services";
+import { Country, State, City, IState } from "country-state-city";
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.images);
+	const [previewImage, setPreviewImage] = useState<any>(
+		state.shipmentDetails.images
+	);
 	const { getCountryCovered } = ShipmentServices();
 
 	// Current address
 	const [country, setCountry] = useState<any>({});
 	const [countryState, setCountryState] = useState<any>({});
-	const [stateCity, setStateCity] = useState<any>({})
-	const [address, setAddress] = useState<string>("")
-	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
+	const [stateCity, setStateCity] = useState<any>({});
+	const [address, setAddress] = useState<string>("");
+	const [countryCovered, setCountryCovered] = useState<
+		Record<string, string>[]
+	>([]);
 
 	// function to handle shipment data details
 	interface CurrentLocation {
-		country: string;
-		state: string;
-		city: string;
+		country: any;
+		state: any;
+		city: any;
 		address: string;
 		formattedAddress: string;
 		longitude: number | null;
@@ -48,9 +52,9 @@ function useNewShipmentForm() {
 			shipment_weight: state.shipmentDetails.shipment_weight as string,
 			images: state.shipmentDetails.images,
 			current_location: {
-				country: state.shipmentDetails.current_location.country as string,
-				state: state.shipmentDetails.current_location.state as string,
-				city: state.shipmentDetails.current_location.city as string,
+				country: state.shipmentDetails.current_location.country,
+				state: state.shipmentDetails.current_location.state,
+				city: state.shipmentDetails.current_location.city,
 				address: state.shipmentDetails.current_location.address as string,
 				formattedAddress: state.shipmentDetails.current_location.formattedAddress as string,
 				longitude: state.shipmentDetails.current_location.longitude as number,
@@ -59,15 +63,13 @@ function useNewShipmentForm() {
 		});
 		if (state.shipmentDetails.current_location.country !== "") {
 			setPreviewImage(state.shipmentDetails.images);
-			const getCountryDetails = Country.getCountryByCode(state.shipmentDetails.current_location.country)
-			const getStateDetails = State.getStateByCodeAndCountry(state.shipmentDetails.current_location.state, state.shipmentDetails.current_location.country)
-			const getAllCityDetails = City.getCitiesOfState(state.shipmentDetails.current_location.country, state.shipmentDetails.current_location.state)
-			const getCityDetails = getAllCityDetails.find(location => location.name ===  state.shipmentDetails.current_location.city);
-			setCountry(getCountryDetails)
-			console.log(country)
-			setCountryState(getStateDetails)
-			setStateCity(getCityDetails)
-			setAddress(state.shipmentDetails.current_location.address)
+			const getCountryDetails = Country.getCountryByCode(
+				state.shipmentDetails.current_location.country.isoCode
+			);
+			setCountry(getCountryDetails);
+			setCountryState(state.shipmentDetails.current_location.state);
+			setStateCity(state.shipmentDetails.current_location.city);
+			setAddress(state.shipmentDetails.current_location.address);
 		}
 	};
 
@@ -92,9 +94,29 @@ function useNewShipmentForm() {
 		}
 	};
 
+	const resetShipmentStateOnChangeAddress = () => {
+		setState({
+			...state,
+			shipmentCurrentTab: "item1",
+			form_level: 0,
+		});
+		setShipmentDetails({
+			...shipmentDetails,
+			current_location: {
+				...shipmentDetails.current_location,
+				country: country,
+				state: countryState,
+				city: stateCity,
+				address: address,
+				formattedAddress: "",
+				longitude: null,
+				latitude: null,
+			},
+		});
+	};
 
-
-	const handleSetCountry = (country: Record<string, string>) => {
+	const handleChangeCountry = (country: any) => {
+		resetShipmentStateOnChangeAddress();
 
 		if (country) {
 			const selectedCountry = countryCovered.some(
@@ -102,8 +124,8 @@ function useNewShipmentForm() {
 			);
 
 			if (selectedCountry === false) {
-				toast.info('Sorry our services dosnt cover ' + country.name + ' yet', {
-					progressClassName: 'bg-red-500 h-1',
+				toast.info("Sorry our services dosnt cover " + country.name + " yet", {
+					progressClassName: "bg-red-500 h-1",
 					autoClose: 3000,
 				});
 				setCountry({});
@@ -114,42 +136,65 @@ function useNewShipmentForm() {
 			setCountry(country);
 		}
 	};
-	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
+
+	const handleChangeState = (state: any) => {
+		resetShipmentStateOnChangeAddress();
+		setCountryState(state);
+	};
+	const handleChangeCity = (city: any) => {
+		resetShipmentStateOnChangeAddress();
+		setStateCity(city);
+	};
+	const handleChangeAddress = (address: any) => {
+		resetShipmentStateOnChangeAddress();
+		setAddress(address);
+	};
+
+	const handleSubmitNewShipmentForm = async (
+		event: React.FormEvent<HTMLFormElement>
+	) => {
 		event.preventDefault();
 		setShowLoader(true);
 		if (
-			shipmentDetails.shipment_title == '' ||
-			shipmentDetails.shipment_description == '' ||
-			shipmentDetails.shipment_weight == '' ||
+			shipmentDetails.shipment_title == "" ||
+			shipmentDetails.shipment_description == "" ||
+			shipmentDetails.shipment_weight == "" ||
 			shipmentDetails.images?.length == 0 ||
 			Object.keys(country).length === 0
 		) {
 			setShowLoader(false);
-			toast.info('Please fill the important fields (*)', {
-				progressClassName: 'bg-red-500 h-1',
+			toast.info("Please fill the important fields (*)", {
+				progressClassName: "bg-red-500 h-1",
 				autoClose: 3000,
 			});
 
 			setState({
 				...state,
-				shipmentCurrentTab: 'item1',
+				shipmentCurrentTab: "item1",
 				form_level: 0,
 			});
 
 			return;
 		}
 
-		fetchLocation(address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name).then((data) => {
+		fetchLocation(
+			address +
+			", " +
+			stateCity.name +
+			", " +
+			countryState.name +
+			", " +
+			country.name
+		).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
-					'Multiple address match please re-check your address, you can add local government area to be specific'
+					"Multiple address match please re-check your address, you can add local government area to be specific"
 				);
 				return;
 			}
 
 			const { lat, lng } = data.results[0].geometry.location;
-
 
 			setShipmentDetails({
 				...shipmentDetails,
@@ -170,7 +215,7 @@ function useNewShipmentForm() {
 	const moveNext = () => {
 		setState({
 			...state,
-			shipmentCurrentTab: 'item2',
+			shipmentCurrentTab: "item2",
 			form_level: 1,
 		});
 	};
@@ -179,7 +224,7 @@ function useNewShipmentForm() {
 		const files = e.target.files;
 		if (files && files.length > 0) {
 			const file = files[0];
-			if (file.type.startsWith('image/')) {
+			if (file.type.startsWith("image/")) {
 				const reader = new FileReader();
 				reader.onloadend = () => {
 					const dataUrl = reader.result;
@@ -191,14 +236,13 @@ function useNewShipmentForm() {
 				};
 				reader.readAsDataURL(file);
 			} else {
-				toast.info('Please select an image file', {
-					progressClassName: 'bg-blue-500 h-1',
+				toast.info("Please select an image file", {
+					progressClassName: "bg-blue-500 h-1",
 					autoClose: 3000,
 				});
 			}
 		}
 	};
-
 
 	const getCounteryCovered = () => {
 		getCountryCovered().then(
@@ -207,39 +251,15 @@ function useNewShipmentForm() {
 			},
 			(error) => {
 				console.log(error);
-				toast.error('Error getting countries', {
-					progressClassName: 'bg-red-500 h-1',
+				toast.error("Error getting countries", {
+					progressClassName: "bg-red-500 h-1",
 					autoClose: 3000,
 				});
 			}
 		);
 	};
 
-	// RESET CURRENT LOCATION IF CURRENT LOCATION CHANGES
-	useEffect(() => {
-		if (shipmentDetails.current_location?.formattedAddress !== "" && shipmentDetails.current_location?.longitude !== null && shipmentDetails.current_location?.latitude !== null) {
-			setState({
-				...state,
-				shipmentCurrentTab: 'item1',
-				form_level: 0,
-			});
-			setShipmentDetails({
-				...shipmentDetails,
-				current_location: {
-					...shipmentDetails.current_location,
-					country: country,
-					state: countryState,
-					city: stateCity,
-					address: address,
-					formattedAddress: "",
-					longitude: null,
-					latitude: null,
-				},
-			});
-		}
-	}, [country, countryState, stateCity, address]);
-
-	// UPDATE THE GLOBAL STATE 
+	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
 		setState((prevState) => ({
 			...prevState,
@@ -266,7 +286,11 @@ function useNewShipmentForm() {
 		moveNext,
 		setStateCity,
 		setAddress,
-		handleSetCountry,
+		handleChangeCountry,
+		handleChangeState,
+		handleChangeCity,
+		handleChangeAddress,
+		state,
 		stateCity,
 		address,
 		countryState,

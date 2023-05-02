@@ -32,9 +32,9 @@ function useNewShipmentForm() {
 			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
 			recipient_email: state.shipmentDetails.recipient_email as string,
 			shipment_destination: {
-				country: state.shipmentDetails.shipment_destination.country as string,
-				state: state.shipmentDetails.shipment_destination.state as string,
-				city: state.shipmentDetails.shipment_destination.city as string,
+				country: state.shipmentDetails.shipment_destination.country,
+				state: state.shipmentDetails.shipment_destination.state,
+				city: state.shipmentDetails.shipment_destination.city,
 				address: state.shipmentDetails.shipment_destination.address as string,
 				formattedAddress: state.shipmentDetails.shipment_destination.formattedAddress as string,
 				longitude: state.shipmentDetails.shipment_destination.longitude as number,
@@ -42,20 +42,41 @@ function useNewShipmentForm() {
 			},
 		});
 		if (state.shipmentDetails.current_location.country !== "") {
-			const getCountryDetails = Country.getCountryByCode(state.shipmentDetails.shipment_destination.country)
-			const getStateDetails = State.getStateByCodeAndCountry(state.shipmentDetails.shipment_destination.state, state.shipmentDetails.shipment_destination.country)
-			const getAllCityDetails = City.getCitiesOfState(state.shipmentDetails.shipment_destination.country, state.shipmentDetails.current_location.state)
-			const getCityDetails = getAllCityDetails.find(location => location.name ===  state.shipmentDetails.shipment_destination.city);
+			const getCountryDetails = Country.getCountryByCode(
+				state.shipmentDetails.shipment_destination.country.isoCode
+			);
 			setCountry(getCountryDetails)
-			setCountryState(getStateDetails)
-			setStateCity(getCityDetails)
+			setCountryState(state.shipmentDetails.shipment_destination.state)
+			setStateCity(state.shipmentDetails.shipment_destination.city)
 			setAddress(state.shipmentDetails.shipment_destination.address)
 
 		}
 	};
 
 
-	const handleSetCountry = (country: Record<string, string>) => {
+	const resetShipmentStateOnChangeAddress = () => {
+		setState({
+			...state,
+			shipmentCurrentTab: "item2",
+			form_level: 1,
+		});
+		setShipmentDetails({
+			...shipmentDetails,
+			shipment_destination: {
+				...shipmentDetails.shipment_destination,
+				country: country,
+				state: countryState,
+				city: stateCity,
+				address: address,
+				formattedAddress: "",
+				longitude: null,
+				latitude: null,
+			},
+		});
+	};
+
+	const handleChangeCountry = (country: Record<string, string>) => {
+		resetShipmentStateOnChangeAddress()
 		if (country) {
 			const selectedCountry = countryCovered.some(
 				(obj: Record<string, string>) => obj.name === country.name
@@ -74,6 +95,21 @@ function useNewShipmentForm() {
 			setCountry(country);
 		}
 	};
+
+	const handleChangeState = (state: any) => {
+		resetShipmentStateOnChangeAddress();
+		setCountryState(state);
+	};
+	const handleChangeCity = (city: any) => {
+		resetShipmentStateOnChangeAddress();
+		setStateCity(city);
+	};
+	const handleChangeAddress = (address: any) => {
+		resetShipmentStateOnChangeAddress();
+		setAddress(address);
+	};
+
+
 	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
@@ -110,7 +146,7 @@ function useNewShipmentForm() {
 					country: country,
 					state: countryState,
 					city: stateCity,
-					address: address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name,
+					address: address,
 					formattedAddress: data.results[0].formatted_address,
 					longitude: lng,
 					latitude: lat,
@@ -154,7 +190,6 @@ function useNewShipmentForm() {
 	}
 
 	const moveNext = async () => {
-		console.log(state.shipmentDetails)
 		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
@@ -207,25 +242,9 @@ function useNewShipmentForm() {
 		);
 	};
 
-	// RESET CURRENT LOCATION IF CURRENT LOCATION CHANGES
-	useEffect(() => {
-		if (shipmentDetails.shipment_destination?.formattedAddress !=="" && shipmentDetails.shipment_destination?.longitude !== null && shipmentDetails.shipment_destination?.latitude !== null){
-		setShipmentDetails({
-			...shipmentDetails,
-			shipment_destination: {
-				...shipmentDetails.shipment_destination,
-				country: country,
-				state: countryState,
-				city: stateCity,
-				address: address,
-				formattedAddress: "",
-				longitude: null,
-				latitude: null,
-			},
-		});
-		}
-	}, [ country, countryState, stateCity, address]);
 
+
+	
 	// UPDATE THE GLOBAL STATE 
 	useEffect(() => {
 		setState((prevState) => ({
@@ -251,7 +270,10 @@ function useNewShipmentForm() {
 		moveNext,
 		setStateCity,
 		setAddress,
-		handleSetCountry,
+		handleChangeCountry,
+		handleChangeState,
+		handleChangeCity,
+		handleChangeAddress,
 		stateCity,
 		address,
 		countryState,

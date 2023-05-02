@@ -25,7 +25,6 @@ function useShipmentModal(setShowModal: (value: boolean) => void) {
 	};
 
 	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
-		console.log('shipmentdetails')
 		console.log(shipment)
 		const shipmentDetails = {
 			shipment_title: shipment?.shipment_title,
@@ -57,8 +56,9 @@ function useShipmentModal(setShowModal: (value: boolean) => void) {
 			...state,
 			shipmentDetails,
 			shipmentCurrentTab: 'item1',
-			editShipment: !state.editShipment
+			editShipment: true
 		});
+		
 		setShowModal(false);
 		console.log(state.shipmentDetails);
 	};
