@@ -15,9 +15,7 @@ const BusinessSignup = () => {
 		<div>
 			<Header />
 			<div className="flex h-screen items-center pt-10 flex-wrap">
-				<div>
-	
-				</div>
+				<div></div>
 				<div className="px-10 overflow-auto">
 					<div className="w-full pb-10 border-l-2 border-l-blue-900 ">
 						<div

@@ -8,6 +8,44 @@ function useShipment() {
 		direction: -50,
 	});
 
+	const resetShipment = () => {
+		const resetShipmentDetails = {
+			shipment_title: '',
+			shipment_description: '',
+			shipment_weight: 0,
+			images: [],
+			current_location: {
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+			recipient_full_name: '',
+			recipient_email: '',
+			shipment_destination: {
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				longitude: null,
+				latitude: null,
+			},
+		};
+
+		setState({
+			...state,
+			shipmentDetails: resetShipmentDetails,
+			shipmentCurrentTab: 'item3',
+			form_level: 2,
+			editShipment: false,
+		});
+	};
+	const handleCancelEdit = () => {
+		resetShipment();
+	};
 	const handleNewShipment = () => {};
 
 	const handleShowTab = (item: string, item_number: number) => {
@@ -31,6 +69,6 @@ function useShipment() {
 		});
 	};
 
-	return { handleNewShipment, handleShowTab, state, animationDirection };
+	return { handleNewShipment, handleShowTab, handleCancelEdit, state, animationDirection };
 }
 export default useShipment;

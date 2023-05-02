@@ -29,6 +29,7 @@ function useTopBar() {
 				...state,
 				shipmentCurrentTab: 'item3',
 				form_level: 2,
+				editShipment: false,
 			});
 			navigation('/dashboard/shipment');
 		}

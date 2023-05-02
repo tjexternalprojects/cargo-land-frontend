@@ -32,13 +32,17 @@ export const ShipmentModal = lazy(() => import('./dashboard/Shipment/ShipmentMod
 export const TrackShipment = lazy(() => import('./dashboard/TrackShipment'));
 
 // Dashboard User
-export const UserProfile = lazy(()=> import('./dashboard/UserProfile'))
-export const PersonalDetails = lazy(()=> import('./dashboard/UserProfile/PersonalDetails'))
-export const UpdatePassword = lazy(()=> import('./dashboard/UserProfile/PersonalDetails/UpdatePassword'))
-export const UserDetails = lazy(()=> import('./dashboard/UserProfile/PersonalDetails/UserDetails'))
-export const UserImage = lazy(()=> import('./dashboard/UserProfile/PersonalDetails/UserImage'))
+export const UserProfile = lazy(() => import('./dashboard/UserProfile'));
+export const PersonalDetails = lazy(() => import('./dashboard/UserProfile/PersonalDetails'));
+export const UpdatePassword = lazy(
+	() => import('./dashboard/UserProfile/PersonalDetails/UpdatePassword')
+);
+export const UserDetails = lazy(
+	() => import('./dashboard/UserProfile/PersonalDetails/UserDetails')
+);
+export const UserImage = lazy(() => import('./dashboard/UserProfile/PersonalDetails/UserImage'));
 
-export const AccountType = lazy(()=> import('./dashboard/UserProfile/AccountType'))
+export const AccountType = lazy(() => import('./dashboard/UserProfile/AccountType'));
 
 // Dashboard New_Shipment
 export const NewShipmentForm = lazy(

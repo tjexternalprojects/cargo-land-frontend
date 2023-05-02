@@ -5,9 +5,9 @@ import useHome from './useHome';
 import { Link } from 'react-router-dom';
 import { LocalStorageServices, ShipmentServices } from '@/services';
 const home = () => {
-	const {  getShipmentDateRange } = ShipmentServices();
+	const { getShipmentDateRange } = ShipmentServices();
 	useEffect(() => {
-		getShipmentDateRange(6)
+		getShipmentDateRange(6);
 	}, []);
 	const {
 		successful_shipment_graph,
@@ -79,7 +79,7 @@ const home = () => {
 							</div>
 						)}
 					</div>
-					<div className=" text-red-500">	
+					<div className=" text-red-500">
 						<div className=" text-5xl font-thin ">{totalShipmentCreated}</div>
 					</div>
 				</div>

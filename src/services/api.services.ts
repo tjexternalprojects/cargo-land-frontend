@@ -71,6 +71,7 @@ instance.interceptors.response.use(
 					if (_error.response.data == 'invalid refresh token') {
 						localStorage.clear();
 						// navigate('/login');
+						window.location.reload(); 
 						AuthServices().logout();
 					}
 					return Promise.reject(_error);

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 function useUpdatePassword() {
-	const {updateUser} = UserServices()
+	const { updateUser } = UserServices();
 	const [showLoader, setShowLoader] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [showCurrentPassword, setShowCurrentPassword] = useState(false);

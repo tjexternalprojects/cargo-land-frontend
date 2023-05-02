@@ -1,27 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AppContext, AppContextType } from "@/context";
-import { toast } from "react-toastify";
-import { useGeocode } from "@/components";
-import { ShipmentServices } from "@/services";
-import { Country, State, City, IState } from "country-state-city";
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext, AppContextType } from '@/context';
+import { toast } from 'react-toastify';
+import { useGeocode } from '@/components';
+import { ShipmentServices } from '@/services';
+import { Country, State, City, IState } from 'country-state-city';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [previewImage, setPreviewImage] = useState<any>(
-		state.shipmentDetails.images
-	);
+	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.images);
 	const { getCountryCovered } = ShipmentServices();
 
 	// Current address
 	const [country, setCountry] = useState<any>({});
 	const [countryState, setCountryState] = useState<any>({});
 	const [stateCity, setStateCity] = useState<any>({});
-	const [address, setAddress] = useState<string>("");
-	const [countryCovered, setCountryCovered] = useState<
-		Record<string, string>[]
-	>([]);
+	const [address, setAddress] = useState<string>('');
+	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
 	// function to handle shipment data details
 	interface CurrentLocation {
@@ -61,7 +57,7 @@ function useNewShipmentForm() {
 				latitude: state.shipmentDetails.current_location.latitude as number,
 			},
 		});
-		if (state.shipmentDetails.current_location.country !== "") {
+		if (state.shipmentDetails.current_location.country !== '') {
 			setPreviewImage(state.shipmentDetails.images);
 			const getCountryDetails = Country.getCountryByCode(
 				state.shipmentDetails.current_location.country.isoCode
@@ -97,7 +93,7 @@ function useNewShipmentForm() {
 	const resetShipmentStateOnChangeAddress = () => {
 		setState({
 			...state,
-			shipmentCurrentTab: "item1",
+			shipmentCurrentTab: 'item1',
 			form_level: 0,
 		});
 		setShipmentDetails({
@@ -108,7 +104,7 @@ function useNewShipmentForm() {
 				state: countryState,
 				city: stateCity,
 				address: address,
-				formattedAddress: "",
+				formattedAddress: '',
 				longitude: null,
 				latitude: null,
 			},
@@ -124,8 +120,8 @@ function useNewShipmentForm() {
 			);
 
 			if (selectedCountry === false) {
-				toast.info("Sorry our services dosnt cover " + country.name + " yet", {
-					progressClassName: "bg-red-500 h-1",
+				toast.info('Sorry our services dosnt cover ' + country.name + ' yet', {
+					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
 				});
 				setCountry({});
@@ -150,27 +146,25 @@ function useNewShipmentForm() {
 		setAddress(address);
 	};
 
-	const handleSubmitNewShipmentForm = async (
-		event: React.FormEvent<HTMLFormElement>
-	) => {
+	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
 		if (
-			shipmentDetails.shipment_title == "" ||
-			shipmentDetails.shipment_description == "" ||
-			shipmentDetails.shipment_weight == "" ||
+			shipmentDetails.shipment_title == '' ||
+			shipmentDetails.shipment_description == '' ||
+			shipmentDetails.shipment_weight == '' ||
 			shipmentDetails.images?.length == 0 ||
 			Object.keys(country).length === 0
 		) {
 			setShowLoader(false);
-			toast.info("Please fill the important fields (*)", {
-				progressClassName: "bg-red-500 h-1",
+			toast.info('Please fill the important fields (*)', {
+				progressClassName: 'bg-red-500 h-1',
 				autoClose: 3000,
 			});
 
 			setState({
 				...state,
-				shipmentCurrentTab: "item1",
+				shipmentCurrentTab: 'item1',
 				form_level: 0,
 			});
 
@@ -178,18 +172,12 @@ function useNewShipmentForm() {
 		}
 
 		fetchLocation(
-			address +
-			", " +
-			stateCity.name +
-			", " +
-			countryState.name +
-			", " +
-			country.name
+			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
-					"Multiple address match please re-check your address, you can add local government area to be specific"
+					'Multiple address match please re-check your address, you can add local government area to be specific'
 				);
 				return;
 			}
@@ -215,7 +203,7 @@ function useNewShipmentForm() {
 	const moveNext = () => {
 		setState({
 			...state,
-			shipmentCurrentTab: "item2",
+			shipmentCurrentTab: 'item2',
 			form_level: 1,
 		});
 	};
@@ -224,7 +212,7 @@ function useNewShipmentForm() {
 		const files = e.target.files;
 		if (files && files.length > 0) {
 			const file = files[0];
-			if (file.type.startsWith("image/")) {
+			if (file.type.startsWith('image/')) {
 				const reader = new FileReader();
 				reader.onloadend = () => {
 					const dataUrl = reader.result;
@@ -236,8 +224,8 @@ function useNewShipmentForm() {
 				};
 				reader.readAsDataURL(file);
 			} else {
-				toast.info("Please select an image file", {
-					progressClassName: "bg-blue-500 h-1",
+				toast.info('Please select an image file', {
+					progressClassName: 'bg-blue-500 h-1',
 					autoClose: 3000,
 				});
 			}
@@ -251,8 +239,8 @@ function useNewShipmentForm() {
 			},
 			(error) => {
 				console.log(error);
-				toast.error("Error getting countries", {
-					progressClassName: "bg-red-500 h-1",
+				toast.error('Error getting countries', {
+					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
 				});
 			}
@@ -274,7 +262,7 @@ function useNewShipmentForm() {
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
 	useEffect(() => {
-		resetInputs();
+		state.editShipment && resetInputs();
 	}, [state.editShipment]);
 
 	return {

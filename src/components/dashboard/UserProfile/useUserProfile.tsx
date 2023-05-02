@@ -1,15 +1,15 @@
-import { AppContextType, AppContext } from "@/context";
-import { useContext, useState } from "react";
+import { AppContextType, AppContext } from '@/context';
+import { useContext, useState } from 'react';
 
-function useUserProfile(){
+function useUserProfile() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-    const [animationDirection, setAnimationDirection] = useState({
+	const [animationDirection, setAnimationDirection] = useState({
 		prev_direction: 1,
 		direction: -50,
 	});
-    
-    const handleShowTab = (item: string, item_number: number) => {
+
+	const handleShowTab = (item: string, item_number: number) => {
 		if (animationDirection.prev_direction < item_number) {
 			setAnimationDirection(() => ({
 				...animationDirection,
@@ -29,6 +29,6 @@ function useUserProfile(){
 			userCurrentTab: item,
 		});
 	};
-    return{handleShowTab, animationDirection, state}
+	return { handleShowTab, animationDirection, state };
 }
-export default useUserProfile
+export default useUserProfile;

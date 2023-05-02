@@ -1,4 +1,4 @@
-function useAccountType(){
-    return{}
+function useAccountType() {
+	return {};
 }
 export default useAccountType;

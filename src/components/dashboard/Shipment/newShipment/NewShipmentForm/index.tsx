@@ -146,27 +146,29 @@ const NewShipmentForm = () => {
 							))}
 						</Slider>
 
-						{previewImage.length < 5 && <div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
-							<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
-								<span className="text-sm md:text-md">Upload shipment image</span>
-								<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
-									<BiCloudUpload className="text-3xl text-white" />
-									<input
-										id="fileInput"
-										type="file"
-										className="hidden"
-										onChange={handleImageChange}
-										accept="image/*"
-									/>
-								</div>
-							</label>
-						</div>}
+						{previewImage.length < 5 && (
+							<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
+								<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
+									<span className="text-sm md:text-md">Upload shipment image</span>
+									<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
+										<BiCloudUpload className="text-3xl text-white" />
+										<input
+											id="fileInput"
+											type="file"
+											className="hidden"
+											onChange={handleImageChange}
+											accept="image/*"
+										/>
+									</div>
+								</label>
+							</div>
+						)}
 					</div>
 
 					<div className="mt-7  shadow-sm rounded-sm p-4 bg-white">
 						<label className="text-lg text-gray-400">Shipment Current Location for pickup</label>
 
-{/* COUNTRY */}
+						{/* COUNTRY */}
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
 								<small className="text-gray-400 font-bold">
@@ -181,16 +183,15 @@ const NewShipmentForm = () => {
 										required
 									>
 										<option value={0}>Select Country</option>
-										{Country.getAllCountries().map((country) => 
-											 (
-												<option
-													key={country.isoCode}
-													value={JSON.stringify(country)}
-													className="space-x-10"
-												>
-													{country.name}
-												</option>
-											))}
+										{Country.getAllCountries().map((country) => (
+											<option
+												key={country.isoCode}
+												value={JSON.stringify(country)}
+												className="space-x-10"
+											>
+												{country.name}
+											</option>
+										))}
 									</select>
 									<div className="text-xl text-gray-500">
 										{Country.getCountryByCode(country.isoCode)?.flag}
@@ -198,7 +199,7 @@ const NewShipmentForm = () => {
 								</div>
 							</div>
 
-{/* STATE */}
+							{/* STATE */}
 							<div>
 								<small className="text-gray-400 font-bold">
 									State
@@ -234,7 +235,7 @@ const NewShipmentForm = () => {
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
-										disabled={Object.keys(countryState).length === 0 }
+										disabled={Object.keys(countryState).length === 0}
 										className="w-full outline-none"
 										value={JSON.stringify(stateCity)}
 										onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
@@ -242,11 +243,13 @@ const NewShipmentForm = () => {
 									>
 										<option value={0}>Select City</option>
 
-										{City.getCitiesOfState(country.isoCode, countryState.isoCode).map((cities, key) => (
-											<option value={JSON.stringify(cities)} key={key}>
-												{cities.name}
-											</option>
-										))}
+										{City.getCitiesOfState(country.isoCode, countryState.isoCode).map(
+											(cities, key) => (
+												<option value={JSON.stringify(cities)} key={key}>
+													{cities.name}
+												</option>
+											)
+										)}
 									</select>
 									<div className="text-xl text-gray-500">
 										<MdOutlineMyLocation />
@@ -268,7 +271,7 @@ const NewShipmentForm = () => {
 										value={address}
 										placeholder="type in shipment street address location"
 										onChange={(e) => handleChangeAddress(e.target.value)}
-										disabled={Object.keys(stateCity).length === 0 }
+										disabled={Object.keys(stateCity).length === 0}
 										required
 									/>
 									<div className="text-xl text-gray-500">
@@ -276,18 +279,24 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
-							{shipmentDetails.current_location?.latitude && shipmentDetails.current_location?.longitude && (
-								<>
-									<AddressMap
-										formatted_address={shipmentDetails?.current_location?.formattedAddress as string}
-										geoLocation={{ lng: shipmentDetails.current_location?.longitude as number, lat: shipmentDetails.current_location?.latitude as number }}
-									/>
-									<div className=" font-extrabold text-xl text-red-500">
-										<span className="underline">Address Found: </span>
-										{shipmentDetails.current_location?.formattedAddress}
-									</div>
-								</>
-			)} 
+							{shipmentDetails.current_location?.latitude &&
+								shipmentDetails.current_location?.longitude && (
+									<>
+										<AddressMap
+											formatted_address={
+												shipmentDetails?.current_location?.formattedAddress as string
+											}
+											geoLocation={{
+												lng: shipmentDetails.current_location?.longitude as number,
+												lat: shipmentDetails.current_location?.latitude as number,
+											}}
+										/>
+										<div className=" font-extrabold text-xl text-red-500">
+											<span className="underline">Address Found: </span>
+											{shipmentDetails.current_location?.formattedAddress}
+										</div>
+									</>
+								)}
 							{showLoader && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />

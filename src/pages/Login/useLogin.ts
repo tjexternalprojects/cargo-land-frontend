@@ -15,27 +15,27 @@ function useLogin() {
 		setToggleLoginType(val);
 	};
 
-	const toggleShowLoin = () =>{
+	const toggleShowLoin = () => {
 		setState({
 			...state,
 			openSignUpMenu: !state.openSignUpMenu,
-		}); 
-	}
-	const showLogin = () =>{
+		});
+	};
+	const showLogin = () => {
 		setState({
 			...state,
 			openSignUpMenu: true,
 		});
-	}
-	
-	const handleNavigate=(location:string)=>{
+	};
+
+	const handleNavigate = (location: string) => {
 		setState({
 			...state,
 			showResendToken: false,
-			resendTokenMessage:''
+			resendTokenMessage: '',
 		});
-		navigate(location)
-	}
+		navigate(location);
+	};
 	const handleLogout = () => {
 		confirmAlert({
 			title: 'Logout?',
@@ -50,7 +50,6 @@ function useLogin() {
 							user: { loggedIn: null },
 						});
 
-						
 						navigate('/login');
 						toast.success('Logged out successfully', {
 							progressClassName: 'bg-green-500 h-1',

@@ -53,7 +53,7 @@ const index = () => {
 						<input
 							className="w-full outline-none"
 							value={passwordData.newPassword}
-                            minLength={6}
+							minLength={6}
 							onChange={(e) => {
 								setPasswordData({ ...passwordData, newPassword: e.target.value });
 							}}

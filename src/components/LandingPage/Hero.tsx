@@ -76,7 +76,7 @@ export default function BasicSlider() {
 									animate={{ opacity: 1, x: 0 }}
 									transition={{ type: 'spring', duration: 0.5 }}
 								>
-									 {/* w-full md:w-1/3 md:mr-20 md:mb-0 mb-5 px-10 md:mx-0 */}
+									{/* w-full md:w-1/3 md:mr-20 md:mb-0 mb-5 px-10 md:mx-0 */}
 									<div className=" px-20 lg:w-1/2">
 										<h1 className="text-white text-uppercase text-left text-2xl font-bold">
 											{slide.title}

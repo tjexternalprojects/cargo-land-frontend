@@ -2,7 +2,7 @@ import React from 'react';
 import { BiFilter, BiMenuAltRight, IoMdCart, MdNotificationsNone, RiSearch2Line } from '@/assets';
 import useTopBar from './useTopBar';
 const TopBar = () => {
-	const {  handleToggleNotification, showChartItems, handleToggleSidebar } = useTopBar();
+	const { handleToggleNotification, showChartItems, handleToggleSidebar } = useTopBar();
 	return (
 		<div className="flex gap-10  justify-between items-stretch w-full ">
 			<form className="w-full hidden md:block">
@@ -33,10 +33,7 @@ const TopBar = () => {
 					<IoMdCart />
 				</div>
 			</div>
-				<BiMenuAltRight
-					className={`md:hidden text-4xl`}
-					onClick={handleToggleSidebar}
-				/>
+			<BiMenuAltRight className={`md:hidden text-4xl`} onClick={handleToggleSidebar} />
 		</div>
 	);
 };

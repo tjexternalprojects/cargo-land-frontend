@@ -25,12 +25,12 @@ export interface ShipmentDetailsInterface {
 		longitude: number;
 		latitude: number;
 	};
-	recepientAddress?:string;
+	recepientAddress?: string;
 	sendersAddress?: string;
 }
 
 export interface ShipmentSummaryInterface {
-		id: number;
-		month: string;
-		totalValue: number;
- }
+	id: number;
+	month: string;
+	totalValue: number;
+}

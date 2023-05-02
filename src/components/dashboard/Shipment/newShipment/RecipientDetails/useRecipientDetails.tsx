@@ -8,13 +8,13 @@ function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const {createShipment, getAllUserShipment, getCountryCovered} = ShipmentServices()
-	
+	const { createShipment, getAllUserShipment, getCountryCovered } = ShipmentServices();
+
 	// Current address
 	const [country, setCountry] = useState<any>({});
 	const [countryState, setCountryState] = useState<any>({});
-	const [stateCity, setStateCity] = useState<any>({})
-	const [address, setAddress] = useState<string>("")
+	const [stateCity, setStateCity] = useState<any>({});
+	const [address, setAddress] = useState<string>('');
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
 	// function to handle shipment data details
@@ -41,23 +41,21 @@ function useNewShipmentForm() {
 				latitude: state.shipmentDetails.shipment_destination.latitude as number,
 			},
 		});
-		if (state.shipmentDetails.current_location.country !== "") {
+		if (state.shipmentDetails.current_location.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
 				state.shipmentDetails.shipment_destination.country.isoCode
 			);
-			setCountry(getCountryDetails)
-			setCountryState(state.shipmentDetails.shipment_destination.state)
-			setStateCity(state.shipmentDetails.shipment_destination.city)
-			setAddress(state.shipmentDetails.shipment_destination.address)
-
+			setCountry(getCountryDetails);
+			setCountryState(state.shipmentDetails.shipment_destination.state);
+			setStateCity(state.shipmentDetails.shipment_destination.city);
+			setAddress(state.shipmentDetails.shipment_destination.address);
 		}
 	};
-
 
 	const resetShipmentStateOnChangeAddress = () => {
 		setState({
 			...state,
-			shipmentCurrentTab: "item2",
+			shipmentCurrentTab: 'item2',
 			form_level: 1,
 		});
 		setShipmentDetails({
@@ -68,7 +66,7 @@ function useNewShipmentForm() {
 				state: countryState,
 				city: stateCity,
 				address: address,
-				formattedAddress: "",
+				formattedAddress: '',
 				longitude: null,
 				latitude: null,
 			},
@@ -76,7 +74,7 @@ function useNewShipmentForm() {
 	};
 
 	const handleChangeCountry = (country: Record<string, string>) => {
-		resetShipmentStateOnChangeAddress()
+		resetShipmentStateOnChangeAddress();
 		if (country) {
 			const selectedCountry = countryCovered.some(
 				(obj: Record<string, string>) => obj.name === country.name
@@ -109,7 +107,6 @@ function useNewShipmentForm() {
 		setAddress(address);
 	};
 
-
 	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setShowLoader(true);
@@ -127,7 +124,9 @@ function useNewShipmentForm() {
 		}
 
 		// await updateMapAddress();
-		fetchLocation(address + ', '+ stateCity.name+', '+ countryState.name +', '+ country.name).then((data) => {
+		fetchLocation(
+			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
+		).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
@@ -137,7 +136,6 @@ function useNewShipmentForm() {
 			}
 
 			const { lat, lng } = data.results[0].geometry.location;
-
 
 			setShipmentDetails({
 				...shipmentDetails,
@@ -155,8 +153,7 @@ function useNewShipmentForm() {
 		});
 	};
 
-
-	const resetShipment = () =>{
+	const resetShipment = () => {
 		const resetShipmentDetails = {
 			shipment_title: '',
 			shipment_description: '',
@@ -187,7 +184,7 @@ function useNewShipmentForm() {
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, resetShipmentDetails },
 		}));
-	}
+	};
 
 	const moveNext = async () => {
 		setShowLoader(true);
@@ -197,35 +194,31 @@ function useNewShipmentForm() {
 
 		const formData = new FormData();
 		formData.append('payload', payload);
-		for (let i = 0; i < shipment_images.length ; i++) {
+		for (let i = 0; i < shipment_images.length; i++) {
 			formData.append('images', shipment_images[i]);
 		}
 
-
-		
-		await createShipment
-			(formData)
-			.then((response) => {
-				console.log(response)
+		await createShipment(formData).then(
+			(response) => {
+				console.log(response);
 				setShowLoader(false);
 				setState({
 					...state,
 					shipmentCurrentTab: 'item3',
 					form_level: 2,
 				});
-			console.log(state.shipmentCurrentTab, state.form_level)
+				console.log(state.shipmentCurrentTab, state.form_level);
 
-				getAllUserShipment()
-				resetShipment()
+				getAllUserShipment();
+				resetShipment();
 			},
 			(error) => {
 				setShowLoader(false);
-			})
+			}
+		);
 
-			console.log(state.shipmentCurrentTab, state.form_level)
+		console.log(state.shipmentCurrentTab, state.form_level);
 	};
-
-
 
 	const getCounteryCovered = () => {
 		getCountryCovered().then(
@@ -242,10 +235,7 @@ function useNewShipmentForm() {
 		);
 	};
 
-
-
-	
-	// UPDATE THE GLOBAL STATE 
+	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
 		setState((prevState) => ({
 			...prevState,
@@ -260,7 +250,7 @@ function useNewShipmentForm() {
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
 	useEffect(() => {
-		resetInputs();
+		state.editShipment && resetInputs();
 	}, [state.editShipment]);
 
 	return {

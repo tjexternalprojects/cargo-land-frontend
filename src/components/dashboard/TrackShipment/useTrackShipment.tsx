@@ -1,21 +1,21 @@
-import { AppContextType, AppContext } from "@/context";
-import { useContext, useEffect } from "react";
+import { AppContextType, AppContext } from '@/context';
+import { useContext, useEffect } from 'react';
 
 function useTrackShipment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
-	const getActiveShipment = async() =>{
-		const active_shipment = state.allShipments.filter((obj:any) => obj.shipment_Status == "TRANSIT");
-		console.log(state.allShipments)
+	const getActiveShipment = async () => {
+		const active_shipment = state.allShipments.filter(
+			(obj: any) => obj.shipment_Status == 'TRANSIT'
+		);
+		console.log(state.allShipments);
 		setState((prevState) => ({
 			...prevState,
 			trackingShipments: active_shipment,
-		}))
-
-	}
-	useEffect(()=>{
-		getActiveShipment()
-	},[state.allShipments])
-
+		}));
+	};
+	useEffect(() => {
+		getActiveShipment();
+	}, [state.allShipments]);
 
 	const currentItem = [
 		{
@@ -29,7 +29,7 @@ function useTrackShipment() {
 			Item_images: ['img_1', 'img_2'],
 		},
 	];
-	return {state};
+	return { state };
 }
 
 export default useTrackShipment;

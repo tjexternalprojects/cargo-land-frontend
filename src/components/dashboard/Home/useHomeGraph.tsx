@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { ShipmentServices } from "@/services";
-import { AppContextType, AppContext } from "@/context";
-function HomeGraph(){
-    interface ShipmentSummaryInterface {
+import { useContext, useEffect, useState } from 'react';
+import { ShipmentServices } from '@/services';
+import { AppContextType, AppContext } from '@/context';
+function HomeGraph() {
+	interface ShipmentSummaryInterface {
 		id: number;
 		month: string;
 		totalValue: number;
@@ -11,27 +11,28 @@ function HomeGraph(){
 
 	const [shipmentSummary, setShipmentSummary] = useState<ShipmentSummaryInterface[]>([]);
 	const { state, setState } = useContext<AppContextType>(AppContext);
-    
-    const getGraphData = (duration: Record<string, string | number>) => {
-		let newData: ShipmentSummaryInterface;
-		ShipmentServices().getShipmentInRange(duration as Record<string, string>).then(
-			(response) => {
-				newData = {
-					id: duration.id as number,
-					month: `${duration.month}, ${duration.year}`,
-					totalValue: response.data.allSHipment.length,
-					shipmentDetails: response.data.allSHipment,
-				};
-				setShipmentSummary((prevState) => [...prevState, newData]);
 
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
+	const getGraphData = (duration: Record<string, string | number>) => {
+		let newData: ShipmentSummaryInterface;
+		ShipmentServices()
+			.getShipmentInRange(duration as Record<string, string>)
+			.then(
+				(response) => {
+					newData = {
+						id: duration.id as number,
+						month: `${duration.month}, ${duration.year}`,
+						totalValue: response.data.allSHipment.length,
+						shipmentDetails: response.data.allSHipment,
+					};
+					setShipmentSummary((prevState) => [...prevState, newData]);
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
 	};
-	
-    const getShipmentDateRange = async (month_to_show: number) => {
+
+	const getShipmentDateRange = async (month_to_show: number) => {
 		const month = [
 			'Jan',
 			'Feb',
@@ -73,12 +74,9 @@ function HomeGraph(){
 		for (let index = 0; index < payload_array.length; index++) {
 			await getGraphData(payload_array[index]);
 		}
-
-
-
 	};
 
-    useEffect(() => {
+	useEffect(() => {
 		const uniqueData = Object.values(
 			shipmentSummary.reduce<Record<string, any>>(
 				(acc, cur) => Object.assign(acc, { [cur.id]: cur }),
@@ -91,7 +89,7 @@ function HomeGraph(){
 			shipmentSummary: uniqueData,
 		}));
 	}, [shipmentSummary]);
-    
-    return {getShipmentDateRange}
+
+	return { getShipmentDateRange };
 }
-export default HomeGraph
+export default HomeGraph;

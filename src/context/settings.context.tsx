@@ -5,10 +5,10 @@ function SettingsContext() {
 	const toggleNotification = false;
 	const theme = 'light';
 	const toggleAdminSideBar = false;
-	const openSignUpMenu = false
-	const showForgetPassword = false
-	const showResendToken = false
-	const resendTokenMessage = ''
+	const openSignUpMenu = false;
+	const showForgetPassword = false;
+	const showResendToken = false;
+	const resendTokenMessage = '';
 	return {
 		notifications,
 		toggleNotification,

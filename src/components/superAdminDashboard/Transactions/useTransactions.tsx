@@ -1,5 +1,4 @@
-
-function useTransitions () {
-    return {}
+function useTransitions() {
+	return {};
 }
-export default useTransitions
+export default useTransitions;

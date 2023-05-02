@@ -9,7 +9,6 @@ import {
 import { MapDirection } from '@/components/';
 import { useGeocode } from '@/components';
 const TrackShipment = () => {
-
 	return (
 		<div className="flex mt-8 gap-5 flex-col md:flex-row ">
 			<div className=" md:w-6/12">
@@ -104,9 +103,7 @@ const TrackShipment = () => {
 						</div>
 					</div>
 				</div>
-				<div className="mt-5 ">
-					{/* <MapDirection height="80vh" /> */}
-				</div>
+				<div className="mt-5 ">{/* <MapDirection height="80vh" /> */}</div>
 				{/* <div className="mt-5">
 					<h3>Item List</h3>
 					<table className=" w-full">

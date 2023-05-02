@@ -1,8 +1,7 @@
-import { LocalStorageServices } from "@/services";
-import { useState } from "react";
+import { LocalStorageServices } from '@/services';
+import { useState } from 'react';
 
-function usePersonalDetails(){
-
-    return{ }
+function usePersonalDetails() {
+	return {};
 }
-export default usePersonalDetails
+export default usePersonalDetails;

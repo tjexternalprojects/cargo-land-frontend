@@ -2,7 +2,7 @@ import { MapImg, TitleLine } from '@/assets';
 import useLandingPage from '@/pages/LandingPage/useLandingPage';
 
 const Services = () => {
-const {handleGetStarted}= useLandingPage()
+	const { handleGetStarted } = useLandingPage();
 	return (
 		<div className=" flex items-center">
 			<div className="px-10  md:px-20 lg:px-44 flex flex-col xl:flex-row items-center py-20  gap-20">

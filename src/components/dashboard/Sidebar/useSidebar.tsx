@@ -4,12 +4,12 @@ import { LocalStorageServices } from '@/services';
 function useSidebar() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const userInfo = LocalStorageServices.getUserInfo();
-	const handleToggleSidebar = () =>{
+	const handleToggleSidebar = () => {
 		setState((prevState) => ({
 			...prevState,
 			toggleAdminSideBar: !state.toggleAdminSideBar,
-		}))
-	}
+		}));
+	};
 
 	return { userInfo, state, handleToggleSidebar };
 }

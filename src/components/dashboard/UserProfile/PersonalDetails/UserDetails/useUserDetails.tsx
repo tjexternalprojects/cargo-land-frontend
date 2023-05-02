@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 function useUserDetails() {
-	const {updateUser} = UserServices()
+	const { updateUser } = UserServices();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [updateUserDetails, setUpdateUserDetails] = useState(
 		state.single_user_data as Record<string, string>

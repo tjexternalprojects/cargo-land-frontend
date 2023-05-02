@@ -2,7 +2,7 @@ import { BusinessUser, TitleLine } from '@/assets';
 import useLandingPage from '@/pages/LandingPage/useLandingPage';
 
 const Business = () => {
-	const {handleGetStarted}= useLandingPage()
+	const { handleGetStarted } = useLandingPage();
 
 	return (
 		<div className="py-5  flex items-center bg-blue-900">
@@ -15,7 +15,10 @@ const Business = () => {
 						data-aos-duration="800"
 						data-aos-anchor-placement="bottom-bottom"
 					>
-							<img className=" object-cover w-full object-top rounded-full h-full transform scale-x-[-1]" src={BusinessUser} />
+						<img
+							className=" object-cover w-full object-top rounded-full h-full transform scale-x-[-1]"
+							src={BusinessUser}
+						/>
 					</div>
 					<div
 						className="absolute right-0 w-10 h-10 rounded-full bg-red-400"
@@ -31,7 +34,6 @@ const Business = () => {
 						data-aos-duration="800"
 						data-aos-anchor-placement="bottom-bottom"
 					></div>
-				
 				</div>
 				<div className="text-white w-full ">
 					<h2
@@ -58,7 +60,10 @@ const Business = () => {
 						we can help streamline your shipping process." Signup as a Business and get cheaper rate
 						of transporting goods
 					</p>
-					<button onClick={handleGetStarted}  className=" mt-10 flex items-center  bg-white   text-blue-900 rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-sm hover:shadow-blue-100 ">
+					<button
+						onClick={handleGetStarted}
+						className=" mt-10 flex items-center  bg-white   text-blue-900 rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-sm hover:shadow-blue-100 "
+					>
 						Book a Delivery
 					</button>
 				</div>

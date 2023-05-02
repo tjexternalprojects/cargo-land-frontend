@@ -4,10 +4,15 @@ import { Rings } from 'react-loader-spinner';
 interface RingLoaderProps {
 	text?: string;
 	textColor?: string;
-	loaderColor?:string;
+	loaderColor?: string;
 	size?: number;
 }
-const RingLoader: FC<RingLoaderProps> = ({ text, textColor, size = 200, loaderColor="#1a365d" }) => {
+const RingLoader: FC<RingLoaderProps> = ({
+	text,
+	textColor,
+	size = 200,
+	loaderColor = '#1a365d',
+}) => {
 	return (
 		<div className="flex flex-col justify-center">
 			<Rings

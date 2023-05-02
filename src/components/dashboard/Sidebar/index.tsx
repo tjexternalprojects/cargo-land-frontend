@@ -17,7 +17,7 @@ const sidebar = () => {
 	const trackMatch = useMatch('/dashboard/track_shipment');
 	const historyMatch = useMatch('/dashboard/history');
 	const { handleLogout } = useLogin();
-	const {  state, handleToggleSidebar } = useSidebar();
+	const { state, handleToggleSidebar } = useSidebar();
 	return (
 		<>
 			<div

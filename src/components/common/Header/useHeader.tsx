@@ -1,15 +1,15 @@
-import { AppContextType, AppContext } from "@/context";
-import state from "country-state-city/lib/state";
-import { useContext } from "react";
-import { confirmAlert } from "react-confirm-alert";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { AppContextType, AppContext } from '@/context';
+import state from 'country-state-city/lib/state';
+import { useContext } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-function useHeader(){
+function useHeader() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const navigate = useNavigate();
 
-    const handleLogout = () => {
+	const handleLogout = () => {
 		confirmAlert({
 			title: 'Logout?',
 			message: 'Are you sure you want to logout',
@@ -23,7 +23,6 @@ function useHeader(){
 							user: { loggedIn: null },
 						});
 
-						
 						navigate('/');
 						toast.success('Logged out successfully', {
 							progressClassName: 'bg-green-500 h-1',
@@ -38,7 +37,7 @@ function useHeader(){
 			],
 		});
 	};
-    return{handleLogout}
+	return { handleLogout };
 }
 
-export default useHeader
+export default useHeader;

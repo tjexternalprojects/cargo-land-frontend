@@ -4,10 +4,10 @@ import { AuthServices } from '@/services';
 import { toast } from 'react-toastify';
 import { AppContextType, AppContext } from '@/context';
 import { useNavigate } from 'react-router-dom';
-import {LocalStorageServices} from '@/services'
+import { LocalStorageServices } from '@/services';
 
 function useSignUp() {
-	const {signup} = AuthServices()
+	const { signup } = AuthServices();
 	const [showPassword, setShowPassword] = useState(false);
 	const [showLoading, setShowLoading] = useState(false);
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -24,11 +24,10 @@ function useSignUp() {
 		e.preventDefault();
 		setShowLoading(true);
 
-		signup(signUpData)
-			.then((response) => {
+		signup(signUpData).then(
+			(response) => {
 				setShowLoading(false);
 				if (response.status === 201) {
-
 					toast.success('Profile Created Successfully', {
 						progressClassName: 'bg-green-500 h-1',
 						autoClose: 3000,
@@ -36,7 +35,8 @@ function useSignUp() {
 					setState({
 						...state,
 						showResendToken: true,
-						resendTokenMessage:'Profile created successfully, please check your email to verify your account'
+						resendTokenMessage:
+							'Profile created successfully, please check your email to verify your account',
 					});
 				} else {
 					toast.error('Oops! an Error occured, please retry', {
@@ -63,29 +63,24 @@ function useSignUp() {
 						autoClose: 3000,
 					});
 				}
-			});
-
+			}
+		);
 	};
 
-	const googleSignUpSuccess = (credentialResponse:Record<string,string>) => {
-
-	
+	const googleSignUpSuccess = (credentialResponse: Record<string, string>) => {
 		const user_info = {
-			name:credentialResponse.name,
-			email:credentialResponse.email,
-			avatar:credentialResponse.picture
-		}
+			name: credentialResponse.name,
+			email: credentialResponse.email,
+			avatar: credentialResponse.picture,
+		};
 
-		LocalStorageServices.setUserInfo(user_info)
-		LocalStorageServices.setLocalAccessToken(credentialResponse.jti)
+		LocalStorageServices.setUserInfo(user_info);
+		LocalStorageServices.setLocalAccessToken(credentialResponse.jti);
 		navigate('/dashboard');
-
-	
-		
 	};
 
 	const googleSignUpFailure = () => {
-		toast.error("An error occured", {
+		toast.error('An error occured', {
 			progressClassName: 'bg-red-500 h-1',
 			autoClose: 3000,
 		});
