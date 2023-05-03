@@ -48,7 +48,7 @@ const RecipientDetails = () => {
 							<input
 								className="w-full outline-none"
 								type="text"
-								value={shipmentDetails.recipient_full_name as string ?? ''}
+								value={(shipmentDetails.recipient_full_name as string) ?? ''}
 								onChange={(e) =>
 									setShipmentDetails({
 										...shipmentDetails,
@@ -70,7 +70,7 @@ const RecipientDetails = () => {
 								<input
 									className="w-full outline-none"
 									type="email"
-									value={shipmentDetails.recipient_email as string ?? ''}
+									value={(shipmentDetails.recipient_email as string) ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -229,33 +229,36 @@ const RecipientDetails = () => {
 							>
 								Validate Address
 							</button>
-						) : (<>
-							{state.editShipment ? 
-								<button
-								type="button"
-								onClick={()=>handleUpdateShipment(state.shipmentDetails.shipment_id)}
-								disabled={showLoader}
-								className="hover:shadow-xl flex items-center justify-center hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
-							>
-								{!showLoader ? (
-									<span>Update Shipment</span>
+						) : (
+							<>
+								{state.editShipment ? (
+									<button
+										type="button"
+										onClick={() => handleUpdateShipment(state.shipmentDetails.shipment_id)}
+										disabled={showLoader}
+										className="hover:shadow-xl flex items-center justify-center hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
+									>
+										{!showLoader ? (
+											<span>Update Shipment</span>
+										) : (
+											<RingLoader size={30} textColor="text-blue-900" loaderColor="#fff" />
+										)}
+									</button>
 								) : (
-									<RingLoader size={30} textColor="text-blue-900" loaderColor="#fff" />
+									<button
+										type="button"
+										onClick={moveNext}
+										disabled={showLoader}
+										className="hover:shadow-xl flex items-center justify-center hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
+									>
+										{!showLoader ? (
+											<span>Next</span>
+										) : (
+											<RingLoader size={30} textColor="text-blue-900" loaderColor="#fff" />
+										)}
+									</button>
 								)}
-							</button>
-							:
-								<button
-								type="button"
-								onClick={moveNext}
-								disabled={showLoader}
-								className="hover:shadow-xl flex items-center justify-center hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
-							>
-								{!showLoader ? (
-									<span>Next</span>
-								) : (
-									<RingLoader size={30} textColor="text-blue-900" loaderColor="#fff" />
-								)}
-							</button>}</>
+							</>
 						)}
 					</div>
 				</form>

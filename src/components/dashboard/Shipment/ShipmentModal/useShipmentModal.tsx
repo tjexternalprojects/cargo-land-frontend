@@ -26,7 +26,7 @@ function useShipmentModal(setShowModal: (value: boolean) => void) {
 
 	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
 		const shipmentDetails = {
-			shipment_id:shipment?.id,
+			shipment_id: shipment?.id,
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,

@@ -8,7 +8,8 @@ function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const { createShipment, updateShipment, getAllUserShipment, getCountryCovered } = ShipmentServices();
+	const { createShipment, updateShipment, getAllUserShipment, getCountryCovered } =
+		ShipmentServices();
 
 	// Current address
 	const [country, setCountry] = useState<any>({});
@@ -194,8 +195,8 @@ function useNewShipmentForm() {
 	};
 
 	const handleUpdateShipment = (shipment_id: string) => {
-		console.log(state.shipmentDetails)
-		setShowLoader(true)
+		console.log(state.shipmentDetails);
+		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
@@ -206,32 +207,35 @@ function useNewShipmentForm() {
 			formData.append('images', shipment_images[i]);
 		}
 
-		updateShipment(shipment_id, formData).then(response => {
-			console.log(response)
-			setShowLoader(false)
-			toast.success('Shipment Updated Successfuly', {
-				progressClassName: 'bg-green-500 h-1',
-				autoClose: 3000,
-			});
-			resetShipment();
-			getAllUserShipment();
-	
-			setState({
-				...state,
-				shipmentCurrentTab: 'item3',
-				form_level: 2,
-				editShipment: false,
-			});
-	console.log(state.shipmentDetails)
-		}, error => {
-			console.log(error)
-			setShowLoader(false)
-			toast.error('Sorry an error occured! Please Try again', {
-				progressClassName: 'bg-red-500 h-1',
-				autoClose: 3000,
-			});
-		})
-	}
+		updateShipment(shipment_id, formData).then(
+			(response) => {
+				console.log(response);
+				setShowLoader(false);
+				toast.success('Shipment Updated Successfuly', {
+					progressClassName: 'bg-green-500 h-1',
+					autoClose: 3000,
+				});
+				resetShipment();
+				getAllUserShipment();
+
+				setState({
+					...state,
+					shipmentCurrentTab: 'item3',
+					form_level: 2,
+					editShipment: false,
+				});
+				console.log(state.shipmentDetails);
+			},
+			(error) => {
+				console.log(error);
+				setShowLoader(false);
+				toast.error('Sorry an error occured! Please Try again', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
+	};
 	const moveNext = async () => {
 		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
@@ -259,7 +263,6 @@ function useNewShipmentForm() {
 				setShowLoader(false);
 			}
 		);
-
 	};
 
 	const getCounteryCovered = () => {

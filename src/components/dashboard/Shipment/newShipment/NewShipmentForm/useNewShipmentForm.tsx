@@ -66,7 +66,7 @@ function useNewShipmentForm() {
 			setCountry(getCountryDetails);
 			setCountryState(state.shipmentDetails.current_location.state);
 			setStateCity(state.shipmentDetails.current_location.city);
-		}else{
+		} else {
 			setCountry({});
 		}
 	};
@@ -263,7 +263,7 @@ function useNewShipmentForm() {
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
 	useEffect(() => {
-		 resetInputs();
+		resetInputs();
 	}, [state.editShipment]);
 
 	return {

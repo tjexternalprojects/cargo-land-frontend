@@ -49,21 +49,17 @@ function ShipmentServices() {
 		return api.delete(`/shipment/delete-shipment/${shipment_id}`);
 	};
 
-	const updateShipment = (shipment_id:string, shipment_data:any)=>{
-		return api.patch(`/shipment/update-single-shipment/${shipment_id}`, shipment_data)
-	}
+	const updateShipment = (shipment_id: string, shipment_data: any) => {
+		return api.patch(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
+	};
 
-//  localhost:4300/shipment/update-shipment-transit/:id
-// localhost:4300/shipment/update-shipment-delivered/:id
-// localhost:4300/shipment/update-shipment-rejected/:id
-
-
-
+	//  localhost:4300/shipment/update-shipment-transit/:id
+	// localhost:4300/shipment/update-shipment-delivered/:id
+	// localhost:4300/shipment/update-shipment-rejected/:id
 
 	const initiatePayment = (payload: any) => {
 		return api.post('/payment/initiate', payload);
 	};
-
 
 	// FOR HOME PAGE GRAPHS =================
 
