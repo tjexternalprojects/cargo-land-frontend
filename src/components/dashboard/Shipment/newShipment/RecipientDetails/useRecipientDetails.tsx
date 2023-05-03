@@ -195,7 +195,6 @@ function useNewShipmentForm() {
 	};
 
 	const handleUpdateShipment = (shipment_id: string) => {
-		console.log(state.shipmentDetails);
 		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
@@ -209,7 +208,6 @@ function useNewShipmentForm() {
 
 		updateShipment(shipment_id, formData).then(
 			(response) => {
-				console.log(response);
 				setShowLoader(false);
 				toast.success('Shipment Updated Successfuly', {
 					progressClassName: 'bg-green-500 h-1',
@@ -224,10 +222,8 @@ function useNewShipmentForm() {
 					form_level: 2,
 					editShipment: false,
 				});
-				console.log(state.shipmentDetails);
 			},
 			(error) => {
-				console.log(error);
 				setShowLoader(false);
 				toast.error('Sorry an error occured! Please Try again', {
 					progressClassName: 'bg-red-500 h-1',
