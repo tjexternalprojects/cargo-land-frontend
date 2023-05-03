@@ -26,7 +26,6 @@ function useUserDetails() {
 
 		await updateUser(user_data).then(
 			(response) => {
-				console.log(response);
 				setShowLoader(false);
 
 				if (response.status == 202) {
@@ -40,7 +39,6 @@ function useUserDetails() {
 
 			(error) => {
 				setShowLoader(false);
-				console.log(error);
 				toast.error('An error occurred, please try again', {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,

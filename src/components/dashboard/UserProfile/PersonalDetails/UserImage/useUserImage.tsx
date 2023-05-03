@@ -28,7 +28,6 @@ function useUserImage() {
 				formData.append('avatar', file);
 				updateUserAvatar(formData).then(
 					(response) => {
-						console.log(response);
 						getSingleUser();
 						if (response.status == 202) {
 							toast.success('Profile Avatar updated successfully', {
@@ -41,7 +40,6 @@ function useUserImage() {
 						setPreviewImage(imageUrl); // Set the state variable to the URL string
 					},
 					(error) => {
-						console.log(error);
 						toast.error(error.message, {
 							progressClassName: 'bg-red-500 h-1',
 							autoClose: 3000,

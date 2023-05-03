@@ -27,7 +27,6 @@ function useUpdatePassword() {
 				});
 			},
 			(error) => {
-				console.log(error);
 				setShowLoader(false);
 				toast.success(error.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',

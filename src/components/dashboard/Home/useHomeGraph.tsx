@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { ShipmentServices } from '@/services';
 import { AppContextType, AppContext } from '@/context';
+import { toast } from 'react-toastify';
 function HomeGraph() {
 	interface ShipmentSummaryInterface {
 		id: number;
@@ -27,7 +28,10 @@ function HomeGraph() {
 					setShipmentSummary((prevState) => [...prevState, newData]);
 				},
 				(error) => {
-					console.log(error);
+					toast.error(error.response.data.message, {
+						progressClassName: 'bg-red-500 h-1',
+						autoClose: 3000,
+					});
 				}
 			);
 	};

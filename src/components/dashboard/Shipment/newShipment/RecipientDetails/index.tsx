@@ -22,6 +22,8 @@ const RecipientDetails = () => {
 		handleChangeState,
 		handleChangeCity,
 		handleChangeAddress,
+		handleUpdateShipment,
+		state,
 		stateCity,
 		address,
 		countryState,
@@ -46,7 +48,7 @@ const RecipientDetails = () => {
 							<input
 								className="w-full outline-none"
 								type="text"
-								value={shipmentDetails.recipient_full_name as string}
+								value={shipmentDetails.recipient_full_name as string ?? ''}
 								onChange={(e) =>
 									setShipmentDetails({
 										...shipmentDetails,
@@ -68,7 +70,7 @@ const RecipientDetails = () => {
 								<input
 									className="w-full outline-none"
 									type="email"
-									value={shipmentDetails.recipient_email as string}
+									value={shipmentDetails.recipient_email as string ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -101,7 +103,7 @@ const RecipientDetails = () => {
 										<option value="0">Select Country</option>
 										{Country.getAllCountries().map((country) => (
 											<option
-												key={country.isoCode}
+												key={country?.isoCode}
 												value={JSON.stringify(country)}
 												className="space-x-10"
 											>
@@ -110,7 +112,7 @@ const RecipientDetails = () => {
 										))}
 									</select>
 									<div className="text-xl text-gray-500">
-										{Country.getCountryByCode(country.isoCode)?.flag}
+										{Country.getCountryByCode(country?.isoCode)?.flag}
 									</div>
 								</div>
 							</div>
@@ -129,9 +131,9 @@ const RecipientDetails = () => {
 									>
 										<option value="0">Select State</option>
 
-										{State.getStatesOfCountry(country.isoCode).map((states) => (
-											<option value={JSON.stringify(states)} key={states.isoCode}>
-												{states.name}
+										{State.getStatesOfCountry(country?.isoCode).map((states) => (
+											<option value={JSON.stringify(states)} key={states?.isoCode}>
+												{states?.name}
 											</option>
 										))}
 									</select>
@@ -155,10 +157,10 @@ const RecipientDetails = () => {
 									>
 										<option value="0">Select City</option>
 
-										{City.getCitiesOfState(country.isoCode, countryState.isoCode).map(
+										{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
 											(cities, key) => (
 												<option value={JSON.stringify(cities)} key={key}>
-													{cities.name}
+													{cities?.name}
 												</option>
 											)
 										)}
@@ -180,7 +182,7 @@ const RecipientDetails = () => {
 									<input
 										type="text"
 										className="w-full outline-none px-2 bg-white"
-										value={address}
+										value={address ?? ''}
 										placeholder="type in shipment street address location"
 										onChange={(e) => handleChangeAddress(e.target.value)}
 										disabled={Object.keys(stateCity).length === 0}
@@ -227,8 +229,22 @@ const RecipientDetails = () => {
 							>
 								Validate Address
 							</button>
-						) : (
-							<button
+						) : (<>
+							{state.editShipment ? 
+								<button
+								type="button"
+								onClick={()=>handleUpdateShipment(state.shipmentDetails.shipment_id)}
+								disabled={showLoader}
+								className="hover:shadow-xl flex items-center justify-center hover:shadow-blue-100 shadow-md w-full p-2 rounded-md   bg-blue-700 font-bold text-white text-md"
+							>
+								{!showLoader ? (
+									<span>Update Shipment</span>
+								) : (
+									<RingLoader size={30} textColor="text-blue-900" loaderColor="#fff" />
+								)}
+							</button>
+							:
+								<button
 								type="button"
 								onClick={moveNext}
 								disabled={showLoader}
@@ -239,7 +255,7 @@ const RecipientDetails = () => {
 								) : (
 									<RingLoader size={30} textColor="text-blue-900" loaderColor="#fff" />
 								)}
-							</button>
+							</button>}</>
 						)}
 					</div>
 				</form>

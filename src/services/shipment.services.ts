@@ -21,14 +21,12 @@ function ShipmentServices() {
 	const getAllUserShipment = async () => {
 		await api.get('/shipment/get-all-user-shipment').then(
 			(res) => {
-				console.log(res);
 				setState((prevState) => ({
 					...prevState,
 					allShipments: res.data.allUserShipment,
 				}));
 			},
 			(err) => {
-				console.log(err);
 				toast.error(err.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
@@ -51,9 +49,23 @@ function ShipmentServices() {
 		return api.delete(`/shipment/delete-shipment/${shipment_id}`);
 	};
 
+	const updateShipment = (shipment_id:string, shipment_data:any)=>{
+		return api.patch(`/shipment/update-single-shipment/${shipment_id}`, shipment_data)
+	}
+
+//  localhost:4300/shipment/update-shipment-transit/:id
+// localhost:4300/shipment/update-shipment-delivered/:id
+// localhost:4300/shipment/update-shipment-rejected/:id
+
+
+
+
 	const initiatePayment = (payload: any) => {
 		return api.post('/payment/initiate', payload);
 	};
+
+
+	// FOR HOME PAGE GRAPHS =================
 
 	const getGraphData = (duration: Record<string, string | number>) => {
 		let newData: ShipmentSummaryInterface;
@@ -68,7 +80,10 @@ function ShipmentServices() {
 				setShipmentSummary((prevState) => [...prevState, newData]);
 			},
 			(error) => {
-				console.log(error);
+				toast.error(error.response.data.message, {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
 			}
 		);
 	};
@@ -131,13 +146,14 @@ function ShipmentServices() {
 		}));
 	}, [shipmentSummary]);
 	return {
-		getCountryCovered,
 		initiatePayment,
+		updateShipment,
 		createShipment,
+		deleteShipment,
+		getCountryCovered,
 		getShipmentDateRange,
 		getAllUserShipment,
 		getShipmentInRange,
-		deleteShipment,
 	};
 }
 

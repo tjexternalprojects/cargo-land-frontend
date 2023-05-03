@@ -57,15 +57,17 @@ function useNewShipmentForm() {
 				latitude: state.shipmentDetails.current_location.latitude as number,
 			},
 		});
+		setPreviewImage(state.shipmentDetails.images);
+		setAddress(state.shipmentDetails.current_location.address);
 		if (state.shipmentDetails.current_location.country !== '') {
-			setPreviewImage(state.shipmentDetails.images);
 			const getCountryDetails = Country.getCountryByCode(
-				state.shipmentDetails.current_location.country.isoCode
+				state.shipmentDetails.current_location.country?.isoCode
 			);
 			setCountry(getCountryDetails);
 			setCountryState(state.shipmentDetails.current_location.state);
 			setStateCity(state.shipmentDetails.current_location.city);
-			setAddress(state.shipmentDetails.current_location.address);
+		}else{
+			setCountry({});
 		}
 	};
 
@@ -238,7 +240,6 @@ function useNewShipmentForm() {
 				setCountryCovered(Object.values(response.data));
 			},
 			(error) => {
-				console.log(error);
 				toast.error('Error getting countries', {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
@@ -262,7 +263,7 @@ function useNewShipmentForm() {
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
 	useEffect(() => {
-		state.editShipment && resetInputs();
+		 resetInputs();
 	}, [state.editShipment]);
 
 	return {

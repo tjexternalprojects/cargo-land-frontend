@@ -48,7 +48,6 @@ instance.interceptors.response.use(
 			(originalConfig.url !== '/user/login' || originalConfig.url !== '/user/register') &&
 			err.response
 		) {
-			console.log(err.response);
 			// Access Token was expired
 			if (
 				(LocalStorageServices.getAccessToken() &&
@@ -67,11 +66,10 @@ instance.interceptors.response.use(
 					LocalStorageServices.setLocalAccessToken(AccessToken);
 					return instance(originalConfig);
 				} catch (_error: any) {
-					console.log(_error.response.data);
 					if (_error.response.data == 'invalid refresh token') {
 						localStorage.clear();
 						// navigate('/login');
-						window.location.reload(); 
+						window.location.reload();
 						AuthServices().logout();
 					}
 					return Promise.reject(_error);

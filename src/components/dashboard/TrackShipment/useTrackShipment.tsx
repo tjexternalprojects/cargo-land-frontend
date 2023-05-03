@@ -7,7 +7,6 @@ function useTrackShipment() {
 		const active_shipment = state.allShipments.filter(
 			(obj: any) => obj.shipment_Status == 'TRANSIT'
 		);
-		console.log(state.allShipments);
 		setState((prevState) => ({
 			...prevState,
 			trackingShipments: active_shipment,

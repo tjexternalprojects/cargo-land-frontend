@@ -26,13 +26,8 @@ function AuthServices() {
 	};
 
 	const logout = () => {
-		const refreshToken = LocalStorageServices.getRefreshToken();
-		alert('here');
 		localStorage.clear();
 		navigate('/login');
-		// api.post('/user/logout', {refreshToken}).then(response=>{
-		//     console.log(response)
-		// })
 	};
 
 	return {

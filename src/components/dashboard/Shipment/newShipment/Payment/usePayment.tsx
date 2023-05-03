@@ -28,7 +28,6 @@ function usePayment() {
 		tx_ref: 'my-unique-transaction-id',
 		text: 'Pay with Flutterwave!',
 		callback: async (response: any) => {
-			console.log(response);
 			closePaymentModal(); // this will close the modal programmatically
 		},
 		onClose: async () => {

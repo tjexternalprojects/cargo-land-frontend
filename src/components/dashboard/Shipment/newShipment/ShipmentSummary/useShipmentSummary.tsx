@@ -51,7 +51,6 @@ function useShipmentSummary() {
 	}, [state.allShipments]);
 
 	const handleShowModal = (selected_shipment: Record<string, string>) => {
-		console.log(selected_shipment.images[0]);
 		setSelectedShipment(selected_shipment);
 		setShowShipmentModal(true);
 	};
@@ -61,7 +60,6 @@ function useShipmentSummary() {
 		setItemIndexToRemove(shipment_id);
 		await deleteShipment(shipment_id).then(
 			(response) => {
-				console.log(response);
 				toast.success('Item Removed Successfully', {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
@@ -70,7 +68,6 @@ function useShipmentSummary() {
 				setRemoveShipmentLoader(false);
 			},
 			(error) => {
-				console.log(error);
 				setRemoveShipmentLoader(false);
 			}
 		);
@@ -117,10 +114,8 @@ function useShipmentSummary() {
 			phone_number: state.single_user_data?.phoneNumber,
 		};
 
-		console.log(payload);
 		initiatePayment(payload).then(
 			(response) => {
-				console.log(response);
 				setState({
 					...state,
 					shipmentCurrentTab: 'item4',
@@ -129,8 +124,6 @@ function useShipmentSummary() {
 				setShipmentLoader(false);
 			},
 			(error) => {
-				console.log(error);
-
 				toast.error(error.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,

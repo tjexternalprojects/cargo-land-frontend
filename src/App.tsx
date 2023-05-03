@@ -25,7 +25,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
-
 function App() {
 	useEffect(() => {
 		AOS.init();

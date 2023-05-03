@@ -3,9 +3,6 @@ import { useJsApiLoader, GoogleMap, Marker, DirectionsRenderer } from '@react-go
 
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
-// const startLocation = { lng: 3.3119897, lat: 6.499183599999999 };
-// const endLocation = { lng: 3.3120209, lat: 6.5049772 };
-
 interface MapDirectionProps {
 	height: string;
 	startLocation: google.maps.LatLngLiteral;

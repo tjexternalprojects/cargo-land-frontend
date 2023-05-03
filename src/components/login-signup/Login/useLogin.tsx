@@ -51,7 +51,6 @@ function useLogin() {
 			},
 			(error) => {
 				setShowLoading(false);
-				console.log(error);
 				if (error.code == 'ERR_NETWORK') {
 					toast.error(error.message, {
 						progressClassName: 'bg-red-500 h-1',

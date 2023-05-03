@@ -55,7 +55,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="text"
-									value={shipmentDetails.shipment_title as string}
+									value={shipmentDetails.shipment_title ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -78,7 +78,7 @@ const NewShipmentForm = () => {
 							<div className=" flex  border-b-2 mt-2 p-2 bg-white">
 								<textarea
 									className="w-full outline-none"
-									value={shipmentDetails.shipment_description as string}
+									value={shipmentDetails.shipment_description ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -102,7 +102,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="number"
-									value={shipmentDetails.shipment_weight as string}
+									value={shipmentDetails.shipment_weight ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -185,7 +185,7 @@ const NewShipmentForm = () => {
 										<option value={0}>Select Country</option>
 										{Country.getAllCountries().map((country) => (
 											<option
-												key={country.isoCode}
+												key={country?.isoCode}
 												value={JSON.stringify(country)}
 												className="space-x-10"
 											>
@@ -194,7 +194,7 @@ const NewShipmentForm = () => {
 										))}
 									</select>
 									<div className="text-xl text-gray-500">
-										{Country.getCountryByCode(country.isoCode)?.flag}
+										{Country.getCountryByCode(country?.isoCode)?.flag}
 									</div>
 								</div>
 							</div>
@@ -215,9 +215,9 @@ const NewShipmentForm = () => {
 									>
 										<option value={0}>Select State</option>
 
-										{State.getStatesOfCountry(country.isoCode).map((states) => (
-											<option value={JSON.stringify(states)} key={states.isoCode}>
-												{states.name}
+										{State.getStatesOfCountry(country?.isoCode).map((states) => (
+											<option value={JSON.stringify(states)} key={states?.isoCode}>
+												{states?.name}
 											</option>
 										))}
 									</select>
@@ -243,10 +243,10 @@ const NewShipmentForm = () => {
 									>
 										<option value={0}>Select City</option>
 
-										{City.getCitiesOfState(country.isoCode, countryState.isoCode).map(
+										{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
 											(cities, key) => (
 												<option value={JSON.stringify(cities)} key={key}>
-													{cities.name}
+													{cities?.name}
 												</option>
 											)
 										)}
@@ -268,7 +268,7 @@ const NewShipmentForm = () => {
 									<input
 										type="text"
 										className="w-full outline-none px-2 bg-white"
-										value={address}
+										value={address ?? ''}
 										placeholder="type in shipment street address location"
 										onChange={(e) => handleChangeAddress(e.target.value)}
 										disabled={Object.keys(stateCity).length === 0}

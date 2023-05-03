@@ -8,7 +8,7 @@ function useShipment() {
 		direction: -50,
 	});
 
-	const resetShipment = () => {
+	const resetShipment = (shipmentCurrentTab: string, form_level: number) => {
 		const resetShipmentDetails = {
 			shipment_title: '',
 			shipment_description: '',
@@ -38,15 +38,17 @@ function useShipment() {
 		setState({
 			...state,
 			shipmentDetails: resetShipmentDetails,
-			shipmentCurrentTab: 'item3',
-			form_level: 2,
+			shipmentCurrentTab,
+			form_level,
 			editShipment: false,
 		});
 	};
 	const handleCancelEdit = () => {
-		resetShipment();
+		resetShipment('item3', 2);
 	};
-	const handleNewShipment = () => {};
+	const handleNewShipment = () => {
+		resetShipment('item1', 0);
+	};
 
 	const handleShowTab = (item: string, item_number: number) => {
 		if (animationDirection.prev_direction < item_number) {

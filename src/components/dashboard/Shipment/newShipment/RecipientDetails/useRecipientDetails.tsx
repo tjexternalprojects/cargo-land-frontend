@@ -8,7 +8,7 @@ function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const { createShipment, getAllUserShipment, getCountryCovered } = ShipmentServices();
+	const { createShipment, updateShipment, getAllUserShipment, getCountryCovered } = ShipmentServices();
 
 	// Current address
 	const [country, setCountry] = useState<any>({});
@@ -49,6 +49,8 @@ function useNewShipmentForm() {
 			setCountryState(state.shipmentDetails.shipment_destination.state);
 			setStateCity(state.shipmentDetails.shipment_destination.city);
 			setAddress(state.shipmentDetails.shipment_destination.address);
+		} else {
+			setCountry({});
 		}
 	};
 
@@ -180,12 +182,56 @@ function useNewShipmentForm() {
 			},
 		};
 
+		// setState({
+		// 	...state,
+		// 	shipmentDetails: resetShipmentDetails,
+		// });
+
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, resetShipmentDetails },
 		}));
 	};
 
+	const handleUpdateShipment = (shipment_id: string) => {
+		console.log(state.shipmentDetails)
+		setShowLoader(true)
+		let shipment_images = state.shipmentDetails.images as [];
+		const { images, ...newPayload } = state.shipmentDetails;
+		const payload = JSON.stringify(newPayload);
+
+		const formData = new FormData();
+		formData.append('payload', payload);
+		for (let i = 0; i < shipment_images.length; i++) {
+			formData.append('images', shipment_images[i]);
+		}
+
+		updateShipment(shipment_id, formData).then(response => {
+			console.log(response)
+			setShowLoader(false)
+			toast.success('Shipment Updated Successfuly', {
+				progressClassName: 'bg-green-500 h-1',
+				autoClose: 3000,
+			});
+			resetShipment();
+			getAllUserShipment();
+	
+			setState({
+				...state,
+				shipmentCurrentTab: 'item3',
+				form_level: 2,
+				editShipment: false,
+			});
+	console.log(state.shipmentDetails)
+		}, error => {
+			console.log(error)
+			setShowLoader(false)
+			toast.error('Sorry an error occured! Please Try again', {
+				progressClassName: 'bg-red-500 h-1',
+				autoClose: 3000,
+			});
+		})
+	}
 	const moveNext = async () => {
 		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
@@ -200,15 +246,12 @@ function useNewShipmentForm() {
 
 		await createShipment(formData).then(
 			(response) => {
-				console.log(response);
 				setShowLoader(false);
 				setState({
 					...state,
 					shipmentCurrentTab: 'item3',
 					form_level: 2,
 				});
-				console.log(state.shipmentCurrentTab, state.form_level);
-
 				getAllUserShipment();
 				resetShipment();
 			},
@@ -217,7 +260,6 @@ function useNewShipmentForm() {
 			}
 		);
 
-		console.log(state.shipmentCurrentTab, state.form_level);
 	};
 
 	const getCounteryCovered = () => {
@@ -226,7 +268,6 @@ function useNewShipmentForm() {
 				setCountryCovered(Object.values(response.data));
 			},
 			(error) => {
-				console.log(error);
 				toast.error('Error getting countries', {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
@@ -250,7 +291,7 @@ function useNewShipmentForm() {
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
 	useEffect(() => {
-		state.editShipment && resetInputs();
+		resetInputs();
 	}, [state.editShipment]);
 
 	return {
@@ -264,6 +305,8 @@ function useNewShipmentForm() {
 		handleChangeState,
 		handleChangeCity,
 		handleChangeAddress,
+		handleUpdateShipment,
+		state,
 		stateCity,
 		address,
 		countryState,

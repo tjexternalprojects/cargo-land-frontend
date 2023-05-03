@@ -32,8 +32,7 @@ const AddressMap: FC<AddressMapProps> = ({ geoLocation, formatted_address }) => 
 			});
 		}
 	}, [map]);
-	// lat: 6.5049772;
-	// lng: 3.3120209;
+
 	return isLoaded ? (
 		<GoogleMap
 			center={geoLocation}

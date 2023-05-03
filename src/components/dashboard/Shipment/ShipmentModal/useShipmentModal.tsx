@@ -26,6 +26,7 @@ function useShipmentModal(setShowModal: (value: boolean) => void) {
 
 	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
 		const shipmentDetails = {
+			shipment_id:shipment?.id,
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,
@@ -65,7 +66,6 @@ function useShipmentModal(setShowModal: (value: boolean) => void) {
 		setRemoveShipmentLoader(true);
 		await deleteShipment(shipment_id).then(
 			(response) => {
-				console.log(response);
 				toast.success('Item Removed Successfully', {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
@@ -74,7 +74,6 @@ function useShipmentModal(setShowModal: (value: boolean) => void) {
 				setRemoveShipmentLoader(false);
 			},
 			(error) => {
-				console.log(error);
 				setRemoveShipmentLoader(false);
 			}
 		);

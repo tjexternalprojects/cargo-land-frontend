@@ -4,7 +4,8 @@ import { fadeSlide } from '@/utils/animations';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 
 const Shipment = () => {
-	const { handleShowTab, handleCancelEdit, state, animationDirection } = useShipment();
+	const { handleShowTab, handleCancelEdit, handleNewShipment, state, animationDirection } =
+		useShipment();
 
 	return (
 		<div className="space-y-10  w-full ">
@@ -26,11 +27,12 @@ const Shipment = () => {
 							Package&nbsp;Details
 						</div>
 						<div>
-							{state.form_level > 0 ? (
+							{state.form_level > 0 && state.shipmentDetails.shipment_title !== '' ? (
 								<div
 									onClick={() => handleShowTab('item2', 2)}
 									className={`${
-										state.shipmentCurrentTab == 'item2'
+										state.shipmentCurrentTab == 'item2' &&
+										state.shipmentDetails.shipment_title !== ''
 											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
 											: 'pl-5'
 									} cursor-pointer`}
@@ -85,7 +87,10 @@ const Shipment = () => {
 									</div>
 								</button>
 
-								<button className="flex  items-center bg-blue-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300">
+								<button
+									onClick={handleNewShipment}
+									className="flex  items-center bg-blue-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
+								>
 									<div className="md:p-2 text-sm p-1">Create Shipment</div>
 									<div className="bg-blue-900 md:p-2 rounded-l-full h-full w-10  flex items-center justify-center">
 										+
