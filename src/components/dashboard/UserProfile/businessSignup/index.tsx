@@ -3,8 +3,8 @@ import {
 	HiDocumentText,
 	TbBusinessplan,
 	MdOutlineArrowForwardIos,
-} from '../../assets';
-import { BasicInfo, BusinessDocuments, BusinessData, Header } from '@/components';
+} from '@/assets';
+import { BasicInfo, BusinessDocuments, BusinessData } from '@/components';
 import useBusinessSignup from './useBusinessSignup';
 import { motion } from 'framer-motion';
 import { slideUp } from '@/utils/animations';
@@ -12,10 +12,7 @@ import { slideUp } from '@/utils/animations';
 const BusinessSignup = () => {
 	const { activeTab, setActiveTab } = useBusinessSignup();
 	return (
-		<div>
-			<Header />
-			<div className="flex h-screen items-center pt-10 flex-wrap">
-				<div></div>
+		<div className=' w-full py-10'>
 				<div className="px-10 overflow-auto">
 					<div className="w-full pb-10 border-l-2 border-l-blue-900 ">
 						<div
@@ -96,7 +93,6 @@ const BusinessSignup = () => {
 							</button>
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	);

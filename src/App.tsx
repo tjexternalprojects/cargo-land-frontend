@@ -13,7 +13,7 @@ import {
 	LoadingPage,
 	UserProfile,
 } from '@/components';
-import { BusinessSignup, LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
+import {  LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
 import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
 import ProtectedAdminRoutes from './ProtectedAdminRoutes';
 import { AppProvider } from '@/context';
@@ -53,7 +53,6 @@ function App() {
 							</Route>
 						</Route>
 						<Route path="/" element={<LandingPage />} />
-						<Route path="/business" element={<BusinessSignup />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/resetpassword/:token" element={<ResetPassword />} />
 					</Routes>

@@ -21,6 +21,7 @@ function ShipmentServices() {
 	const getAllUserShipment = async () => {
 		await api.get('/shipment/get-all-user-shipment').then(
 			(res) => {
+				console.log(res)
 				setState((prevState) => ({
 					...prevState,
 					allShipments: res.data.allUserShipment,
@@ -50,7 +51,7 @@ function ShipmentServices() {
 	};
 
 	const updateShipment = (shipment_id: string, shipment_data: any) => {
-		return api.patch(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
+		return api.put(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
 	};
 
 	//  localhost:4300/shipment/update-shipment-transit/:id

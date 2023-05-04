@@ -208,6 +208,7 @@ function useNewShipmentForm() {
 
 		updateShipment(shipment_id, formData).then(
 			(response) => {
+				console.log(response)
 				setShowLoader(false);
 				toast.success('Shipment Updated Successfuly', {
 					progressClassName: 'bg-green-500 h-1',
@@ -224,6 +225,7 @@ function useNewShipmentForm() {
 				});
 			},
 			(error) => {
+				console.log(error)
 				setShowLoader(false);
 				toast.error('Sorry an error occured! Please Try again', {
 					progressClassName: 'bg-red-500 h-1',

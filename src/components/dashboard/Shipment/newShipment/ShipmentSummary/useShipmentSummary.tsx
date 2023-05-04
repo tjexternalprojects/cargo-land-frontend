@@ -85,7 +85,7 @@ function useShipmentSummary() {
 				},
 				{
 					label: 'No',
-					onClick: () => {},
+					onClick: () => { },
 				},
 			],
 		});
@@ -97,16 +97,32 @@ function useShipmentSummary() {
 		});
 	};
 
+	// {
+	// 	"shipments": [
+
+	// 			{
+	// 				"shipmentId": "6451f9dc7983eb5de78c35dd",
+	// 				"amount": 2708000
+	// 			}
+
+	// 	],
+	// 	"amount": 2708000,
+	// 	"email": "tjfaithpro@gmail.com",
+	// 	"phone_number": "08222459383"
+	// }
+
+
 	const handlePayment = () => {
 		setShipmentLoader(true);
-		const totalShipment = unCheckedShipment.map((obj: any) => {
-			return [
-				{
-					shipmentId: obj.id,
-					amount: obj.delivery_price,
-				},
-			];
+		const totalShipment: Record<string, string>[] = [];
+
+		unCheckedShipment.forEach((obj: any) => {
+			totalShipment.push({
+				shipmentId: obj.id,
+				amount: obj.delivery_price,
+			});
 		});
+
 		const payload = {
 			shipments: totalShipment,
 			amount: totalPrice,
@@ -114,8 +130,15 @@ function useShipmentSummary() {
 			phone_number: state.single_user_data?.phoneNumber,
 		};
 
+		console.log(payload)
 		initiatePayment(payload).then(
 			(response) => {
+				console.log(response)
+				toast.success(response.data.message, {
+					progressClassName: 'bg-green-500 h-1',
+					autoClose: 3000,
+				});
+
 				setState({
 					...state,
 					shipmentCurrentTab: 'item4',

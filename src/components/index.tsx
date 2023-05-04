@@ -17,9 +17,10 @@ export const ForgotPassword = lazy(() => import('./ForgotPassword'));
 export const ResendToken = lazy(() => import('./resendVerification'));
 
 // Business SignUp
-export const BasicInfo = lazy(() => import('./businessSignup/BasicInfo'));
-export const BusinessData = lazy(() => import('./businessSignup/BusinessData'));
-export const BusinessDocuments = lazy(() => import('./businessSignup/BusinessDocuments'));
+export const BusinessSignup = lazy(() => import('./dashboard/UserProfile/businessSignup'));
+export const BasicInfo = lazy(() => import('./dashboard/UserProfile/businessSignup/BasicInfo'));
+export const BusinessData = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessData'));
+export const BusinessDocuments = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessDocuments'));
 
 // USER DASHBOARD =========================================================
 // Dashboard
@@ -43,6 +44,8 @@ export const UserDetails = lazy(
 export const UserImage = lazy(() => import('./dashboard/UserProfile/PersonalDetails/UserImage'));
 
 export const AccountType = lazy(() => import('./dashboard/UserProfile/AccountType'));
+
+
 
 // Dashboard New_Shipment
 export const NewShipmentForm = lazy(
