@@ -1,6 +1,8 @@
 import React from 'react';
 import { HiDocumentText } from '@/assets';
+import useBusinessDocument from './useBusinessDocuments';
 const BusinessDocuments = () => {
+	const { handleDocumentUpload, businessDocument }=useBusinessDocument();
 	return (
 		<form className=" text-gray-500 ">
 			<div className="flex flex-col">
@@ -13,7 +15,13 @@ const BusinessDocuments = () => {
 						<span className="text-sm md:text-md">Upload business document</span>
 						<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
 							<HiDocumentText className="text-3xl text-white" />
-							<input id="fileInput" type="file" className="hidden" accept="image/*" />
+							<input
+								id="fileInput"
+								type="file"
+								className="hidden"
+								accept="application/pdf image/*"
+								onChange={handleDocumentUpload}
+							/>
 						</div>
 					</label>
 				</div>
