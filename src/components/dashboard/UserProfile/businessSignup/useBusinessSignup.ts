@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function useBusinessSignup() {
 	const [showPassword, setShowPassword] = useState(false);
-	const [activeTab, setActiveTab] = useState('basic_info');
+	const [activeTab, setActiveTab] = useState('business_data');
 
 	return {
 		showPassword,

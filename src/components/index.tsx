@@ -18,7 +18,6 @@ export const ResendToken = lazy(() => import('./resendVerification'));
 
 // Business SignUp
 export const BusinessSignup = lazy(() => import('./dashboard/UserProfile/businessSignup'));
-export const BasicInfo = lazy(() => import('./dashboard/UserProfile/businessSignup/BasicInfo'));
 export const BusinessData = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessData'));
 export const BusinessDocuments = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessDocuments'));
 

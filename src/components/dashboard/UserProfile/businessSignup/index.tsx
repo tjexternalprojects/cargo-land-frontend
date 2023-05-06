@@ -4,7 +4,7 @@ import {
 	TbBusinessplan,
 	MdOutlineArrowForwardIos,
 } from '@/assets';
-import { BasicInfo, BusinessDocuments, BusinessData } from '@/components';
+import {  BusinessDocuments, BusinessData } from '@/components';
 import useBusinessSignup from './useBusinessSignup';
 import { motion } from 'framer-motion';
 import { slideUp } from '@/utils/animations';
@@ -14,26 +14,7 @@ const BusinessSignup = () => {
 	return (
 		<div className=' w-full py-10'>
 				<div className="px-10 overflow-auto">
-					<div className="w-full pb-10 border-l-2 border-l-blue-900 ">
-						<div
-							className="cursor-pointer flex relative gap-5"
-							onClick={() => setActiveTab('basic_info')}
-						>
-							<div
-								className={` curspo absolute  p-2 rounded-full text-white transition-all duration-75 ease-in-out
-							${activeTab == 'basic_info' ? 'bg-blue-900 text-3xl -left-6' : 'bg-gray-400 -left-4'}
-							`}
-							>
-								<TiBusinessCard />
-							</div>
-							<span className="ml-10 font-bold text-blue-900 mb-5">Basic Info</span>
-						</div>
-						{activeTab == 'basic_info' && (
-							<motion.div className="mx-10  w-full" animate={slideUp(0, 0.3)}>
-								<BasicInfo />
-							</motion.div>
-						)}
-					</div>
+				
 
 					<div className="w-full pb-10 border-l-2 border-l-blue-900 ">
 						<div

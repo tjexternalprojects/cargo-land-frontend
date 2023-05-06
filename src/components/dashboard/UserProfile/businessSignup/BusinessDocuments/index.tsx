@@ -2,19 +2,20 @@ import React from 'react';
 import { HiDocumentText } from '@/assets';
 const BusinessDocuments = () => {
 	return (
-		<form className=" text-gray-500 flex flex-col space-y-4">
+		<form className=" text-gray-500 ">
 			<div className="flex flex-col">
 				<small>
 					<i className="text-red-400">Upload your business CAC or TIN Document</i>
 				</small>
-				<div className="mt-3 bg-white rounded-xl px-5  flex items-center shadow-md">
-					<input
-						type="file"
-						placeholder="CAC Document"
-						className="text-sm rounded-xl flex-grow h-11 outline-none bg-transparent"
-						required
-					/>
-					<HiDocumentText />
+
+				<div className="mt-3  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
+					<label className="  h-20 flex items-center justify-between space-x-3 w-full cursor-pointer">
+						<span className="text-sm md:text-md">Upload business document</span>
+						<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
+							<HiDocumentText className="text-3xl text-white" />
+							<input id="fileInput" type="file" className="hidden" accept="image/*" />
+						</div>
+					</label>
 				</div>
 			</div>
 		</form>

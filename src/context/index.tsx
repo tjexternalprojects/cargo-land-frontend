@@ -5,7 +5,7 @@ import ShipmentContext from './shipment.context';
 import UserContext from './user.context';
 
 const { user } = AuthContext();
-const { single_user_data, userCurrentTab, updateUser, all_users } = UserContext();
+const { single_user_data, userCurrentTab, updateUser, all_users, business_account } = UserContext();
 const {
 	toggleNotification,
 	notifications,
@@ -35,6 +35,7 @@ type AppState = {
 	userCurrentTab: String;
 	updateUser: Boolean;
 	all_users: Record<string, string>[];
+	business_account: Record<string, string | string[]>;
 
 	// Auth
 	showForgetPassword: boolean;
@@ -65,6 +66,7 @@ const initialState: AppState = {
 	userCurrentTab,
 	updateUser,
 	all_users,
+	business_account,
 
 	// Auth
 	showForgetPassword,
