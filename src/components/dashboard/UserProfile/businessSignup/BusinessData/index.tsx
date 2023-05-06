@@ -1,6 +1,6 @@
 import { GrBusinessService, ImLocation, BsTelephoneForward, AiOutlineNumber, MdAttachEmail } from '@/assets';
 import useBusinessData from './useBusinessData';
-const BusinessData = () => {
+const BusinessData = ({ setActiveTab }) => {
 	const { handleSubmitBusinessData, setBusinessData, businessData } = useBusinessData();
 	return (
 		<form className=" text-gray-500 flex flex-col space-y-4" onSubmit={handleSubmitBusinessData}>
