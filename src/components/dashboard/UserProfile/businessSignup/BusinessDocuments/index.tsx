@@ -25,6 +25,14 @@ const BusinessDocuments = () => {
 						</div>
 					</label>
 				</div>
+
+				{businessDocument.map((docs:any, index:number)=>(
+					<div key={index}>
+						{docs.name}
+					</div>
+				))
+
+				}
 			</div>
 		</form>
 	);

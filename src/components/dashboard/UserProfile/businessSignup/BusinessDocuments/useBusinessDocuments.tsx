@@ -8,7 +8,7 @@ function useBusinessDocument() {
 		setBusinessDocument((prevData: any) => [...prevData, files]);
 			
 		}
-		console.log(businessDocument);
+		console.log(businessDocument[0]);
 	};
 	return { handleDocumentUpload, businessDocument };
 }

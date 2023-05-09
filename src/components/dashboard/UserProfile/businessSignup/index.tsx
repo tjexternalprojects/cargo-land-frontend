@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import { slideUp } from '@/utils/animations';
 
 const BusinessSignup = () => {
-	const { activeTab, setActiveTab } = useBusinessSignup();
+	const { activeTab, state, setActiveTab } = useBusinessSignup();
 	return (
 		<div className=" w-full py-10">
 			<div className="px-10 overflow-auto">
@@ -37,7 +37,11 @@ const BusinessSignup = () => {
 				<div className="w-full pb-10 border-l-2 border-l-blue-900 ">
 					<div
 						className="cursor-pointer flex  relative gap-5"
-						onClick={() => setActiveTab('business_document')}
+						onClick={() => {
+							if (state.business_account?.business_name) {
+								setActiveTab('business_document');
+							  }
+						}}
 					>
 						<div
 							className={` absolute  p-2 rounded-full text-white transition-all duration-75 ease-in-out
@@ -46,7 +50,7 @@ const BusinessSignup = () => {
 						>
 							<HiDocumentText />
 						</div>
-						<span className="ml-10 font-bold text-blue-900 mb-5">Business Documents</span>
+						<span className={`ml-10 font-bold  mb-5 ${activeTab == 'business_document' ? 'text-blue-900' : 'text-gray-400'}`}>Business Documents</span>
 					</div>
 					{activeTab == 'business_document' && (
 						<motion.div className="mx-10  w-full" animate={slideUp(0, 0.3)}>
