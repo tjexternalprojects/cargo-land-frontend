@@ -7,6 +7,9 @@ import { toast } from 'react-toastify';
 function UserServices() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
+	const contactUs = (payload:Record<string, string>)=>{
+		return api.post('/contact-cargoland', payload)
+	}
 	const getSingleUser = async () => {
 		await api.get('/user/single-user/').then(
 			(res) => {
@@ -50,6 +53,7 @@ function UserServices() {
 		);
 	};
 	return {
+		contactUs,
 		getSingleUser,
 		updateUser,
 		updateUserAvatar,

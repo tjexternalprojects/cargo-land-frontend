@@ -130,7 +130,6 @@ function useShipmentSummary() {
 			phone_number: state.single_user_data?.phoneNumber,
 		};
 
-		console.log(payload)
 		initiatePayment(payload).then(
 			(response) => {
 				console.log(response)
@@ -141,6 +140,7 @@ function useShipmentSummary() {
 
 				setState({
 					...state,
+					initializePayment:response.data.data,
 					shipmentCurrentTab: 'item4',
 					form_level: 3,
 				});

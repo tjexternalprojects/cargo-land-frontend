@@ -34,6 +34,8 @@ function GeneralContext() {
 	const shipmentSummary: ShipmentSummaryInterface[] = [];
 	const editShipment = false;
 	const form_level = 0;
+	const initializePayment = {};
+
 	return {
 		shipmentSummary,
 		shipmentDetails,
@@ -42,6 +44,7 @@ function GeneralContext() {
 		form_level,
 		allShipments,
 		trackingShipments,
+		initializePayment,
 	};
 }
 
