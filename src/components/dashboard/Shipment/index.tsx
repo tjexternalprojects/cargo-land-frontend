@@ -1,12 +1,11 @@
 import { NewShipmentForm, Payment, RecipientDetails, ShipmentSummary } from '@/components';
-import { Link } from 'react-scroll';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeSlide } from '@/utils/animations';
 import useShipment from '@/components/dashboard/Shipment/useShipment';
 
 const Shipment = () => {
-	const { handleShowTab, state, animationDirection } = useShipment();
+	const { handleShowTab, handleCancelEdit, handleNewShipment, state, animationDirection } =
+		useShipment();
 
 	return (
 		<div className="space-y-10  w-full ">
@@ -15,9 +14,8 @@ const Shipment = () => {
 			</div>
 			<div className=" flex gap-3 mb-32 mb:mb-0 w-full ">
 				{/* SIDE NAVIGATION */}
-				<div className="fixed mt-16 pb-3 md:pb-0 md:bg-transparent bg-gray-200 bottom-0 md:top-20 w-full md:w-auto ">
-
-					<div className="mt-3 md:mt-10 border-l-2 space-y-2 ">
+				<div className=" z-10 fixed mt-16 pb-3 md:pb-0 md:bg-transparent bg-gray-200 bottom-0 md:top-20 w-full md:w-auto ">
+					<div className="mt-3 md:mt-10 border-l-2 space-y-2 flex flex-col  ">
 						<div
 							onClick={() => handleShowTab('item1', 1)}
 							className={`${
@@ -29,11 +27,12 @@ const Shipment = () => {
 							Package&nbsp;Details
 						</div>
 						<div>
-							{state.form_level > 0 ? (
+							{state.form_level > 0 && state.shipmentDetails.shipment_title !== '' ? (
 								<div
 									onClick={() => handleShowTab('item2', 2)}
 									className={`${
-										state.shipmentCurrentTab == 'item2'
+										state.shipmentCurrentTab == 'item2' &&
+										state.shipmentDetails.shipment_title !== ''
 											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
 											: 'pl-5'
 									} cursor-pointer`}
@@ -76,6 +75,29 @@ const Shipment = () => {
 								<div className="text-gray-400 pl-5">Payment</div>
 							)}
 						</div>
+						{state.editShipment && (
+							<div className=" flex md:flex-col  gap-2">
+								<button
+									onClick={handleCancelEdit}
+									className="flex  items-center bg-red-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
+								>
+									<div className="md:p-2 p-1 text-sm">Cancel Edit</div>
+									<div className="bg-red-900 md:p-2 p-1 rounded-l-full h-full w-10  flex items-center justify-center">
+										x
+									</div>
+								</button>
+
+								<button
+									onClick={handleNewShipment}
+									className="flex  items-center bg-blue-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
+								>
+									<div className="md:p-2 text-sm p-1">Create Shipment</div>
+									<div className="bg-blue-900 md:p-2 rounded-l-full h-full w-10  flex items-center justify-center">
+										+
+									</div>
+								</button>
+							</div>
+						)}
 					</div>
 				</div>
 

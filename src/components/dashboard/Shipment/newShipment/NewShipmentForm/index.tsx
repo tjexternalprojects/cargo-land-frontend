@@ -14,32 +14,29 @@ import {
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
 import { AddressMap, RingLoader } from '@/components';
-import { ToastContainer } from 'react-toastify';
 import Slider from 'react-slick';
 
 const NewShipmentForm = () => {
 	const {
-		setCountryCode,
 		handleSubmitNewShipmentForm,
-		setStateCode,
-		setCitySelected,
-		setAddress,
+		setCountryState,
 		setShipmentDetails,
 		handleImageChange,
 		removeImage,
 		moveNext,
+		handleChangeCountry,
+		handleChangeState,
+		handleChangeCity,
+		handleChangeAddress,
+		state,
+		stateCity,
+		address,
+		countryState,
 		previewImage,
-		formattedAddress,
 		showLoader,
-		latitude,
-		longitude,
+		country,
 		image_slider_settings,
 		shipmentDetails,
-		citySelected,
-		address,
-		mapAddress,
-		countryCode,
-		stateCode,
 	} = useNewShipmentForm();
 	return (
 		<>
@@ -49,7 +46,7 @@ const NewShipmentForm = () => {
 				</div>
 				<p className="text-xl mt-4">Your shipment details</p>
 				<form className=" md:w-9/12 my-5  px-3 md:px-0" onSubmit={handleSubmitNewShipmentForm}>
-					<div className='bg-white p-4 shadow-sm rounded-sm'>
+					<div className="bg-white p-4 shadow-sm rounded-sm">
 						<div>
 							<label className="text-sm text-gray-400">
 								Shipment title <span className="text-red-500"> * </span>
@@ -58,7 +55,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="text"
-									value={shipmentDetails.shipment_title as string}
+									value={shipmentDetails.shipment_title ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -81,7 +78,7 @@ const NewShipmentForm = () => {
 							<div className=" flex  border-b-2 mt-2 p-2 bg-white">
 								<textarea
 									className="w-full outline-none"
-									value={shipmentDetails.shipment_description as string}
+									value={shipmentDetails.shipment_description ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -105,7 +102,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="number"
-									value={shipmentDetails.shipment_weight as string}
+									value={shipmentDetails.shipment_weight ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
@@ -121,54 +118,57 @@ const NewShipmentForm = () => {
 						</div>
 					</div>
 					<div className="mt-3">
-						<label className="text-sm text-gray-400">
+						<label className="text-sm text-gray-400 mb-3">
 							Images
-							<span className="text-red-500"> * </span>
+							<span className="text-red-500"> * | Upload maximum of 5 images</span>
 						</label>
 						<Slider {...image_slider_settings}>
-							{previewImage.map((image, index) => (
-							<div
-							key={index}
-							className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
-						>
-							<img
-								src={typeof image === 'string' ? image : undefined}
-								alt="Shipment"
-								className="object-cover w-full  h-full rounded-xl"
-							/>
-
-							<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+							{previewImage.map((image: any, index: number) => (
 								<div
-									className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
-									onClick={() => removeImage(index)}
+									key={index}
+									className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
 								>
-									<AiOutlineClose />
+									<img
+										src={typeof image === 'string' ? image : undefined}
+										alt="Shipment"
+										className="object-cover w-full  h-full rounded-xl"
+									/>
+
+									<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+										<div
+											className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
+											onClick={() => removeImage(index)}
+										>
+											<AiOutlineClose />
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
 							))}
 						</Slider>
 
-						<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
-							<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
-								<span className='text-sm md:text-md'>Upload shipment image</span>
-								<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
-									<BiCloudUpload className="text-3xl text-white" />
-									<input
-										id="fileInput"
-										type="file"
-										className="hidden"
-										onChange={handleImageChange}
-										accept="image/*"
-									/>
-								</div>
-							</label>
-						</div>
+						{previewImage.length < 5 && (
+							<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
+								<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
+									<span className="text-sm md:text-md">Upload shipment image</span>
+									<div className="w-20 h-20  rounded-l-full bg-blue-900  flex items-center justify-center">
+										<BiCloudUpload className="text-3xl text-white" />
+										<input
+											id="fileInput"
+											type="file"
+											className="hidden"
+											onChange={handleImageChange}
+											accept="image/*"
+										/>
+									</div>
+								</label>
+							</div>
+						)}
 					</div>
 
 					<div className="mt-7  shadow-sm rounded-sm p-4 bg-white">
 						<label className="text-lg text-gray-400">Shipment Current Location for pickup</label>
 
+						{/* COUNTRY */}
 						<div className="flex flex-col space-y-5 mt-3">
 							<div>
 								<small className="text-gray-400 font-bold">
@@ -178,23 +178,28 @@ const NewShipmentForm = () => {
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
 										className="w-full outline-none"
-										value={countryCode}
-										onChange={(e) => setCountryCode(e.target.value)}
+										value={JSON.stringify(country)}
+										onChange={(e) => handleChangeCountry(JSON.parse(e.target.value))}
 										required
 									>
-										<option value="0">Select Country</option>
+										<option value={0}>Select Country</option>
 										{Country.getAllCountries().map((country) => (
-											<option key={country.isoCode} value={country.isoCode} className="space-x-10">
+											<option
+												key={country?.isoCode}
+												value={JSON.stringify(country)}
+												className="space-x-10"
+											>
 												{country.name}
 											</option>
 										))}
 									</select>
 									<div className="text-xl text-gray-500">
-										{Country.getCountryByCode(countryCode)?.flag}
+										{Country.getCountryByCode(country?.isoCode)?.flag}
 									</div>
 								</div>
 							</div>
 
+							{/* STATE */}
 							<div>
 								<small className="text-gray-400 font-bold">
 									State
@@ -203,16 +208,16 @@ const NewShipmentForm = () => {
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
 										className="w-full outline-none"
-										value={stateCode}
-										onChange={(e) => setStateCode(e.target.value)}
-										disabled={countryCode === '' || countryCode === '0'}
+										value={JSON.stringify(countryState)}
+										onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
+										disabled={Object.keys(country).length === 0}
 										required
 									>
-										<option value="">Select State</option>
+										<option value={0}>Select State</option>
 
-										{State.getStatesOfCountry(countryCode).map((states) => (
-											<option value={states.isoCode} key={states.isoCode}>
-												{states.name}
+										{State.getStatesOfCountry(country?.isoCode).map((states) => (
+											<option value={JSON.stringify(states)} key={states?.isoCode}>
+												{states?.name}
 											</option>
 										))}
 									</select>
@@ -222,6 +227,7 @@ const NewShipmentForm = () => {
 								</div>
 							</div>
 
+							{/* CITY */}
 							<div>
 								<small className="text-gray-400 font-bold">
 									City
@@ -229,26 +235,27 @@ const NewShipmentForm = () => {
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
-										disabled={stateCode === '' || stateCode === '0'}
+										disabled={Object.keys(countryState).length === 0}
 										className="w-full outline-none"
-										value={citySelected}
-										onChange={(e) => setCitySelected(e.target.value)}
+										value={JSON.stringify(stateCity)}
+										onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
 										required
 									>
-										<option value="0">Select City</option>
+										<option value={0}>Select City</option>
 
-										{City.getCitiesOfState(countryCode, stateCode).map((cities, key) => (
-											<option value={cities.name} key={key}>
-												{cities.name}
-											</option>
-										))}
+										{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
+											(cities, key) => (
+												<option value={JSON.stringify(cities)} key={key}>
+													{cities?.name}
+												</option>
+											)
+										)}
 									</select>
 									<div className="text-xl text-gray-500">
 										<MdOutlineMyLocation />
 									</div>
 								</div>
 							</div>
-
 							<div className="mt-3">
 								<small className=" text-gray-400 font-bold">
 									Address
@@ -261,10 +268,10 @@ const NewShipmentForm = () => {
 									<input
 										type="text"
 										className="w-full outline-none px-2 bg-white"
-										value={address}
+										value={address ?? ''}
 										placeholder="type in shipment street address location"
-										onChange={(e) => setAddress(e.target.value)}
-										disabled={citySelected === '' || citySelected === '0'}
+										onChange={(e) => handleChangeAddress(e.target.value)}
+										disabled={Object.keys(stateCity).length === 0}
 										required
 									/>
 									<div className="text-xl text-gray-500">
@@ -272,18 +279,24 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
-							{latitude && longitude && (
-								<>
-									<AddressMap
-										formatted_address={formattedAddress}
-										geoLocation={{ lng: longitude, lat: latitude }}
-									/>
-									<div className=" font-extrabold text-xl text-red-500">
-										<span className="underline">Address Found: </span>
-										{formattedAddress}
-									</div>
-								</>
-							)}
+							{shipmentDetails.current_location?.latitude &&
+								shipmentDetails.current_location?.longitude && (
+									<>
+										<AddressMap
+											formatted_address={
+												shipmentDetails?.current_location?.formattedAddress as string
+											}
+											geoLocation={{
+												lng: shipmentDetails.current_location?.longitude as number,
+												lat: shipmentDetails.current_location?.latitude as number,
+											}}
+										/>
+										<div className=" font-extrabold text-xl text-red-500">
+											<span className="underline">Address Found: </span>
+											{shipmentDetails.current_location?.formattedAddress}
+										</div>
+									</>
+								)}
 							{showLoader && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />
@@ -294,7 +307,7 @@ const NewShipmentForm = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-4">
-						{formattedAddress == '' ? (
+						{shipmentDetails.current_location?.formattedAddress == '' ? (
 							<button
 								disabled={showLoader}
 								type="submit"
@@ -313,7 +326,6 @@ const NewShipmentForm = () => {
 						)}
 					</div>
 				</form>
-				<ToastContainer />
 			</div>
 		</>
 	);

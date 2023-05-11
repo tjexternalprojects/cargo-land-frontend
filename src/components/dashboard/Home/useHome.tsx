@@ -1,100 +1,90 @@
-import { useState } from 'react';
+import { AppContextType, AppContext } from '@/context';
+import { ShipmentServices } from '@/services';
+import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
-	const [activeShipment, setActiveShipment] = useState([
-		{
-			shipment_id: 'KH921B',
-			status: 'On Transit',
-			shipment_title: 'Bag of Shoes',
-			startLocation: { lng: 3.3119897, lat: 6.499183599999999 },
-			endLocation: { lng: 3.3120209, lat: 6.5049772 },
-			approval_date: '20-may-2023 11:45 am',
-			delevery_date: '30-may-2023',
-		},
-		{
-			shipment_id: 'KH921B',
-			status: 'On Transit',
-			shipment_title: 'Bag of Shoes',
-			startLocation: { lng: 3.3119897, lat: 6.499183599999999 },
-			endLocation: { lng: 3.3120209, lat: 6.5049772 },
-			approval_date: '20-may-2023 11:45 am',
-			delevery_date: '30-may-2023',
-		},
-	]);
-	const [curency, setCurency] = useState('\u20A6');
-	const balance = '200,000';
-	const [walletBalance, setWalletBalance] = useState<number | string>('200,000');
+	const { getShipmentInRange } = ShipmentServices();
+	const { state, setState } = useContext<AppContextType>(AppContext);
+	const user_data = state.single_user_data;
+	const [currency, setCurrency] = useState('\u20A6');
+	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
+
+	// STATES FOR GRAPH
+	// ***successful shipment graph
+	const [successfulShipmentLabel, setSuccessfulShipmentLabel] = useState([]);
+	const [successfulShipmentData, setSuccessfulShipmentData] = useState<any>([]);
+	const [successfulShipmentLoader, setSuccessfulShipmentLoader] = useState(false);
+	const [totalSuccessfulShipment, setTotalSuccessfulShipment] = useState(0);
+
+	// ***total created graph
+	const [shipmentCreatedLabel, setShipmentCreatedLabel] = useState([]);
+	const [shipmentCreatedData, setShipmentCreatedData] = useState<any>([]);
+	const [shipmentCreatedLoader, setShipmentCreatedLoader] = useState(false);
+	const [totalShipmentCreated, setTotalShipmentCreated] = useState(0);
+
 	const toggleShowBalance = () => {
 		setShowBalance(!showBalance);
-		const asterisks = '*'.repeat(walletBalance.toString().length);
-		!showBalance ? setWalletBalance(asterisks) : setWalletBalance(balance);
 	};
-	// Items Delivered
-	const labels = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December',
-	];
 
-	const received_data = {
-		labels,
+	const successful_shipment_graph = {
+		labels: successfulShipmentLabel,
 		datasets: [
 			{
-				data: [2, 3, 3, 5, 6, 7, 8, 1, 3, 5, 3, 0],
-				backgroundColor: [
-					'red',
-					'green',
-					'yellow',
-					'black',
-					'pink',
-					'blue',
-					'purple',
-					'violet',
-					'lightbrown',
-					'indigo',
-					'silver',
-					'gold',
-					'peach',
-				],
-				borderWidth: 0,
+				data: successfulShipmentData,
+				borderColor: 'rgb(255, 99, 132)',
+				backgroundColor: 'rgba(255, 99, 132, 0.5)',
 			},
 		],
 	};
 
-	const sent_data = {
-		labels,
+	const successfulShipment = () => {
+		setSuccessfulShipmentLoader(true);
+		setSuccessfulShipmentLabel(state.shipmentSummary.map((obj: any) => obj.month));
+		setSuccessfulShipmentData(
+			state.shipmentSummary.map((obj: any) =>
+				obj.shipmentDetails.some((sd: any) => sd.shipment_Status === 'SUCCESSFUL')
+					? obj.shipmentDetails.length
+					: 0
+			)
+		);
+		setTotalSuccessfulShipment(
+			successfulShipmentData?.reduce(
+				(accumulator: number, currentValue: number) => accumulator + currentValue,
+				0
+			)
+		);
+		setSuccessfulShipmentLoader(false);
+	};
+
+	const shipment_created_graph = {
+		labels: shipmentCreatedLabel,
 		datasets: [
 			{
-				data: [12, 13, 13, 15, 16, 17, 18, 11, 13, 15, 13, 10],
-				backgroundColor: [
-					'red',
-					'green',
-					'yellow',
-					'black',
-					'pink',
-					'blue',
-					'purpule',
-					'violet',
-					'lightbrown',
-					'indigo',
-					'silver',
-					'gold',
-					'peach',
-				],
-				borderWidth: 0,
+				data: shipmentCreatedData,
+				borderColor: 'rgb(255, 99, 132)',
+				backgroundColor: 'rgba(255, 99, 132, 0.5)',
 			},
 		],
 	};
+
+	const shipmentCreated = () => {
+		setShipmentCreatedLoader(true);
+		setShipmentCreatedLabel(state.shipmentSummary.map((obj: any) => obj.month));
+		setShipmentCreatedData(state.shipmentSummary.map((obj: any) => obj.shipmentDetails.length));
+		setTotalShipmentCreated(
+			shipmentCreatedData.reduce(
+				(accumulator: number, currentValue: number) => accumulator + currentValue,
+				0
+			)
+		);
+		setShipmentCreatedLoader(false);
+	};
+
+	useEffect(() => {
+		successfulShipment();
+		shipmentCreated();
+	}, [state.shipmentSummary]);
 
 	const transaction_history = [
 		{
@@ -155,13 +145,21 @@ function useHome() {
 
 	return {
 		toggleShowBalance,
-		activeShipment,
+		successfulShipment,
+		successfulShipmentLoader,
+		successful_shipment_graph,
+		totalSuccessfulShipment,
+
+		shipmentCreated,
+		shipment_created_graph,
+		shipmentCreatedLoader,
+		totalShipmentCreated,
+		balance,
+		user_data,
 		transaction_history,
-		curency,
-		walletBalance,
+		currency,
 		showBalance,
-		received_data,
-		sent_data,
+		state,
 	};
 }
 export default useHome;

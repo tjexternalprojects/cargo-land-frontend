@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { AppContextType, AppContext } from '@/context';
+import { useContext, useState } from 'react';
 
 function useHome() {
+	const { state, setState } = useContext<AppContextType>(AppContext);
+
 	const [activeShipment, setActiveShipment] = useState([
 		{
 			shipment_id: 'KH921B',
@@ -30,14 +33,11 @@ function useHome() {
 			delevery_date: '30-may-2023',
 		},
 	]);
-	const [curency, setCurency] = useState('\u20A6');
-	const balance = '200,000';
-	const [walletBalance, setWalletBalance] = useState<number | string>('200,000');
+	const [currency, setCurrency] = useState('\u20A6');
+	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
 	const toggleShowBalance = () => {
 		setShowBalance(!showBalance);
-		const asterisks = '*'.repeat(walletBalance.toString().length);
-		!showBalance ? setWalletBalance(asterisks) : setWalletBalance(balance);
 	};
 	// Items Delivered
 	const labels = [
@@ -164,10 +164,11 @@ function useHome() {
 
 	return {
 		toggleShowBalance,
+		currency,
+		balance,
+		state,
 		activeShipment,
 		transaction_history,
-		curency,
-		walletBalance,
 		showBalance,
 		received_data,
 		sent_data,

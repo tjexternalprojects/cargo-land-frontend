@@ -1,16 +1,30 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { DashboardHome, ShipmentPage, History, TrackShipment, AdminHome, AUsers, ATrackShipment, ATransactions, AShipment, LoadingPage } from '@/components';
-import { BusinessSignup, LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
-import ProtectedRoutes from '@/ProtectedRoutes';
+import {
+	DashboardHome,
+	ShipmentPage,
+	History,
+	TrackShipment,
+	AdminHome,
+	AUsers,
+	ATrackShipment,
+	ATransactions,
+	AShipment,
+	LoadingPage,
+	UserProfile,
+} from '@/components';
+import {  LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
+import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
+import ProtectedAdminRoutes from './ProtectedAdminRoutes';
 import { AppProvider } from '@/context';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import "animate.css";
+import 'animate.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 function App() {
 	useEffect(() => {
 		AOS.init();
@@ -18,30 +32,33 @@ function App() {
 	return (
 		<AppProvider>
 			<BrowserRouter>
-			<Suspense fallback={<LoadingPage />}>
-				<Routes>
-					<Route element={<ProtectedRoutes />}>
-						<Route path="/dashboard" element={<Dashboard />}>
-							<Route path="" element={<DashboardHome />} />
-							<Route path="/dashboard/shipment" element={<ShipmentPage />} />
-							<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
-							<Route path="/dashboard/history" element={<History />} />
+				<Suspense fallback={<LoadingPage />}>
+					<Routes>
+						<Route element={<ProtectedDashboardRoutes />}>
+							<Route path="/dashboard" element={<Dashboard />}>
+								<Route path="" element={<DashboardHome />} />
+								<Route path="/dashboard/shipment" element={<ShipmentPage />} />
+								<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
+								<Route path="/dashboard/history" element={<History />} />
+								<Route path="/dashboard/user" element={<UserProfile />} />
+							</Route>
 						</Route>
-						<Route path="/admin" element={<Admin/>}>
-							<Route path="" element={<AdminHome />} />
-							<Route path="/admin/users" element={<AUsers />} />
-							<Route path="/admin/track_shipment" element={<ATrackShipment />} />
-							<Route path="/admin/transactions" element={<ATransactions />} />
-							<Route path="/admin/shipment" element={<AShipment />} />
+						<Route element={<ProtectedAdminRoutes />}>
+							<Route path="/admin" element={<Admin />}>
+								<Route path="" element={<AdminHome />} />
+								<Route path="/admin/users" element={<AUsers />} />
+								<Route path="/admin/track_shipment" element={<ATrackShipment />} />
+								<Route path="/admin/transactions" element={<ATransactions />} />
+								<Route path="/admin/shipment" element={<AShipment />} />
+							</Route>
 						</Route>
-					</Route>
-					<Route path="/" element={<LandingPage />} />
-					<Route path="/business" element={<BusinessSignup />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/resetpassword/:token" element={<ResetPassword />} />
-				</Routes>
+						<Route path="/" element={<LandingPage />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/resetpassword/:token" element={<ResetPassword />} />
+					</Routes>
 				</Suspense>
 			</BrowserRouter>
+			<ToastContainer />
 		</AppProvider>
 	);
 }

@@ -1,12 +1,18 @@
 import { Header, RingLoader } from '@/components';
 
-import { ToastContainer } from 'react-toastify';
 import { BiUserPin, MapImg2, Si1Password } from '@/assets';
 
 import useResetPassword from './useResetPassword';
 
 const Login = () => {
-	const { handleRestPassword, setResetPassword, setErrorMessage, errorMessage, resetPassword, showLoading } = useResetPassword();
+	const {
+		handleRestPassword,
+		setResetPassword,
+		setErrorMessage,
+		errorMessage,
+		resetPasswordObj,
+		showLoading,
+	} = useResetPassword();
 	return (
 		<>
 			<Header />
@@ -22,17 +28,16 @@ const Login = () => {
 									className=" text-gray-500 flex flex-col space-y-4"
 									onSubmit={handleRestPassword}
 								>
-									<div className='text-red-500 text-sm'>{errorMessage}</div>
+									<div className="text-red-500 text-sm">{errorMessage}</div>
 									<div className="flex flex-col">
 										<div className="bg-white h-11 px-3 border-b border-blue-800 flex items-center shadow-md animate__animated animate__fadeInUp animate__faster">
 											<input
 												onChange={(e) => {
-													setErrorMessage(""),
-													setResetPassword({ ...resetPassword, new_password: e.target.value })
-												}
-												}
+													setErrorMessage(''),
+														setResetPassword({ ...resetPasswordObj, new_password: e.target.value });
+												}}
 												type="password"
-												value={resetPassword.new_password}
+												value={resetPasswordObj.new_password}
 												minLength={6}
 												placeholder="Password"
 												className="text-sm flex-grow h-10 outline-none bg-white"
@@ -45,11 +50,13 @@ const Login = () => {
 										<div className="bg-white h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 											<input
 												onChange={(e) => {
-													setErrorMessage(""),
-													setResetPassword({ ...resetPassword, confirm_password: e.target.value })
-												}
-												}
-												value={resetPassword.confirm_password}
+													setErrorMessage(''),
+														setResetPassword({
+															...resetPasswordObj,
+															confirm_password: e.target.value,
+														});
+												}}
+												value={resetPasswordObj.confirm_password}
 												minLength={6}
 												type="password"
 												placeholder="Confirm password"
@@ -63,7 +70,6 @@ const Login = () => {
 										<button
 											disabled={showLoading}
 											className=" flex items-center justify-center hover:shadow-blue-100 hover:shadow-md w-full bg-gradient-to-br from-red-50 via-red  to-red-50 h-11 text-sm shadow-md "
-
 											type="submit"
 										>
 											{!showLoading ? (
@@ -78,7 +84,6 @@ const Login = () => {
 						</div>
 					</div>
 				</div>
-				<ToastContainer />
 			</div>
 		</>
 	);

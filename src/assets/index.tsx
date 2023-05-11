@@ -1,5 +1,11 @@
 // icons
-export { GrClose, GrContactInfo, GrDocumentText, GrBusinessService, GrTransaction } from 'react-icons/gr';
+export {
+	GrClose,
+	GrContactInfo,
+	GrDocumentText,
+	GrBusinessService,
+	GrTransaction,
+} from 'react-icons/gr';
 export {
 	BiUserPin,
 	BiShow,
@@ -25,7 +31,6 @@ export {
 	MdOutlineDeleteOutline,
 	MdViewInAr,
 	MdOutlineVerified,
-	
 } from 'react-icons/md';
 export { GoSignIn, GoPackage } from 'react-icons/go';
 export { TiBusinessCard } from 'react-icons/ti';
@@ -51,7 +56,8 @@ export {
 	AiOutlineEdit,
 	AiFillTwitterCircle,
 	AiFillInstagram,
-	AiOutlineArrowLeft
+	AiOutlineArrowLeft,
+	AiOutlineDown,
 } from 'react-icons/ai';
 export {
 	RiPriceTag2Line,

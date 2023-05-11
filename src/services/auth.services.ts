@@ -1,29 +1,42 @@
-import api from './api.services'
+import api from './api.services';
+import { LocalStorageServices } from '.';
+import { useNavigate } from 'react-router-dom';
 
-const login=(loginData:Record<string,string>)=>{
-    return api.post('/user/login', loginData)
-}
+function AuthServices() {
+	const navigate = useNavigate();
 
-const signup = (signUpData:Record<string, string>)=>{
-    return api.post('/user/register', signUpData)
-}
+	const login = (loginData: Record<string, string>) => {
+		return api.post('/user/login', loginData);
+	};
 
-const resendVerification = (email:string)=>{
-    return api.post('/user/resend-verification', {email})
-}
+	const signup = (signUpData: Record<string, string>) => {
+		return api.post('/user/register', signUpData);
+	};
 
-const forgotPassword = (email:string)=>{
-    return api.post('/user/forgot-password', {email})
-}
+	const resendVerification = (email: string) => {
+		return api.post('/user/resend-verification', { email });
+	};
 
-const resetPassword = (payload:Record<string, string | undefined>)=>{
-    return api.post('/user/reset-password', payload)
+	const forgotPassword = (email: string) => {
+		return api.post('/user/forgot-password', { email });
+	};
+
+	const resetPassword = (payload: Record<string, string | undefined>) => {
+		return api.post('/user/reset-password', payload);
+	};
+
+	const logout = () => {
+		localStorage.clear();
+		navigate('/login');
+	};
+
+	return {
+		login,
+		signup,
+		logout,
+		resendVerification,
+		forgotPassword,
+		resetPassword,
+	};
 }
-const AuthServices = {
-    login,
-    signup, 
-    resendVerification,
-    forgotPassword,
-    resetPassword,
-}
-export default AuthServices
+export default AuthServices;

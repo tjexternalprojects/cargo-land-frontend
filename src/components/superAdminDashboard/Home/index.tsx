@@ -7,12 +7,13 @@ const home = () => {
 	const {
 		received_data,
 		sent_data,
+		balance,
+		currency,
+		toggleShowBalance,
+		state,
 		showBalance,
-		walletBalance,
-		curency,
 		transaction_history,
 		activeShipment,
-		toggleShowBalance,
 	} = useHome();
 
 	return (
@@ -29,25 +30,22 @@ const home = () => {
 							<div onClick={toggleShowBalance}>{showBalance ? <FaEyeSlash /> : <FaEye />}</div>
 						</div>
 						<div className="text-md md:text-2xl font-bold flex">
-							{curency}{walletBalance}
+							{currency}
+							{!showBalance ? '*********' : balance}
 						</div>
 					</div>
 				</div>
 
 				<div className=" inline-flex rounded-md gap-3 p-4  bg-green-50  flex-grow  justify-between  shadow-md items-center">
-					<div className=" w-20">
-						<LineGraph data={received_data} />
-					</div>
+					<div className=" w-20">{/* <LineGraph data={received_data} /> */}</div>
 					<div className="flex flex-col items-end text-green-500">
 						<div>Total Users</div>
-						<div className=" text-5xl font-thin">50</div>
+						<div className=" text-5xl font-thin">{state.all_users.length}</div>
 					</div>
 				</div>
 
 				<div className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center">
-					<div className=" w-20">
-						<LineGraph data={sent_data} />
-					</div>
+					<div className=" w-20">{/* <LineGraph data={sent_data} /> */}</div>
 					<div className="flex flex-col items-end text-red-500">
 						<div>Pending Shipment</div>
 						<div className=" text-5xl font-thin ">0</div>
@@ -105,22 +103,17 @@ const home = () => {
 					<h4 className="text-xl mb-3">Recent User</h4>
 					<hr />
 					<div className=" space-y-3 mt-3">
-						<div
-							className="flex items-center space-x-3 bg-slate-50 p-2 rounded-lg cursor-pointer hover:bg-blue-50 hover:shadow-sm transition-all duration-75 ease-in-out "
-						>
+						<div className="flex items-center space-x-3 bg-slate-50 p-2 rounded-lg cursor-pointer hover:bg-blue-50 hover:shadow-sm transition-all duration-75 ease-in-out ">
 							<div className="w-10 h-10 rounded-full shadow-md border border-slate-200">
-								<img
-									src={userImg}
-									className="w-full h-full object-contain rounded-full"
-								/>
+								<img src={userImg} className="w-full h-full object-contain rounded-full" />
 							</div>
-							<div className='flex flex-col'>
+							<div className="flex flex-col">
 								<div className=" font-bold text-slate-600">
 									<span>Kelvin Adeyinkaiiiiio ooo</span>
 								</div>
 								<div>
-
-									<div className='text-xs text-gray-400'>20 April 2020</div> <div className=' italic text-xs text-gray-400'>Business Account</div>
+									<div className="text-xs text-gray-400">20 April 2020</div>{' '}
+									<div className=" italic text-xs text-gray-400">Business Account</div>
 								</div>
 							</div>
 						</div>

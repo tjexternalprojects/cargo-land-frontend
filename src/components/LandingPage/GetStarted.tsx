@@ -10,7 +10,7 @@ import {
 } from '@/assets';
 import useLandingPage from '@/pages/LandingPage/useLandingPage';
 const PriceList = () => {
-	const {handleGetStarted}= useLandingPage()
+	const { handleGetStarted } = useLandingPage();
 
 	return (
 		<div
@@ -129,9 +129,12 @@ const PriceList = () => {
 							</div>
 						</div>
 					</div>
-						<button onClick={handleGetStarted}  className="flex items-center mx-auto lg:mt-20 mt-10 bg-blue-900 border  text-white rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 ">
-							Get Started
-						</button>
+					<button
+						onClick={handleGetStarted}
+						className="flex items-center mx-auto lg:mt-20 mt-10 bg-blue-900 border  text-white rounded-md px-8 py-2  hover:transition-all duration-150 ease-in-out hover:shadow-xl hover:shadow-blue-100 "
+					>
+						Get Started
+					</button>
 				</div>
 				<div id="Contact"></div>
 			</div>

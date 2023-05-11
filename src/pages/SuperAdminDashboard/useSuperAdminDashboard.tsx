@@ -1,4 +1,4 @@
-function useSuperAdminDashboard () {
-    return {}
+function useSuperAdminDashboard() {
+	return {};
 }
-export default useSuperAdminDashboard
+export default useSuperAdminDashboard;

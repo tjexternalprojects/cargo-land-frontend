@@ -1,5 +1,4 @@
-import { RingLoader } from "@/components";
-
+import { RingLoader } from '@/components';
 
 function App() {
 	return (

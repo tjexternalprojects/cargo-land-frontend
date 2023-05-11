@@ -1,57 +1,77 @@
+import { lazy } from 'react';
 // common components
-export { default as Header } from './common/Header';
-export { default as LineGraph } from './common/Graph';
-export { default as MapDirection } from './common/Maps/GoogleMap/Direction';
-export { default as AddressMap } from './common/Maps/GoogleMap/AddressMap';
+export const Header = lazy(() => import('./common/Header'));
+export const LineGraph = lazy(() => import('./common/Graph/LingGraph'));
+export const MapDirection = lazy(() => import('./common/Maps/GoogleMap/Direction'));
+export const AddressMap = lazy(() => import('./common/Maps/GoogleMap/AddressMap'));
 export { default as useGeocode } from './common/Maps/GoogleMap/useGeocode';
-export { default as Notification } from './common/Notification';
-export { default as Loader } from './common/loader';
-export { default as RingLoader } from './common/RingLoader';
-export { default as LoadingPage } from './common/LoadingPage'
+export const Notification = lazy(() => import('./common/Notification'));
+export const Loader = lazy(() => import('./common/loader'));
+export const RingLoader = lazy(() => import('./common/RingLoader'));
+export const LoadingPage = lazy(() => import('./common/LoadingPage'));
 
 // login components
-export { default as LoginComponent } from './login-signup/Login';
-export { default as SingupComponent } from './login-signup/Signup';
-export { default as ForgotPassword } from './ForgotPassword'
-export { default as ResendToken } from './resendVerification'
+export const LoginComponent = lazy(() => import('./login-signup/Login'));
+export const SingupComponent = lazy(() => import('./login-signup/Signup'));
+export const ForgotPassword = lazy(() => import('./ForgotPassword'));
+export const ResendToken = lazy(() => import('./resendVerification'));
 
 // Business SignUp
-export { default as BasicInfo } from './businessSignup/BasicInfo';
-export { default as BusinessData } from './businessSignup/BusinessData';
-export { default as BusinessDocuments } from './businessSignup/BusinessDocuments';
+export const BusinessSignup = lazy(() => import('./dashboard/UserProfile/businessSignup'));
+export const BusinessData = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessData'));
+export const BusinessDocuments = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessDocuments'));
 
 // USER DASHBOARD =========================================================
 // Dashboard
-export { default as DashboardHome } from './dashboard/Home';
-export { default as ShipmentPage } from './dashboard/Shipment';
-export { default as History } from './dashboard/History';
-export { default as Sidebar } from './dashboard/Sidebar';
-export { default as TopBar } from './dashboard/TopBar';
-export { default as ShipmentModal } from './dashboard/Shipment/ShipmentModal';
-export { default as TrackShipment } from './dashboard/TrackShipment';
+export const DashboardHome = lazy(() => import('./dashboard/Home'));
+export const ShipmentPage = lazy(() => import('./dashboard/Shipment'));
+export const History = lazy(() => import('./dashboard/History'));
+export const Sidebar = lazy(() => import('./dashboard/Sidebar'));
+export const TopBar = lazy(() => import('./dashboard/TopBar'));
+export const ShipmentModal = lazy(() => import('./dashboard/Shipment/ShipmentModal'));
+export const TrackShipment = lazy(() => import('./dashboard/TrackShipment'));
+
+// Dashboard User
+export const UserProfile = lazy(() => import('./dashboard/UserProfile'));
+export const PersonalDetails = lazy(() => import('./dashboard/UserProfile/PersonalDetails'));
+export const UpdatePassword = lazy(
+	() => import('./dashboard/UserProfile/PersonalDetails/UpdatePassword')
+);
+export const UserDetails = lazy(
+	() => import('./dashboard/UserProfile/PersonalDetails/UserDetails')
+);
+export const UserImage = lazy(() => import('./dashboard/UserProfile/PersonalDetails/UserImage'));
+
+export const AccountType = lazy(() => import('./dashboard/UserProfile/AccountType'));
+
+
 
 // Dashboard New_Shipment
-export { default as NewShipmentForm } from './dashboard/Shipment/newShipment/NewShipmentForm';
-export { default as RecipientDetails } from './dashboard/Shipment/newShipment/RecipientDetails';
-export { default as ShipmentSummary } from './dashboard/Shipment/newShipment/ShipmentSummary';
-export { default as Payment } from './dashboard/Shipment/newShipment/Payment';
+export const NewShipmentForm = lazy(
+	() => import('./dashboard/Shipment/newShipment/NewShipmentForm')
+);
+export const RecipientDetails = lazy(
+	() => import('./dashboard/Shipment/newShipment/RecipientDetails')
+);
+export const ShipmentSummary = lazy(
+	() => import('./dashboard/Shipment/newShipment/ShipmentSummary')
+);
+export const Payment = lazy(() => import('./dashboard/Shipment/newShipment/Payment'));
 
 // Landing Page
-export { default as Hero } from './LandingPage/Hero';
-export { default as Services } from './LandingPage/Services';
-export { default as Business } from './LandingPage/Business';
-export { default as Contact } from './LandingPage/Contact';
-export { default as GetStarted } from './LandingPage/GetStarted';
-export { default as AboutUs } from './LandingPage/AboutUs';
-
+export const Hero = lazy(() => import('./LandingPage/Hero'));
+export const Services = lazy(() => import('./LandingPage/Services'));
+export const Business = lazy(() => import('./LandingPage/Business'));
+export const Contact = lazy(() => import('./LandingPage/Contact'));
+export const GetStarted = lazy(() => import('./LandingPage/GetStarted'));
+export const AboutUs = lazy(() => import('./LandingPage/AboutUs'));
 
 // SUPER ADMIN DASHBOARD ======================================================
-export { default as ATopBar } from './superAdminDashboard/TopBar';
-export { default as ASidebar } from './superAdminDashboard/Sidebar';
-export { default as AdminHome} from './superAdminDashboard/Home'
-export { default as AUsers} from './superAdminDashboard/Users'
-export {default as AUserDetailsModal} from './superAdminDashboard/Users/UserDetailsModal'
-export { default as ATrackShipment} from './superAdminDashboard/TrackShipment'
-export { default as ATransactions } from './superAdminDashboard/Transactions'
-export { default as AShipment } from './superAdminDashboard/Shipment'
-
+export const ATopBar = lazy(() => import('./superAdminDashboard/TopBar'));
+export const ASidebar = lazy(() => import('./superAdminDashboard/Sidebar'));
+export const AdminHome = lazy(() => import('./superAdminDashboard/Home'));
+export const AUsers = lazy(() => import('./superAdminDashboard/Users'));
+export const AUserDetailsModal = lazy(() => import('./superAdminDashboard/Users/UserDetailsModal'));
+export const ATrackShipment = lazy(() => import('./superAdminDashboard/TrackShipment'));
+export const ATransactions = lazy(() => import('./superAdminDashboard/Transactions'));
+export const AShipment = lazy(() => import('./superAdminDashboard/Shipment'));

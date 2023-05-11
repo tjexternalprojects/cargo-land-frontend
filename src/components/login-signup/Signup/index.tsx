@@ -2,11 +2,9 @@ import React, { useCallback } from 'react';
 import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail, BiUserPin } from '@/assets';
 
 import useSignUp from './useSignUp';
-import {RingLoader} from '@/components';
-import { ToastContainer } from 'react-toastify';
+import { RingLoader } from '@/components';
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode'
-
+import jwt_decode from 'jwt-decode';
 
 const signup = () => {
 	const {
@@ -20,9 +18,6 @@ const signup = () => {
 		googleSignUpSuccess,
 		googleSignUpFailure,
 	} = useSignUp();
-
-
-
 
 	return (
 		<div className=" space-y-5 w-full ">
@@ -47,12 +42,16 @@ const signup = () => {
 					/>
 					<MdAttachEmail />
 				</div>
-				<div className='text-red-600 w-full text-xs'>
-					* Minimum lenght should be 6 characters 
-				</div>
+				<div className="text-red-600 w-full text-xs">* Minimum lenght should be 6 characters</div>
 				<div className="bg-white  h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 					<input
-						onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value, confirmPassword:e.target.value })}
+						onChange={(e) =>
+							setSignUpData({
+								...signUpData,
+								password: e.target.value,
+								confirmPassword: e.target.value,
+							})
+						}
 						type={!showPassword ? 'password' : 'text'}
 						placeholder="create password"
 						minLength={6}
@@ -78,31 +77,25 @@ const signup = () => {
 				<span>Or</span>
 				<div className="border border-gray-300 w-full"></div>
 			</div>
-			<div
-				className=" animate__animated animate__fadeInUp animate__faster flex justify-center "
-			>
-
-				<GoogleOAuthProvider clientId={GOOGLE_SIGNUP_CLIENT_ID} >
-
+			<div className=" animate__animated animate__fadeInUp animate__faster flex justify-center ">
+				<GoogleOAuthProvider clientId={GOOGLE_SIGNUP_CLIENT_ID}>
 					<GoogleLogin
 						theme="outline"
-						text='signup_with'
+						text="signup_with"
 						ux_mode="popup"
-						onSuccess={credentialResponse => {
-							console.log(credentialResponse)
-							const details = jwt_decode(credentialResponse.credential as string) as Record<string,string>
-							googleSignUpSuccess(details)
+						onSuccess={(credentialResponse) => {
+							const details = jwt_decode(credentialResponse.credential as string) as Record<
+								string,
+								string
+							>;
+							googleSignUpSuccess(details);
 						}}
 						onError={() => {
-							googleSignUpFailure()
-							console.log('Login Failed');
+							googleSignUpFailure();
 						}}
 					/>
 				</GoogleOAuthProvider>
-
 			</div>
-			<ToastContainer />
-
 		</div>
 	);
 };

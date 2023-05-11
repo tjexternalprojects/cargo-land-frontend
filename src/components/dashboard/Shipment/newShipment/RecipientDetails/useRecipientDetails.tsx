@@ -1,60 +1,124 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Country, State, City } from 'country-state-city';
 import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
-import {ShipmentServices} from '@/services'
-import axios from 'axios'
-import 'react-toastify/dist/ReactToastify.css';
-
-function useRecipientDetails() {
+import { ShipmentServices } from '@/services';
+import { Country, State, City } from 'country-state-city';
+function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
-	const [countryCode, setCountryCode] = useState('');
-	const [stateCode, setStateCode] = useState('');
-	const [citySelected, setCitySelected] = useState('');
-	const [address, setAddress] = useState('');
-	const [mapAddress, setMapAddress] = useState('');
-	const [latitude, setLatitude] = useState(null);
-	const [longitude, setLongitude] = useState(null);
-	const [formattedAddress, setFormattedAddress] = useState('');
+	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [showLoading, setShowLoading] = useState(false);
+	const { createShipment, updateShipment, getAllUserShipment, getCountryCovered } =
+		ShipmentServices();
 
+	// Current address
+	const [country, setCountry] = useState<any>({});
+	const [countryState, setCountryState] = useState<any>({});
+	const [stateCity, setStateCity] = useState<any>({});
+	const [address, setAddress] = useState<string>('');
+	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
+
+	// function to handle shipment data details
 	interface ShipmentDetails {
-		recipient_full_name: string;
-		recipient_email: string;
-		shipment_destination: Record<string, string | number>;
+		recipient_full_name?: string;
+		recipient_email?: string;
+		shipment_destination?: Record<string, string | number | null>;
 	}
 
-	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
-		recipient_full_name: '',
-		recipient_email: '',
-		shipment_destination: {
-			country: '',
-			state: '',
-			city: '',
-			address: '',
-			longitude: 0,
-			latitude: 0,
-		},
-	});
+	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
+
+	const resetInputs = () => {
+		setShipmentDetails({
+			...shipmentDetails,
+			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
+			recipient_email: state.shipmentDetails.recipient_email as string,
+			shipment_destination: {
+				country: state.shipmentDetails.shipment_destination.country,
+				state: state.shipmentDetails.shipment_destination.state,
+				city: state.shipmentDetails.shipment_destination.city,
+				address: state.shipmentDetails.shipment_destination.address as string,
+				formattedAddress: state.shipmentDetails.shipment_destination.formattedAddress as string,
+				longitude: state.shipmentDetails.shipment_destination.longitude as number,
+				latitude: state.shipmentDetails.shipment_destination.latitude as number,
+			},
+		});
+		if (state.shipmentDetails.current_location.country !== '') {
+			const getCountryDetails = Country.getCountryByCode(
+				state.shipmentDetails.shipment_destination.country.isoCode
+			);
+			setCountry(getCountryDetails);
+			setCountryState(state.shipmentDetails.shipment_destination.state);
+			setStateCity(state.shipmentDetails.shipment_destination.city);
+			setAddress(state.shipmentDetails.shipment_destination.address);
+		} else {
+			setCountry({});
+		}
+	};
+
+	const resetShipmentStateOnChangeAddress = () => {
+		setState({
+			...state,
+			shipmentCurrentTab: 'item2',
+			form_level: 1,
+		});
+		setShipmentDetails({
+			...shipmentDetails,
+			shipment_destination: {
+				...shipmentDetails.shipment_destination,
+				country: country,
+				state: countryState,
+				city: stateCity,
+				address: address,
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+		});
+	};
+
+	const handleChangeCountry = (country: Record<string, string>) => {
+		resetShipmentStateOnChangeAddress();
+		if (country) {
+			const selectedCountry = countryCovered.some(
+				(obj: Record<string, string>) => obj.name === country.name
+			);
+
+			if (selectedCountry === false) {
+				toast.info('Sorry our services dosnt cover ' + country.name + ' yet', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+				setCountry({});
+			} else {
+				setCountry(country);
+			}
+		} else {
+			setCountry(country);
+		}
+	};
+
+	const handleChangeState = (state: any) => {
+		resetShipmentStateOnChangeAddress();
+		setCountryState(state);
+	};
+	const handleChangeCity = (city: any) => {
+		resetShipmentStateOnChangeAddress();
+		setStateCity(city);
+	};
+	const handleChangeAddress = (address: any) => {
+		resetShipmentStateOnChangeAddress();
+		setAddress(address);
+	};
 
 	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		setShowLoading(true);
-
+		setShowLoader(true);
 		if (
 			shipmentDetails.recipient_full_name == '' ||
 			shipmentDetails.recipient_email == '' ||
-			countryCode == '' ||
-			countryCode == '0' ||
-			stateCode == '' ||
-			stateCode == '0' ||
-			citySelected == '' ||
-			citySelected == '0' ||
-			address == ''
+			Object.keys(country).length === 0
 		) {
-			setShowLoading(false);
+			setShowLoader(false);
 			toast.info('Please fill the important fields (*)', {
 				progressClassName: 'bg-red-500 h-1',
 				autoClose: 3000,
@@ -62,30 +126,27 @@ function useRecipientDetails() {
 			return;
 		}
 
-		setLatitude(null);
-		setLongitude(null);
-		await updateMapAddress();
-		fetchLocation(mapAddress).then((data) => {
-			setShowLoading(false);
-
+		// await updateMapAddress();
+		fetchLocation(
+			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
+		).then((data) => {
+			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
 					'Multiple address match please re-check your address, you can add local government area to be specific'
 				);
 				return;
 			}
+
 			const { lat, lng } = data.results[0].geometry.location;
 
-			setLatitude(lat);
-			setLongitude(lng);
-			setFormattedAddress(data.results[0].formatted_address);
 			setShipmentDetails({
 				...shipmentDetails,
 				shipment_destination: {
 					...shipmentDetails.shipment_destination,
-					country: Country.getCountryByCode(countryCode)?.name as string,
-					state: State.getStateByCodeAndCountry(stateCode, countryCode)?.name as string,
-					city: citySelected,
+					country: country,
+					state: countryState,
+					city: stateCity,
 					address: address,
 					formattedAddress: data.results[0].formatted_address,
 					longitude: lng,
@@ -95,64 +156,128 @@ function useRecipientDetails() {
 		});
 	};
 
-	// This is use to control the active tab design
-	const moveNext = async () => {
-		setShowLoading(true);
+	const resetShipment = () => {
+		const resetShipmentDetails = {
+			shipment_title: '',
+			shipment_description: '',
+			shipment_weight: 0,
+			images: [],
+			current_location: {
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+			recipient_full_name: '',
+			recipient_email: '',
+			shipment_destination: {
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				longitude: null,
+				latitude: null,
+			},
+		};
+
+		// setState({
+		// 	...state,
+		// 	shipmentDetails: resetShipmentDetails,
+		// });
+
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: { ...prevState.shipmentDetails, resetShipmentDetails },
+		}));
+	};
+
+	const handleUpdateShipment = (shipment_id: string) => {
+		setShowLoader(true);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
 
 		const formData = new FormData();
 		formData.append('payload', payload);
-		for (let i = 0; i < shipment_images.length ; i++) {
-			console.log(shipment_images[i], 'form data images');
+		for (let i = 0; i < shipment_images.length; i++) {
 			formData.append('images', shipment_images[i]);
 		}
 
-		// axios.post('https://server.cargolandglobal.com/shipment/create-shipment', formData, {
-		// 	headers: {
-		// 	  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-		// 	  'Content-Type': 'multipart/form-data'
-		// 	}
-		//   })
-		//   .then(response => {
-		// 	console.log(response);
-		//   })
-		//   .catch(error => {
-		// 	console.log(error);
-		//   });
+		updateShipment(shipment_id, formData).then(
+			(response) => {
+				console.log(response)
+				setShowLoader(false);
+				toast.success('Shipment Updated Successfuly', {
+					progressClassName: 'bg-green-500 h-1',
+					autoClose: 3000,
+				});
+				resetShipment();
+				getAllUserShipment();
 
-		
-		await ShipmentServices.createShipment
-			(formData)
-			.then((response) => {
-				setShowLoading(false);
-				console.log(response);
+				setState({
+					...state,
+					shipmentCurrentTab: 'item3',
+					form_level: 2,
+					editShipment: false,
+				});
+			},
+			(error) => {
+				console.log(error)
+				setShowLoader(false);
+				toast.error('Sorry an error occured! Please Try again', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
+	};
+	const moveNext = async () => {
+		setShowLoader(true);
+		let shipment_images = state.shipmentDetails.images as [];
+		const { images, ...newPayload } = state.shipmentDetails;
+		const payload = JSON.stringify(newPayload);
+
+		const formData = new FormData();
+		formData.append('payload', payload);
+		for (let i = 0; i < shipment_images.length; i++) {
+			formData.append('images', shipment_images[i]);
+		}
+
+		await createShipment(formData).then(
+			(response) => {
+				setShowLoader(false);
 				setState({
 					...state,
 					shipmentCurrentTab: 'item3',
 					form_level: 2,
 				});
+				getAllUserShipment();
+				resetShipment();
 			},
 			(error) => {
-				setShowLoading(false);
-				console.log(error);
-			})
+				setShowLoader(false);
+			}
+		);
 	};
 
-	const updateMapAddress = () => {
-		const c_address = address != '' ? address + ', ' : '';
-		const c_city = citySelected != '' && citySelected !== '0' ? citySelected + ', ' : '';
-		const c_state = State.getStateByCodeAndCountry(stateCode, countryCode)?.name
-			? State.getStateByCodeAndCountry(stateCode, countryCode)?.name + ', '
-			: '';
-		const c_country = Country.getCountryByCode(countryCode)?.name
-			? Country.getCountryByCode(countryCode)?.name
-			: '';
-
-		setMapAddress(c_address + c_city + c_state + c_country);
+	const getCounteryCovered = () => {
+		getCountryCovered().then(
+			(response) => {
+				setCountryCovered(Object.values(response.data));
+			},
+			(error) => {
+				toast.error('Error getting countries', {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
 	};
 
+	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
 		setState((prevState) => ({
 			...prevState,
@@ -160,28 +285,35 @@ function useRecipientDetails() {
 		}));
 	}, [shipmentDetails]);
 
+	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
 	useEffect(() => {
-		updateMapAddress();
-	}, [address, citySelected, stateCode, countryCode]);
+		getCounteryCovered();
+	}, []);
+
+	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
+	useEffect(() => {
+		resetInputs();
+	}, [state.editShipment]);
 
 	return {
-		countryCode,
-		stateCode,
-		address,
-		citySelected,
-		mapAddress,
-		shipmentDetails,
-		longitude,
-		latitude,
-		formattedAddress,
-		showLoading,
-		moveNext,
-		setShipmentDetails,
-		setCitySelected,
-		setAddress,
 		handleRecipientDetails,
-		setCountryCode,
-		setStateCode,
+		setCountryState,
+		setShipmentDetails,
+		moveNext,
+		setStateCity,
+		setAddress,
+		handleChangeCountry,
+		handleChangeState,
+		handleChangeCity,
+		handleChangeAddress,
+		handleUpdateShipment,
+		state,
+		stateCity,
+		address,
+		countryState,
+		showLoader,
+		country,
+		shipmentDetails,
 	};
 }
-export default useRecipientDetails;
+export default useNewShipmentForm;
