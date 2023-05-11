@@ -199,7 +199,6 @@ function useNewShipmentForm() {
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
-
 		const formData = new FormData();
 		formData.append('payload', payload);
 		for (let i = 0; i < shipment_images.length; i++) {
@@ -208,9 +207,8 @@ function useNewShipmentForm() {
 
 		updateShipment(shipment_id, formData).then(
 			(response) => {
-				console.log(response)
 				setShowLoader(false);
-				toast.success('Shipment Updated Successfuly', {
+				toast.success('Shipment Updated Successfully', {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
 				});
@@ -225,7 +223,6 @@ function useNewShipmentForm() {
 				});
 			},
 			(error) => {
-				console.log(error)
 				setShowLoader(false);
 				toast.error('Sorry an error occured! Please Try again', {
 					progressClassName: 'bg-red-500 h-1',
@@ -245,7 +242,7 @@ function useNewShipmentForm() {
 		for (let i = 0; i < shipment_images.length; i++) {
 			formData.append('images', shipment_images[i]);
 		}
-
+		console.log(payload)
 		await createShipment(formData).then(
 			(response) => {
 				setShowLoader(false);

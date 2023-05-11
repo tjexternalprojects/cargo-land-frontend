@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LocalStorageServices, AuthServices } from '.';
-import { useNavigate } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert'; // Import
 const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
 // const navigate = useNavigate()
@@ -67,10 +67,22 @@ instance.interceptors.response.use(
 					return instance(originalConfig);
 				} catch (_error: any) {
 					if (_error.response.data == 'invalid refresh token') {
-						localStorage.clear();
-						// navigate('/login');
-						window.location.reload();
-						AuthServices().logout();
+						confirmAlert({
+							title: 'Session Expired?',
+							message: 'Your login session has expired, re-login',
+							buttons: [
+								{
+									label: 'Ok',
+									onClick: () => {
+										localStorage.clear();
+										window.location.reload();
+										AuthServices().logout();
+									},
+								},
+							],
+							closeOnEscape: false,
+							closeOnClickOutside: false,
+						});
 					}
 					return Promise.reject(_error);
 				}

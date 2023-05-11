@@ -12,14 +12,14 @@ function usePayment() {
 		amount: Number(state.initializePayment?.amount),
 		currency: 'NGN',
 		payment_options: 'card,mobilemoney,ussd',
-		redirect_url: 'http://localhost:4300/payment/verify',
+		redirect_url: 'https://server.cargolandglobal.com/payment/verify',
 
 		customer: {
 			email: state.single_user_data?.email as string,
 			phone_number: state.single_user_data?.phone as string,
 			name: state.single_user_data?.name as string,
 		},
-	
+
 		customizations: {
 			title: 'CargoLand',
 			description: 'CargoLand Payment',
