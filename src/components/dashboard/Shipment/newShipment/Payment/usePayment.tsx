@@ -6,14 +6,13 @@ function usePayment() {
 
 
 
-
 	const config = {
 		public_key: import.meta.env.VITE_REACT_APP_FLUTTERWAVE_TEST_KEY,
-		tx_ref: '333DD',
-		amount: 200,
+		tx_ref: state.initializePayment?.id as string,
+		amount: Number(state.initializePayment?.amount),
 		currency: 'NGN',
 		payment_options: 'card,mobilemoney,ussd',
-		// redirect_url: 'http://localhost:4300/payment/verify',
+		redirect_url: 'http://localhost:4300/payment/verify',
 
 		customer: {
 			email: state.single_user_data?.email as string,
