@@ -3,7 +3,7 @@ import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
-import { Country, State, City, IState } from 'country-state-city';
+import { Country } from 'country-state-city';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);

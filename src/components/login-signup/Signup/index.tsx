@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BiHide, BiShow, BsTelephoneForward, MdAttachEmail, BiUserPin } from '@/assets';
 import useSignUp from './useSignUp';
 import { RingLoader } from '@/components';

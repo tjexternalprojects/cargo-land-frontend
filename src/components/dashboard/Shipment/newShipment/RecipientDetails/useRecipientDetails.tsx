@@ -3,7 +3,7 @@ import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
-import { Country, State, City } from 'country-state-city';
+import { Country } from 'country-state-city';
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
@@ -130,6 +130,7 @@ function useNewShipmentForm() {
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
+			// console.log(data)
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
@@ -242,7 +243,6 @@ function useNewShipmentForm() {
 		for (let i = 0; i < shipment_images.length; i++) {
 			formData.append('images', shipment_images[i]);
 		}
-		console.log(payload)
 		await createShipment(formData).then(
 			(response) => {
 				setShowLoader(false);

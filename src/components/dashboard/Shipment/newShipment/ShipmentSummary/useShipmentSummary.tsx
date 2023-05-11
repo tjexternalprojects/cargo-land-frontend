@@ -38,11 +38,10 @@ function useShipmentSummary() {
 		}
 
 		setUnCheckedShipment(unchecked);
-		const deliveryPriceTotal = state.allShipments.reduce(
+		const deliveryPriceTotal = unchecked.reduce(
 			(total: any, obj: { delivery_price: any }) => total + obj.delivery_price,
 			0
 		);
-
 		setTotalPrice(deliveryPriceTotal);
 	};
 
@@ -97,19 +96,7 @@ function useShipmentSummary() {
 		});
 	};
 
-	// {
-	// 	"shipments": [
 
-	// 			{
-	// 				"shipmentId": "6451f9dc7983eb5de78c35dd",
-	// 				"amount": 2708000
-	// 			}
-
-	// 	],
-	// 	"amount": 2708000,
-	// 	"email": "tjfaithpro@gmail.com",
-	// 	"phone_number": "08222459383"
-	// }
 
 
 	const handlePayment = () => {
@@ -132,7 +119,7 @@ function useShipmentSummary() {
 
 		initiatePayment(payload).then(
 			(response) => {
-				console.log(response)
+				// console.log(response)
 				toast.success(response.data.message, {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,

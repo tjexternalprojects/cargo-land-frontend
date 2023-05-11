@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 function usePayment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-
+	// https://server.cargolandglobal.com/payment/verify?status=completed&tx_ref=645d6c377d58ddba77cd5631&transaction_id=4323370
 
 	const config = {
 		public_key: import.meta.env.VITE_REACT_APP_FLUTTERWAVE_TEST_KEY,
@@ -31,7 +31,7 @@ function usePayment() {
 		...config,
 		text: 'Pay with Flutterwave!',
 		callback: async (response: any) => {
-			console.log(response);
+			// console.log(response);
 			closePaymentModal(); // this will close the modal programmatically
 		},
 		onClose: async () => {
