@@ -4,13 +4,16 @@ import useUsers from './useUsers';
 import { AUserDetailsModal } from '@/components';
 
 const Users = () => {
-	const { users } = useUsers();
+	const { users, state } = useUsers();
 	return (
 		<div>
 			<div className="relative overflow-x-auto">
 				<table className="w-full text-sm text-left text-gray-500">
 					<thead className="text-xs text-gray-700 uppercase bg-gray-100">
 						<tr>
+							<th scope="col" className="px-6 py-3">
+								Avatar
+							</th>
 							<th scope="col" className="px-6 py-3">
 								Full Name
 							</th>
@@ -29,13 +32,18 @@ const Users = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{users.map((val, index) => (
+						{state.all_users.map((val, index) => (
 							<tr className="bg-white border-b cursor-pointer hover:bg-red-100">
+								<th scope="row" className=" px-6  font-medium text-gray-900 whitespace-nowrap">
+									<div className="rounded-full h-10 w-10">
+										<img src={val.avatar} className=" object-cover h-full w-full rounded-full " />
+									</div>
+								</th>
 								<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-									{val.full_name}
+									{val.name}
 								</th>
 								<td className="px-6 py-4">{val.email}</td>
-								<td className="px-6 py-4">{val.phone_number}</td>
+								<td className="px-6 py-4">{val.phoneNumber}</td>
 								<td className="px-6 py-4">{val.account_type}</td>
 								<td className="px-6 py-4">{val.account_status}</td>
 							</tr>

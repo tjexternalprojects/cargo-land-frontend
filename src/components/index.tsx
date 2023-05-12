@@ -25,6 +25,7 @@ export const BusinessDocuments = lazy(() => import('./dashboard/UserProfile/busi
 // Dashboard
 export const DashboardHome = lazy(() => import('./dashboard/Home'));
 export const ShipmentPage = lazy(() => import('./dashboard/Shipment'));
+export const AllShipment = lazy(() => import('./dashboard/AllShipment'));
 export const History = lazy(() => import('./dashboard/History'));
 export const Sidebar = lazy(() => import('./dashboard/Sidebar'));
 export const TopBar = lazy(() => import('./dashboard/TopBar'));

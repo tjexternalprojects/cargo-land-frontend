@@ -12,8 +12,9 @@ import {
 	AShipment,
 	LoadingPage,
 	UserProfile,
+	AllShipment,
 } from '@/components';
-import {  LandingPage, Login, Dashboard, Admin, ResetPassword, VerifyPayment } from '@/pages';
+import { LandingPage, Login, Dashboard, Admin, ResetPassword, VerifyPayment } from '@/pages';
 import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
 import ProtectedAdminRoutes from './ProtectedAdminRoutes';
 import { AppProvider } from '@/context';
@@ -38,6 +39,7 @@ function App() {
 							<Route path="/dashboard" element={<Dashboard />}>
 								<Route path="" element={<DashboardHome />} />
 								<Route path="/dashboard/shipment" element={<ShipmentPage />} />
+								<Route path="/dashboard/all_shipment" element={<AllShipment />} />
 								<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 								<Route path="/dashboard/history" element={<History />} />
 								<Route path="/dashboard/user" element={<UserProfile />} />

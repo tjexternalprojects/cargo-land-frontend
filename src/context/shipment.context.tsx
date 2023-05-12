@@ -17,6 +17,7 @@ function GeneralContext() {
 		},
 		recipient_full_name: '',
 		recipient_email: '',
+		delivery_type: '',
 		shipment_destination: {
 			country: '',
 			state: '',

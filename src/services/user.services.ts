@@ -7,9 +7,9 @@ import { toast } from 'react-toastify';
 function UserServices() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-	const contactUs = (payload:Record<string, string>)=>{
-		return api.post('/contact-cargoland', payload)
-	}
+	const contactUs = (payload: Record<string, string>) => {
+		return api.post('/contact-cargoland', payload);
+	};
 	const getSingleUser = async () => {
 		await api.get('/user/single-user/').then(
 			(res) => {
@@ -37,8 +37,9 @@ function UserServices() {
 
 	// SERVICES FOR ADMIN
 	const getAllUsers = () => {
-		return api.get('/user/all-users').then(
+		return api.get('/user/all-users?page=1&limit=30').then(
 			(res) => {
+				console.log(res);
 				setState((prevState) => ({
 					...prevState,
 					all_users: res.data.users,

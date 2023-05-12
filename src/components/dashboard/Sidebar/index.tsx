@@ -1,5 +1,6 @@
 import {
 	CiSettings,
+	GoPackage,
 	logo,
 	MdTrackChanges,
 	RiPriceTag2Line,
@@ -15,6 +16,7 @@ const sidebar = () => {
 	const dashboardMatch = useMatch('/dashboard');
 	const shipmentMatch = useMatch('/dashboard/shipment');
 	const trackMatch = useMatch('/dashboard/track_shipment');
+	const allShipment = useMatch('/dashboard/all_shipment');
 	const historyMatch = useMatch('/dashboard/history');
 	const { handleLogout } = useLogin();
 	const { state, handleToggleSidebar } = useSidebar();
@@ -54,6 +56,18 @@ const sidebar = () => {
 								} pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
 							>
 								<MdTrackChanges /> <span>New Shipment</span>
+							</NavLink>
+						</li>
+
+						<li>
+							<NavLink
+								to="/dashboard/track_shipment"
+								onClick={handleToggleSidebar}
+								className={`${
+									allShipment ? '  bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
+								}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
+							>
+								<GoPackage /> <span>All Shipment</span>
 							</NavLink>
 						</li>
 
