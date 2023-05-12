@@ -68,7 +68,7 @@ instance.interceptors.response.use(
 				} catch (_error: any) {
 					if (_error.response.data == 'invalid refresh token') {
 						confirmAlert({
-							title: 'Session Expired?',
+							title: 'Session Expired',
 							message: 'Your login session has expired, re-login',
 							buttons: [
 								{
