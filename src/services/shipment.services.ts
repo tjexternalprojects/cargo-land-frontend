@@ -54,6 +54,9 @@ function ShipmentServices() {
 		return api.put(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
 	};
 
+	const verifyPayment = (params:Record<string, string|null>)=>{
+		return api.get(`/payment/verify?status=${params.status}&tx_ref=${params.txRef}&transaction_id=${params.transactionId}`)
+	}
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
@@ -147,6 +150,7 @@ function ShipmentServices() {
 		updateShipment,
 		createShipment,
 		deleteShipment,
+		verifyPayment,
 		getCountryCovered,
 		getShipmentDateRange,
 		getAllUserShipment,

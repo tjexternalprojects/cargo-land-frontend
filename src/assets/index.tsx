@@ -49,6 +49,7 @@ export {
 	BsArrowUpRight,
 	BsArrowDownRight,
 	BsCurrencyDollar,
+	BsCheckLg,
 } from 'react-icons/bs';
 export {
 	AiOutlineNumber,

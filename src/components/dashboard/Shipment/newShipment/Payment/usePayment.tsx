@@ -1,6 +1,6 @@
 import { AppContextType, AppContext } from '@/context';
-import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
-import { useContext, useState } from 'react';
+import {  closePaymentModal } from 'flutterwave-react-v3';
+import { useContext } from 'react';
 function usePayment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
@@ -12,7 +12,8 @@ function usePayment() {
 		amount: Number(state.initializePayment?.amount),
 		currency: 'NGN',
 		payment_options: 'card,mobilemoney,ussd',
-		redirect_url: 'https://server.cargolandglobal.com/payment/verify',
+		// redirect_url: 'https://server.cargolandglobal.com/payment/verify',
+		redirect_url: import.meta.env.VITE_REACT_APP_FRONT_END_URL+'/dashboard/payment/verify',
 
 		customer: {
 			email: state.single_user_data?.email as string,

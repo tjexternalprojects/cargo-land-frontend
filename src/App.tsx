@@ -13,7 +13,7 @@ import {
 	LoadingPage,
 	UserProfile,
 } from '@/components';
-import {  LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
+import {  LandingPage, Login, Dashboard, Admin, ResetPassword, VerifyPayment } from '@/pages';
 import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
 import ProtectedAdminRoutes from './ProtectedAdminRoutes';
 import { AppProvider } from '@/context';
@@ -41,6 +41,7 @@ function App() {
 								<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 								<Route path="/dashboard/history" element={<History />} />
 								<Route path="/dashboard/user" element={<UserProfile />} />
+								<Route path="/dashboard/payment/verify" element={<VerifyPayment />} />
 							</Route>
 						</Route>
 						<Route element={<ProtectedAdminRoutes />}>
