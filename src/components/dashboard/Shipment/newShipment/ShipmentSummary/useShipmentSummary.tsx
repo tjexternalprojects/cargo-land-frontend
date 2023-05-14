@@ -39,10 +39,10 @@ function useShipmentSummary() {
 
 		setUnCheckedShipment(unchecked);
 		const deliveryPriceTotal = unchecked.reduce(
-			(total: any, obj: { delivery_price: any }) => total + obj.delivery_price,
+			(total: any, obj: { delivery_price: any }) => total + Number(obj.delivery_price),
 			0
 		);
-		setTotalPrice(deliveryPriceTotal);
+		setTotalPrice(Number(deliveryPriceTotal));
 	};
 
 	useEffect(() => {
