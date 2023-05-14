@@ -67,7 +67,7 @@ const index = () => {
         </div>
 
         <Pagination
-          itmes_length={state.allShipments.length}
+          items_length={state.allShipments.length}
           items_per_page={1}
           current_page={current_page}
           set_current_page={set_current_page}
