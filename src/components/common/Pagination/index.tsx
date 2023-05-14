@@ -54,12 +54,12 @@ const index: React.FC<PaginationProps> = ({
         ))}
 
 {current_page + 1 < itmes_length  &&  <div className="mb-3">...</div>}
-        <button disabled={pagination_btn_array[pagination_btn_array.length]>=total_pages } onClick={handleNext} className={`w-10 h-10 rounded-full flex items-center justify-center   ${pagination_btn_array[pagination_btn_array.length]>=total_pages ? 'cursor-not-allowed bg-slate-100': 'cursor-pointer hover:bg-slate-200  hover:shadow  hover:transition-all hover:duration-1000'}`}>
+        <button disabled={current_page ==total_pages } onClick={handleNext} className={`w-10 h-10 rounded-full flex items-center justify-center   ${current_page==total_pages ? 'cursor-not-allowed bg-slate-100': 'cursor-pointer hover:bg-slate-200  hover:shadow  hover:transition-all hover:duration-1000'}`}>
           <GrNext className="w-5" />
         </button>
-        <div className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:bg-slate-200  hover:shadow hover:shadow-primary-2 hover:transition-all hover:duration-1000">
+        <button disabled={current_page ==total_pages }  className={`w-10 h-10 rounded-full flex items-center justify-center   ${current_page==total_pages ? 'cursor-not-allowed bg-slate-100': 'cursor-pointer hover:bg-slate-200  hover:shadow  hover:transition-all hover:duration-1000'}`}>
           <HiOutlineChevronDoubleRight className="w-5" />
-        </div>
+        </button>
       </div>
     </div>
   );
