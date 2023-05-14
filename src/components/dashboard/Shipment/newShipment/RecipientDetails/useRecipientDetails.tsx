@@ -22,7 +22,7 @@ function useNewShipmentForm() {
 	interface ShipmentDetails {
 		recipient_full_name?: string;
 		recipient_email?: string;
-		delivery_type?: string;
+		shipment_type?: string;
 		shipment_destination?: Record<string, string | number | null>;
 	}
 
@@ -33,7 +33,7 @@ function useNewShipmentForm() {
 			...shipmentDetails,
 			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
 			recipient_email: state.shipmentDetails.recipient_email as string,
-			delivery_type: state.shipmentDetails.delivery_type as string,
+			shipment_type: state.shipmentDetails.shipment_type as string,
 			shipment_destination: {
 				country: state.shipmentDetails.shipment_destination.country,
 				state: state.shipmentDetails.shipment_destination.state,
@@ -176,7 +176,7 @@ function useNewShipmentForm() {
 			},
 			recipient_full_name: '',
 			recipient_email: '',
-			delivery_type: '',
+			shipment_type: '',
 			shipment_destination: {
 				country: '',
 				state: '',
@@ -200,6 +200,7 @@ function useNewShipmentForm() {
 
 	const handleUpdateShipment = (shipment_id: string) => {
 		setShowLoader(true);
+		console.log(state.shipmentDetails)
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);

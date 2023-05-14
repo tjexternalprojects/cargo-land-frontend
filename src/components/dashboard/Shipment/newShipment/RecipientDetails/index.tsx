@@ -92,11 +92,11 @@ const RecipientDetails = () => {
 							<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 								<select
 									className="w-full outline-none"
-									value={(shipmentDetails.delivery_type as string) ?? ''}
+									value={(shipmentDetails.shipment_type as string) ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
 											...shipmentDetails,
-											delivery_type: e.target.value,
+											shipment_type: e.target.value,
 										})
 									}
 									required
