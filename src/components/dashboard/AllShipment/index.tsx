@@ -1,39 +1,56 @@
 import React from 'react'
-
+import useAllShipment from './useAllShipment';
+import { Pagination } from '@/components';
 const index = () => {
-      const data = [
-				{ id: 1, name: 'John Doe', email: 'john@example.com' },
-				{ id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-				// Add more data objects as needed
-			];
+const {state, currentItems, start_range, end_range, set_start_range, set_end_range} = useAllShipment()
   return (
 		<div className="overflow-x-auto">
-			<table className="min-w-full divide-y divide-gray-200">
-				<thead className="bg-gray-50">
-					<tr>
-						{Object.keys(data[0]).map((key) => (
-							<th
-								key={key}
-								scope="col"
-								className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-							>
-								{key}
+				<div>
+			<div className="relative overflow-x-auto">
+				<table className="w-full text-sm text-left text-gray-500">
+					<thead className="text-xs text-gray-700 uppercase bg-gray-100">
+						<tr>
+							<th scope="col" className="px-6 py-3">
+								Tracking Id
 							</th>
-						))}
-					</tr>
-				</thead>
-				<tbody className="bg-white divide-y divide-gray-200">
-					{data.map((item, index) => (
-						<tr key={index}>
-							{Object.values(item).map((value, index) => (
-								<td key={index} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-									{value}
-								</td>
-							))}
+							<th scope="col" className="px-6 py-3">
+								Shipment Title
+							</th>
+							<th scope="col" className="px-6 py-3">
+								Sender's Address
+							</th>
+							<th scope="col" className="px-6 py-3">
+							Recepient's Address
+							</th>
+							<th scope="col" className="px-6 py-3">
+								Deleivery Type
+							</th>
+							<th scope="col" className="px-6 py-3">
+								Shipment Status
+							</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{currentItems.map((shipment:any, index:number) => (
+							<tr className="bg-white border-b cursor-pointer hover:bg-red-100" key={index}>
+								<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+									{shipment.id}
+								</th>
+								<td className="px-6 py-4">{shipment.shipment_title}</td>
+								<td className="px-6 py-4">{shipment.sendersAddress}</td>
+								<td className="px-6 py-4">{shipment.recepientAddress}</td>
+								<td className="px-6 py-4">{shipment.shipment_Type === 'DOOR_TO_DOOR' ? 'Door to Door' : 'Airport to Airport'}</td>
+								<td className="px-6 py-4">{shipment.shipment_Status}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+
+			<Pagination itmes_length={state.allShipments.length} items_per_page={1} start_range={start_range} end_range={end_range} set_start_range={set_start_range} set_end_range={set_end_range}/>
+
+	
+		</div>
 		</div>
 	);
 }

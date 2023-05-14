@@ -248,6 +248,7 @@ function useNewShipmentForm() {
 		}
 		await createShipment(formData).then(
 			(response) => {
+				console.log(response)
 				setShowLoader(false);
 				setState({
 					...state,
@@ -258,6 +259,7 @@ function useNewShipmentForm() {
 				resetShipment();
 			},
 			(error) => {
+				console.log(error)
 				setShowLoader(false);
 			}
 		);

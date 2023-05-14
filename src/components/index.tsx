@@ -9,6 +9,7 @@ export const Notification = lazy(() => import('./common/Notification'));
 export const Loader = lazy(() => import('./common/loader'));
 export const RingLoader = lazy(() => import('./common/RingLoader'));
 export const LoadingPage = lazy(() => import('./common/LoadingPage'));
+export const Pagination = lazy(()=> import('./common/Pagination'))
 
 // login components
 export const LoginComponent = lazy(() => import('./login-signup/Login'));

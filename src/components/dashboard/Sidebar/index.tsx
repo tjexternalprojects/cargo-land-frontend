@@ -61,10 +61,10 @@ const sidebar = () => {
 
 						<li>
 							<NavLink
-								to="/dashboard/track_shipment"
+								to="/dashboard/all_shipment"
 								onClick={handleToggleSidebar}
 								className={`${
-									allShipment ? '  bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
+									allShipment ? ' bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
 								}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
 							>
 								<GoPackage /> <span>All Shipment</span>
@@ -76,7 +76,7 @@ const sidebar = () => {
 								to="/dashboard/track_shipment"
 								onClick={handleToggleSidebar}
 								className={`${
-									trackMatch ? '  bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
+									trackMatch ? 'bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
 								}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
 							>
 								<TbTruckDelivery /> <span>Track Shipment</span>
