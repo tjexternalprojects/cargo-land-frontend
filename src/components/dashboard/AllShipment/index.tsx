@@ -1,21 +1,15 @@
 import React from "react";
 import useAllShipment from "./useAllShipment";
-import { Pagination } from "@/components";
+import { Pagination, RingLoader } from "@/components";
 const index = () => {
-  const {
-    state,
-    current_page,
-    set_current_page,
-    currentItems,
-    start_range,
-    end_range,
-    set_start_range,
-    set_end_range,
-  } = useAllShipment();
+  const { allShipment, currentPage, laoading, result, setCurrentPage } = useAllShipment();
   return (
-    <div className="overflow-x-auto">
-      <div>
-        <div className="relative overflow-x-auto">
+    <div className="overflow-auto">
+      <div className="relative overflow-auto max-h-72-screen min-h-72-screen mt-5">
+        {laoading ?
+          <div className="w-full border flex items-center justify-center"><RingLoader size={200} textColor="text-blue-900" /></div>
+
+          :
           <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-100">
               <tr>
@@ -40,7 +34,7 @@ const index = () => {
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((shipment: any, index: number) => (
+              {allShipment.map((shipment: any, index: number) => (
                 <tr
                   className="bg-white border-b cursor-pointer hover:bg-red-100"
                   key={index}
@@ -63,20 +57,15 @@ const index = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
-        </div>
-
-        <Pagination
-          items_length={state.allShipments.length}
-          items_per_page={1}
-          current_page={current_page}
-          set_current_page={set_current_page}
-          start_range={start_range}
-          end_range={end_range}
-          set_start_range={set_start_range}
-          set_end_range={set_end_range}
-        />
+          </table>}
       </div>
+
+      <Pagination
+        setCurrentPage={setCurrentPage}
+        currentPage={Number(currentPage)}
+        result={result}
+        laoading={laoading}
+      />
     </div>
   );
 };

@@ -18,8 +18,11 @@ function ShipmentServices() {
 		return api.post('/shipment/create-shipment', shipmentData);
 	};
 
+	const getAllUserShipmentPaginated = (page_number:number, page_limit:number)=>{
+		return api.get(`/shipment/get-all-user-shipment?page=${page_number}&limit=${page_limit}`)
+	}
 	const getAllUserShipment = async () => {
-		await api.get('/shipment/get-all-user-shipment').then(
+		await api.get('/shipment/get-all-user-shipment?page=1&limit=1').then(
 			(res) => {
 				console.log(res);
 				setState((prevState) => ({
@@ -154,6 +157,7 @@ function ShipmentServices() {
 		getCountryCovered,
 		getShipmentDateRange,
 		getAllUserShipment,
+		getAllUserShipmentPaginated,
 		getShipmentInRange,
 	};
 }

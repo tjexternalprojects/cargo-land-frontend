@@ -1,22 +1,49 @@
 import { AppContextType, AppContext } from "@/context";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ShipmentServices } from "@/services";
+import { useParams, useNavigate } from "react-router-dom";
 
-function useAllShipment(){
-	const { state, setState } = useContext<AppContextType>(AppContext);
-    const [current_page, set_current_page] = useState(1)
-    const [start_range, set_start_range] = useState(0)
-    const [end_range, set_end_range]= useState(1)
-    const currentItems = state.allShipments.slice(start_range, end_range);
+function useAllShipment() {
+    const navigate = useNavigate();
+    const [allShipment, setAllShipments] = useState<any>([])
+    const params = useParams();
+    const [currentPage, setCurrentPage] = useState(Number(params.current_page))
+    const { getAllUserShipmentPaginated } = ShipmentServices()
+    const [laoading, setLoading] = useState(false)
+    const [result, setResult] = useState(1)
+    const getAllShipment = async () => {
+        if(isNaN(currentPage)){
+            setCurrentPage(1)
+        }
+        setLoading(true)
+        await getAllUserShipmentPaginated(Number(currentPage), 6).then(response => {
+        
+        if(response.data.allUserShipment.length > 0){
+            setAllShipments(response.data.allUserShipment)
+            navigate('/dashboard/all_shipment/' + currentPage);
+        }else{
+            setResult(0)
+            setCurrentPage(1)
+            navigate('/dashboard/all_shipment/' + currentPage);
+        }
+        setLoading(false)
+
+        }, error => {
+            console.log(error)
+            setLoading(false)
+
+        })
+
+    }
+    useEffect(() => {
+        getAllShipment()
+    }, [currentPage])
     return {
-        state,
-        currentItems,
-        start_range,
-        end_range,
-        current_page,
-        set_current_page,
-        set_start_range,
-        set_end_range,
-
+        allShipment,
+        currentPage,
+        laoading,
+        result,
+        setCurrentPage
     }
 }
 
