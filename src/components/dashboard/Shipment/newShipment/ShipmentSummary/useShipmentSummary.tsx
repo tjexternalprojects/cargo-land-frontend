@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext, AppContextType } from '@/context';
-import { ShipmentServices } from '@/services';
+import { ShipmentServices, TransactionServices } from '@/services';
 import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
 
 function useShipmentSummary() {
-	const { deleteShipment, getAllUserShipment, initiatePayment } = ShipmentServices();
+	const { deleteShipment, getAllUserShipment } = ShipmentServices();
+	const { initiatePayment } = TransactionServices();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showShipmentModal, setShowShipmentModal] = useState(false);
 	const [unCheckedShipment, setUnCheckedShipment] = useState<any>([]);
@@ -84,7 +85,7 @@ function useShipmentSummary() {
 				},
 				{
 					label: 'No',
-					onClick: () => { },
+					onClick: () => {},
 				},
 			],
 		});
@@ -95,9 +96,6 @@ function useShipmentSummary() {
 			shipmentCurrentTab: 'item1',
 		});
 	};
-
-
-
 
 	const handlePayment = () => {
 		setShipmentLoader(true);
@@ -127,7 +125,7 @@ function useShipmentSummary() {
 
 				setState({
 					...state,
-					initializePayment:response.data.data,
+					initializePayment: response.data.data,
 					shipmentCurrentTab: 'item4',
 					form_level: 3,
 				});

@@ -11,9 +11,9 @@ interface PaginationProps {
 	setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     currentPage:number;
     result:number;
-    laoading:boolean
+    loading:boolean
 }
-const index:  React.FC<PaginationProps> =({setCurrentPage, result, currentPage, laoading}) => {
+const index:  React.FC<PaginationProps> =({setCurrentPage, result, currentPage, loading: laoading}) => {
 	const {nextPage, prevPage} = usePagination(setCurrentPage, currentPage);
 	return (
 		<div className="w-full flex justify-end">

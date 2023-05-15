@@ -18,9 +18,9 @@ function ShipmentServices() {
 		return api.post('/shipment/create-shipment', shipmentData);
 	};
 
-	const getAllUserShipmentPaginated = (page_number:number, page_limit:number)=>{
-		return api.get(`/shipment/get-all-user-shipment?page=${page_number}&limit=${page_limit}`)
-	}
+	const getAllUserShipmentPaginated = (page_number: number, page_limit: number) => {
+		return api.get(`/shipment/get-all-user-shipment?page=${page_number}&limit=${page_limit}`);
+	};
 	const getAllUserShipment = async () => {
 		await api.get('/shipment/get-all-user-shipment?page=1&limit=1').then(
 			(res) => {
@@ -57,16 +57,9 @@ function ShipmentServices() {
 		return api.put(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
 	};
 
-	const verifyPayment = (params:Record<string, string|null>)=>{
-		return api.get(`/payment/verify?status=${params.status}&tx_ref=${params.txRef}&transaction_id=${params.transactionId}`)
-	}
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
-
-	const initiatePayment = (payload: any) => {
-		return api.post('/payment/initiate', payload);
-	};
 
 	// FOR HOME PAGE GRAPHS =================
 
@@ -149,11 +142,9 @@ function ShipmentServices() {
 		}));
 	}, [shipmentSummary]);
 	return {
-		initiatePayment,
 		updateShipment,
 		createShipment,
 		deleteShipment,
-		verifyPayment,
 		getCountryCovered,
 		getShipmentDateRange,
 		getAllUserShipment,

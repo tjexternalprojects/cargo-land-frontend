@@ -1,8 +1,11 @@
 import { AppContextType, AppContext } from '@/context';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import {  TransactionServices } from '@/services';
 
 function useHome() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
+	const { paymentHistory }= TransactionServices();
+	const [transactionHistory, setTransactionHistory] = useState();
 
 	const [activeShipment, setActiveShipment] = useState([
 		{
@@ -162,6 +165,21 @@ function useHome() {
 		},
 	];
 
+	const getTransactionHistory = () => {
+		paymentHistory().then(
+			(response) => {
+				console.log(response);
+				setTransactionHistory(response.data.data);
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+
+	useEffect(()=>{
+		getTransactionHistory();
+	},[])
 	return {
 		toggleShowBalance,
 		currency,

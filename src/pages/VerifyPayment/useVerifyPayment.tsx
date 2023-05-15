@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
-import { ShipmentServices } from "@/services";
+import {  TransactionServices } from "@/services";
 function useVerifyPayment(){
-    const {verifyPayment}= ShipmentServices()
+    const { verifyPayment } = TransactionServices();
     const [searchParams] = useSearchParams();
         const [paymentStatus, setPaymentStatus]= useState('')
         const [loading, setLoading] = useState(false)

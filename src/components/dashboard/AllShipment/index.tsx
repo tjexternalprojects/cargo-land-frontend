@@ -2,11 +2,11 @@ import React from "react";
 import useAllShipment from "./useAllShipment";
 import { Pagination, RingLoader } from "@/components";
 const index = () => {
-  const { allShipment, currentPage, laoading, result, setCurrentPage } = useAllShipment();
+  const { allShipment, currentPage, loading, result, setCurrentPage } = useAllShipment();
   return (
     <div className="overflow-auto">
       <div className="relative overflow-auto max-h-72-screen min-h-72-screen mt-5">
-        {laoading ?
+        {loading ?
           <div className="w-full border flex items-center justify-center"><RingLoader size={200} textColor="text-blue-900" /></div>
 
           :
@@ -64,7 +64,7 @@ const index = () => {
         setCurrentPage={setCurrentPage}
         currentPage={Number(currentPage)}
         result={result}
-        laoading={laoading}
+        loading={loading}
       />
     </div>
   );

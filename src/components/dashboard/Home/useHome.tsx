@@ -1,15 +1,16 @@
 import { AppContextType, AppContext } from '@/context';
-import { ShipmentServices } from '@/services';
+import { ShipmentServices, TransactionServices } from '@/services';
 import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
 	const { getShipmentInRange } = ShipmentServices();
+	const { userPaymentHistory } = TransactionServices();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const user_data = state.single_user_data;
 	const [currency, setCurrency] = useState('\u20A6');
 	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
-
+	const [transactionHistory, setTransactionHistory] = useState();
 	// STATES FOR GRAPH
 	// ***successful shipment graph
 	const [successfulShipmentLabel, setSuccessfulShipmentLabel] = useState([]);
@@ -81,9 +82,22 @@ function useHome() {
 		setShipmentCreatedLoader(false);
 	};
 
+	const getTransactionHistory = () => {
+		userPaymentHistory().then(
+			(response) => {
+				console.log(response);
+				setTransactionHistory(response.data.data);
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+
 	useEffect(() => {
 		successfulShipment();
 		shipmentCreated();
+		getTransactionHistory();
 	}, [state.shipmentSummary]);
 
 	const transaction_history = [

@@ -49,7 +49,7 @@ function App() {
 						<Route element={<ProtectedAdminRoutes />}>
 							<Route path="/admin" element={<Admin />}>
 								<Route path="" element={<AdminHome />} />
-								<Route path="/admin/users" element={<AUsers />} />
+								<Route path="/admin/users/:current_page" element={<AUsers />} />
 								<Route path="/admin/track_shipment" element={<ATrackShipment />} />
 								<Route path="/admin/transactions" element={<ATransactions />} />
 								<Route path="/admin/shipment" element={<AShipment />} />

@@ -36,22 +36,8 @@ function UserServices() {
 	};
 
 	// SERVICES FOR ADMIN
-	const getAllUsers = () => {
-		return api.get('/user/all-users?page=1&limit=30').then(
-			(res) => {
-				console.log(res);
-				setState((prevState) => ({
-					...prevState,
-					all_users: res.data.users,
-				}));
-			},
-			(err) => {
-				toast.error(err.response.data.message, {
-					progressClassName: 'bg-red-500 h-1',
-					autoClose: 3000,
-				});
-			}
-		);
+	const getAllUsers = (page_number: number, page_limit: number) => {
+		return api.get(`/user/all-users?page=${page_number}&limit=${page_limit}`)
 	};
 	return {
 		contactUs,

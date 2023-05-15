@@ -11,7 +11,6 @@ const SuperAdminDashboard = () => {
 	const { getAllUsers, getSingleUser } = UserServices();
 	useEffect(() => {
 		getSingleUser();
-		getAllUsers();
 	}, []);
 	return (
 		<div className="flex bg-gray-200 min-h-screen">
