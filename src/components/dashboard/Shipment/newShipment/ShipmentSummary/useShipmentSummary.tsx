@@ -36,14 +36,43 @@ function useShipmentSummary() {
 				shipmentCurrentTab: 'item1',
 				form_level: 0,
 			});
+			return;
 		}
 
-		setUnCheckedShipment(unchecked);
-		const deliveryPriceTotal = unchecked.reduce(
-			(total: any, obj: { delivery_price: any }) => total + Number(obj.delivery_price),
+		const updatedUnchecked = unchecked.map((obj: any) => {
+			return {
+				...obj,
+				checked: obj.delivery_price !== 'await_admin' ? true : false,
+			};
+		});
+
+		setUnCheckedShipment(updatedUnchecked);
+		calculateTotalPrice(updatedUnchecked);
+	};
+
+	const calculateTotalPrice = (items_array: any) => {
+		const deliveryPriceTotal = items_array.reduce(
+			(total: number, obj: { checked: boolean; delivery_price: string }) => {
+				if (obj.checked === true) {
+					const deliveryPrice =
+						typeof obj.delivery_price === 'number'
+							? obj.delivery_price
+							: Number(obj.delivery_price);
+					return total + deliveryPrice;
+				}
+				return total;
+			},
 			0
 		);
+
 		setTotalPrice(Number(deliveryPriceTotal));
+	};
+
+	const handleCheck = (index: number) => {
+		const updatedArray = [...unCheckedShipment];
+		updatedArray[index].checked = !updatedArray[index].checked;
+		setUnCheckedShipment(updatedArray);
+		calculateTotalPrice(updatedArray);
 	};
 
 	useEffect(() => {
@@ -102,10 +131,12 @@ function useShipmentSummary() {
 		const totalShipment: Record<string, string>[] = [];
 
 		unCheckedShipment.forEach((obj: any) => {
-			totalShipment.push({
-				shipmentId: obj.id,
-				amount: obj.delivery_price,
-			});
+			if (obj.checked) {
+				totalShipment.push({
+					shipmentId: obj.id,
+					amount: obj.delivery_price,
+				});
+			}
 		});
 
 		const payload = {
@@ -115,6 +146,7 @@ function useShipmentSummary() {
 			phone_number: state.single_user_data?.phoneNumber,
 		};
 
+		console.log(payload);
 		initiatePayment(payload).then(
 			(response) => {
 				// console.log(response)
@@ -132,6 +164,7 @@ function useShipmentSummary() {
 				setShipmentLoader(false);
 			},
 			(error) => {
+				console.log(error);
 				toast.error(error.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
@@ -157,6 +190,7 @@ function useShipmentSummary() {
 		handleRemoveItem,
 		handleAddShipment,
 		handlePayment,
+		handleCheck,
 		shipmentLoader,
 		selectedShipment,
 		itemIndexToRemove,

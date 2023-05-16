@@ -24,6 +24,7 @@ const RecipientDetails = () => {
 		removeShipmentLoader,
 		selectedShipment,
 		shipmentLoader,
+		handleCheck,
 		handleAddShipment,
 		handleRemoveItem,
 		handleShowModal,
@@ -40,9 +41,11 @@ const RecipientDetails = () => {
 							<table className=" w-full  bg-white rounded-sm">
 								<thead className=" text-left  w-full bg-slate-100 ">
 									<tr>
+										<th>Select</th>
 										<th className="p-3">Shipment Id</th>
 										<th>Current Location</th>
 										<th>Destination</th>
+										<th>Shipment Type</th>
 										<th>Price</th>
 										<td></td>
 									</tr>
@@ -50,6 +53,15 @@ const RecipientDetails = () => {
 								<tbody className=" overflow-y-auto">
 									{unCheckedShipment?.map((val: any, index: number) => (
 										<tr key={index} className=" border-b hover:bg-slate-300  text-sm">
+											<td>
+												<input
+												className='cursor-pointer w-6'
+													onChange={() => handleCheck(index)}
+													type="checkbox"
+													disabled={isNaN(val.delivery_price)}
+													checked={!isNaN(val.delivery_price) && val.checked}
+												/>{' '}
+											</td>
 											<td
 												className="p-3 underline cursor-pointer text-blue-800"
 												onClick={() => handleShowModal(val)}
@@ -58,7 +70,17 @@ const RecipientDetails = () => {
 											</td>
 											<td className="p-3 w-1/4">{val.sendersAddress}</td>
 											<td className="p-3 w-1/4">{val.recepientAddress}</td>
-											<td className="p-3">{val.delivery_price.toLocaleString()}</td>
+											<td className="p-3 w-1/4 font-bold">
+												{val.shipment_Type === 'AIRPORT_TO_AIRPORT'
+													? 'Airport to Airport'
+													: 'Door to Door'}
+											</td>
+
+											<td className="p-3">
+												{val.delivery_price === 'await_admin'
+													? 'Admin Determine Price'
+													: Number(val.delivery_price).toLocaleString()}
+											</td>
 											<td>
 												<button
 													onClick={() => handleRemoveItem(val.id)}

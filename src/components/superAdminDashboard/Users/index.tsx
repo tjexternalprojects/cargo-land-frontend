@@ -57,7 +57,7 @@ const Users = () => {
 									<td className="px-6 py-4">{val.email}</td>
 									<td className="px-6 py-4">{val.phoneNumber}</td>
 									<td className="px-6 py-4">{val.account_type}</td>
-									<td className="px-6 py-4">{val.isVerified ? 'Verified' : 'Not Verfied'}</td>
+									<td className="px-6 py-4">{val.isVerified ? 'Verified' : 'Not Verified'}</td>
 								</tr>
 							))}
 						</tbody>
