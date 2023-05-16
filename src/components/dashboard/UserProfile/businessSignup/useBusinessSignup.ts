@@ -5,7 +5,7 @@ function useBusinessSignup() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [activeTab, setActiveTab] = useState('business_data');
 	const { state, setState } = useContext<AppContextType>(AppContext);
- 
+
 	return {
 		showPassword,
 		activeTab,

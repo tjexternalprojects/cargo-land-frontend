@@ -1,10 +1,5 @@
-import {
-	TiBusinessCard,
-	HiDocumentText,
-	TbBusinessplan,
-	MdOutlineArrowForwardIos,
-} from '@/assets';
-import {  BusinessDocuments, BusinessData } from '@/components';
+import { TiBusinessCard, HiDocumentText, TbBusinessplan, MdOutlineArrowForwardIos } from '@/assets';
+import { BusinessDocuments, BusinessData } from '@/components';
 import useBusinessSignup from './useBusinessSignup';
 import { motion } from 'framer-motion';
 import { slideUp } from '@/utils/animations';
@@ -40,7 +35,7 @@ const BusinessSignup = () => {
 						onClick={() => {
 							if (state.business_account?.business_name) {
 								setActiveTab('business_document');
-							  }
+							}
 						}}
 					>
 						<div
@@ -50,7 +45,13 @@ const BusinessSignup = () => {
 						>
 							<HiDocumentText />
 						</div>
-						<span className={`ml-10 font-bold  mb-5 ${activeTab == 'business_document' ? 'text-blue-900' : 'text-gray-400'}`}>Business Documents</span>
+						<span
+							className={`ml-10 font-bold  mb-5 ${
+								activeTab == 'business_document' ? 'text-blue-900' : 'text-gray-400'
+							}`}
+						>
+							Business Documents
+						</span>
 					</div>
 					{activeTab == 'business_document' && (
 						<motion.div className="mx-10  w-full" animate={slideUp(0, 0.3)}>

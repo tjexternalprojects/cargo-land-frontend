@@ -22,7 +22,7 @@ function ShipmentServices() {
 		return api.get(`/shipment/get-all-user-shipment?page=${page_number}&limit=${page_limit}`);
 	};
 	const getAllUserShipment = async () => {
-		await api.get('/shipment/get-all-user-shipment?page=1&limit=1').then(
+		await api.get('/shipment/get-all-user-shipment').then(
 			(res) => {
 				console.log(res);
 				setState((prevState) => ({
@@ -60,6 +60,12 @@ function ShipmentServices() {
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
+
+
+	// ADMIN END-POINT
+	const adminGetAllShipments =()=>{
+		return api.get('/shipment/get-all-shipment')
+	}
 
 	// FOR HOME PAGE GRAPHS =================
 
@@ -150,6 +156,8 @@ function ShipmentServices() {
 		getAllUserShipment,
 		getAllUserShipmentPaginated,
 		getShipmentInRange,
+		
+		adminGetAllShipments,
 	};
 }
 

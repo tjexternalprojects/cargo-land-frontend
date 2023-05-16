@@ -17,7 +17,7 @@ function useSignUp() {
 	const [signUpData, setSignUpData] = useState<any>({
 		name: '',
 		email: '',
-		phoneNumber:'',
+		phoneNumber: '',
 		password: '',
 		confirmPassword: '',
 	});

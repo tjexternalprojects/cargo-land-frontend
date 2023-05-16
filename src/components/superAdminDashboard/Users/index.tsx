@@ -4,16 +4,17 @@ import useUsers from './useUsers';
 import { AUserDetailsModal, Pagination, RingLoader } from '@/components';
 
 const Users = () => {
-	const { allUser, result, loading, currentPage, setCurrentPage } = useUsers();
+	const { allUser, result, loading, currentPage, hasNextPage, hasPreviousPage, setCurrentPage } =
+		useUsers();
 	return (
 		<div>
-			<div className="relative overflow-x-auto mt-5">
+			<div className="relative overflow-auto mt-5  w-full">
 				{loading ? (
 					<div className="w-full border flex items-center justify-center">
 						<RingLoader size={200} textColor="text-blue-900" />
 					</div>
 				) : (
-					<table className="w-full text-sm text-left text-gray-500">
+					<table className="w-full  text-sm text-left text-gray-500">
 						<thead className="text-xs text-gray-700 uppercase bg-gray-100">
 							<tr>
 								<th scope="col" className="px-6 py-3">
@@ -38,36 +39,42 @@ const Users = () => {
 						</thead>
 						<tbody>
 							{allUser.map((val, index) => (
-								<tr className="bg-white border-b cursor-pointer hover:bg-red-100">
-									<th scope="row" className=" px-6  font-medium text-gray-900 whitespace-nowrap">
+								<tr
+									key={index}
+									className="bg-white border-b cursor-pointer w-full hover:bg-red-100"
+								>
+									<td className=" px-6  font-medium text-gray-900 whitespace-nowrap">
 										<div className="rounded-full h-10 w-10">
 											<img
 												src={val.avatar as string}
 												className=" object-cover h-full w-full rounded-full "
 											/>
 										</div>
-									</th>
-									<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+									</td>
+									<td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 										{val.name}
-									</th>
+									</td>
 									<td className="px-6 py-4">{val.email}</td>
 									<td className="px-6 py-4">{val.phoneNumber}</td>
 									<td className="px-6 py-4">{val.account_type}</td>
-									<td className="px-6 py-4">{val.account_status}</td>
+									<td className="px-6 py-4">{val.isVerified ? 'Verified' : 'Not Verfied'}</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
 				)}
 			</div>
-			{!loading &&<Pagination
-				setCurrentPage={setCurrentPage}
-				currentPage={Number(currentPage)}
-				result={result}
-				loading={loading}
-			/>}
+			{!loading && (
+				<Pagination
+					setCurrentPage={setCurrentPage}
+					currentPage={Number(currentPage)}
+					hasNextPage={hasNextPage}
+					hasPreviousPage={hasPreviousPage}
+					loading={loading}
+				/>
+			)}
 
-			<AUserDetailsModal />
+			{/* <AUserDetailsModal /> */}
 		</div>
 	);
 };

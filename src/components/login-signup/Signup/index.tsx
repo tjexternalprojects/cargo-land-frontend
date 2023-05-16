@@ -21,10 +21,7 @@ const signup = () => {
 		googleSignUpFailure,
 	} = useSignUp();
 
-	  const {
-			control,
-			handleSubmit,
-		} = useForm();
+	const { control, handleSubmit } = useForm();
 
 	return (
 		<div className=" space-y-5 w-full ">

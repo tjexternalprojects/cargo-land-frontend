@@ -14,7 +14,15 @@ import {
 	UserProfile,
 	AllShipment,
 } from '@/components';
-import { LandingPage, Login, Dashboard, Admin, ResetPassword, VerifyPayment, Page404 } from '@/pages';
+import {
+	LandingPage,
+	Login,
+	Dashboard,
+	Admin,
+	ResetPassword,
+	VerifyPayment,
+	Page404,
+} from '@/pages';
 import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
 import ProtectedAdminRoutes from './ProtectedAdminRoutes';
 import { AppProvider } from '@/context';

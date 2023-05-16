@@ -37,22 +37,22 @@ type AppState = {
 	updateUser: Boolean;
 	all_users: Record<string, string>[];
 	business_account: Record<string, string | string[]> | null;
-	
+
 	// Auth
 	showForgetPassword: boolean;
 	showResendToken: boolean;
 	openSignUpMenu: boolean;
 	resendTokenMessage: string;
-	
+
 	// shipment
 	shipmentDetails: any;
 	shipmentSummary: any;
 	shipmentCurrentTab: string;
 	allShipments: any;
-	trackingShipments: never[];
+	trackingShipments: any;
 	editShipment: boolean;
 	form_level: number;
-	initializePayment:Record<string, string | string[]> | null;
+	initializePayment: Record<string, string | string[]> | null;
 
 	// settings
 	settings: string;

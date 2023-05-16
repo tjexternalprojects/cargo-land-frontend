@@ -17,7 +17,7 @@ const sidebar = () => {
 			<div className="flex-grow mt-10 ">
 				<ul className=" text-lg  font-bold ">
 					{navigationLinks.map((val, index) => (
-						<li>
+						<li key={index}>
 							<NavLink
 								to={val.route_to}
 								onClick={handleToggleSidebar}

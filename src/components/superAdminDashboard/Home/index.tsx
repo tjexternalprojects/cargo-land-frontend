@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineGraph, MapDirection } from '@/components';
+import { LineGraph, MapDirection, RingLoader } from '@/components';
 import { BsArrowDownRight, BsArrowUpRight, FaEye, FaEyeSlash, SlGraph, userImg } from '@/assets';
 import useHome from './useHome';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,9 @@ const home = () => {
 		sent_data,
 		balance,
 		currency,
+		userLoading,
+		allUsers,
+		totalUsers,
 		toggleShowBalance,
 		state,
 		showBalance,
@@ -40,7 +43,7 @@ const home = () => {
 					<div className=" w-20">{/* <LineGraph data={received_data} /> */}</div>
 					<div className="flex flex-col items-end text-green-500">
 						<div>Total Users</div>
-						<div className=" text-5xl font-thin">{state.all_users.length}</div>
+						{userLoading? <RingLoader size={50} textColor="text-blue-900" />:<div className=" text-5xl font-thin">{totalUsers}</div>}
 					</div>
 				</div>
 
@@ -102,22 +105,50 @@ const home = () => {
 				<div className="">
 					<h4 className="text-xl mb-3">Recent User</h4>
 					<hr />
-					<div className=" space-y-3 mt-3">
-						<div className="flex items-center space-x-3 bg-slate-50 p-2 rounded-lg cursor-pointer hover:bg-blue-50 hover:shadow-sm transition-all duration-75 ease-in-out ">
-							<div className="w-10 h-10 rounded-full shadow-md border border-slate-200">
-								<img src={userImg} className="w-full h-full object-contain rounded-full" />
-							</div>
-							<div className="flex flex-col">
-								<div className=" font-bold text-slate-600">
-									<span>Kelvin Adeyinkaiiiiio ooo</span>
-								</div>
-								<div>
-									<div className="text-xs text-gray-400">20 April 2020</div>{' '}
-									<div className=" italic text-xs text-gray-400">Business Account</div>
-								</div>
-							</div>
+					{userLoading ? (
+						<div className="w-full border flex items-center justify-center">
+							<RingLoader size={50} textColor="text-blue-900" />
 						</div>
-					</div>
+					) : (
+						<>
+							{allUsers.length > 0 ? (
+								<div className=" space-y-3 mt-3">
+									{allUsers.map((val, index) => (
+										<div
+											key={index}
+											className="flex items-center space-x-3 bg-slate-50 p-2 rounded-lg cursor-pointer hover:bg-blue-50 hover:shadow-sm transition-all duration-75 ease-in-out "
+										>
+											<div className="w-10 h-10 rounded-full shadow-md border border-slate-200">
+												<img
+													src={val.avatar as string}
+													className="w-full h-full object-contain rounded-full"
+												/>
+											</div>
+											<div className="flex flex-col">
+												<div className=" font-bold text-slate-600">
+													<span>{val.name as string}</span>
+												</div>
+												<div>
+													<div className="text-xs text-gray-400">
+														<span className="font-bold">Time Joined:</span>{' '}
+														{new Date(val.date as Date).toLocaleString()}
+													</div>{' '}
+													<div className=" italic text-xs text-gray-400">
+														<span className="font-bold">Account Status</span>{' '}
+														{val.isVerified ? 'Verified' : 'Not Verfied'}
+													</div>
+												</div>
+											</div>
+										</div>
+									))}
+								</div>
+							) : (
+								<div className="h-screen-40 text-2xl text-red-300 flex-col w-full flex items-center justify-center space-y-2">
+									No User Found
+								</div>
+							)}
+						</>
+					)}
 				</div>
 
 				<div className=" flex-grow">

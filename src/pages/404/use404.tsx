@@ -1,4 +1,4 @@
-function use404(){
-    return{}
+function use404() {
+	return {};
 }
-export default use404
+export default use404;

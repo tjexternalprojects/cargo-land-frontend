@@ -11,23 +11,26 @@ import { useGeocode } from '@/components';
 import useTrackShipment from './useTrackShipment';
 import { Link } from 'react-router-dom';
 const TrackShipment = () => {
-	const { state } = useTrackShipment();
+	const { trackingShipments , getInidividualShipment} = useTrackShipment();
 	return (
 		<div className="mt-8 ">
-			<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
+			<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase ">
 				Shipment Tracking
 			</div>
-			{state.trackingShipments.length > 0 ? (
-				<div className="flex mt-8 gap-5 flex-col md:flex-row ">
+			{trackingShipments.length > 0 ? (
+				<div className="flex gap-5 flex-col md:flex-row  mt-3">
 					<div className=" md:w-6/12">
-						<div className="flex justify-between items-center h-screen-50 overflow-y-auto">
+						<div className="flex space-y-2 flex-col max-h-50-screen overflow-y-auto p-2">
+							{trackingShipments.map((val:any, index:number)=>(
+							<div key={index} onClick={()=>getInidividualShipment(index)} className='hover:bg-red-500   bg-white cursor-pointer rounded-sm p-2 shadow flex justify-between items-center w-full'>
 							<div>
 								<small>Shipment ID</small>
-								<div className="font-bold">KH92129</div>
+								<div className="font-bold">{val.id}</div>
 							</div>
 							<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
-								On transit
+								{val.shipment_Status}
 							</label>
+							</div>))}
 						</div>
 						<hr className="my-5" />
 						<div>
@@ -76,7 +79,7 @@ const TrackShipment = () => {
 							</div>
 						</div>
 					</div>
-					<div className=" w-full py-5">
+					<div className=" w-full ">
 						<div className="flex flex-col md:flex-row    justify-between w-full gap-5">
 							<div className="border-2 p-3 rounded-md flex-grow w-full">
 								<div className="flex items-center text-sm space-x-2 text-slate-500">

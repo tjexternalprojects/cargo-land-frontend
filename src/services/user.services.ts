@@ -37,7 +37,7 @@ function UserServices() {
 
 	// SERVICES FOR ADMIN
 	const getAllUsers = (page_number: number, page_limit: number) => {
-		return api.get(`/user/all-users?page=${page_number}&limit=${page_limit}`)
+		return api.get(`/user/all-users?page=${page_number}&limit=${page_limit}`);
 	};
 	return {
 		contactUs,

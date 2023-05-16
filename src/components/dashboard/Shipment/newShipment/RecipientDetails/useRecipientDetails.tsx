@@ -200,7 +200,7 @@ function useNewShipmentForm() {
 
 	const handleUpdateShipment = (shipment_id: string) => {
 		setShowLoader(true);
-		console.log(state.shipmentDetails)
+		console.log(state.shipmentDetails);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
@@ -249,7 +249,7 @@ function useNewShipmentForm() {
 		}
 		await createShipment(formData).then(
 			(response) => {
-				console.log(response)
+				console.log(response);
 				setShowLoader(false);
 				setState({
 					...state,
@@ -260,7 +260,7 @@ function useNewShipmentForm() {
 				resetShipment();
 			},
 			(error) => {
-				console.log(error)
+				console.log(error);
 				setShowLoader(false);
 			}
 		);

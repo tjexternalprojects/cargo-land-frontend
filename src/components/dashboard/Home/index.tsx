@@ -21,6 +21,10 @@ const home = () => {
 		transaction_history,
 		state,
 		balance,
+		latestShipment,
+		latestShipmentLoader,
+		transactionHistory,
+		transactionHistoryLoader,
 		toggleShowBalance,
 	} = useHome();
 	return (
@@ -97,16 +101,19 @@ const home = () => {
 						)}
 					</div>
 					<hr />
+				{transactionHistoryLoader?
+				<div className="w-full border flex items-center justify-center mt-3">
+							<RingLoader size={50} textColor="text-blue-900" />
+						</div>:
+					<>
 					{transaction_history.length == 0 ? (
-						<>
-							{' '}
 							<div className=" space-y-3 mt-3">
-								{transaction_history.map((val, index) => (
+								{transactionHistory.map((val:any, index:number) => (
 									<div
 										key={index}
 										className="flex items-center space-x-3 bg-slate-50 p-2 rounded-lg cursor-pointer hover:bg-blue-50 hover:shadow-sm transition-all duration-75 ease-in-out"
 									>
-										{val.type === 'credit' && (
+										{val.type  === 'credit' && (
 											<div className="p-2 rounded-md bg-green-100 inline-flex">
 												<BsArrowDownRight />
 											</div>
@@ -140,30 +147,32 @@ const home = () => {
 									</div>
 								))}
 							</div>
-						</>
 					) : (
 						<div className="h-screen-40 text-2xl text-red-300 flex-col w-full flex items-center justify-center space-y-2">
 							No Data found
 						</div>
-					)}
+					)}</>}
 				</div>
 				<div className=" flex-grow">
 					<div className="flex justify-between px-3 pb-3">
-						<h4 className="text-xl">Active Shipment</h4>
+						<h4 className="text-xl">Latest Shipment</h4>
 						<span>
-							{state.allShipments.length > 0 && (
-								<button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
+							{latestShipment.length > 0 && (
+								<Link to="/dashboard/all_shipment/1"><button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
 									View all ...
-								</button>
+								</button></Link>
 							)}
 						</span>{' '}
 					</div>
 					<hr />
 					<div className="mt-3">
-						<div className="w-full flex items-center">
-							{state.allShipments.length > 0 ? (
+						{latestShipmentLoader?
+						 <div className="w-full border flex items-center justify-center">
+							<RingLoader size={50} textColor="text-blue-900" />
+						</div>: <div className="w-full flex items-center">
+							{latestShipment.length > 0 ? (
 								<div className="flex flex-col w-full space-y-8">
-									{state.allShipments.slice(0, 1).map((val: any, index: number) => (
+									{latestShipment.map((val: any, index: number) => (
 										<div key={index}>
 											<div className="flex flex-col w-full p-3  bg-blue-50 rounded-lg shadow-md ">
 												<div className="flex text-gray-500 text-sm">
@@ -216,7 +225,7 @@ const home = () => {
 									</Link>
 								</div>
 							)}
-						</div>
+						</div>}
 					</div>
 				</div>
 			</div>

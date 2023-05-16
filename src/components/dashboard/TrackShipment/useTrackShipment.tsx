@@ -1,34 +1,31 @@
 import { AppContextType, AppContext } from '@/context';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 function useTrackShipment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
+	const [trackingShipments, setTrackingShipment] = useState<any>([])
+	const [loading, setLoading] = useState(false)
+	const [sindgleShipment, setSingleShipment]= useState<any>([])
 	const getActiveShipment = async () => {
+		setLoading(true)
 		const active_shipment = state.allShipments.filter(
-			(obj: any) => obj.shipment_Status == 'TRANSIT'
+			(obj: any) => obj.shipment_Status == 'UNCHECK'
 		);
-		setState((prevState) => ({
-			...prevState,
-			trackingShipments: active_shipment,
-		}));
+		setTrackingShipment(active_shipment)
+		setLoading(false)
 	};
+
+const getInidividualShipment =(index:number)=>{
+	setSingleShipment(trackingShipments[index])
+}
+
 	useEffect(() => {
 		getActiveShipment();
-	}, [state.allShipments]);
+		getInidividualShipment;
+	}, [loading]);
 
-	const currentItem = [
-		{
-			item_id: 'xxxxxx2',
-			item_name: 'NEWWW',
-			item_category: 'Electronics',
-			item_total_weight: '500kg',
-			item_quanity: '40',
-			Item_description: 'dklaklklkdlkd',
-			deleivery_price: 'N 5000',
-			Item_images: ['img_1', 'img_2'],
-		},
-	];
-	return { state };
+
+	return { trackingShipments, getActiveShipment , getInidividualShipment};
 }
 
 export default useTrackShipment;

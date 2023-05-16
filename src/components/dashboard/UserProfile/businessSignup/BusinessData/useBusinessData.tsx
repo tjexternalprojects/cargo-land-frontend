@@ -1,5 +1,5 @@
-import { AppContextType, AppContext } from "@/context";
-import { useContext, useState } from "react";
+import { AppContextType, AppContext } from '@/context';
+import { useContext, useState } from 'react';
 
 function useBusinessData(setActiveTab: (tab: string) => void) {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -14,12 +14,12 @@ function useBusinessData(setActiveTab: (tab: string) => void) {
 	const handleSubmitBusinessData = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setState({
-      ...state,
+			...state,
 			business_account: businessData,
 		});
-    setActiveTab('business_document');
+		setActiveTab('business_document');
 	};
 	return { handleSubmitBusinessData, setBusinessData, businessData };
 }
 
-export default useBusinessData
+export default useBusinessData;

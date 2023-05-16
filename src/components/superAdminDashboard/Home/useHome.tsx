@@ -1,10 +1,18 @@
 import { AppContextType, AppContext } from '@/context';
 import { useContext, useEffect, useState } from 'react';
-import {  TransactionServices } from '@/services';
+import { TransactionServices, UserServices } from '@/services';
+import { toast } from 'react-toastify';
 
 function useHome() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
-	const { paymentHistory }= TransactionServices();
+	const [allUsers, setAllUsers] = useState<Record<string, string | string[] | undefined | Date>[]>(
+		[]
+	);
+	const [userLoading, setUsersLoading] = useState(false);
+	const [totalUsers, setTotalUsers] =useState(0)
+	const { getAllUsers } = UserServices();
+
+	const { paymentHistory } = TransactionServices();
 	const [transactionHistory, setTransactionHistory] = useState();
 
 	const [activeShipment, setActiveShipment] = useState([
@@ -165,6 +173,26 @@ function useHome() {
 		},
 	];
 
+	const allUsersMtd = async () => {
+		setUsersLoading(true);
+		await getAllUsers(1, 5).then(
+			(response) => {
+				console.log(response);
+				setAllUsers(response.data.users);
+				setTotalUsers(response.data.totalNumberOfUsers)
+				setUsersLoading(false);
+			},
+			(error) => {
+				console.log(error);
+				setUsersLoading(false);
+				toast.info('Please select an image file', {
+					progressClassName: 'bg-blue-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
+	};
+
 	const getTransactionHistory = () => {
 		paymentHistory().then(
 			(response) => {
@@ -177,11 +205,15 @@ function useHome() {
 		);
 	};
 
-	useEffect(()=>{
+	useEffect(() => {
 		getTransactionHistory();
-	},[])
+		allUsersMtd();
+	}, []);
 	return {
 		toggleShowBalance,
+		totalUsers,
+		allUsers,
+		userLoading,
 		currency,
 		balance,
 		state,

@@ -12,6 +12,8 @@ function useUsers() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState(1);
+	const [hasNextPage, setHasNextPage] = useState();
+	const [hasPreviousPage, setHasPreviousPage] = useState();
 
 	const [allUser, setAllUsers] = useState<Record<string, string | string[] | undefined>[]>([]);
 
@@ -22,14 +24,12 @@ function useUsers() {
 		setLoading(true);
 		await getAllUsers(Number(currentPage), 7).then(
 			(response) => {
-				if (response.data.users.length > 0) {
-					setAllUsers(response.data.users);
-					navigate('/admin/users/' + currentPage);
-				} else {
-					setResult(0);
-					setCurrentPage(1);
-					navigate('/dashboard/all_shipment/' + currentPage);
-				}
+				console.log(response);
+				setHasNextPage(response.data.hasNextPage);
+				setHasPreviousPage(response.data.hasPreviousPage);
+				setAllUsers(response.data.users);
+				navigate('/admin/users/' + currentPage);
+
 				setLoading(false);
 			},
 			(error) => {
@@ -45,7 +45,16 @@ function useUsers() {
 
 	useEffect(() => {
 		allUsers();
-	}, []);
-	return { allUser, state, currentPage, result, loading, setCurrentPage };
+	}, [currentPage]);
+	return {
+		allUser,
+		state,
+		currentPage,
+		result,
+		loading,
+		hasNextPage,
+		hasPreviousPage,
+		setCurrentPage,
+	};
 }
 export default useUsers;

@@ -10,14 +10,14 @@ import {
 	userImg,
 } from '@/assets';
 
-import { Link, NavLink, useMatch ,useParams} from 'react-router-dom';
+import { Link, NavLink, useMatch, useParams } from 'react-router-dom';
 import useLogin from '@/pages/Login/useLogin';
 import useSidebar from './useSidebar';
 const sidebar = () => {
 	const dashboardMatch = useMatch('/dashboard');
 	const shipmentMatch = useMatch('/dashboard/shipment');
 	const trackMatch = useMatch('/dashboard/track_shipment');
-	const allShipment = useMatch('/dashboard/all_shipment/'+ useParams().current_page);
+	const allShipment = useMatch('/dashboard/all_shipment/' + useParams().current_page);
 	const historyMatch = useMatch('/dashboard/history');
 	const { handleLogout } = useLogin();
 	const { state, handleToggleSidebar } = useSidebar();

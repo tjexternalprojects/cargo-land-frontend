@@ -43,7 +43,11 @@ export {
 	TbTruckDelivery,
 	TbZoomOutArea,
 } from 'react-icons/tb';
-export { HiDocumentText, HiOutlineChevronDoubleLeft, HiOutlineChevronDoubleRight } from 'react-icons/hi';
+export {
+	HiDocumentText,
+	HiOutlineChevronDoubleLeft,
+	HiOutlineChevronDoubleRight,
+} from 'react-icons/hi';
 export { ImLocation } from 'react-icons/im';
 export {
 	BsTelephoneForward,

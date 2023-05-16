@@ -30,7 +30,7 @@ function GeneralContext() {
 	};
 
 	const allShipments: never[] = [];
-	const trackingShipments: never[] = [];
+	const trackingShipments: any = [];
 	const shipmentCurrentTab = 'item1';
 	const shipmentSummary: ShipmentSummaryInterface[] = [];
 	const editShipment = false;
