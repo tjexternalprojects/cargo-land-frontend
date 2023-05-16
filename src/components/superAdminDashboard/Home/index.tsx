@@ -43,7 +43,11 @@ const home = () => {
 					<div className=" w-20">{/* <LineGraph data={received_data} /> */}</div>
 					<div className="flex flex-col items-end text-green-500">
 						<div>Total Users</div>
-						{userLoading? <RingLoader size={50} textColor="text-blue-900" />:<div className=" text-5xl font-thin">{totalUsers}</div>}
+						{userLoading ? (
+							<RingLoader size={50} textColor="text-blue-900" />
+						) : (
+							<div className=" text-5xl font-thin">{totalUsers}</div>
+						)}
 					</div>
 				</div>
 

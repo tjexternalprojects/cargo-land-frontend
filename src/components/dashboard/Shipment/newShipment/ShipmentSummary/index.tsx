@@ -24,6 +24,7 @@ const RecipientDetails = () => {
 		removeShipmentLoader,
 		selectedShipment,
 		shipmentLoader,
+		totalShipmentToCheckout,
 		handleCheck,
 		handleAddShipment,
 		handleRemoveItem,
@@ -55,7 +56,7 @@ const RecipientDetails = () => {
 										<tr key={index} className=" border-b hover:bg-slate-300  text-sm">
 											<td>
 												<input
-												className='cursor-pointer w-6'
+													className="cursor-pointer w-6"
 													onChange={() => handleCheck(index)}
 													type="checkbox"
 													disabled={isNaN(val.delivery_price)}
@@ -103,14 +104,14 @@ const RecipientDetails = () => {
 						</div>
 						<div className=" bottom-5 w-full  ">
 							<div className="bg-slate-100 p-5">
-								<div>Total Packages: {unCheckedShipment.length}</div>
+								<div>Total Packages: {totalShipmentToCheckout}</div>
 								<div>
 									Total Amount: <span>&#8358;{totalPrice.toLocaleString()}</span>
 								</div>
 							</div>
 							<div className="flex justify-between p-5 gap-4 flex-wrap md:flex-nowrap">
 								<button
-									disabled={shipmentLoader}
+									disabled={shipmentLoader || totalPrice === 0}
 									onClick={handlePayment}
 									className="flex md:flex-grow-0 flex-grow items-center bg-red-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
 								>

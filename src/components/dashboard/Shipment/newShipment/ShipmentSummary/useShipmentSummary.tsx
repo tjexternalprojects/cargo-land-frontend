@@ -11,6 +11,7 @@ function useShipmentSummary() {
 	const [showShipmentModal, setShowShipmentModal] = useState(false);
 	const [unCheckedShipment, setUnCheckedShipment] = useState<any>([]);
 	const [totalPrice, setTotalPrice] = useState<any>([]);
+	const [totalShipmentToCheckout, setTotalShipmentToCheckout] = useState(0);
 	const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false);
 	const [itemIndexToRemove, setItemIndexToRemove] = useState<string>();
 	const [selectedShipment, setSelectedShipment] = useState<
@@ -51,9 +52,11 @@ function useShipmentSummary() {
 	};
 
 	const calculateTotalPrice = (items_array: any) => {
+		setTotalShipmentToCheckout(0);
 		const deliveryPriceTotal = items_array.reduce(
 			(total: number, obj: { checked: boolean; delivery_price: string }) => {
 				if (obj.checked === true) {
+					setTotalShipmentToCheckout(totalShipmentToCheckout + 1);
 					const deliveryPrice =
 						typeof obj.delivery_price === 'number'
 							? obj.delivery_price
@@ -191,6 +194,7 @@ function useShipmentSummary() {
 		handleAddShipment,
 		handlePayment,
 		handleCheck,
+		totalShipmentToCheckout,
 		shipmentLoader,
 		selectedShipment,
 		itemIndexToRemove,

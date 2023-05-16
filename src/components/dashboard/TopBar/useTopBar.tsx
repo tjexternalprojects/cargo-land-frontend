@@ -40,8 +40,6 @@ function useTopBar() {
 		getTotalChart();
 	}, [state.allShipments]);
 
-
-
 	return {
 		handleToggleNotification,
 		handleToggleSidebar,

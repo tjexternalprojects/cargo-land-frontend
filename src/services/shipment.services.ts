@@ -61,11 +61,10 @@ function ShipmentServices() {
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
 
-
 	// ADMIN END-POINT
-	const adminGetAllShipments =()=>{
-		return api.get('/shipment/get-all-shipment')
-	}
+	const adminGetAllShipments = () => {
+		return api.get('/shipment/get-all-shipment');
+	};
 
 	// FOR HOME PAGE GRAPHS =================
 
@@ -156,7 +155,7 @@ function ShipmentServices() {
 		getAllUserShipment,
 		getAllUserShipmentPaginated,
 		getShipmentInRange,
-		
+
 		adminGetAllShipments,
 	};
 }

@@ -9,7 +9,7 @@ function useHome() {
 		[]
 	);
 	const [userLoading, setUsersLoading] = useState(false);
-	const [totalUsers, setTotalUsers] =useState(0)
+	const [totalUsers, setTotalUsers] = useState(0);
 	const { getAllUsers } = UserServices();
 
 	const { paymentHistory } = TransactionServices();
@@ -179,7 +179,7 @@ function useHome() {
 			(response) => {
 				console.log(response);
 				setAllUsers(response.data.users);
-				setTotalUsers(response.data.totalNumberOfUsers)
+				setTotalUsers(response.data.totalNumberOfUsers);
 				setUsersLoading(false);
 			},
 			(error) => {

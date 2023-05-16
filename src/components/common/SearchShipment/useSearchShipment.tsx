@@ -1,16 +1,16 @@
-import { AppContext, AppContextType } from "@/context";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { AppContext, AppContextType } from '@/context';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-function useSearchShipment(navigate_to:string){
-    const [searchLoading, setSearchLoading] = useState(false);
-    const [mobileSearch, setMobileSearch] = useState(false);
+function useSearchShipment(navigate_to: string) {
+	const [searchLoading, setSearchLoading] = useState(false);
+	const [mobileSearch, setMobileSearch] = useState(false);
 	const [shipmentId, setShipmentId] = useState('');
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const navigation = useNavigate();
-    
-    const handSearchShipment = (e: React.FormEvent<HTMLFormElement>) => {
+
+	const handSearchShipment = (e: React.FormEvent<HTMLFormElement>) => {
 		setSearchLoading(true);
 		e.preventDefault();
 		const filtered_shipment = state.allShipments.filter((obj: any) => obj.id === shipmentId);
@@ -30,7 +30,14 @@ function useSearchShipment(navigate_to:string){
 		}
 		setSearchLoading(false);
 	};
-    return {handSearchShipment, setShipmentId, setMobileSearch, mobileSearch, shipmentId, searchLoading}
+	return {
+		handSearchShipment,
+		setShipmentId,
+		setMobileSearch,
+		mobileSearch,
+		shipmentId,
+		searchLoading,
+	};
 }
 
-export default useSearchShipment
+export default useSearchShipment;
