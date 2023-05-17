@@ -11,26 +11,34 @@ import { useGeocode } from '@/components';
 import useTrackShipment from './useTrackShipment';
 import { Link } from 'react-router-dom';
 const TrackShipment = () => {
-	const { state } = useTrackShipment();
+	const { trackingShipments, singleShipment, getInidividualShipment } = useTrackShipment();
 	return (
 		<div className="mt-8 ">
-			<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
+			<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase ">
 				Shipment Tracking
 			</div>
-			{state.trackingShipments.length > 0 ? (
-				<div className="flex mt-8 gap-5 flex-col md:flex-row ">
-					<div className=" md:w-6/12">
-						<div className="flex justify-between items-center h-screen-50 overflow-y-auto">
-							<div>
-								<small>Shipment ID</small>
-								<div className="font-bold">KH92129</div>
-							</div>
-							<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
-								On transit
-							</label>
+			{trackingShipments.length > 0 ? (
+				<div className="flex gap-5 flex-col md:flex-row  mt-3">
+					<div className="">
+						<div className="flex space-y-2 flex-col max-h-50-screen overflow-y-auto p-2">
+							{trackingShipments.map((val: any, index: number) => (
+								<div
+									key={index}
+									onClick={() => getInidividualShipment(index)}
+									className={`hover:bg-red-100 hover:text-black  cursor-pointer rounded-sm p-2 shadow flex justify-between sm:items-center sm:flex-row flex-col sm:space-x-4  ${val?.id === singleShipment?.id && 'bg-red-500 text-white'}`}
+								>
+									<div>
+										<small>Shipment ID</small>
+										<div className="font-bold">{val.id}</div>
+									</div>
+									<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
+										{val.shipment_Status}
+									</label>
+								</div>
+							))}
 						</div>
 						<hr className="my-5" />
-						<div>
+						{singleShipment && <div>
 							<div className="flex items-start space-x-2">
 								<div className="flex items-center flex-col">
 									<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
@@ -41,7 +49,7 @@ const TrackShipment = () => {
 								<div className="text-sm">
 									<span>From</span>
 									<div className="text-black font-bold">
-										Dr. Simeon Jnr Street, Lekki, Lagos, Nigeria
+										{singleShipment?.sendersAddress}
 									</div>
 								</div>
 							</div>
@@ -56,7 +64,7 @@ const TrackShipment = () => {
 								<div className="text-sm">
 									<span>Current location</span>
 									<div className="text-black font-bold">
-										Dr. Simeon Jnr Street, Lekki, Lagos, Nigeria
+										{singleShipment?.current_shipment_location}
 									</div>
 								</div>
 							</div>
@@ -70,13 +78,13 @@ const TrackShipment = () => {
 								<div className="text-sm">
 									<span>To</span>
 									<div className="text-black font-bold">
-										Dr. Simeon Jnr Street, Lekki, Lagos, Nigeria
+										{singleShipment?.recepientAddress}
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>}
 					</div>
-					<div className=" w-full py-5">
+					<div className=" w-full ">
 						<div className="flex flex-col md:flex-row    justify-between w-full gap-5">
 							<div className="border-2 p-3 rounded-md flex-grow w-full">
 								<div className="flex items-center text-sm space-x-2 text-slate-500">
@@ -84,7 +92,7 @@ const TrackShipment = () => {
 									<span>Receiver</span>
 								</div>
 								<div>
-									<h1 className="text-xl font-bold">Jame Miller</h1>
+									<h1 className="text-xl font-bold">{singleShipment?.recipient_full_name}</h1>
 								</div>
 							</div>
 
@@ -94,7 +102,7 @@ const TrackShipment = () => {
 									<span>Phone Number</span>
 								</div>
 								<div>
-									<h1 className="text-xl font-bold">+2348144139845</h1>
+									<h1 className="text-xl font-bold">{singleShipment?.recipient_phone_number}</h1>
 								</div>
 							</div>
 
@@ -104,13 +112,13 @@ const TrackShipment = () => {
 									<span>Address</span>
 								</div>
 								<div>
-									<h1 className="text-xl font-bold">20, Sijuwola Street, Okota</h1>
+									<h1 className="text-xl font-bold">{singleShipment?.recepientAddress}</h1>
 								</div>
 							</div>
 						</div>
 						<div className="mt-5 ">
-							{/* <MapDirection height="80vh"  	startLocation={{ lng: parseFloat(val.current_location.longitude), lat: parseFloat(val.current_location.latitude) }}
-												endLocation={{ lng: parseFloat(val.shipment_destination.longitude), lat: parseFloat(val.shipment_destination.latitude) }}/> */}
+							<MapDirection height="80vh" startLocation={{ lng: parseFloat(singleShipment?.current_location?.longitude), lat: parseFloat(singleShipment?.current_location?.latitude) }}
+								endLocation={{ lng: parseFloat(singleShipment?.shipment_destination?.longitude), lat: parseFloat(singleShipment?.shipment_destination?.latitude) }} />
 						</div>
 						{/* <div className="mt-5">
 					<h3>Item List</h3>

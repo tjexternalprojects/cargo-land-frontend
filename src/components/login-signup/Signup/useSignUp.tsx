@@ -1,10 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 const GOOGLE_SIGNUP_CLIENT_ID = import.meta.env.VITE_REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 import { AuthServices } from '@/services';
 import { toast } from 'react-toastify';
 import { AppContextType, AppContext } from '@/context';
 import { useNavigate } from 'react-router-dom';
 import { LocalStorageServices } from '@/services';
+import { FieldValues, SubmitHandler } from 'react-hook-form';
 
 function useSignUp() {
 	const { signup } = AuthServices();
@@ -13,15 +14,16 @@ function useSignUp() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const navigate = useNavigate();
 
-	const [signUpData, setSignUpData] = useState({
+	const [signUpData, setSignUpData] = useState<any>({
 		name: '',
 		email: '',
+		phoneNumber: '',
 		password: '',
 		confirmPassword: '',
 	});
 
-	const handleSingupSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const handleSingupSubmit: SubmitHandler<FieldValues> = () => {
+		// e.preventDefault();
 		setShowLoading(true);
 
 		signup(signUpData).then(

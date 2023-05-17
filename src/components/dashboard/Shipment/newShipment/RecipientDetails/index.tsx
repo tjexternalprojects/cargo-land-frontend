@@ -84,6 +84,39 @@ const RecipientDetails = () => {
 								</div>
 							</div>
 						</div>
+
+						<div>
+							<small className="text-gray-400 font-bold">
+								Delivery Type <span className="text-red-500"> * </span>
+							</small>
+							<div className=" border-b-2 flex  mt-2 p-2 bg-white">
+								<select
+									className="w-full outline-none"
+									value={(shipmentDetails.shipment_type as string) ?? ''}
+									onChange={(e) =>
+										setShipmentDetails({
+											...shipmentDetails,
+											shipment_type: e.target.value,
+										})
+									}
+									required
+								>
+									<option value="" disabled>
+										Select Delivery Type
+									</option>
+
+									<option value="door_to_door" className="space-x-10">
+										Door to Door
+									</option>
+									<option value="airport_to_airport" className="space-x-10">
+										Airport to Airport
+									</option>
+								</select>
+								<div className="text-xl text-gray-500">
+									{Country.getCountryByCode(country?.isoCode)?.flag}
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div className="bg-white p-4 shadow-sm rounded-sm mt-10">

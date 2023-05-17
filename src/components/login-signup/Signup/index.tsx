@@ -1,10 +1,12 @@
-import React, { useCallback } from 'react';
-import { BiHide, BiShow, MdOutlineBusiness, SiGmail, MdAttachEmail, BiUserPin } from '@/assets';
-
+import React, { lazy, Suspense } from 'react';
+import { BiHide, BiShow, BsTelephoneForward, MdAttachEmail, BiUserPin } from '@/assets';
 import useSignUp from './useSignUp';
 import { RingLoader } from '@/components';
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
+import 'react-phone-number-input/style.css';
+import PhoneInputWithCountry from 'react-phone-number-input/react-hook-form';
+import { useForm } from 'react-hook-form';
 
 const signup = () => {
 	const {
@@ -19,9 +21,14 @@ const signup = () => {
 		googleSignUpFailure,
 	} = useSignUp();
 
+	const { control, handleSubmit } = useForm();
+
 	return (
 		<div className=" space-y-5 w-full ">
-			<form className=" text-gray-500 flex flex-col space-y-4" onSubmit={handleSingupSubmit}>
+			<form
+				className=" text-gray-500 flex flex-col space-y-4"
+				onSubmit={handleSubmit(handleSingupSubmit)}
+			>
 				<div className="bg-white h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 					<input
 						onChange={(e) => setSignUpData({ ...signUpData, name: e.target.value })}
@@ -33,6 +40,18 @@ const signup = () => {
 					<BiUserPin />
 				</div>
 				<div className="bg-white h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
+					<PhoneInputWithCountry
+						name="phoneInputWithCountrySelect"
+						control={control}
+						rules={{ required: true }}
+						placeholder="Enter phone number"
+						className=" outline-none focus:outline-none border-none"
+						value={signUpData.phoneNumber}
+						onChange={(e: string) => setSignUpData({ ...signUpData, phoneNumber: e })}
+					/>
+					<BsTelephoneForward />
+				</div>
+				<div className="bg-white h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 					<input
 						onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
 						type="email"
@@ -42,7 +61,7 @@ const signup = () => {
 					/>
 					<MdAttachEmail />
 				</div>
-				<div className="text-red-600 w-full text-xs">* Minimum lenght should be 6 characters</div>
+				<div className="text-red-600 w-full text-xs">* Minimum length should be 6 characters</div>
 				<div className="bg-white  h-11 px-3 border-b border-blue-800  flex items-center shadow-md animate__animated animate__fadeInUp animate__faster ">
 					<input
 						onChange={(e) =>

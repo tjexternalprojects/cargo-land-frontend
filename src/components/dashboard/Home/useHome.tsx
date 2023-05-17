@@ -1,15 +1,19 @@
 import { AppContextType, AppContext } from '@/context';
-import { ShipmentServices } from '@/services';
+import { ShipmentServices, TransactionServices } from '@/services';
 import { useContext, useEffect, useState } from 'react';
 
 function useHome() {
-	const { getShipmentInRange } = ShipmentServices();
+	const { getAllUserShipmentPaginated } = ShipmentServices();
+	const { userPaymentHistory } = TransactionServices();
 	const { state, setState } = useContext<AppContextType>(AppContext);
+	const [latestShipment, setLatestShipment] = useState<any>([]);
+	const [latestShipmentLoader, setLatestShipmentLoader] = useState(false);
 	const user_data = state.single_user_data;
 	const [currency, setCurrency] = useState('\u20A6');
 	const balance = state.single_user_data?.wallet;
 	const [showBalance, setShowBalance] = useState(false);
-
+	const [transactionHistory, setTransactionHistory] = useState<any>([]);
+	const [transactionHistoryLoader, setTransactionHistoryLoader] = useState(false);
 	// STATES FOR GRAPH
 	// ***successful shipment graph
 	const [successfulShipmentLabel, setSuccessfulShipmentLabel] = useState([]);
@@ -68,11 +72,13 @@ function useHome() {
 		],
 	};
 
-	const shipmentCreated = () => {
+	const shipmentCreated = async () => {
 		setShipmentCreatedLoader(true);
-		setShipmentCreatedLabel(state.shipmentSummary.map((obj: any) => obj.month));
-		setShipmentCreatedData(state.shipmentSummary.map((obj: any) => obj.shipmentDetails.length));
-		setTotalShipmentCreated(
+		await setShipmentCreatedLabel(state.shipmentSummary.map((obj: any) => obj.month));
+		await setShipmentCreatedData(
+			state.shipmentSummary.map((obj: any) => obj.shipmentDetails.length)
+		);
+		await setTotalShipmentCreated(
 			shipmentCreatedData.reduce(
 				(accumulator: number, currentValue: number) => accumulator + currentValue,
 				0
@@ -81,10 +87,38 @@ function useHome() {
 		setShipmentCreatedLoader(false);
 	};
 
+	const getTransactionHistory = () => {
+		setTransactionHistoryLoader(true);
+		userPaymentHistory().then(
+			(response) => {
+				console.log(response);
+				setTransactionHistory(response.data.data);
+				setTransactionHistoryLoader(false);
+			},
+			(error) => {
+				setTransactionHistoryLoader(false);
+				console.log(error);
+			}
+		);
+	};
+
+	const getLatestShipment = () => {
+		setLatestShipmentLoader(true);
+		getAllUserShipmentPaginated(1, 1).then((response) => {
+			setLatestShipment(response.data.allUserShipment);
+			setLatestShipmentLoader(false);
+		});
+	};
+
 	useEffect(() => {
 		successfulShipment();
 		shipmentCreated();
 	}, [state.shipmentSummary]);
+
+	useEffect(() => {
+		getTransactionHistory();
+		getLatestShipment();
+	}, []);
 
 	const transaction_history = [
 		{
@@ -151,6 +185,10 @@ function useHome() {
 		totalSuccessfulShipment,
 
 		shipmentCreated,
+		transactionHistoryLoader,
+		transactionHistory,
+		latestShipment,
+		latestShipmentLoader,
 		shipment_created_graph,
 		shipmentCreatedLoader,
 		totalShipmentCreated,

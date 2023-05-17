@@ -1,5 +1,4 @@
 import { AppContextType, AppContext } from '@/context';
-import state from 'country-state-city/lib/state';
 import { useContext } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useNavigate } from 'react-router-dom';

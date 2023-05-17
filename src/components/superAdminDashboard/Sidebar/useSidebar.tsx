@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { AppContext, AppContextType } from '@/context';
 import {
 	CiSettings,
@@ -33,7 +33,7 @@ function useSidebar() {
 			icon: TbLayoutDashboard,
 		},
 		{
-			route_to: '/admin/users',
+			route_to: '/admin/users/' + useParams().current_page,
 			name: 'Users',
 			icon: BiUserPin,
 		},

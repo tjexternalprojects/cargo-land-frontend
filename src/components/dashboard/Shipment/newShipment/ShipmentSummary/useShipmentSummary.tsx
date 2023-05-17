@@ -1,15 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext, AppContextType } from '@/context';
-import { ShipmentServices } from '@/services';
+import { ShipmentServices, TransactionServices } from '@/services';
 import { confirmAlert } from 'react-confirm-alert';
 import { toast } from 'react-toastify';
 
 function useShipmentSummary() {
-	const { deleteShipment, getAllUserShipment, initiatePayment } = ShipmentServices();
+	const { deleteShipment, getAllUserShipment } = ShipmentServices();
+	const { initiatePayment } = TransactionServices();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showShipmentModal, setShowShipmentModal] = useState(false);
 	const [unCheckedShipment, setUnCheckedShipment] = useState<any>([]);
 	const [totalPrice, setTotalPrice] = useState<any>([]);
+	const [totalShipmentToCheckout, setTotalShipmentToCheckout] = useState(0);
 	const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false);
 	const [itemIndexToRemove, setItemIndexToRemove] = useState<string>();
 	const [selectedShipment, setSelectedShipment] = useState<
@@ -35,15 +37,45 @@ function useShipmentSummary() {
 				shipmentCurrentTab: 'item1',
 				form_level: 0,
 			});
+			return;
 		}
 
-		setUnCheckedShipment(unchecked);
-		const deliveryPriceTotal = state.allShipments.reduce(
-			(total: any, obj: { delivery_price: any }) => total + obj.delivery_price,
+		const updatedUnchecked = unchecked.map((obj: any) => {
+			return {
+				...obj,
+				checked: obj.delivery_price !== 'await_admin' ? true : false,
+			};
+		});
+
+		setUnCheckedShipment(updatedUnchecked);
+		calculateTotalPrice(updatedUnchecked);
+	};
+
+	const calculateTotalPrice = (items_array: any) => {
+		setTotalShipmentToCheckout(0);
+		const deliveryPriceTotal = items_array.reduce(
+			(total: number, obj: { checked: boolean; delivery_price: string }) => {
+				if (obj.checked === true) {
+					setTotalShipmentToCheckout(prevTotal => prevTotal + 1);
+					const deliveryPrice =
+						typeof obj.delivery_price === 'number'
+							? obj.delivery_price
+							: Number(obj.delivery_price);
+					return total + deliveryPrice;
+				}
+				return total;
+			},
 			0
 		);
 
-		setTotalPrice(deliveryPriceTotal);
+		setTotalPrice(Number(deliveryPriceTotal));
+	};
+
+	const handleCheck = (index: number) => {
+		const updatedArray = [...unCheckedShipment];
+		updatedArray[index].checked = !updatedArray[index].checked;
+		setUnCheckedShipment(updatedArray);
+		calculateTotalPrice(updatedArray);
 	};
 
 	useEffect(() => {
@@ -85,7 +117,7 @@ function useShipmentSummary() {
 				},
 				{
 					label: 'No',
-					onClick: () => { },
+					onClick: () => {},
 				},
 			],
 		});
@@ -97,30 +129,17 @@ function useShipmentSummary() {
 		});
 	};
 
-	// {
-	// 	"shipments": [
-
-	// 			{
-	// 				"shipmentId": "6451f9dc7983eb5de78c35dd",
-	// 				"amount": 2708000
-	// 			}
-
-	// 	],
-	// 	"amount": 2708000,
-	// 	"email": "tjfaithpro@gmail.com",
-	// 	"phone_number": "08222459383"
-	// }
-
-
 	const handlePayment = () => {
 		setShipmentLoader(true);
 		const totalShipment: Record<string, string>[] = [];
 
 		unCheckedShipment.forEach((obj: any) => {
-			totalShipment.push({
-				shipmentId: obj.id,
-				amount: obj.delivery_price,
-			});
+			if (obj.checked) {
+				totalShipment.push({
+					shipmentId: obj.id,
+					amount: obj.delivery_price,
+				});
+			}
 		});
 
 		const payload = {
@@ -130,9 +149,10 @@ function useShipmentSummary() {
 			phone_number: state.single_user_data?.phoneNumber,
 		};
 
+		console.log(payload);
 		initiatePayment(payload).then(
 			(response) => {
-				console.log(response)
+				// console.log(response)
 				toast.success(response.data.message, {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
@@ -140,13 +160,14 @@ function useShipmentSummary() {
 
 				setState({
 					...state,
-					initializePayment:response.data.data,
+					initializePayment: response.data.data,
 					shipmentCurrentTab: 'item4',
 					form_level: 3,
 				});
 				setShipmentLoader(false);
 			},
 			(error) => {
+				console.log(error);
 				toast.error(error.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
@@ -172,6 +193,8 @@ function useShipmentSummary() {
 		handleRemoveItem,
 		handleAddShipment,
 		handlePayment,
+		handleCheck,
+		totalShipmentToCheckout,
 		shipmentLoader,
 		selectedShipment,
 		itemIndexToRemove,

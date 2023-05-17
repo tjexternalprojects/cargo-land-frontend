@@ -7,9 +7,9 @@ import { toast } from 'react-toastify';
 function UserServices() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-	const contactUs = (payload:Record<string, string>)=>{
-		return api.post('/contact-cargoland', payload)
-	}
+	const contactUs = (payload: Record<string, string>) => {
+		return api.post('/contact-cargoland', payload);
+	};
 	const getSingleUser = async () => {
 		await api.get('/user/single-user/').then(
 			(res) => {
@@ -36,21 +36,8 @@ function UserServices() {
 	};
 
 	// SERVICES FOR ADMIN
-	const getAllUsers = () => {
-		return api.get('/user/all-users').then(
-			(res) => {
-				setState((prevState) => ({
-					...prevState,
-					all_users: res.data.users,
-				}));
-			},
-			(err) => {
-				toast.error(err.response.data.message, {
-					progressClassName: 'bg-red-500 h-1',
-					autoClose: 3000,
-				});
-			}
-		);
+	const getAllUsers = (page_number: number, page_limit: number) => {
+		return api.get(`/user/all-users?page=${page_number}&limit=${page_limit}`);
 	};
 	return {
 		contactUs,

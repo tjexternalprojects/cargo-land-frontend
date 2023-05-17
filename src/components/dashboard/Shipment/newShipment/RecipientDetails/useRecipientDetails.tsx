@@ -3,7 +3,7 @@ import { AppContext, AppContextType } from '@/context';
 import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
-import { Country, State, City } from 'country-state-city';
+import { Country } from 'country-state-city';
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
@@ -22,6 +22,7 @@ function useNewShipmentForm() {
 	interface ShipmentDetails {
 		recipient_full_name?: string;
 		recipient_email?: string;
+		shipment_type?: string;
 		shipment_destination?: Record<string, string | number | null>;
 	}
 
@@ -32,6 +33,7 @@ function useNewShipmentForm() {
 			...shipmentDetails,
 			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
 			recipient_email: state.shipmentDetails.recipient_email as string,
+			shipment_type: state.shipmentDetails.shipment_type as string,
 			shipment_destination: {
 				country: state.shipmentDetails.shipment_destination.country,
 				state: state.shipmentDetails.shipment_destination.state,
@@ -130,6 +132,7 @@ function useNewShipmentForm() {
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
+			// console.log(data)
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
@@ -173,6 +176,7 @@ function useNewShipmentForm() {
 			},
 			recipient_full_name: '',
 			recipient_email: '',
+			shipment_type: '',
 			shipment_destination: {
 				country: '',
 				state: '',
@@ -196,10 +200,10 @@ function useNewShipmentForm() {
 
 	const handleUpdateShipment = (shipment_id: string) => {
 		setShowLoader(true);
+		console.log(state.shipmentDetails);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
-
 		const formData = new FormData();
 		formData.append('payload', payload);
 		for (let i = 0; i < shipment_images.length; i++) {
@@ -208,9 +212,8 @@ function useNewShipmentForm() {
 
 		updateShipment(shipment_id, formData).then(
 			(response) => {
-				console.log(response)
 				setShowLoader(false);
-				toast.success('Shipment Updated Successfuly', {
+				toast.success('Shipment Updated Successfully', {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
 				});
@@ -225,7 +228,6 @@ function useNewShipmentForm() {
 				});
 			},
 			(error) => {
-				console.log(error)
 				setShowLoader(false);
 				toast.error('Sorry an error occured! Please Try again', {
 					progressClassName: 'bg-red-500 h-1',
@@ -245,9 +247,9 @@ function useNewShipmentForm() {
 		for (let i = 0; i < shipment_images.length; i++) {
 			formData.append('images', shipment_images[i]);
 		}
-
 		await createShipment(formData).then(
 			(response) => {
+				console.log(response);
 				setShowLoader(false);
 				setState({
 					...state,
@@ -258,12 +260,13 @@ function useNewShipmentForm() {
 				resetShipment();
 			},
 			(error) => {
+				console.log(error);
 				setShowLoader(false);
 			}
 		);
 	};
 
-	const getCounteryCovered = () => {
+	const getCountryCoveredMtd = () => {
 		getCountryCovered().then(
 			(response) => {
 				setCountryCovered(Object.values(response.data));
@@ -287,7 +290,7 @@ function useNewShipmentForm() {
 
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
 	useEffect(() => {
-		getCounteryCovered();
+		getCountryCoveredMtd();
 	}, []);
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED

@@ -13,9 +13,9 @@ function HomeGraph() {
 	const [shipmentSummary, setShipmentSummary] = useState<ShipmentSummaryInterface[]>([]);
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-	const getGraphData = (duration: Record<string, string | number>) => {
+	const getGraphData = async (duration: Record<string, string | number>) => {
 		let newData: ShipmentSummaryInterface;
-		ShipmentServices()
+		await ShipmentServices()
 			.getShipmentInRange(duration as Record<string, string>)
 			.then(
 				(response) => {

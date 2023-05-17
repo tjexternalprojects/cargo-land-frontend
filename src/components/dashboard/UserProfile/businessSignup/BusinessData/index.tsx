@@ -1,4 +1,10 @@
-import { GrBusinessService, ImLocation, BsTelephoneForward, AiOutlineNumber, MdAttachEmail } from '@/assets';
+import {
+	GrBusinessService,
+	ImLocation,
+	BsTelephoneForward,
+	AiOutlineNumber,
+	MdAttachEmail,
+} from '@/assets';
 import useBusinessData from './useBusinessData';
 interface MyComponentProps {
 	setActiveTab: (tab: string) => void;

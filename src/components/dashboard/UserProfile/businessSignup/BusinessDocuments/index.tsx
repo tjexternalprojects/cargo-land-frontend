@@ -2,7 +2,7 @@ import React from 'react';
 import { HiDocumentText } from '@/assets';
 import useBusinessDocument from './useBusinessDocuments';
 const BusinessDocuments = () => {
-	const { handleDocumentUpload, businessDocument }=useBusinessDocument();
+	const { handleDocumentUpload, businessDocument } = useBusinessDocument();
 	return (
 		<form className=" text-gray-500 ">
 			<div className="flex flex-col">
@@ -26,13 +26,9 @@ const BusinessDocuments = () => {
 					</label>
 				</div>
 
-				{businessDocument.map((docs:any, index:number)=>(
-					<div key={index}>
-						{docs.name}
-					</div>
-				))
-
-				}
+				{businessDocument.map((docs: any, index: number) => (
+					<div key={index}>{docs.name}</div>
+				))}
 			</div>
 		</form>
 	);

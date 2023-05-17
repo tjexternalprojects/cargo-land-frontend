@@ -12,8 +12,17 @@ import {
 	AShipment,
 	LoadingPage,
 	UserProfile,
+	AllShipment,
 } from '@/components';
-import {  LandingPage, Login, Dashboard, Admin, ResetPassword } from '@/pages';
+import {
+	LandingPage,
+	Login,
+	Dashboard,
+	Admin,
+	ResetPassword,
+	VerifyPayment,
+	Page404,
+} from '@/pages';
 import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
 import ProtectedAdminRoutes from './ProtectedAdminRoutes';
 import { AppProvider } from '@/context';
@@ -38,15 +47,17 @@ function App() {
 							<Route path="/dashboard" element={<Dashboard />}>
 								<Route path="" element={<DashboardHome />} />
 								<Route path="/dashboard/shipment" element={<ShipmentPage />} />
+								<Route path="/dashboard/all_shipment/:current_page" element={<AllShipment />} />
 								<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 								<Route path="/dashboard/history" element={<History />} />
 								<Route path="/dashboard/user" element={<UserProfile />} />
+								<Route path="/dashboard/payment/verify" element={<VerifyPayment />} />
 							</Route>
 						</Route>
 						<Route element={<ProtectedAdminRoutes />}>
 							<Route path="/admin" element={<Admin />}>
 								<Route path="" element={<AdminHome />} />
-								<Route path="/admin/users" element={<AUsers />} />
+								<Route path="/admin/users/:current_page" element={<AUsers />} />
 								<Route path="/admin/track_shipment" element={<ATrackShipment />} />
 								<Route path="/admin/transactions" element={<ATransactions />} />
 								<Route path="/admin/shipment" element={<AShipment />} />
@@ -55,6 +66,7 @@ function App() {
 						<Route path="/" element={<LandingPage />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/resetpassword/:token" element={<ResetPassword />} />
+						<Route path="*" element={<Page404 />} />
 					</Routes>
 				</Suspense>
 			</BrowserRouter>

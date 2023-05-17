@@ -17,6 +17,7 @@ function GeneralContext() {
 		},
 		recipient_full_name: '',
 		recipient_email: '',
+		shipment_type: '',
 		shipment_destination: {
 			country: '',
 			state: '',
@@ -29,7 +30,7 @@ function GeneralContext() {
 	};
 
 	const allShipments: never[] = [];
-	const trackingShipments: never[] = [];
+	const trackingShipments: any = [];
 	const shipmentCurrentTab = 'item1';
 	const shipmentSummary: ShipmentSummaryInterface[] = [];
 	const editShipment = false;

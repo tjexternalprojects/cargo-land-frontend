@@ -1,5 +1,6 @@
 import {
 	CiSettings,
+	GoPackage,
 	logo,
 	MdTrackChanges,
 	RiPriceTag2Line,
@@ -8,13 +9,15 @@ import {
 	TbTruckDelivery,
 	userImg,
 } from '@/assets';
-import { Link, NavLink, useMatch } from 'react-router-dom';
+
+import { Link, NavLink, useMatch, useParams } from 'react-router-dom';
 import useLogin from '@/pages/Login/useLogin';
 import useSidebar from './useSidebar';
 const sidebar = () => {
 	const dashboardMatch = useMatch('/dashboard');
 	const shipmentMatch = useMatch('/dashboard/shipment');
 	const trackMatch = useMatch('/dashboard/track_shipment');
+	const allShipment = useMatch('/dashboard/all_shipment/' + useParams().current_page);
 	const historyMatch = useMatch('/dashboard/history');
 	const { handleLogout } = useLogin();
 	const { state, handleToggleSidebar } = useSidebar();
@@ -59,10 +62,22 @@ const sidebar = () => {
 
 						<li>
 							<NavLink
+								to="/dashboard/all_shipment/1"
+								onClick={handleToggleSidebar}
+								className={`${
+									allShipment ? ' bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
+								}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
+							>
+								<GoPackage /> <span>All Shipment</span>
+							</NavLink>
+						</li>
+
+						<li>
+							<NavLink
 								to="/dashboard/track_shipment"
 								onClick={handleToggleSidebar}
 								className={`${
-									trackMatch ? '  bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
+									trackMatch ? 'bg-blue-900/20 border-l-blue-900 ' : 'border-l-white bg-white'
 								}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
 							>
 								<TbTruckDelivery /> <span>Track Shipment</span>

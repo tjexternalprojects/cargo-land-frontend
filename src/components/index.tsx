@@ -9,6 +9,8 @@ export const Notification = lazy(() => import('./common/Notification'));
 export const Loader = lazy(() => import('./common/loader'));
 export const RingLoader = lazy(() => import('./common/RingLoader'));
 export const LoadingPage = lazy(() => import('./common/LoadingPage'));
+export const Pagination = lazy(() => import('./common/Pagination'));
+export const SearchShipment = lazy(() => import('./common/SearchShipment'));
 
 // login components
 export const LoginComponent = lazy(() => import('./login-signup/Login'));
@@ -18,13 +20,18 @@ export const ResendToken = lazy(() => import('./resendVerification'));
 
 // Business SignUp
 export const BusinessSignup = lazy(() => import('./dashboard/UserProfile/businessSignup'));
-export const BusinessData = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessData'));
-export const BusinessDocuments = lazy(() => import('./dashboard/UserProfile/businessSignup/BusinessDocuments'));
+export const BusinessData = lazy(
+	() => import('./dashboard/UserProfile/businessSignup/BusinessData')
+);
+export const BusinessDocuments = lazy(
+	() => import('./dashboard/UserProfile/businessSignup/BusinessDocuments')
+);
 
 // USER DASHBOARD =========================================================
 // Dashboard
 export const DashboardHome = lazy(() => import('./dashboard/Home'));
 export const ShipmentPage = lazy(() => import('./dashboard/Shipment'));
+export const AllShipment = lazy(() => import('./dashboard/AllShipment'));
 export const History = lazy(() => import('./dashboard/History'));
 export const Sidebar = lazy(() => import('./dashboard/Sidebar'));
 export const TopBar = lazy(() => import('./dashboard/TopBar'));
@@ -43,8 +50,6 @@ export const UserDetails = lazy(
 export const UserImage = lazy(() => import('./dashboard/UserProfile/PersonalDetails/UserImage'));
 
 export const AccountType = lazy(() => import('./dashboard/UserProfile/AccountType'));
-
-
 
 // Dashboard New_Shipment
 export const NewShipmentForm = lazy(

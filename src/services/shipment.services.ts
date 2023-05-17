@@ -18,10 +18,13 @@ function ShipmentServices() {
 		return api.post('/shipment/create-shipment', shipmentData);
 	};
 
+	const getAllUserShipmentPaginated = (page_number: number, page_limit: number) => {
+		return api.get(`/shipment/get-all-user-shipment?page=${page_number}&limit=${page_limit}`);
+	};
 	const getAllUserShipment = async () => {
 		await api.get('/shipment/get-all-user-shipment').then(
 			(res) => {
-				console.log(res)
+				console.log(res);
 				setState((prevState) => ({
 					...prevState,
 					allShipments: res.data.allUserShipment,
@@ -58,8 +61,9 @@ function ShipmentServices() {
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
 
-	const initiatePayment = (payload: any) => {
-		return api.post('/payment/initiate', payload);
+	// ADMIN END-POINT
+	const adminGetAllShipments = () => {
+		return api.get('/shipment/get-all-shipment');
 	};
 
 	// FOR HOME PAGE GRAPHS =================
@@ -143,14 +147,16 @@ function ShipmentServices() {
 		}));
 	}, [shipmentSummary]);
 	return {
-		initiatePayment,
 		updateShipment,
 		createShipment,
 		deleteShipment,
 		getCountryCovered,
 		getShipmentDateRange,
 		getAllUserShipment,
+		getAllUserShipmentPaginated,
 		getShipmentInRange,
+
+		adminGetAllShipments,
 	};
 }
 
