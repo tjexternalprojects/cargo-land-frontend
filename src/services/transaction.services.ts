@@ -15,7 +15,10 @@ function transactionServices() {
 	};
 
 	// { amount, accountNumber, bank, password, accountName }
-	const makeWithdrawal = (payload: Record<string, string | number>) => {};
+	const makeWithdrawal = (payload: Record<string, string | number>) => {
+		return api.get('/withdraw/withdraw', payload);
+
+	};
 
 	const userPaymentHistory = () => {
 		return api.get('/payment/getall-user-payment');

@@ -60,7 +60,7 @@ function App() {
 								<Route path="/admin/users/:current_page" element={<AUsers />} />
 								<Route path="/admin/track_shipment" element={<ATrackShipment />} />
 								<Route path="/admin/transactions" element={<ATransactions />} />
-								<Route path="/admin/shipment" element={<AShipment />} />
+								<Route path="/admin/shipment/:current_page" element={<AShipment />} />
 							</Route>
 						</Route>
 						<Route path="/" element={<LandingPage />} />
