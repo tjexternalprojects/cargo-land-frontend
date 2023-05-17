@@ -60,7 +60,7 @@ const home = () => {
 				</div>
 			</div>
 
-			{/* Buttom */}
+			{/* Bottom */}
 			<div className=" flex  gap-3  justify-between  flex-wrap md:flex-nowrap">
 				<div className="">
 					<h4 className="text-xl mb-3">Latest Transaction</h4>

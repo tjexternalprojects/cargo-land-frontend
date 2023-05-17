@@ -61,9 +61,13 @@ function ShipmentServices() {
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
 
+	// 	GET http://localhost:4300/shipment/get-all-shipment?shipment_Type=DOOR_TO_DOOR&shipment_status=pending
+	// GET http://localhost:4300/shipment/get-all-shipment?shipment_Type=DOOR_TO_DOOR
+	// GET http://localhost:4300/shipment/get-all-shipment?shipment_status=pending
+
 	// ADMIN END-POINT
-	const adminGetAllShipments = () => {
-		return api.get('/shipment/get-all-shipment');
+	const adminGetAllShipments = (parms?: string) => {
+		return api.get('/shipment/get-all-shipment' + parms);
 	};
 
 	// FOR HOME PAGE GRAPHS =================

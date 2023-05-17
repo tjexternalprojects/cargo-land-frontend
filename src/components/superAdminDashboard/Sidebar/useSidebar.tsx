@@ -48,7 +48,7 @@ function useSidebar() {
 			icon: GrTransaction,
 		},
 		{
-			route_to: '/admin/shipment',
+			route_to: '/admin/shipment/' + useParams().current_page,
 			name: 'Shipment',
 			icon: GoPackage,
 		},

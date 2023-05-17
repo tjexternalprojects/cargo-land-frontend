@@ -35,8 +35,8 @@ function useUsers() {
 			(error) => {
 				console.log(error);
 				setLoading(false);
-				toast.info('Please select an image file', {
-					progressClassName: 'bg-blue-500 h-1',
+				toast.error('Failed to load user', {
+					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
 				});
 			}

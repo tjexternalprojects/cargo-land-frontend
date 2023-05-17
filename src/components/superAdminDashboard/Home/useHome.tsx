@@ -1,6 +1,6 @@
 import { AppContextType, AppContext } from '@/context';
 import { useContext, useEffect, useState } from 'react';
-import { TransactionServices, UserServices } from '@/services';
+import { TransactionServices, UserServices, ShipmentServices } from '@/services';
 import { toast } from 'react-toastify';
 
 function useHome() {
@@ -10,11 +10,12 @@ function useHome() {
 	);
 	const [userLoading, setUsersLoading] = useState(false);
 	const [totalUsers, setTotalUsers] = useState(0);
+	const [totalPendingShipment, setTotalPendingShipment] = useState(0);
 	const { getAllUsers } = UserServices();
-
+	const { adminGetAllShipments } = ShipmentServices();
 	const { paymentHistory } = TransactionServices();
-	const [transactionHistory, setTransactionHistory] = useState();
-
+	const [transactionHistory, setTransactionHistory] = useState([]);
+	const [allShipment, setAllShipment]= useState([])
 	const [activeShipment, setActiveShipment] = useState([
 		{
 			shipment_id: 'KH921B',
@@ -193,10 +194,22 @@ function useHome() {
 		);
 	};
 
+	const allPendingShipment = async () => {
+		adminGetAllShipments('?shipment_status=pending').then(
+			(response) => {
+				console.log(response);
+				setAllShipment(response.data.allUserShipment);
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+
 	const getTransactionHistory = () => {
 		paymentHistory().then(
 			(response) => {
-				console.log(response);
+				console.log(response, 'transactions......');
 				setTransactionHistory(response.data.data);
 			},
 			(error) => {
@@ -205,18 +218,23 @@ function useHome() {
 		);
 	};
 
+
+
 	useEffect(() => {
 		getTransactionHistory();
 		allUsersMtd();
+		allPendingShipment();
 	}, []);
 	return {
 		toggleShowBalance,
+		transactionHistory,
 		totalUsers,
 		allUsers,
 		userLoading,
 		currency,
 		balance,
 		state,
+		allShipment,
 		activeShipment,
 		transaction_history,
 		showBalance,
