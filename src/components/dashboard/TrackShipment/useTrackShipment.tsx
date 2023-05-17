@@ -5,7 +5,7 @@ function useTrackShipment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [trackingShipments, setTrackingShipment] = useState<any>([]);
 	const [loading, setLoading] = useState(false);
-	const [sindgleShipment, setSingleShipment] = useState<any>([]);
+	const [singleShipment, setSingleShipment] = useState<any>([]);
 	const getActiveShipment = async () => {
 		setLoading(true);
 		const active_shipment = state.allShipments.filter(
@@ -17,14 +17,15 @@ function useTrackShipment() {
 
 	const getInidividualShipment = (index: number) => {
 		setSingleShipment(trackingShipments[index]);
+		console.log(singleShipment)
 	};
 
 	useEffect(() => {
 		getActiveShipment();
-		getInidividualShipment;
+		getInidividualShipment(0);
 	}, [loading]);
 
-	return { trackingShipments, getActiveShipment, getInidividualShipment };
+	return { trackingShipments, singleShipment, getActiveShipment, getInidividualShipment };
 }
 
 export default useTrackShipment;
