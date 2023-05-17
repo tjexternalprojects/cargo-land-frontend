@@ -104,16 +104,16 @@ const RecipientDetails = () => {
 						</div>
 						<div className=" bottom-5 w-full  ">
 							<div className="bg-slate-100 p-5">
-								<div>Total Packages: {totalShipmentToCheckout}</div>
+								<div>Total Package Selected: <span className='font-extrabold'>{totalShipmentToCheckout}</span></div>
 								<div>
-									Total Amount: <span>&#8358;{totalPrice.toLocaleString()}</span>
+									Total Amount: <span className='font-extrabold'>&#8358;{totalPrice.toLocaleString()}</span>
 								</div>
 							</div>
 							<div className="flex justify-between p-5 gap-4 flex-wrap md:flex-nowrap">
 								<button
 									disabled={shipmentLoader || totalPrice === 0}
 									onClick={handlePayment}
-									className="flex md:flex-grow-0 flex-grow items-center bg-red-700 justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300"
+									className={`flex md:flex-grow-0 flex-grow items-center  justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300 ${totalPrice === 0 ? 'bg-red-100': 'bg-red-700'}`}
 								>
 									<div className="p-2">Checkout</div>
 									<div

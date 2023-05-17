@@ -56,7 +56,7 @@ function useShipmentSummary() {
 		const deliveryPriceTotal = items_array.reduce(
 			(total: number, obj: { checked: boolean; delivery_price: string }) => {
 				if (obj.checked === true) {
-					setTotalShipmentToCheckout(totalShipmentToCheckout + 1);
+					setTotalShipmentToCheckout(prevTotal => prevTotal + 1);
 					const deliveryPrice =
 						typeof obj.delivery_price === 'number'
 							? obj.delivery_price
