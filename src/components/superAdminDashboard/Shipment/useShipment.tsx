@@ -41,6 +41,9 @@ function useShipment() {
 		);
 	};
 
+	const getUserDetails = ()=>{
+		
+	}
 	const handleSelectShipment =(val:any)=>{
 		setSelectedShipment(val)
 		setShowModal(true)

@@ -1,45 +1,37 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function useShipmentModal(
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
 	selectedShipment:any
 ) {
 	const [shipmentImages, setShipmentImages] = useState<any>([])
+	const navigate = useNavigate();
 	const handleCloseModal = () => {
 		setShowModal(false);
 	};
 
-    const shipment_images = [
-			{
-				original: 'https://picsum.photos/id/1018/1000/600/',
-				thumbnail: 'https://picsum.photos/id/1018/250/150/',
-			},
-			{
-				original: 'https://picsum.photos/id/1015/1000/600/',
-				thumbnail: 'https://picsum.photos/id/1015/250/150/',
-			},
-			{
-				original: 'https://picsum.photos/id/1019/1000/600/',
-				thumbnail: 'https://picsum.photos/id/1019/250/150/',
-			},
-		];
     const arrangeImage =()=>{
 		const shipment_images:Record<string,string>[] =[]
 		for (let i = 0; i < selectedShipment.images.length; i++) {
 			let image_obj = {
-				original:selectedShipment.images[i],
-				thumbail:selectedShipment.images[i]
-			}
+				original: selectedShipment.images[i],
+				thumbnail: selectedShipment.images[i],
+			};
 			shipment_images.push(image_obj)
 		}
 	
 		setShipmentImages(shipment_images)
 		console.log(shipmentImages)
     }
+
+	const handleViewOnMap=(shipment_id:string)=>{
+		navigate('/admin/track_shipment/shipment_id');
+	}
 	useEffect(()=>{
 		arrangeImage()
 	},[selectedShipment])
-	return { handleCloseModal , shipmentImages};
+	return { handleCloseModal ,handleViewOnMap, shipmentImages};
 }
 
 export default useShipmentModal;
