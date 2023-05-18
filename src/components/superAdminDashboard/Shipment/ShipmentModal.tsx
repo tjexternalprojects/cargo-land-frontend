@@ -29,8 +29,7 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 
 
 
-	const { handleCloseModal } = useShipmentModal(setShowModal, selectedShipment);
-	console.log(selectedShipment);
+	const { handleCloseModal, 	shipmentImages } = useShipmentModal(setShowModal, selectedShipment);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" w-11/12  fixed bg-white shadow-lg pb-3 ">
