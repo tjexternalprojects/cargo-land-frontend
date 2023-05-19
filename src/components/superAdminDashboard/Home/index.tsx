@@ -9,14 +9,16 @@ const home = () => {
 		sent_data,
 		balance,
 		currency,
+		shipmentLoading,
 		userLoading,
 		allUsers,
 		totalUsers,
+		handleViewOnMap,
 		toggleShowBalance,
 		state,
 		showBalance,
 		transaction_history,
-		activeShipment,
+		checkedShipment,
 	} = useHome();
 
 	return (
@@ -54,7 +56,7 @@ const home = () => {
 				<div className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center">
 					<div className=" w-20">{/* <LineGraph data={sent_data} /> */}</div>
 					<div className="flex flex-col items-end text-red-500">
-						<div>Pending Shipment</div>
+						<div>Active Shipment</div>
 						<div className=" text-5xl font-thin ">0</div>
 					</div>
 				</div>
@@ -159,42 +161,51 @@ const home = () => {
 					<div className="flex justify-between px-3 pb-3">
 						<h4 className="text-xl">Active Shipment</h4>
 						<span>
-							{activeShipment.length > 1 && (
+							{checkedShipment.length > 1 && (
+								<Link to="/admin/shipment/1">
 								<button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
 									View all ...
 								</button>
+								</Link>
 							)}
-						</span>{' '}
+						</span>
 					</div>
 					<hr />
 					<div className="mt-3">
 						<div className="w-full flex items-center">
-							{activeShipment.length > 0 ? (
+						{shipmentLoading ? (
+						<div className="w-full border flex items-center justify-center">
+							<RingLoader size={50} textColor="text-blue-900" />
+						</div>
+					) : (
+						<>
+							{checkedShipment.length > 0 ? (
 								<div className="flex flex-col w-full space-y-4">
-									{activeShipment.slice(0, 5).map((val, index) => (
+									{checkedShipment.slice(0, 5).map((val:any, index:number) => (
 										<div
 											key={index}
-											className="flex flex-col w-full p-3  bg-blue-50 rounded-lg shadow-md "
+											className="flex cursor-pointer flex-col w-full p-3  bg-blue-50 rounded-lg shadow-md "
+											onClick={() => handleViewOnMap(val.id)}
 										>
 											<div className="flex text-gray-500 text-sm">
 												<h4>Shipment ID:</h4>
-												<h4 className="font-bold ">KH921B</h4>
+												<h4 className="font-bold ">{val.id}</h4>
 											</div>
 											<div className="flex justify-between items-center mt-2">
 												<div className="felx flex-col">
 													<div className="font-bold">Title: {val.shipment_title}</div>
 													<div className="flex flex-col text-xs">
 														<div>
-															Order Date: <span>{val.approval_date}</span>
+															Date Created: <span>{new Date(val.createdAt).toLocaleString()}</span>
 														</div>
 														<div>
-															Delevery Date: <span>{val.delevery_date}</span>
+															Delevery Date: <span>In View</span>
 														</div>
 													</div>
 												</div>
 												<div>
 													<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
-														{val.status}
+														{val.shipment_Status}
 													</label>
 												</div>
 											</div>
@@ -203,15 +214,11 @@ const home = () => {
 								</div>
 							) : (
 								<div className="h-screen-40 flex-col flex  space-y-2">
-									<div className="text-2xl text-red-300">No active shipment</div>
-									<Link to="/shipment">
-										{' '}
-										<button className="px-3 py-1 bg-slate-100 rounded-xl shadow-md text-slate-400">
-											Create Shipment
-										</button>
-									</Link>
+									<div className="text-2xl text-red-300">No checked shipment</div>
+									
 								</div>
 							)}
+							</>)}
 						</div>
 					</div>
 				</div>

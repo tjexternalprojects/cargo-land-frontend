@@ -1,17 +1,23 @@
+import { ShipmentServices } from "@/services";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 function useTrackShipment() {
-	const currentItem = [
-		{
-			item_id: 'xxxxxx2',
-			item_name: 'NEWWW',
-			item_category: 'Electronics',
-			item_total_weight: '500kg',
-			item_quanity: '40',
-			Item_description: 'dklaklklkdlkd',
-			deleivery_price: 'N 5000',
-			Item_images: ['img_1', 'img_2'],
-		},
-	];
-	return {};
+	const {getSingleShipment} = ShipmentServices()
+	const params = useParams();
+	const [singleShipment, setSingleShipment]= useState<any>({})
+
+	const SingleShipment=()=>{
+		getSingleShipment(params.shipment_id as string).then(response=>{
+			console.log(response.data)
+			setSingleShipment(response.data)
+		},error=>{
+			console.log(error)
+		})
+	}
+	useEffect(()=>{
+		SingleShipment()
+	},[])
+	return {singleShipment};
 }
 
 export default useTrackShipment;

@@ -21,6 +21,11 @@ module.exports = {
 			// 	// => @media (min-width: 1536px) { ... }
 			// },
 			maxWidth: {
+				'5-screen': '5vw',
+				'10-screen': '10vw',
+				'20-screen': '20vw',
+				'30-screen': '30vw',
+				'40-screen': '40vw',
 				'50-screen': '50vw',
 				'60-screen': '60vw',
 				'70-screen': '70vw',
@@ -42,6 +47,11 @@ module.exports = {
 				'w-screen-xs': '425px',
 			},
 			maxHeight: {
+				'5-screen': '5vh',
+				'10-screen': '10vh',
+				'20-screen': '20vh',
+				'30-screen': '30vh',
+				'40-screen': '40vh',
 				'50-screen': '50vh',
 				'60-screen': '60vh',
 				'70-screen': '70vh',

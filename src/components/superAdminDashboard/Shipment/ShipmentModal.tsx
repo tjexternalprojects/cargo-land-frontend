@@ -11,7 +11,7 @@ interface ShipmentModalProps {
 
 const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) => {
 	console.log(selectedShipment);
-	const { handleCloseModal,handleViewOnMap, shipmentImages } = useShipmentModal(setShowModal, selectedShipment);
+	const { handleCloseModal, handleViewOnMap, shipmentImages } = useShipmentModal(setShowModal, selectedShipment);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" md:w-9/12 w-11/12  fixed bg-white shadow-lg pb-3 ">
@@ -58,6 +58,14 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 								) : (
 									<button className="px-2 py-1 bg-blue-800 text-white rounded">Add Price</button>
 								)}
+							</div>
+							<div className='mt-5'>
+								{selectedShipment.shipment_Status === 'CHECKED' && <div className='gap-2 flex w-full justify-between'>
+									<button onClick={() => handleViewOnMap(selectedShipment.id)} className="px-2 py-1 bg-green-800 text-white rounded">Mark as Transit</button>
+									<button className="px-2 py-1 bg-red-500 text-white rounded">Reject Shipment</button>
+
+								</div>}
+								{selectedShipment.shipment_Status === 'TRANSIT' && <button className="px-2 py-1 bg-green-800 text-white rounded">Update Location</button>}
 							</div>
 						</div>
 					</div>

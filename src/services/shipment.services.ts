@@ -70,6 +70,9 @@ function ShipmentServices() {
 		return api.get('/shipment/get-all-shipment' + parms);
 	};
 
+	const getSingleShipment = (shipment_id:string)=>{
+		return api.get('/shipment/get-single-shipment/'+shipment_id)
+	}
 	// FOR HOME PAGE GRAPHS =================
 
 	const getGraphData = (duration: Record<string, string | number>) => {
@@ -157,6 +160,7 @@ function ShipmentServices() {
 		getCountryCovered,
 		getShipmentDateRange,
 		getAllUserShipment,
+		getSingleShipment,
 		getAllUserShipmentPaginated,
 		getShipmentInRange,
 

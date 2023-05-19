@@ -33,12 +33,17 @@ function useSidebar() {
 			icon: TbLayoutDashboard,
 		},
 		{
+			route_to: '/admin/shipment/' + useParams().current_page,
+			name: 'Shipment',
+			icon: GoPackage,
+		},
+		{
 			route_to: '/admin/users/' + useParams().current_page,
 			name: 'Users',
 			icon: BiUserPin,
 		},
 		{
-			route_to: '/admin/track_shipment',
+			route_to: '/admin/track_shipment/' + useParams().shipment_id,
 			name: 'Track Shipment',
 			icon: TbTruckDelivery,
 		},
@@ -46,12 +51,7 @@ function useSidebar() {
 			route_to: '/admin/transactions',
 			name: 'Transactions',
 			icon: GrTransaction,
-		},
-		{
-			route_to: '/admin/shipment/' + useParams().current_page,
-			name: 'Shipment',
-			icon: GoPackage,
-		},
+		}
 	];
 	return { userInfo, state, navigationLinks, location, handleToggleSidebar };
 }
