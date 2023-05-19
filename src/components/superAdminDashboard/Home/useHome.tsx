@@ -156,7 +156,7 @@ function useHome() {
 
   const allUsersMtd = async () => {
     setUsersLoading(true);
-    await getAllUsers(1, 5).then(
+    await getAllUsers(1, 8).then(
       (response) => {
         console.log(response);
         setAllUsers(response.data.users);

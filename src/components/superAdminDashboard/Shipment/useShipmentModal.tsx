@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { UserServices } from '@/services';
 function useShipmentModal(
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
 	selectedShipment: any
 ) {
+	const {adminGetSingleUser} = UserServices()
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
+	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string| string[]>>({})
 	const navigate = useNavigate();
 	const handleCloseModal = () => {
 		setShowModal(false);
@@ -28,10 +30,21 @@ function useShipmentModal(
 	const handleViewOnMap = (shipment_id: string) => {
 		navigate(`/admin/track_shipment/${shipment_id}`);
 	};
+
+	const getUserDetails = async()=>{
+		await adminGetSingleUser(selectedShipment.userID).then(response=>{
+			setShipmentCreator(response.data.user)
+			console.log(response)
+		}, error=>{
+			console.log(error)
+		})
+	}
+
 	useEffect(() => {
 		arrangeImage();
+		getUserDetails();
 	}, [selectedShipment]);
-	return { handleCloseModal, handleViewOnMap, shipmentImages };
+	return { handleCloseModal, handleViewOnMap, getUserDetails, shipmentCreator, shipmentImages };
 }
 
 export default useShipmentModal;

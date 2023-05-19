@@ -11,7 +11,7 @@ interface ShipmentModalProps {
 
 const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) => {
 	console.log(selectedShipment);
-	const { handleCloseModal, handleViewOnMap, shipmentImages } = useShipmentModal(setShowModal, selectedShipment);
+	const { handleCloseModal, handleViewOnMap, shipmentCreator, shipmentImages } = useShipmentModal(setShowModal, selectedShipment);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" md:w-9/12 w-11/12  fixed bg-white shadow-lg pb-3 ">
@@ -139,21 +139,21 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 
 							<div className="border relative p-3 rounded text-slate-500">
 								<span className="absolute -top-3 bg-white px-2 left-1 font-bold">
-									Sender's Details
+									Shipment Creator Details
 								</span>
 								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-1">Full Name</div>
-									<div className="p-2">{selectedShipment.shipment_title}</div>
+									<div className="p-2">{shipmentCreator?.name}</div>
 								</div>
 
 								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-1">Email Address</div>
-									<div className="p-2">{selectedShipment.shipment_description}</div>
+									<div className="p-2">{shipmentCreator?.email}</div>
 								</div>
 
 								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-1">Phone Number</div>
-									<div className="p-2">{selectedShipment.shipment_description}</div>
+									<div className="p-2">{shipmentCreator?.phoneNumber}</div>
 								</div>
 							</div>
 

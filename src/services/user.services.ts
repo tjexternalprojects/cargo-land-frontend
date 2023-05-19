@@ -39,12 +39,17 @@ function UserServices() {
 	const getAllUsers = (page_number: number, page_limit: number) => {
 		return api.get(`/user/all-users?page=${page_number}&limit=${page_limit}`);
 	};
+
+	const adminGetSingleUser = (user_id:string)=>{
+		return api.get('/user/single-user/'+user_id)
+	}
 	return {
 		contactUs,
 		getSingleUser,
 		updateUser,
 		updateUserAvatar,
 		getAllUsers,
+		adminGetSingleUser,
 	};
 }
 export default UserServices;
