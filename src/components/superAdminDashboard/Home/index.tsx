@@ -13,12 +13,15 @@ const home = () => {
 		userLoading,
 		allUsers,
 		totalUsers,
+		allShipmentLoading,
+		transactionHistory,
+		allShipment,
 		handleViewOnMap,
 		toggleShowBalance,
 		state,
 		showBalance,
 		transaction_history,
-		checkedShipment,
+		transitShipment,
 	} = useHome();
 
 	return (
@@ -56,8 +59,12 @@ const home = () => {
 				<div className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center">
 					<div className=" w-20">{/* <LineGraph data={sent_data} /> */}</div>
 					<div className="flex flex-col items-end text-red-500">
-						<div>Active Shipment</div>
-						<div className=" text-5xl font-thin ">0</div>
+						<div>All Shipment</div>
+						{allShipmentLoading ? (
+							<RingLoader size={50} textColor="text-blue-900" />
+						) : (
+						<div className=" text-5xl font-thin ">{allShipment.length}</div>
+						)}
 					</div>
 				</div>
 			</div>
@@ -68,28 +75,18 @@ const home = () => {
 					<h4 className="text-xl mb-3">Latest Transaction</h4>
 					<hr />
 					<div className=" space-y-3 mt-3">
-						{transaction_history.map((val, index) => (
+						{transactionHistory.slice(0,15).map((val:Record<string, string|number>, index:number) => (
 							<div
 								key={index}
 								className="flex items-center space-x-3 bg-slate-50 p-2 rounded-md cursor-pointer hover:bg-blue-50 hover:shadow-sm transition-all duration-75 ease-in-out"
 							>
-								{val.type === 'credit' && (
-									<div className="p-2 rounded-md bg-green-100 inline-flex">
-										<BsArrowDownRight />
-									</div>
-								)}
-
-								{val.type === 'debit' && (
-									<div className="p-2 rounded-md bg-red-100 inline-flex">
-										<BsArrowUpRight />
-									</div>
-								)}
+								
 
 								<div>
 									<div className=" font-bold text-slate-600">{val.title}</div>
 									<div className="text-sm text-slate-400">
-										{val.description.length > 16
-											? val.description.slice(0, 16) + ' ...'
+										{val.shipmentID
+											? 'Payment for shipment '
 											: val.description}
 									</div>
 								</div>
@@ -159,9 +156,9 @@ const home = () => {
 
 				<div className=" flex-grow">
 					<div className="flex justify-between px-3 pb-3">
-						<h4 className="text-xl">Active Shipment</h4>
+						<h4 className="text-xl">Shipment on Transit</h4>
 						<span>
-							{checkedShipment.length > 1 && (
+							{transitShipment.length > 1 && (
 								<Link to="/admin/shipment/1">
 								<button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
 									View all ...
@@ -179,9 +176,9 @@ const home = () => {
 						</div>
 					) : (
 						<>
-							{checkedShipment.length > 0 ? (
+							{transitShipment.length > 0 ? (
 								<div className="flex flex-col w-full space-y-4">
-									{checkedShipment.slice(0, 5).map((val:any, index:number) => (
+									{transitShipment.slice(0, 5).map((val:any, index:number) => (
 										<div
 											key={index}
 											className="flex cursor-pointer flex-col w-full p-3  bg-blue-50 rounded-lg shadow-md "
@@ -214,7 +211,7 @@ const home = () => {
 								</div>
 							) : (
 								<div className="h-screen-40 flex-col flex  space-y-2">
-									<div className="text-2xl text-red-300">No checked shipment</div>
+									<div className="text-2xl text-red-300">No shipment on Transit</div>
 									
 								</div>
 							)}

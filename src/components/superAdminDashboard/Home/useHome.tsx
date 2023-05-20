@@ -9,20 +9,22 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 function useHome() {
+  // Loading icons
+  const [userLoading, setUsersLoading] = useState(false);
+  const [shipmentLoading, setShipmentLoading] = useState(false);
+  const [allShipmentLoading, setAllShipmentLoading]= useState(false)
+
   const { state, setState } = useContext<AppContextType>(AppContext);
   const [allUsers, setAllUsers] = useState<
     Record<string, string | string[] | undefined | Date>[]
   >([]);
-  const [userLoading, setUsersLoading] = useState(false);
-  const [shipmentLoading, setShipmentLoading] = useState(false);
   const [totalUsers, setTotalUsers] = useState(0);
-  const [totalPendingShipment, setTotalPendingShipment] = useState(0);
   const { getAllUsers } = UserServices();
   const { adminGetAllShipments } = ShipmentServices();
   const { paymentHistory } = TransactionServices();
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [allShipment, setAllShipment] = useState([]);
-  const [checkedShipment, setCheckedShipment] = useState<any>([]);
+  const [transitShipment, setTransitShipment] = useState<any>([]);
   const [currency, setCurrency] = useState("\u20A6");
   const balance = state.single_user_data?.wallet;
   const [showBalance, setShowBalance] = useState(false);
@@ -174,17 +176,33 @@ function useHome() {
     );
   };
 
-  const allCheckedShipment = async () => {
+  const allTransitShipment = async () => {
     setShipmentLoading(true);
-    await adminGetAllShipments("?shipment_status=CHECKED").then(
+    await adminGetAllShipments("?shipment_status=TRANSIT").then(
       (response) => {
         console.log(response);
-        setCheckedShipment(response.data.allUserShipment);
+        setTransitShipment(response.data.allUserShipment);
         setShipmentLoading(false);
       },
       (error) => {
         console.log(error);
         setShipmentLoading(false);
+      }
+    );
+  };
+
+
+  const getAllShipment = async () => {
+    setAllShipmentLoading(true);
+    await adminGetAllShipments("").then(
+      (response) => {
+        console.log(response);
+        setAllShipment(response.data.allUserShipment);
+        setAllShipmentLoading(false);
+      },
+      (error) => {
+        console.log(error);
+        setAllShipmentLoading(false);
       }
     );
   };
@@ -208,7 +226,8 @@ function useHome() {
   useEffect(() => {
     getTransactionHistory();
     allUsersMtd();
-    allCheckedShipment();
+    allTransitShipment();
+    getAllShipment();
   }, []);
   return {
     toggleShowBalance,
@@ -222,7 +241,8 @@ function useHome() {
     balance,
     state,
     allShipment,
-    checkedShipment,
+    allShipmentLoading,
+    transitShipment,
     transaction_history,
     showBalance,
     received_data,
