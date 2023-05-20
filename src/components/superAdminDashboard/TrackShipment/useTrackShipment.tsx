@@ -5,6 +5,7 @@ function useTrackShipment() {
 	const {getSingleShipment} = ShipmentServices()
 	const params = useParams();
 	const [singleShipment, setSingleShipment]= useState<any>({})
+	const [showTrackingIdInput, setShowTrackingIdInput] = useState(false)
 
 	const SingleShipment=()=>{
 		getSingleShipment(params.shipment_id as string).then(response=>{
@@ -17,7 +18,7 @@ function useTrackShipment() {
 	useEffect(()=>{
 		SingleShipment()
 	},[])
-	return {singleShipment};
+	return {singleShipment, showTrackingIdInput};
 }
 
 export default useTrackShipment;

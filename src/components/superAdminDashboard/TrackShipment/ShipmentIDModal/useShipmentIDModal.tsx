@@ -1,4 +1,7 @@
 function useShipmentIDModal(){
-    return {}
+    const handleCloseModal =()=>{
+
+    }
+    return {handleCloseModal}
 }
 export default useShipmentIDModal

@@ -80,3 +80,7 @@ export const AUserDetailsModal = lazy(() => import('./superAdminDashboard/Users/
 export const ATrackShipment = lazy(() => import('./superAdminDashboard/TrackShipment'));
 export const ATransactions = lazy(() => import('./superAdminDashboard/Transactions'));
 export const AShipment = lazy(() => import('./superAdminDashboard/Shipment'));
+
+
+// TRACK SHIPMENT 
+export const SearchShipmentModal  = lazy(() => import('./superAdminDashboard/TrackShipment/ShipmentIDModal'));

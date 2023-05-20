@@ -6,12 +6,17 @@ import {
   ImLocation,
   RiUserReceivedLine,
 } from "@/assets";
-import { MapDirection } from "@/components/";
+import { MapDirection, SearchShipmentModal } from "@/components/";
 import { useGeocode } from "@/components";
 import useTrackShipment from "./useTrackShipment";
+
+
+
 const TrackShipment = () => {
-  const { singleShipment } = useTrackShipment();
-  return (
+  const { singleShipment, showTrackingIdInput } = useTrackShipment();
+
+
+   {showTrackingIdInput ? <SearchShipmentModal/> :   return (<>
     <div className="flex mt-8 gap-5 flex-col md:flex-row ">
       <div className=" md:w-6/12">
         <div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
@@ -128,6 +133,7 @@ const TrackShipment = () => {
         </div>
       </div>
     </div>
+    </> }
   );
 };
 
