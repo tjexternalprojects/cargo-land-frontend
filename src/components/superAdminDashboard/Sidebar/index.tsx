@@ -1,10 +1,19 @@
-import { CiSettings, logo, TbLogout, userImg } from '@/assets';
+import { BiChevronDown, BiChevronLeft, CiSettings, logo, TbLogout, userImg } from '@/assets';
 import { NavLink, useMatch } from 'react-router-dom';
 import useLogin from '@/pages/Login/useLogin';
 import useSidebar from './useSidebar';
+import React from 'react';
 const sidebar = () => {
 	const { handleLogout } = useLogin();
-	const { state, navigationLinks, location, handleToggleSidebar } = useSidebar();
+	const {
+		state,
+		navigationLinks,
+		location,
+		activeSubMenu,
+		activeRoute,
+		handleToggleSidebar,
+		handleToggleSubMenu,
+	} = useSidebar();
 	return (
 		<div
 			className={` z-20 bg-white fixed h-screen w-60 flex flex-col shadow justify-between animate__animated ${
@@ -15,21 +24,62 @@ const sidebar = () => {
 				<img src={logo} className=" w-24 h-8" alt="" />
 			</div>
 			<div className="flex-grow mt-10 ">
-				<ul className=" text-lg  font-bold ">
+				<ul className="text-lg font-bold">
 					{navigationLinks.map((val, index) => (
-						<li key={index}>
-							<NavLink
-								to={val.route_to}
-								onClick={handleToggleSidebar}
-								className={`${
-									location.pathname == val.route_to
-										? '  bg-blue-900/20 border-l-blue-900 '
-										: 'border-l-white bg-white'
-								}  pl-8 py-3 flex border-l-8  items-center space-x-3 text-blue-900`}
-							>
-								<val.icon /> <span>{val.name}</span>
-							</NavLink>
-						</li>
+						<React.Fragment key={index}>
+							{!val.sub_menu ? (
+								<li>
+									{activeRoute}
+
+									{val.route_to}
+									<NavLink
+										to={val.route_to}
+										onClick={() => handleToggleSidebar(val.route_to)}
+										className={`${
+											activeRoute === val.route_to
+												? 'bg-blue-900/20 border-l-blue-900'
+												: 'border-l-white bg-white'
+										} pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900`}
+									>
+										<val.icon />
+										<span>{val.name}</span>
+									</NavLink>
+								</li>
+							) : (
+								<li
+									className={`${
+										activeRoute === val.route_to
+											? 'bg-blue-900/20 border-l-blue-900'
+											: 'border-l-white bg-white'
+									} pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900 flex-col`}
+								>
+									<div
+										className={`cursor-pointer flex items-center justify-between w-full`}
+										onClick={() => handleToggleSubMenu(index)}
+									>
+										<div className="flex items-center space-x-3">
+											<val.icon />
+											<span>{val.name}</span>
+											<span>{index === activeSubMenu ? <BiChevronLeft /> : <BiChevronDown />}</span>
+										</div>
+									</div>
+									{index === activeSubMenu && (
+										<ul className="ml-8 mt-2 py-2 text-sm space-y-3 transition-all duration-300">
+											{val.sub_menu.map((sub_val, index) => (
+												<li key={index}>
+													<NavLink
+														to={sub_val.route_to}
+														onClick={() => handleToggleSidebar(sub_val.route_to)}
+													>
+														<span>{sub_val.name}</span>
+													</NavLink>
+												</li>
+											))}
+										</ul>
+									)}
+								</li>
+							)}
+						</React.Fragment>
 					))}
 				</ul>
 			</div>

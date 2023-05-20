@@ -19,13 +19,19 @@ function useSidebar() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const user_info = localStorage.getItem('user_info');
 	const userInfo = user_info ? JSON.parse(user_info) : null;
-	const handleToggleSidebar = () => {
+	const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
+	const [activeRoute, setActiveRoute] = useState('/admin');
+	const handleToggleSidebar = (activePage:string) => {
+		setActiveRoute(activePage);
 		setState((prevState) => ({
 			...prevState,
 			toggleAdminSideBar: !state.toggleAdminSideBar,
 		}));
 	};
 	const location = useLocation();
+	  const handleToggleSubMenu = (index:number) => {
+			setActiveSubMenu(index === activeSubMenu ? null : index);
+		};
 	const navigationLinks = [
 		{
 			route_to: '/admin',
@@ -33,9 +39,18 @@ function useSidebar() {
 			icon: TbLayoutDashboard,
 		},
 		{
-			route_to: '/admin/shipment/' + useParams().current_page,
 			name: 'Shipment',
 			icon: GoPackage,
+			sub_menu: [
+				{
+					route_to: '/admin/shipment/' + useParams().current_page,
+					name: 'All Shipment',
+				},
+				{
+					route_to: '/admin/shipment/update/' + useParams().shipment_id,
+					name: 'Update Shipment',
+				},
+			],
 		},
 		{
 			route_to: '/admin/users/' + useParams().current_page,
@@ -51,8 +66,18 @@ function useSidebar() {
 			route_to: '/admin/transactions',
 			name: 'Transactions',
 			icon: GrTransaction,
-		}
+		},
 	];
-	return { userInfo, state, navigationLinks, location, handleToggleSidebar };
+
+
+	return {
+		userInfo,
+		state,
+		navigationLinks,
+		location,
+		activeSubMenu,
+		activeRoute,handleToggleSidebar,
+		handleToggleSubMenu,
+	};
 }
 export default useSidebar;

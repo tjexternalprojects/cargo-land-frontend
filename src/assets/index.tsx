@@ -16,6 +16,8 @@ export {
 	BiFilter,
 	BiCloudUpload,
 	BiCurrentLocation,
+	BiChevronLeft,
+	BiChevronDown,
 } from 'react-icons/bi';
 export { Si1Password, SiGmail, SiMinutemailer } from 'react-icons/si';
 export { SlGraph } from 'react-icons/SL';
