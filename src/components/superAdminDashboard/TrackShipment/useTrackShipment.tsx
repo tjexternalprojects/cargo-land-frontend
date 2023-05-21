@@ -19,7 +19,7 @@ function useTrackShipment() {
 	useEffect(()=>{
 		SingleShipment()
 	},[])
-	return {singleShipment, showTrackingIdInput};
+	return {singleShipment, showTrackingIdInput, setShowTrackingIdInput};
 }
 
 export default useTrackShipment;

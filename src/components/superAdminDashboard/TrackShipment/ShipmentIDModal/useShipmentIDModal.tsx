@@ -1,6 +1,6 @@
-function useShipmentIDModal(){
+function useShipmentIDModal(setShowTrackingIdInput: React.Dispatch<React.SetStateAction<boolean>>,){
     const handleCloseModal =()=>{
-
+        setShowTrackingIdInput(false)
     }
     return {handleCloseModal}
 }

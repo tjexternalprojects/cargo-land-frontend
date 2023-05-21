@@ -13,12 +13,12 @@ import useTrackShipment from "./useTrackShipment";
 
 
 const TrackShipment = () => {
-  const { singleShipment, showTrackingIdInput } = useTrackShipment();
+  const { singleShipment, showTrackingIdInput, setShowTrackingIdInput } = useTrackShipment();
 
   return (
     <>
       {showTrackingIdInput ? (
-        <SearchShipmentModal />
+        <SearchShipmentModal setShowTrackingIdInput={setShowTrackingIdInput} />
       ) : (
         <>
     <div className="flex mt-8 gap-5 flex-col md:flex-row ">
