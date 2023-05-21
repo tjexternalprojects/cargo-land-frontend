@@ -1,11 +1,16 @@
 import { AiOutlineClose } from '@/assets'
 import React from 'react'
 import useShipmentIDModal from './useShipmentIDModal'
-const index = () => {
-    const { handleCloseModal } = useShipmentIDModal()
+import { Link } from 'react-router-dom'
+
+interface ShipmentModalProps {
+	setShowTrackingIdInput: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const index = ({ setShowTrackingIdInput }: ShipmentModalProps) => {
+    const { handleCloseModal } = useShipmentIDModal(setShowTrackingIdInput)
     return (
         <div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className=" md:w-9/12 w-11/12  fixed bg-slate-300 shadow-lg pb-3 ">
+            <div className=" md:w-6/12 w-11/12  fixed bg-slate-300 shadow-lg pb-3 ">
                 <div className="flex  w-full justify-between px-3 py-2 text-white  bg-blue-900  ">
                     <span>Search Shipment</span>
                     <div
@@ -30,12 +35,12 @@ const index = () => {
 								Search
 							</button>
                     </form>
-                    <button
-								type="submit"
-								className="hover:shadow-md mt-3 shadow-gray-50 shadow-sm  p-2 rounded-sm bg-blue-700 font-bold text-white text-md"
+                  <Link to="/admin/shipment/1"> <button
+								className="hover:shadow-md mt-3 cursor-pointer shadow-gray-50 shadow-sm  p-2 rounded-sm bg-blue-700 font-bold text-white text-md"
 							>
 								View All Shipment
 							</button>
+                            </Link> 
                 </div>
             </div>
         </div>
