@@ -13,6 +13,7 @@ function useTrackShipment() {
 			setSingleShipment(response.data)
 		},error=>{
 			console.log(error)
+			setShowTrackingIdInput(true)
 		})
 	}
 	useEffect(()=>{

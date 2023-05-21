@@ -20,15 +20,18 @@ function useSidebar() {
 	const user_info = localStorage.getItem('user_info');
 	const userInfo = user_info ? JSON.parse(user_info) : null;
 	const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
-	const [activeRoute, setActiveRoute] = useState('/admin');
-	const handleToggleSidebar = (activePage:string) => {
+	const location = useLocation();
+	const [activeRoute, setActiveRoute] = useState(location.pathname);
+	const [newRoute, setNewRoute]= useState(location.pathname)
+	const handleToggleSidebar = (activePage:string, sub:boolean=false) => {
 		setActiveRoute(activePage);
+
+		sub && setNewRoute(activePage)
 		setState((prevState) => ({
 			...prevState,
 			toggleAdminSideBar: !state.toggleAdminSideBar,
 		}));
 	};
-	const location = useLocation();
 	  const handleToggleSubMenu = (index:number) => {
 			setActiveSubMenu(index === activeSubMenu ? null : index);
 		};
@@ -57,11 +60,11 @@ function useSidebar() {
 			name: 'Users',
 			icon: BiUserPin,
 		},
-		{
-			route_to: '/admin/track_shipment/' + useParams().shipment_id,
-			name: 'Track Shipment',
-			icon: TbTruckDelivery,
-		},
+		// {
+		// 	route_to: '/admin/track_shipment/' + useParams().shipment_id,
+		// 	name: 'Track Shipment',
+		// 	icon: TbTruckDelivery,
+		// },
 		{
 			route_to: '/admin/transactions',
 			name: 'Transactions',
@@ -76,7 +79,7 @@ function useSidebar() {
 		navigationLinks,
 		location,
 		activeSubMenu,
-		activeRoute,handleToggleSidebar,
+		activeRoute,newRoute, handleToggleSidebar,
 		handleToggleSubMenu,
 	};
 }

@@ -28,7 +28,7 @@ function useShipmentModal(
 	};
 
 	const handleViewOnMap = (shipment_id: string) => {
-		navigate(`/admin/track_shipment/${shipment_id}`);
+		navigate(`/admin/shipment/update/${shipment_id}`);
 	};
 
 	const getUserDetails = async()=>{

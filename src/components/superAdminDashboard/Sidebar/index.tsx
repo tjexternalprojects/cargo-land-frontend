@@ -11,6 +11,7 @@ const sidebar = () => {
 		location,
 		activeSubMenu,
 		activeRoute,
+		newRoute,
 		handleToggleSidebar,
 		handleToggleSubMenu,
 	} = useSidebar();
@@ -29,14 +30,11 @@ const sidebar = () => {
 						<React.Fragment key={index}>
 							{!val.sub_menu ? (
 								<li>
-									{activeRoute}
-
-									{val.route_to}
 									<NavLink
 										to={val.route_to}
 										onClick={() => handleToggleSidebar(val.route_to)}
 										className={`${
-											activeRoute === val.route_to
+											activeRoute === val.route_to 
 												? 'bg-blue-900/20 border-l-blue-900'
 												: 'border-l-white bg-white'
 										} pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900`}
@@ -47,14 +45,15 @@ const sidebar = () => {
 								</li>
 							) : (
 								<li
-									className={`${
-										activeRoute === val.route_to
-											? 'bg-blue-900/20 border-l-blue-900'
-											: 'border-l-white bg-white'
-									} pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900 flex-col`}
+									className={` flex items-center space-x-3 text-blue-900 flex-col`}
 								>
+							
 									<div
-										className={`cursor-pointer flex items-center justify-between w-full`}
+										className={`${
+											activeRoute === newRoute
+												? 'bg-blue-900/20 border-l-blue-900'
+												: 'border-l-bkac bg-white'
+										} pl-8  py-3 border-l-8  cursor-pointer flex items-center justify-between w-full`}
 										onClick={() => handleToggleSubMenu(index)}
 									>
 										<div className="flex items-center space-x-3">
@@ -64,12 +63,12 @@ const sidebar = () => {
 										</div>
 									</div>
 									{index === activeSubMenu && (
-										<ul className="ml-8 mt-2 py-2 text-sm space-y-3 transition-all duration-300">
+										<ul className="ml-8 mt-2 py-2 text-sm space-y-3">
 											{val.sub_menu.map((sub_val, index) => (
 												<li key={index}>
 													<NavLink
 														to={sub_val.route_to}
-														onClick={() => handleToggleSidebar(sub_val.route_to)}
+														onClick={() => handleToggleSidebar(sub_val.route_to, true)}
 													>
 														<span>{sub_val.name}</span>
 													</NavLink>

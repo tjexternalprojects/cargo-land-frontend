@@ -15,7 +15,7 @@ const index = () => {
                     </div>
                 </div>
                 <div className="px-3 flex gap-4 flex-col  md:flex-row overflow-y-auto max-h-70-screen">
-                    <form>
+                    <form className='flex'>
                         <input
                             type="text"
                             className="w-full outline-none px-2 bg-white"
