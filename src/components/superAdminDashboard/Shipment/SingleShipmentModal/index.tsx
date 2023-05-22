@@ -3,14 +3,24 @@ import { AiOutlineClose } from '@/assets';
 import useShipmentModal from './useSingleShipmentModal';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import {RejectShipmentModal} from '@/components'
+import { RejectShipmentModal } from '@/components';
 interface ShipmentModalProps {
 	selectedShipment: any;
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) => {
-	const { handleCloseModal, handleViewOnMap, handleRejectShipment, setShowRejectShipmentModal,setSelectedShipmentProps, selectedShipmentProps, showRejectShipmentModal, shipmentCreator, shipmentImages } = useShipmentModal(setShowModal, selectedShipment);
+	const {
+		handleCloseModal,
+		handleViewOnMap,
+		handleRejectShipment,
+		setShowRejectShipmentModal,
+		setSelectedShipmentProps,
+		selectedShipmentProps,
+		showRejectShipmentModal,
+		shipmentCreator,
+		shipmentImages,
+	} = useShipmentModal(setShowModal, selectedShipment);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" md:w-9/12 w-11/12  fixed bg-white shadow-lg pb-3 ">
@@ -26,7 +36,7 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 						<AiOutlineClose />
 					</div>
 				</div>
-				<div className="px-3 flex gap-4 flex-col  md:flex-row max-h-70-screen">
+				<div className="px-3 flex gap-4 flex-col overflow-y-auto  md:flex-row max-h-70-screen">
 					<div className="p-2 md:overflow-y-auto">
 						{/* <div className=" md:w-96 h-96 border bg-red-500 "> */}
 						<div className=" max-w-xl  ">
@@ -59,14 +69,31 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 									<button className="px-2 py-1 bg-blue-800 text-white rounded">Add Price</button>
 								)}
 							</div>
-							<div className='mt-3'>
-								{selectedShipmentProps.shipment_Status === 'CHECKED' && <div className='gap-2 flex w-full justify-between'>
-									<button onClick={() => handleViewOnMap(selectedShipmentProps.id)} className="px-2 py-1 bg-green-800 text-white rounded">Mark as Transit</button>
-									<button onClick={()=>handleRejectShipment(selectedShipmentProps)} className="px-2 py-1 bg-red-500 text-white rounded">Reject Shipment</button>
-
-								</div>}
-								{selectedShipment.shipment_Status === 'TRANSIT' && <button className="px-2 py-1 bg-green-800 text-white rounded">Update Location</button>}
-								{selectedShipment.shipment_Status === 'REJECTED' && <button className="px-2 py-1 bg-red-500 text-white rounded">REFUND MONEY</button>}
+							<div className="mt-3">
+								{selectedShipmentProps.shipment_Status === 'CHECKED' && (
+									<div className="gap-2 flex w-full justify-between">
+										<button
+											onClick={() => handleViewOnMap(selectedShipmentProps.id)}
+											className="px-2 py-1 bg-green-800 text-white rounded"
+										>
+											Mark as Transit
+										</button>
+										<button
+											onClick={() => handleRejectShipment(selectedShipmentProps)}
+											className="px-2 py-1 bg-red-500 text-white rounded"
+										>
+											Reject Shipment
+										</button>
+									</div>
+								)}
+								{selectedShipment.shipment_Status === 'TRANSIT' && (
+									<button className="px-2 py-1 bg-green-800 text-white rounded">
+										Update Location
+									</button>
+								)}
+								{selectedShipment.shipment_Status === 'REJECTED' && (
+									<button className="px-2 py-1 bg-red-500 text-white rounded">REFUND MONEY</button>
+								)}
 							</div>
 						</div>
 					</div>
@@ -182,7 +209,13 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 					</div>
 				</div>
 			</div>
-			{showRejectShipmentModal && <RejectShipmentModal selectedShipment={selectedShipmentProps} setShowRejectShipmentModal={setShowRejectShipmentModal} setShowModal={setShowModal}/>}
+			{showRejectShipmentModal && (
+				<RejectShipmentModal
+					selectedShipment={selectedShipmentProps}
+					setShowRejectShipmentModal={setShowRejectShipmentModal}
+					setShowModal={setShowModal}
+				/>
+			)}
 		</div>
 	);
 };

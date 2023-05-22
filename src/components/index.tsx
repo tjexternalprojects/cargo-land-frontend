@@ -3,6 +3,7 @@ import { lazy } from 'react';
 export const Header = lazy(() => import('./common/Header'));
 export const LineGraph = lazy(() => import('./common/Graph/LingGraph'));
 export const MapDirection = lazy(() => import('./common/Maps/GoogleMap/Direction'));
+export const MapDirection3 = lazy(() => import('./common/Maps/GoogleMap/Direction3'));
 export const AddressMap = lazy(() => import('./common/Maps/GoogleMap/AddressMap'));
 export { default as useGeocode } from './common/Maps/GoogleMap/useGeocode';
 export const Notification = lazy(() => import('./common/Notification'));
