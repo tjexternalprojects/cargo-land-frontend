@@ -57,6 +57,7 @@ function ShipmentServices() {
 		return api.put(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
 	};
 
+
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
@@ -69,6 +70,10 @@ function ShipmentServices() {
 	const adminGetAllShipments = (parms?: string) => {
 		return api.get('/shipment/get-all-shipment' + parms);
 	};
+
+	const rejectShipment = (payload:Record<string, string>)=>{
+		return api.patch(`/shipment/update-shipment-rejected/${payload.shipment_id}`, {reason:payload.reason})
+	}
 
 	const getSingleShipment = (shipment_id:string)=>{
 		return api.get('/shipment/get-single-shipment/'+shipment_id)
@@ -156,6 +161,8 @@ function ShipmentServices() {
 	return {
 		updateShipment,
 		createShipment,
+		rejectShipment,
+		adminGetAllShipments,
 		deleteShipment,
 		getCountryCovered,
 		getShipmentDateRange,
@@ -163,8 +170,6 @@ function ShipmentServices() {
 		getSingleShipment,
 		getAllUserShipmentPaginated,
 		getShipmentInRange,
-
-		adminGetAllShipments,
 	};
 }
 

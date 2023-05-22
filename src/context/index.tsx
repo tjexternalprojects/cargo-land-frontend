@@ -15,6 +15,7 @@ const {
 	showForgetPassword,
 	showResendToken,
 	resendTokenMessage,
+	activePage,
 } = SettingsContext();
 const {
 	shipmentDetails,
@@ -59,6 +60,7 @@ type AppState = {
 	notifications: Notification[];
 	toggleAdminSideBar: boolean;
 	toggleNotification: boolean;
+	activePage:string;
 };
 
 const initialState: AppState = {
@@ -91,6 +93,7 @@ const initialState: AppState = {
 	toggleNotification,
 	openSignUpMenu,
 	shipmentCurrentTab,
+	activePage,
 };
 
 export type AppContextType = {

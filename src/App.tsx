@@ -7,7 +7,7 @@ import {
 	TrackShipment,
 	AdminHome,
 	AUsers,
-	ATrackShipment,
+	AUpdateShipment,
 	ATransactions,
 	AShipment,
 	LoadingPage,
@@ -58,7 +58,7 @@ function App() {
 							<Route path="/admin" element={<Admin />}>
 								<Route path="" element={<AdminHome />} />
 								<Route path="/admin/users/:current_page" element={<AUsers />} />
-								<Route path="/admin/shipment/update/:shipment_id" element={<ATrackShipment />} />
+								<Route path="/admin/shipment/update/:shipment_id" element={<AUpdateShipment />} />
 								<Route path="/admin/transactions" element={<ATransactions />} />
 								<Route path="/admin/shipment/:current_page" element={<AShipment />} />
 							</Route>

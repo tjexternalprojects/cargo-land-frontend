@@ -1,6 +1,6 @@
 import { Pagination, RingLoader } from '@/components';
-import useShipment from './useShipment';
-import ShipmentModal from './ShipmentModal';
+import useShipment from './useAllShipment';
+import ShipmentModal from '../SingleShipmentModal';
 const Shipment = () => {
 	const {
 		loading,
@@ -69,7 +69,17 @@ const Shipment = () => {
 											? 'Door to Door'
 											: 'Airport to Airport'}
 									</td>
-									<td className="px-6 py-4">{shipment.shipment_Status}</td>
+									<td 
+									
+									
+									className={`
+								 ${shipment.shipment_Status === 'UNCHECK' ? 'text-blue-500' : ''} 
+								 ${shipment.shipment_Status === 'CHECKED' ? 'text-green-700' : ''} 
+								 ${shipment.shipment_Status === 'TRANSIT' ? 'text-green-500' : ''} 
+								 ${shipment.shipment_Status === 'REJECTED' ? 'text-red-500' : ''} 
+								 font-extrabold px-6 py-4`}
+									>{shipment.shipment_Status}</td>
+									
 								</tr>
 							))}
 						</tbody>

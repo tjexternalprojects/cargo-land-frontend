@@ -168,8 +168,8 @@ function useHome() {
       (error) => {
         console.log(error);
         setUsersLoading(false);
-        toast.info("Please select an image file", {
-          progressClassName: "bg-blue-500 h-1",
+        toast.error("Oops! An error occured", {
+          progressClassName: "bg-red-500 h-1",
           autoClose: 3000,
         });
       }
@@ -223,7 +223,14 @@ function useHome() {
 	navigate(`/admin/track_shipment/${shipment_id}`);
 };
 
+const setActivePage = ()=>{
+  setState((prevState) => ({
+    ...prevState,
+    activePage: 'Dashboard',
+  })); 
+}
   useEffect(() => {
+    setActivePage()
     getTransactionHistory();
     allUsersMtd();
     allTransitShipment();

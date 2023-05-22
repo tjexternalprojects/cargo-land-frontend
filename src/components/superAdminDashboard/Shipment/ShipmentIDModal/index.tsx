@@ -1,13 +1,14 @@
-import { AiOutlineClose } from '@/assets'
+import { AiOutlineClose, RiSearch2Line } from '@/assets'
 import React from 'react'
 import useShipmentIDModal from './useShipmentIDModal'
 import { Link } from 'react-router-dom'
+import { RingLoader } from '@/components';
 
 interface ShipmentModalProps {
 	setShowTrackingIdInput: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const index = ({ setShowTrackingIdInput }: ShipmentModalProps) => {
-    const { handleCloseModal } = useShipmentIDModal(setShowTrackingIdInput)
+    const {shipmentId, loading, handleCloseModal,  handleRouteShipment,   setShipmentId} = useShipmentIDModal(setShowTrackingIdInput)
     return (
         <div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
             <div className=" md:w-6/12 w-11/12  fixed bg-slate-300 shadow-lg pb-3 ">
@@ -21,10 +22,12 @@ const index = ({ setShowTrackingIdInput }: ShipmentModalProps) => {
                     </div>
                 </div>
                 <div className="px-3 gap-4 flex-col py-3  md:flex-row overflow-y-auto max-h-70-screen">
-                    <form className='flex w-full '>
+                    <form className='flex w-full' onSubmit={handleRouteShipment}>
                         <input
+                            value={shipmentId}
+                            onChange={(e)=>setShipmentId(e.target.value)}
                             type="text"
-                            className="w-full outline-none px-2 bg-white"
+                            className="w-full outline-none p-2 bg-white"
                             placeholder="Enter Shipment Tracking ID"
                             required
                         />
@@ -32,7 +35,8 @@ const index = ({ setShowTrackingIdInput }: ShipmentModalProps) => {
 								type="submit"
 								className="hover:shadow-md  shadow-gray-50 shadow-sm  p-2 rounded-sm bg-blue-700 font-bold text-white text-md"
 							>
-								Search
+								{!loading ?<RiSearch2Line />:
+                                <RingLoader size={30} loaderColor="#fff" />}
 							</button>
                     </form>
                   <Link to="/admin/shipment/1"> <button

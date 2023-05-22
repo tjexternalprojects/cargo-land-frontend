@@ -43,9 +43,20 @@ function useUsers() {
 		);
 	};
 
+	const setActivePage = ()=>{
+		setState((prevState) => ({
+		  ...prevState,
+		  activePage: 'Users',
+		})); 
+	  }
+
 	useEffect(() => {
 		allUsers();
 	}, [currentPage]);
+
+	useEffect(() => {
+		setActivePage()
+	}, []);
 	return {
 		allUser,
 		state,

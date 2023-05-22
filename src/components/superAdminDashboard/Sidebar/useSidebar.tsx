@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { AppContext, AppContextType } from '@/context';
 import {
@@ -22,16 +22,20 @@ function useSidebar() {
 	const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
 	const location = useLocation();
 	const [activeRoute, setActiveRoute] = useState(location.pathname);
-	const [newRoute, setNewRoute]= useState(location.pathname)
-	const handleToggleSidebar = (activePage:string, sub:boolean=false) => {
-		setActiveRoute(activePage);
+	const [activeSubRoute, setActiveSubRoute]= useState("")
 
-		sub && setNewRoute(activePage)
+
+	const handleToggleSidebar = (activePage:string, sub_val:boolean=false) => {
+
+			setActiveRoute(activePage);
+			sub_val == true && setActiveSubRoute(activePage)
 		setState((prevState) => ({
 			...prevState,
 			toggleAdminSideBar: !state.toggleAdminSideBar,
 		}));
 	};
+
+
 	  const handleToggleSubMenu = (index:number) => {
 			setActiveSubMenu(index === activeSubMenu ? null : index);
 		};
@@ -60,11 +64,6 @@ function useSidebar() {
 			name: 'Users',
 			icon: BiUserPin,
 		},
-		// {
-		// 	route_to: '/admin/track_shipment/' + useParams().shipment_id,
-		// 	name: 'Track Shipment',
-		// 	icon: TbTruckDelivery,
-		// },
 		{
 			route_to: '/admin/transactions',
 			name: 'Transactions',
@@ -72,6 +71,16 @@ function useSidebar() {
 		},
 	];
 
+	const isRouteActive = (route: string): boolean => {
+		return useLocation().pathname.startsWith(route);
+	  };
+	
+	// useEffect(() => {
+	// 	const matchedLink = navigationLinks.find((link) => link?.sub_menu?.route_to === activeRoute);
+	// 	if (matchedLink) {
+	// 		setNewRoute(matchedLink.route_to as string);
+	// 	}
+	// }, [newRoute]);
 
 	return {
 		userInfo,
@@ -79,7 +88,8 @@ function useSidebar() {
 		navigationLinks,
 		location,
 		activeSubMenu,
-		activeRoute,newRoute, handleToggleSidebar,
+		activeSubRoute,	
+		activeRoute, isRouteActive, handleToggleSidebar,
 		handleToggleSubMenu,
 	};
 }

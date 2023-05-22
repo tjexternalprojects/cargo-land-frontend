@@ -77,10 +77,12 @@ export const ASidebar = lazy(() => import('./superAdminDashboard/Sidebar'));
 export const AdminHome = lazy(() => import('./superAdminDashboard/Home'));
 export const AUsers = lazy(() => import('./superAdminDashboard/Users'));
 export const AUserDetailsModal = lazy(() => import('./superAdminDashboard/Users/UserDetailsModal'));
-export const ATrackShipment = lazy(() => import('./superAdminDashboard/TrackShipment'));
 export const ATransactions = lazy(() => import('./superAdminDashboard/Transactions'));
-export const AShipment = lazy(() => import('./superAdminDashboard/Shipment'));
 
 
-// TRACK SHIPMENT 
-export const SearchShipmentModal  = lazy(() => import('./superAdminDashboard/TrackShipment/ShipmentIDModal'));
+// SHIPMENT 
+export const AShipment = lazy(() => import('./superAdminDashboard/Shipment/AllShipment'));
+export const AUpdateShipment = lazy(() => import('./superAdminDashboard/Shipment/ShipmentMap'));
+export const SearchShipmentModal  = lazy(() => import('./superAdminDashboard/Shipment/ShipmentIDModal'));
+export const RejectShipmentModal = lazy(()=>import('./superAdminDashboard/Shipment/RejectShipmentModal'))
+export const UpdateShipmentLocation = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentLocation'))

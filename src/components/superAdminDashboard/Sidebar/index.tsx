@@ -11,7 +11,8 @@ const sidebar = () => {
 		location,
 		activeSubMenu,
 		activeRoute,
-		newRoute,
+		isRouteActive,
+		activeSubRoute,
 		handleToggleSidebar,
 		handleToggleSubMenu,
 	} = useSidebar();
@@ -34,7 +35,7 @@ const sidebar = () => {
 										to={val.route_to}
 										onClick={() => handleToggleSidebar(val.route_to)}
 										className={`${
-											activeRoute === val.route_to 
+											state.activePage === val.name 
 												? 'bg-blue-900/20 border-l-blue-900'
 												: 'border-l-white bg-white'
 										} pl-8 py-3 flex border-l-8 items-center space-x-3 text-blue-900`}
@@ -47,12 +48,11 @@ const sidebar = () => {
 								<li
 									className={` flex items-center space-x-3 text-blue-900 flex-col`}
 								>
-							
 									<div
 										className={`${
-											activeRoute === newRoute
+											state.activePage === val.name 
 												? 'bg-blue-900/20 border-l-blue-900'
-												: 'border-l-bkac bg-white'
+												: 'border-l-white bg-white'
 										} pl-8  py-3 border-l-8  cursor-pointer flex items-center justify-between w-full`}
 										onClick={() => handleToggleSubMenu(index)}
 									>

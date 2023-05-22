@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ShipmentServices } from '@/services';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
+import { AppContextType, AppContext } from '@/context';
 function useShipment() {
 	const params = useParams();
 	const navigate = useNavigate();
+	const { state, setState } = useContext<AppContextType>(AppContext);
 
 	const { adminGetAllShipments } = ShipmentServices();
 	const [loading, setLoading] = useState(false);
@@ -46,7 +48,15 @@ function useShipment() {
 		setSelectedShipment(val)
 		setShowModal(true)
 	}
+	const setActivePage = ()=>{
+		setState((prevState) => ({
+		  ...prevState,
+		  activePage: 'Shipment',
+		})); 
+	  }
+
 	useEffect(() => {
+		setActivePage()
 		getAllShipment();
 	}, [currentPage]);
 
