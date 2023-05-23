@@ -4,10 +4,8 @@ function transactionServices() {
 	const initiatePayment = (payload: any) => {
 		return api.post('/payment/initiate', payload);
 	};
-	const verifyPayment = (params: Record<string, string | null>) => {
-		return api.get(
-			`/payment/verify-webhook-4-cargoland=${params.status}&tx_ref=${params.txRef}&transaction_id=${params.transactionId}`
-		);
+	const verifyPayment = (payload: Record<string, string | null>) => {
+		return api.post('/payment/verify-webhook-4-cargoland', payload);
 	};
 
 	const allWithdrawal = () => {

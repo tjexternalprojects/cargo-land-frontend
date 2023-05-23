@@ -4,7 +4,7 @@ import useVerifyPayment from './useVerifyPayment';
 import { RingLoader } from '@/components';
 import { Link } from 'react-router-dom';
 const index = () => {
-	const { params, paymentStatus, loading } = useVerifyPayment();
+	const { verify_payload, paymentStatus, loading } = useVerifyPayment();
 	return (
 		<>
 			<div className=" min-h-screen flex items-center justify-center">
@@ -28,13 +28,15 @@ const index = () => {
 								<h3 className="text-lg font-medium text-gray-800 mb-4">Transaction details:</h3>
 								<ul className="text-base text-gray-700">
 									<li className="mb-2">
-										<span className="font-medium">Status:</span> {params.status}
+										<span className="font-medium">Status:</span> {verify_payload.status}
 									</li>
 									<li className="mb-2">
-										<span className="font-medium">Transaction Reference:</span> {params.txRef}
+										<span className="font-medium">Transaction Reference:</span>{' '}
+										{verify_payload.txRef}
 									</li>
 									<li className="mb-2">
-										<span className="font-medium">Transaction ID:</span> {params.transactionId}
+										<span className="font-medium">Transaction ID:</span>{' '}
+										{verify_payload.transactionId}
 									</li>
 								</ul>
 							</div>
