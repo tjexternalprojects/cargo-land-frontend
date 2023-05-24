@@ -12,7 +12,6 @@ function usePayment() {
 		currency: 'NGN',
 		payment_options: 'card,mobilemoney,ussd',
 		redirect_url: import.meta.env.VITE_REACT_APP_FRONT_END_URL + '/dashboard/payment/verify',
-	
 		customer: {
 			email: state.single_user_data?.email as string,
 			phone_number: state.single_user_data?.phone as string,

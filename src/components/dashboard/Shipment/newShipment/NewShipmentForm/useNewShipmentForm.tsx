@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
+import axios from 'axios';
+import airportCodes from 'airport-codes';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -17,6 +19,8 @@ function useNewShipmentForm() {
 	const [countryState, setCountryState] = useState<any>({});
 	const [stateCity, setStateCity] = useState<any>({});
 	const [address, setAddress] = useState<string>('');
+	const [airportList, setAirportList] = useState([])
+	const [airport, setAirport] = useState<any>({})
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
 	// function to handle shipment data details
@@ -35,6 +39,7 @@ function useNewShipmentForm() {
 		shipment_description?: string;
 		shipment_weight?: string;
 		images?: any;
+		shipment_type?: string;
 		current_location?: CurrentLocation;
 	}
 
@@ -47,6 +52,7 @@ function useNewShipmentForm() {
 			shipment_description: state.shipmentDetails.shipment_description as string,
 			shipment_weight: state.shipmentDetails.shipment_weight as string,
 			images: state.shipmentDetails.images,
+			shipment_type: state.shipmentDetails.shipment_type as string,
 			current_location: {
 				country: state.shipmentDetails.current_location.country,
 				state: state.shipmentDetails.current_location.state,
@@ -136,16 +142,31 @@ function useNewShipmentForm() {
 	};
 
 	const handleChangeState = (state: any) => {
+		console.log(state);
 		resetShipmentStateOnChangeAddress();
 		setCountryState(state);
 	};
 	const handleChangeCity = (city: any) => {
 		resetShipmentStateOnChangeAddress();
+		console.log(country);
+		console.log(state);
 		setStateCity(city);
+	};
+	const handleChangeAirport = (airport:any)=>{
+		console.log(airport)
+		setAirport(airport);
 	};
 	const handleChangeAddress = (address: any) => {
 		resetShipmentStateOnChangeAddress();
 		setAddress(address);
+	};
+
+	const fetchAirports = async (country:string, state:string) => {
+		const airports = airportCodes.filter((airport: any) => {
+			return airport.attributes.country === country && airport.attributes.city === state;
+		});
+		console.log(airports)
+		setAirportList(airports);
 	};
 
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -201,6 +222,9 @@ function useNewShipmentForm() {
 			});
 		});
 	};
+
+
+
 
 	const moveNext = () => {
 		setState({
@@ -262,6 +286,7 @@ function useNewShipmentForm() {
 	}, []);
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
+
 	useEffect(() => {
 		resetInputs();
 	}, [state.editShipment]);
@@ -279,6 +304,8 @@ function useNewShipmentForm() {
 		handleChangeState,
 		handleChangeCity,
 		handleChangeAddress,
+		handleChangeAirport,
+		airportList,
 		state,
 		stateCity,
 		address,

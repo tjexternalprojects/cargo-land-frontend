@@ -1,20 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { TransactionServices } from '@/services';
+import { AppContextType, AppContext } from '@/context';
 function useVerifyPayment() {
+	const { state, setState } = useContext<AppContextType>(AppContext);
 	const { verifyPayment } = TransactionServices();
 	const [searchParams] = useSearchParams();
 	const [paymentStatus, setPaymentStatus] = useState('');
 	const [loading, setLoading] = useState(false);
-	const params = {
-		status: searchParams.get('status'),
-		txRef: searchParams.get('tx_ref'),
-		transactionId: searchParams.get('transaction_id'),
+
+	const verify_payload = {
+		status: searchParams.get('status') as string,
+		txRef: searchParams.get('tx_ref') as string,
+		transactionId: searchParams.get('transaction_id') as string,
+		amount: state.initializePayment?.amount as string,
 	};
 	useEffect(() => {
 		setLoading(true);
-		verifyPayment(params).then(
+		verifyPayment(verify_payload).then(
 			(response) => {
+				console.log('RESPONSE FROM VERIFY PAYMENT =====================================')
+				console.log(response)
 				setPaymentStatus(response.data.body);
 				setLoading(false);
 			},
@@ -24,6 +30,6 @@ function useVerifyPayment() {
 			}
 		);
 	}, []);
-	return { params, paymentStatus, loading };
+	return { verify_payload, paymentStatus, loading };
 }
 export default useVerifyPayment;
