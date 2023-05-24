@@ -4,7 +4,6 @@ import { useContext } from 'react';
 function usePayment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-	// https://server.cargolandglobal.com/payment/verify?status=completed&tx_ref=645d6c377d58ddba77cd5631&transaction_id=4323370
 
 	const config = {
 		public_key: import.meta.env.VITE_REACT_APP_FLUTTERWAVE_TEST_KEY,
@@ -12,11 +11,8 @@ function usePayment() {
 		amount: Number(state.initializePayment?.amount),
 		currency: 'NGN',
 		payment_options: 'card,mobilemoney,ussd',
-		// redirect_url: 'https://server.cargolandglobal.com/payment/verify',
-		// redirect_url: import.meta.env.VITE_REACT_APP_FRONT_END_URL + '/dashboard/payment/verify',
 		redirect_url: import.meta.env.VITE_REACT_APP_FRONT_END_URL + '/dashboard/payment/verify',
-		// https://server.cargolandglobal.com/payment/verify-webhook-4-cargoland
-		// https://server.cargolandglobal.com/payment/verify-webhook-4-cargoland?status=successful&tx_ref=64694383e4de9ea5eb647e7c&transaction_id=4340551
+	
 		customer: {
 			email: state.single_user_data?.email as string,
 			phone_number: state.single_user_data?.phone as string,
