@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
+import axios from 'axios';
+import airportCodes from 'airport-codes';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -35,6 +37,7 @@ function useNewShipmentForm() {
 		shipment_description?: string;
 		shipment_weight?: string;
 		images?: any;
+		shipment_type?: string;
 		current_location?: CurrentLocation;
 	}
 
@@ -47,6 +50,7 @@ function useNewShipmentForm() {
 			shipment_description: state.shipmentDetails.shipment_description as string,
 			shipment_weight: state.shipmentDetails.shipment_weight as string,
 			images: state.shipmentDetails.images,
+			shipment_type: state.shipmentDetails.shipment_type as string,
 			current_location: {
 				country: state.shipmentDetails.current_location.country,
 				state: state.shipmentDetails.current_location.state,
@@ -136,11 +140,14 @@ function useNewShipmentForm() {
 	};
 
 	const handleChangeState = (state: any) => {
+		console.log(state);
 		resetShipmentStateOnChangeAddress();
 		setCountryState(state);
 	};
 	const handleChangeCity = (city: any) => {
 		resetShipmentStateOnChangeAddress();
+		console.log(country)
+		console.log(city)
 		setStateCity(city);
 	};
 	const handleChangeAddress = (address: any) => {
@@ -202,6 +209,78 @@ function useNewShipmentForm() {
 		});
 	};
 
+	// const fetchAirports = async (countryCode = 'NG', stateCode = 'LA') => {
+	// 	try {
+	// 		const response = await axios.get('http://api.aviationstack.com/v1/airports', {
+	// 			params: {
+	// 				access_key: import.meta.env.VITE_REACT_APP_AVIATIONSTACK_API,
+	// 				country_name: countryCode,
+	// 				state_name: stateCode,
+	// 			},
+	// 		});
+	// 		console.log(response.data);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
+
+
+
+
+// const fetchAirports = async (countryCode='NG') => {
+// 	try {
+// 		const response = await axios.get(
+// 			`https://api.openairportdata.com/v1/airports?country_iso2=NG`
+// 		);
+
+// 		const airports = response.data;
+// 	console.log(airports)
+// 	} catch (error) {
+// 		console.log(error);
+// 		return [];
+// 	}
+// };
+
+
+const fetchAirports = async (countryCode = 'NG', stateCode = 'LA') => {
+	// console.log(airportCodes)
+	const airports = airportCodes.filter((airport: any) => {
+		// return airport.attribute.country === countryCode && airport.state === stateCode;
+		return airport.attributes.country === 'Nigeria' && airport.attributes.city === 'Lagos';
+	});
+	console.log(airports);
+};
+
+// 	 const fetchAirports = async (countryCode = 'NG', stateCode = 'LA') => {
+// 			try {
+// 				const response = await axios.get(
+// 					'https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat'
+// 				);
+		
+
+// 				 const airportsData = response.data.split('\n');
+// 					const filteredAirports = airportsData
+// 						.filter((airport:any) => {
+// 							const airportData = airport.split(',');
+// 							return airportData[3].trim() === stateCode && airportData[2].trim() === countryCode;
+// 						})
+// 						.map((airport:any) => {
+// 							const airportData = airport.split(',');
+// 							return {
+// 								name: airportData[1].trim(),
+// 								city: airportData[2].trim(),
+// 								state: airportData[3].trim(),
+// 								country: airportData[4].trim(),
+// 								iataCode: airportData[5].trim(),
+// 								icaoCode: airportData[6].trim(),
+// 							};
+// 						});
+// console.log(filteredAirports);
+// 			} catch (error) {
+// 				console.log(error);
+// 			}
+// 		};
+
 	const moveNext = () => {
 		setState({
 			...state,
@@ -259,9 +338,11 @@ function useNewShipmentForm() {
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
 	useEffect(() => {
 		getCounteryCovered();
+		fetchAirports();
 	}, []);
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
+
 	useEffect(() => {
 		resetInputs();
 	}, [state.editShipment]);

@@ -6,6 +6,7 @@ function GeneralContext() {
 		shipment_description: '',
 		shipment_weight: 0,
 		images: [],
+		shipment_type: '',
 		current_location: {
 			country: '',
 			state: '',
@@ -17,7 +18,6 @@ function GeneralContext() {
 		},
 		recipient_full_name: '',
 		recipient_email: '',
-		shipment_type: '',
 		shipment_destination: {
 			country: '',
 			state: '',
