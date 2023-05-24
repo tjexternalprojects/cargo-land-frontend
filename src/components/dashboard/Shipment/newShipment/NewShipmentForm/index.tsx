@@ -28,6 +28,9 @@ const NewShipmentForm = () => {
 		handleChangeState,
 		handleChangeCity,
 		handleChangeAddress,
+		handleChangeAirport,
+		airportList,
+		airport,
 		state,
 		stateCity,
 		address,
@@ -212,6 +215,7 @@ const NewShipmentForm = () => {
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
+									disabled={shipmentDetails.shipment_type === ''}
 										className="w-full outline-none bg-white"
 										value={JSON.stringify(country)}
 										onChange={(e) => handleChangeCountry(JSON.parse(e.target.value))}
@@ -235,7 +239,7 @@ const NewShipmentForm = () => {
 							</div>
 
 							{/* STATE */}
-							<div>
+							{shipmentDetails.shipment_type === 'door_to_door' && (	<><div>
 								<small className="text-gray-400 font-bold">
 									State
 									<span className="text-red-500"> * </span>
@@ -261,38 +265,35 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
+								{/* // CITY */}
+								<div>
+									<small className="text-gray-400 font-bold">
+										City
+										<span className="text-red-500"> * </span>
+									</small>
+									<div className=" flex  border-b-2 mt-2 p-2">
+										<select
+											disabled={Object.keys(countryState).length === 0}
+											className="w-full outline-none bg-white"
+											value={JSON.stringify(stateCity)}
+											onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
+											required
+										>
+											<option value={0}>Select City</option>
 
-							{/* CITY */}
-							<div>
-								<small className="text-gray-400 font-bold">
-									City
-									<span className="text-red-500"> * </span>
-								</small>
-								<div className=" flex  border-b-2 mt-2 p-2">
-									<select
-										disabled={Object.keys(countryState).length === 0}
-										className="w-full outline-none bg-white"
-										value={JSON.stringify(stateCity)}
-										onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
-										required
-									>
-										<option value={0}>Select City</option>
-
-										{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
-											(cities, key) => (
-												<option value={JSON.stringify(cities)} key={key}>
-													{cities?.name}
-												</option>
-											)
-										)}
-									</select>
-									<div className="text-xl text-gray-500">
-										<MdOutlineMyLocation />
+											{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
+												(cities, key) => (
+													<option value={JSON.stringify(cities)} key={key}>
+														{cities?.name}
+													</option>
+												)
+											)}
+										</select>
+										<div className="text-xl text-gray-500">
+											<MdOutlineMyLocation />
+										</div>
 									</div>
-								</div>
-							</div>
-							{shipmentDetails.shipment_type === 'door_to_door' && (
-								<div className="mt-3">
+								</div><div className="mt-3">
 									<small className=" text-gray-400 font-bold">
 										Address
 										<span className="text-red-500"> * </span>
@@ -308,13 +309,12 @@ const NewShipmentForm = () => {
 											placeholder="type in shipment street address location"
 											onChange={(e) => handleChangeAddress(e.target.value)}
 											disabled={Object.keys(stateCity).length === 0}
-											required
-										/>
+											required />
 										<div className="text-xl text-gray-500">
 											<MdAddLocationAlt />
 										</div>
 									</div>
-								</div>
+								</div></>
 							)}
 							{shipmentDetails.shipment_type === 'airport_to_airport' && (
 								<div>
@@ -324,17 +324,18 @@ const NewShipmentForm = () => {
 									</small>
 									<div className=" flex  border-b-2 mt-2 p-2">
 										<select
-											disabled={Object.keys(stateCity).length === 0}
+											disabled={Object.keys(country).length === 0}
 											className="w-full outline-none bg-white"
 											value={JSON.stringify(airport)}
 											onChange={(e) => handleChangeAirport(JSON.parse(e.target.value))}
 											required
 										>
-											<option value={0}>Select Airport</option>
+											<option value="">Select Airport</option>
 
-											{airportList.map((cities, key) => (
-												<option value={JSON.stringify(cities)} key={key}>
-													{cities?.name}
+											{airportList.map((airport, key) => (
+												
+												<option value={JSON.stringify(airport)}  key={key}>
+													{airport.name}, {airport.city}
 												</option>
 											))}
 										</select>

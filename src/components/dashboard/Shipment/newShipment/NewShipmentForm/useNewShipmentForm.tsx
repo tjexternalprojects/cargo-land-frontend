@@ -19,7 +19,7 @@ function useNewShipmentForm() {
 	const [countryState, setCountryState] = useState<any>({});
 	const [stateCity, setStateCity] = useState<any>({});
 	const [address, setAddress] = useState<string>('');
-	const [airportList, setAirportList] = useState([])
+	const [airportList, setAirportList] = useState<Record<string,string>[]>([])
 	const [airport, setAirport] = useState<any>({})
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
@@ -142,14 +142,12 @@ function useNewShipmentForm() {
 	};
 
 	const handleChangeState = (state: any) => {
-		console.log(state);
 		resetShipmentStateOnChangeAddress();
 		setCountryState(state);
 	};
-	const handleChangeCity = (city: any) => {
+	const handleChangeCity = async(city: any) => {
 		resetShipmentStateOnChangeAddress();
-		console.log(country);
-		console.log(state);
+	
 		setStateCity(city);
 	};
 	const handleChangeAirport = (airport:any)=>{
@@ -161,12 +159,17 @@ function useNewShipmentForm() {
 		setAddress(address);
 	};
 
-	const fetchAirports = async (country:string, state:string) => {
-		const airports = airportCodes.filter((airport: any) => {
-			return airport.attributes.country === country && airport.attributes.city === state;
+	const fetchAirports =  (country:string) => {
+
+	const airportCodesJson =  airportCodes.toJSON()
+		const airports =  airportCodesJson.filter((airport: any) => {
+			return airport.country === country
 		});
-		console.log(airports)
-		setAirportList(airports);
+		setAirportList(airports)
+		 console.log(airportList)
+
+
+
 	};
 
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -194,17 +197,25 @@ function useNewShipmentForm() {
 			return;
 		}
 
-		fetchLocation(
-			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
-		).then((data) => {
+		let addressLocation:string | Record<string, number> 
+		// if(shipmentDetails.shipment_type === 'airport_to_airport'){
+			addressLocation= {
+				longitude:airport.longitude,
+				latitude:airport.latitude
+			}
+			console.log(addressLocation)
+		// } else{
+		// 	addressLocation = address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
+		// }
+		fetchLocation(addressLocation ).then((data) => {
 			setShowLoader(false);
-			if (data.results.length > 1) {
+			if (data.results.length > 1 &&  shipmentDetails.shipment_type === 'door_to_door') {
+				console.log(data)
 				toast.error(
 					'Multiple address match please re-check your address, you can add local government area to be specific'
 				);
 				return;
 			}
-
 			const { lat, lng } = data.results[0].geometry.location;
 
 			setShipmentDetails({
@@ -272,6 +283,11 @@ function useNewShipmentForm() {
 		);
 	};
 
+	useEffect(() => {
+		fetchAirports(country.name)
+		console.log(airportList);
+	  }, [ country, countryState]);
+	  
 	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
 		setState((prevState) => ({
@@ -306,6 +322,7 @@ function useNewShipmentForm() {
 		handleChangeAddress,
 		handleChangeAirport,
 		airportList,
+		airport,
 		state,
 		stateCity,
 		address,
