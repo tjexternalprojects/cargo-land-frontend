@@ -316,7 +316,7 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							)}
-							{/* {shipmentDetails.shipment_type === 'airport_to_airport' && (
+							{shipmentDetails.shipment_type === 'airport_to_airport' && (
 								<div>
 									<small className="text-gray-400 font-bold">
 										Airports
@@ -332,20 +332,18 @@ const NewShipmentForm = () => {
 										>
 											<option value={0}>Select Airport</option>
 
-											{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
-												(cities, key) => (
-													<option value={JSON.stringify(cities)} key={key}>
-														{cities?.name}
-													</option>
-												)
-											)}
+											{airportList.map((cities, key) => (
+												<option value={JSON.stringify(cities)} key={key}>
+													{cities?.name}
+												</option>
+											))}
 										</select>
 										<div className="text-xl text-gray-500">
 											<MdOutlineMyLocation />
 										</div>
 									</div>
 								</div>
-							)} */}
+							)}
 							{shipmentDetails.current_location?.latitude &&
 								shipmentDetails.current_location?.longitude && (
 									<>
