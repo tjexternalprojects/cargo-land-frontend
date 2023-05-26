@@ -343,21 +343,21 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							)}
-							{shipmentDetails.current_location?.latitude &&
-								shipmentDetails.current_location?.longitude && (
+							{shipmentDetails.start_location?.latitude &&
+								shipmentDetails.start_location?.longitude && (
 									<>
 										<AddressMap
 											formatted_address={
-												shipmentDetails?.current_location?.formattedAddress as string
+												shipmentDetails?.start_location?.formattedAddress as string
 											}
 											geoLocation={{
-												lng: shipmentDetails.current_location?.longitude as number,
-												lat: shipmentDetails.current_location?.latitude as number,
+												lng: shipmentDetails.start_location?.longitude as number,
+												lat: shipmentDetails.start_location?.latitude as number,
 											}}
 										/>
 										<div className=" font-extrabold text-xl text-red-500">
 											<span className="underline">Address Found: </span>
-											{shipmentDetails.current_location?.formattedAddress}
+											{shipmentDetails.start_location?.formattedAddress}
 										</div>
 									</>
 								)}
@@ -371,7 +371,7 @@ const NewShipmentForm = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-4">
-						{shipmentDetails.current_location?.formattedAddress == '' ? (
+						{shipmentDetails.start_location?.formattedAddress == '' ? (
 							<button
 								disabled={showLoader}
 								type="submit"

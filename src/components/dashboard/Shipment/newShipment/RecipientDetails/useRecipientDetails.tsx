@@ -28,10 +28,19 @@ function useNewShipmentForm() {
 		recipient_full_name?: string;
 		recipient_email?: string;
 		recipient_phone_number?: string;
-		shipment_destination?: Record<string, string | number | null>;
+		final_destination?: Record<string, string | number | null>;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
+
+	const generateID = () => {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		return (
+			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Math.random().toString().substring(2, 6) +
+			Date.now().toString().slice(-4)
+		).substring(0, 9)
+	}
 
 	const resetInputs = () => {
 		setShipmentDetails({
@@ -39,24 +48,25 @@ function useNewShipmentForm() {
 			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
 			recipient_email: state.shipmentDetails.recipient_email as string,
 			recipient_phone_number: state.shipmentDetails.recipient_phone_number as string,
-			shipment_destination: {
-				country: state.shipmentDetails.shipment_destination.country,
-				state: state.shipmentDetails.shipment_destination.state,
-				city: state.shipmentDetails.shipment_destination.city,
-				address: state.shipmentDetails.shipment_destination.address as string,
-				formattedAddress: state.shipmentDetails.shipment_destination.formattedAddress as string,
-				longitude: state.shipmentDetails.shipment_destination.longitude as number,
-				latitude: state.shipmentDetails.shipment_destination.latitude as number,
+			final_destination: {
+				location_id:'',
+				country: state.shipmentDetails.final_destination.country,
+				state: state.shipmentDetails.final_destination.state,
+				city: state.shipmentDetails.final_destination.city,
+				address: state.shipmentDetails.final_destination.address as string,
+				formattedAddress: state.shipmentDetails.final_destination.formattedAddress as string,
+				longitude: state.shipmentDetails.final_destination.longitude as number,
+				latitude: state.shipmentDetails.final_destination.latitude as number,
 			},
 		});
-		if (state.shipmentDetails.current_location.country !== '') {
+		if (state.shipmentDetails.start_location.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
 				state.shipmentDetails.shipment_destination.country.isoCode
 			);
 			setCountry(getCountryDetails);
-			setCountryState(state.shipmentDetails.shipment_destination.state);
-			setStateCity(state.shipmentDetails.shipment_destination.city);
-			setAddress(state.shipmentDetails.shipment_destination.address);
+			setCountryState(state.shipmentDetails.final_destination.state);
+			setStateCity(state.shipmentDetails.final_destination.city);
+			setAddress(state.shipmentDetails.final_destination.address);
 		} else {
 			setCountry({});
 		}
@@ -70,8 +80,9 @@ function useNewShipmentForm() {
 		});
 		setShipmentDetails({
 			...shipmentDetails,
-			shipment_destination: {
-				...shipmentDetails.shipment_destination,
+			final_destination: {
+				...shipmentDetails.final_destination,
+				location_id: shipmentDetails?.final_destination?.location_id as string,
 				country: country,
 				state: countryState,
 				city: stateCity,
@@ -165,8 +176,9 @@ function useNewShipmentForm() {
 
 			setShipmentDetails({
 				...shipmentDetails,
-				shipment_destination: {
-					...shipmentDetails.shipment_destination,
+				final_destination: {
+					...shipmentDetails.final_destination,
+					location_id:generateID(),
 					country: country,
 					state: countryState,
 					city: stateCity,
@@ -180,12 +192,15 @@ function useNewShipmentForm() {
 	};
 
 	const resetShipment = () => {
+
 		const resetShipmentDetails = {
 			shipment_title: '',
 			shipment_description: '',
 			shipment_weight: 0,
 			images: [],
-			current_location: {
+			shipment_type: '',
+			start_location: {
+				location_id: '',
 				country: '',
 				state: '',
 				city: '',
@@ -197,16 +212,50 @@ function useNewShipmentForm() {
 			recipient_full_name: '',
 			recipient_email: '',
 			recipient_phone_number: '',
-			shipment_type: '',
-			shipment_destination: {
+			final_destination: {
+				location_id: '',
 				country: '',
 				state: '',
 				city: '',
 				address: '',
+				formattedAddress: '',
 				longitude: null,
 				latitude: null,
 			},
+			shipment_current_location: {
+				location_id: '',
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+			shipment_heading_to: {
+				location_id: '',
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+			shipment_addresses: [
+				{
+					location_id: '',
+					country: '',
+					state: '',
+					city: '',
+					address: '',
+					formattedAddress: '',
+					longitude: null,
+					latitude: null,
+				},
+			],
 		};
+		
 
 		setState((prevState) => ({
 			...prevState,
@@ -253,32 +302,74 @@ function useNewShipmentForm() {
 	};
 	const moveNext = async () => {
 		setShowLoader(true);
-		let shipment_images = state.shipmentDetails.images as [];
-		const { images, ...newPayload } = state.shipmentDetails;
-		const payload = JSON.stringify(newPayload);
-		console.log(state.shipmentDetails)
-		const formData = new FormData();
-		formData.append('payload', payload);
-		for (let i = 0; i < shipment_images.length; i++) {
-			formData.append('images', shipment_images[i]);
-		}
-		await createShipment(formData).then(
-			(response) => {
-				console.log(response);
-				setShowLoader(false);
-				setState({
-					...state,
-					shipmentCurrentTab: 'item3',
-					form_level: 2,
-				});
-				getAllUserShipment();
-				resetShipment();
+
+
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: {
+				...prevState.shipmentDetails,
+				shipment_current_location: { ...prevState.shipmentDetails.start_location },
+				shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
+			  shipment_addresses: [
+				...prevState.shipmentDetails.shipment_addresses,
+				{ ...prevState.shipmentDetails.shipment_current_location },
+				{ ...prevState.shipmentDetails.shipment_heading_to },
+			  ],
 			},
-			(error) => {
-				console.log(error);
-				setShowLoader(false);
-			}
-		);
+		  }));
+
+
+		// setState((prevState) => ({
+		// 	...prevState,
+		// 	shipmentDetails: {
+		// 	  ...prevState.shipmentDetails,
+		// 	  shipment_current_location: { ...prevState.shipmentDetails.start_location },
+		// 	  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
+		// 	},
+		//   }));
+
+
+		//   setState((prevState) => ({
+		// 	...prevState,
+		// 	shipmentDetails: {
+		// 	  ...prevState.shipmentDetails,
+		// 	  shipment_addresses: [
+		// 		...prevState.shipmentDetails.shipment_addresses,
+		// 		{ ...prevState.shipmentDetails.shipment_current_location },
+		// 		{ ...prevState.shipmentDetails.shipment_heading_to },
+		// 	  ],
+		// 	},
+		//   }));
+
+		  console.log(state.shipmentDetails)
+		  setShowLoader(false);
+
+		// let shipment_images = state.shipmentDetails.images as [];
+		// const { images, ...newPayload } = state.shipmentDetails;
+		// const payload = JSON.stringify(newPayload);
+		// console.log(state.shipmentDetails)
+		// const formData = new FormData();
+		// formData.append('payload', payload);
+		// for (let i = 0; i < shipment_images.length; i++) {
+		// 	formData.append('images', shipment_images[i]);
+		// }
+		// await createShipment(formData).then(
+		// 	(response) => {
+		// 		console.log(response);
+		// 		setShowLoader(false);
+		// 		setState({
+		// 			...state,
+		// 			shipmentCurrentTab: 'item3',
+		// 			form_level: 2,
+		// 		});
+		// 		getAllUserShipment();
+		// 		resetShipment();
+		// 	},
+		// 	(error) => {
+		// 		console.log(error);
+		// 		setShowLoader(false);
+		// 	}
+		// );
 	};
 
 	const getCountryCoveredMtd = () => {

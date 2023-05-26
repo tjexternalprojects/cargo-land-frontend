@@ -257,25 +257,25 @@ const RecipientDetails = () => {
 									</div>
 								</>
 							)}
-							{shipmentDetails.shipment_destination?.latitude &&
-								shipmentDetails.shipment_destination?.longitude && (
+							{shipmentDetails.final_destination?.latitude &&
+								shipmentDetails.final_destination?.longitude && (
 									<>
 										<AddressMap
 											formatted_address={
-												shipmentDetails?.shipment_destination?.formattedAddress as string
+												shipmentDetails?.final_destination?.formattedAddress as string
 											}
 											geoLocation={{
-												lng: shipmentDetails.shipment_destination?.longitude as number,
-												lat: shipmentDetails.shipment_destination?.latitude as number,
+												lng: shipmentDetails.final_destination?.longitude as number,
+												lat: shipmentDetails.final_destination?.latitude as number,
 											}}
 										/>
 										<div className=" font-extrabold text-xl text-red-500">
 											<span className="underline">Address Found: </span>
-											{shipmentDetails.shipment_destination?.formattedAddress}
+											{shipmentDetails.final_destination?.formattedAddress}
 										</div>
 									</>
 								)}
-							{showLoader && shipmentDetails.shipment_destination?.formattedAddress === '' && (
+							{showLoader && shipmentDetails.final_destination?.formattedAddress === '' && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />
 								</div>
@@ -285,7 +285,7 @@ const RecipientDetails = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-5">
-						{shipmentDetails.shipment_destination?.formattedAddress === '' ? (
+						{shipmentDetails.final_destination?.formattedAddress === '' ? (
 							<button
 								disabled={showLoader}
 								type="submit"

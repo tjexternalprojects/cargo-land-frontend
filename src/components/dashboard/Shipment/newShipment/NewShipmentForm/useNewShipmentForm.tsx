@@ -24,7 +24,8 @@ function useNewShipmentForm() {
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
 	// function to handle shipment data details
-	interface CurrentLocation {
+	interface StartLocation {
+		location_id?: string,
 		country: any;
 		state: any;
 		city: any;
@@ -40,10 +41,19 @@ function useNewShipmentForm() {
 		shipment_weight?: string;
 		images?: any;
 		shipment_type?: string;
-		current_location?: CurrentLocation;
+		start_location?: StartLocation;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
+
+	const generateID = () => {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		return (
+			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Math.random().toString().substring(2, 6) +
+			Date.now().toString().slice(-4)
+		).substring(0, 9)
+	}
 
 	const resetInputs = () => {
 		setShipmentDetails({
@@ -53,25 +63,26 @@ function useNewShipmentForm() {
 			shipment_weight: state.shipmentDetails.shipment_weight as string,
 			images: state.shipmentDetails.images,
 			shipment_type: state.shipmentDetails.shipment_type as string,
-			current_location: {
-				country: state.shipmentDetails.current_location.country,
-				state: state.shipmentDetails.current_location.state,
-				city: state.shipmentDetails.current_location.city,
-				address: state.shipmentDetails.current_location.address as string,
-				formattedAddress: state.shipmentDetails.current_location.formattedAddress as string,
-				longitude: state.shipmentDetails.current_location.longitude as number,
-				latitude: state.shipmentDetails.current_location.latitude as number,
+			start_location: {
+				location_id: state.shipmentDetails.start_location.location_id,
+				country: state.shipmentDetails.start_location.country,
+				state: state.shipmentDetails.start_location.state,
+				city: state.shipmentDetails.start_location.city,
+				address: state.shipmentDetails.start_location.address as string,
+				formattedAddress: state.shipmentDetails.start_location.formattedAddress as string,
+				longitude: state.shipmentDetails.start_location.longitude as number,
+				latitude: state.shipmentDetails.start_location.latitude as number,
 			},
 		});
 		setPreviewImage(state.shipmentDetails.images);
-		setAddress(state.shipmentDetails.current_location.address);
-		if (state.shipmentDetails.current_location.country !== '') {
+		setAddress(state.shipmentDetails.start_location.address);
+		if (state.shipmentDetails.start_location.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
-				state.shipmentDetails.current_location.country?.isoCode
+				state.shipmentDetails.start_location.country?.isoCode
 			);
 			setCountry(getCountryDetails);
-			setCountryState(state.shipmentDetails.current_location.state);
-			setStateCity(state.shipmentDetails.current_location.city);
+			setCountryState(state.shipmentDetails.start_location.state);
+			setStateCity(state.shipmentDetails.start_location.city);
 		} else {
 			setCountry({});
 		}
@@ -106,8 +117,9 @@ function useNewShipmentForm() {
 		});
 		setShipmentDetails({
 			...shipmentDetails,
-			current_location: {
-				...shipmentDetails.current_location,
+			start_location: {
+				...shipmentDetails.start_location,
+				location_id: shipmentDetails.start_location?.location_id,
 				country: country,
 				state: countryState,
 				city: stateCity,
@@ -210,8 +222,9 @@ function useNewShipmentForm() {
 
 			setShipmentDetails({
 				...shipmentDetails,
-				current_location: {
-					...shipmentDetails.current_location,
+				start_location: {
+					...shipmentDetails.start_location,
+					location_id:generateID(),
 					country: country,
 					state: countryState,
 					city: stateCity,
