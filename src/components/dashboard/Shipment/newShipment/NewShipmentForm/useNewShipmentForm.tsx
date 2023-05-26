@@ -270,6 +270,7 @@ function useNewShipmentForm() {
 		);
 	};
 
+	// GET ALL AIRPORTS
 	useEffect(() => {
 		fetchAirports(country.name);
 	}, [country, countryState]);

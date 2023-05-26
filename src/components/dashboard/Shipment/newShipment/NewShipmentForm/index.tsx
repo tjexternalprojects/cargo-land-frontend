@@ -42,10 +42,6 @@ const NewShipmentForm = () => {
 		shipmentDetails,
 	} = useNewShipmentForm();
 
-	useEffect(()=>{
-		{console.log(airportList)}
-	},[airportList])
-
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full ">

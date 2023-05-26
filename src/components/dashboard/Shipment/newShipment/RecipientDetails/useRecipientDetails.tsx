@@ -5,6 +5,7 @@ import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
+import airportCodes from 'airport-codes';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -111,10 +112,27 @@ function useNewShipmentForm() {
 		resetShipmentStateOnChangeAddress();
 		setStateCity(city);
 	};
+
+		const handleChangeAirport = (selected_airport: any) => {
+			resetShipmentStateOnChangeAddress();
+			setAirport(selected_airport);
+			setAddress(selected_airport.name + ' Airport');
+			setStateCity({ ...stateCity, name: selected_airport.city });
+			setCountryState({ ...countryState, name: '' });
+		};
+
 	const handleChangeAddress = (address: any) => {
 		resetShipmentStateOnChangeAddress();
 		setAddress(address);
 	};
+
+		const fetchAirports = (country: string) => {
+			const airportCodesJson = airportCodes.toJSON();
+			const airports = airportCodesJson.filter((airport: any) => {
+				return airport.country === country;
+			});
+			setAirportList(airports);
+		};
 
 	const handleRecipientDetails: SubmitHandler<FieldValues> = async () => {
 		setShowLoader(true);
@@ -238,7 +256,7 @@ function useNewShipmentForm() {
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
-
+		console.log(state.shipmentDetails)
 		const formData = new FormData();
 		formData.append('payload', payload);
 		for (let i = 0; i < shipment_images.length; i++) {
@@ -277,6 +295,11 @@ function useNewShipmentForm() {
 		);
 	};
 
+		// GET ALL AIRPORTS
+	useEffect(() => {
+		fetchAirports(country.name);
+	}, [country, countryState]);
+
 	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
 		setState((prevState) => ({
@@ -307,6 +330,9 @@ function useNewShipmentForm() {
 		handleChangeCity,
 		handleChangeAddress,
 		handleUpdateShipment,
+		handleChangeAirport,
+		airportList,
+		airport,
 		state,
 		stateCity,
 		address,
