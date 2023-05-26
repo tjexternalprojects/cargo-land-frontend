@@ -223,37 +223,10 @@ function useNewShipmentForm() {
 				latitude: null,
 			},
 			shipment_current_location: {
-				location_id: '',
-				country: '',
-				state: '',
-				city: '',
-				address: '',
-				formattedAddress: '',
-				longitude: null,
-				latitude: null,
 			},
 			shipment_heading_to: {
-				location_id: '',
-				country: '',
-				state: '',
-				city: '',
-				address: '',
-				formattedAddress: '',
-				longitude: null,
-				latitude: null,
 			},
-			shipment_addresses: [
-				{
-					location_id: '',
-					country: '',
-					state: '',
-					city: '',
-					address: '',
-					formattedAddress: '',
-					longitude: null,
-					latitude: null,
-				},
-			],
+			shipment_addresses: [],
 		};
 		
 
@@ -304,35 +277,12 @@ function useNewShipmentForm() {
 		setShowLoader(true);
 
 
-		setState((prevState) => ({
-			...prevState,
-			shipmentDetails: {
-				...prevState.shipmentDetails,
-				shipment_current_location: { ...prevState.shipmentDetails.start_location },
-				shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
-			  shipment_addresses: [
-				...prevState.shipmentDetails.shipment_addresses,
-				{ ...prevState.shipmentDetails.shipment_current_location },
-				{ ...prevState.shipmentDetails.shipment_heading_to },
-			  ],
-			},
-		  }));
-
-
-		// setState((prevState) => ({
+		// await setState((prevState) => ({
 		// 	...prevState,
 		// 	shipmentDetails: {
-		// 	  ...prevState.shipmentDetails,
-		// 	  shipment_current_location: { ...prevState.shipmentDetails.start_location },
-		// 	  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
-		// 	},
-		//   }));
-
-
-		//   setState((prevState) => ({
-		// 	...prevState,
-		// 	shipmentDetails: {
-		// 	  ...prevState.shipmentDetails,
+		// 		...prevState.shipmentDetails,
+		// 		shipment_current_location: { ...prevState.shipmentDetails.start_location },
+		// 		shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
 		// 	  shipment_addresses: [
 		// 		...prevState.shipmentDetails.shipment_addresses,
 		// 		{ ...prevState.shipmentDetails.shipment_current_location },
@@ -340,6 +290,29 @@ function useNewShipmentForm() {
 		// 	  ],
 		// 	},
 		//   }));
+
+
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: {
+			  ...prevState.shipmentDetails,
+			  shipment_current_location: { ...prevState.shipmentDetails.start_location },
+			  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
+			},
+		  }));
+
+
+		  setState((prevState) => ({
+			...prevState,
+			shipmentDetails: {
+			  ...prevState.shipmentDetails,
+			  shipment_addresses: [
+				...prevState.shipmentDetails.shipment_addresses,
+				{ ...prevState.shipmentDetails.shipment_current_location },
+				{ ...prevState.shipmentDetails.shipment_heading_to },
+			  ],
+			},
+		  }));
 
 		  console.log(state.shipmentDetails)
 		  setShowLoader(false);
