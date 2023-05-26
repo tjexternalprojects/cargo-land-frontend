@@ -19,8 +19,8 @@ function useNewShipmentForm() {
 	const [countryState, setCountryState] = useState<any>({});
 	const [stateCity, setStateCity] = useState<any>({});
 	const [address, setAddress] = useState<string>('');
-	const [airportList, setAirportList] = useState<Record<string,string>[]>([])
-	const [airport, setAirport] = useState<any>({})
+	const [airportList, setAirportList] = useState<Record<string, string>[]>([]);
+	const [airport, setAirport] = useState<any>({});
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
 	// function to handle shipment data details
@@ -145,31 +145,29 @@ function useNewShipmentForm() {
 		resetShipmentStateOnChangeAddress();
 		setCountryState(state);
 	};
-	const handleChangeCity = async(city: any) => {
+	const handleChangeCity = async (city: any) => {
 		resetShipmentStateOnChangeAddress();
-	
+
 		setStateCity(city);
 	};
-	const handleChangeAirport = (airport:any)=>{
-		console.log(airport)
-		setAirport(airport);
+	const handleChangeAirport = (selected_airport: any) => {
+		resetShipmentStateOnChangeAddress();
+		setAirport(selected_airport);
+		setAddress(selected_airport.name + ' Airport');
+		setStateCity({ ...stateCity, name: selected_airport.city });
+		setCountryState({ ...countryState, name: '' });
 	};
 	const handleChangeAddress = (address: any) => {
 		resetShipmentStateOnChangeAddress();
 		setAddress(address);
 	};
 
-	const fetchAirports =  (country:string) => {
-
-	const airportCodesJson =  airportCodes.toJSON()
-		const airports =  airportCodesJson.filter((airport: any) => {
-			return airport.country === country
+	const fetchAirports = (country: string) => {
+		const airportCodesJson = airportCodes.toJSON();
+		const airports = airportCodesJson.filter((airport: any) => {
+			return airport.country === country;
 		});
-		setAirportList(airports)
-		 console.log(airportList)
-
-
-
+		setAirportList(airports);
 	};
 
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -197,11 +195,12 @@ function useNewShipmentForm() {
 			return;
 		}
 
-		
-		fetchLocation(address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name ).then((data) => {
+		fetchLocation(
+			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
+		).then((data) => {
 			setShowLoader(false);
-			if (data.results.length > 1 &&  shipmentDetails.shipment_type === 'door_to_door') {
-				console.log(data)
+			if (data.results.length > 1 && shipmentDetails.shipment_type === 'door_to_door') {
+				console.log(data);
 				toast.error(
 					'Multiple address match please re-check your address, you can add local government area to be specific'
 				);
@@ -224,9 +223,6 @@ function useNewShipmentForm() {
 			});
 		});
 	};
-
-
-
 
 	const moveNext = () => {
 		setState({
@@ -275,10 +271,9 @@ function useNewShipmentForm() {
 	};
 
 	useEffect(() => {
-		fetchAirports(country.name)
-		console.log(airportList);
-	  }, [ country, countryState]);
-	  
+		fetchAirports(country.name);
+	}, [country, countryState]);
+
 	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
 		setState((prevState) => ({

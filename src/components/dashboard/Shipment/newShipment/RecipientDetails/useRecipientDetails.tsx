@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
+import { FieldValues, SubmitHandler } from 'react-hook-form';
+
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
@@ -16,13 +18,15 @@ function useNewShipmentForm() {
 	const [countryState, setCountryState] = useState<any>({});
 	const [stateCity, setStateCity] = useState<any>({});
 	const [address, setAddress] = useState<string>('');
+	const [airportList, setAirportList] = useState<Record<string, string>[]>([]);
+	const [airport, setAirport] = useState<any>({});
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
 	// function to handle shipment data details
 	interface ShipmentDetails {
 		recipient_full_name?: string;
 		recipient_email?: string;
-		shipment_type?: string;
+		recipient_phone_number?: string;
 		shipment_destination?: Record<string, string | number | null>;
 	}
 
@@ -33,7 +37,7 @@ function useNewShipmentForm() {
 			...shipmentDetails,
 			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
 			recipient_email: state.shipmentDetails.recipient_email as string,
-			shipment_type: state.shipmentDetails.shipment_type as string,
+			recipient_phone_number: state.shipmentDetails.recipient_phone_number as string,
 			shipment_destination: {
 				country: state.shipmentDetails.shipment_destination.country,
 				state: state.shipmentDetails.shipment_destination.state,
@@ -112,8 +116,7 @@ function useNewShipmentForm() {
 		setAddress(address);
 	};
 
-	const handleRecipientDetails = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	const handleRecipientDetails: SubmitHandler<FieldValues> = async () => {
 		setShowLoader(true);
 		if (
 			shipmentDetails.recipient_full_name == '' ||
@@ -128,7 +131,6 @@ function useNewShipmentForm() {
 			return;
 		}
 
-		// await updateMapAddress();
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
@@ -176,6 +178,7 @@ function useNewShipmentForm() {
 			},
 			recipient_full_name: '',
 			recipient_email: '',
+			recipient_phone_number: '',
 			shipment_type: '',
 			shipment_destination: {
 				country: '',
@@ -187,11 +190,6 @@ function useNewShipmentForm() {
 			},
 		};
 
-		// setState({
-		// 	...state,
-		// 	shipmentDetails: resetShipmentDetails,
-		// });
-
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, resetShipmentDetails },
@@ -200,7 +198,6 @@ function useNewShipmentForm() {
 
 	const handleUpdateShipment = (shipment_id: string) => {
 		setShowLoader(true);
-		console.log(state.shipmentDetails);
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);

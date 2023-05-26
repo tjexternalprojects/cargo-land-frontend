@@ -19,6 +19,7 @@ function GeneralContext() {
 		},
 		recipient_full_name: '',
 		recipient_email: '',
+		recipient_phone_number:'',
 		shipment_destination: {
 			country: '',
 			state: '',
