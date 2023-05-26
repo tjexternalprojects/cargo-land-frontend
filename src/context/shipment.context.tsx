@@ -8,6 +8,7 @@ function GeneralContext() {
 		images: [],
 		shipment_type: '',
 		current_location: {
+			active:true,
 			country: '',
 			state: '',
 			city: '',
@@ -27,6 +28,28 @@ function GeneralContext() {
 			longitude: null,
 			latitude: null,
 		},
+		shipment_location:{
+			active:false,
+			country: '',
+			state: '',
+			city: '',
+			address: '',
+			formattedAddress: '',
+			longitude: null,
+			latitude: null,
+		},
+		heading_to:[
+			{
+			active:false,
+			country: '',
+			state: '',
+			city: '',
+			address: '',
+			formattedAddress: '',
+			longitude: null,
+			latitude: null,	
+			}
+		]
 	};
 
 	const allShipments: never[] = [];

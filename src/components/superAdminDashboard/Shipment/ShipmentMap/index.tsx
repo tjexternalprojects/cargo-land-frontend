@@ -72,7 +72,7 @@ const TrackShipment = () => {
 															onClick={() => setShowUpdateShipmentLocation(true)}
 															className="px-2 py-1 bg-green-700 text-white rounded"
 														>
-															Update Location
+															Add Location
 														</button>
 													) : (
 														<span className="text-red-500 text-lg font-bold">

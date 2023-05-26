@@ -4,9 +4,8 @@ import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
 import { useGeocode } from '@/components';
 
-function useUpdateShipmentLocation(singleShipmentId:string) {
-	const { getCountryCovered, updateShipment } = ShipmentServices();
-
+function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>) {
+	const { updateShipment } = ShipmentServices();
 	const { fetchLocation } = useGeocode();
 	const [showLoader, setShowLoader] = useState(false);
 	const [shipmentCurrentLocation, setShipmentCurrentLocation] = useState<Record<string, string>>(
@@ -16,49 +15,22 @@ function useUpdateShipmentLocation(singleShipmentId:string) {
 	const [countryState, setCountryState] = useState<any>({});
 	const [stateCity, setStateCity] = useState<any>({});
 	const [address, setAddress] = useState<string>('');
-	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
-
-	const getCountryCoveredMtd = () => {
-		getCountryCovered().then(
-			(response) => {
-				setCountryCovered(Object.values(response.data));
-			},
-			(error) => {
-				toast.error('Error getting countries', {
-					progressClassName: 'bg-red-500 h-1',
-					autoClose: 3000,
-				});
-			}
-		);
-	};
 
 	const handleChangeCountry = (country: any) => {
-		if (country) {
-			const selectedCountry = countryCovered.some(
-				(obj: Record<string, string>) => obj.name === country.name
-			);
-
-			if (selectedCountry === false) {
-				toast.info("Sorry our services dosn't cover " + country.name + ' yet', {
-					progressClassName: 'bg-red-500 h-1',
-					autoClose: 3000,
-				});
-				setCountry({});
-			} else {
-				setCountry(country);
-			}
-		} else {
+		setShipmentCurrentLocation({})
 			setCountry(country);
-		}
 	};
 
 	const handleChangeState = (state: any) => {
+		setShipmentCurrentLocation({})
 		setCountryState(state);
 	};
 	const handleChangeCity = (city: any) => {
+		setShipmentCurrentLocation({})
 		setStateCity(city);
 	};
 	const handleChangeAddress = (address: any) => {
+		setShipmentCurrentLocation({})
 		setAddress(address);
 	};
 
@@ -89,21 +61,30 @@ function useUpdateShipmentLocation(singleShipmentId:string) {
 			};
 			console.log(newAddress)
 			setShipmentCurrentLocation(newAddress);
-			await updateShipment(singleShipmentId, newAddress).then(
-				(response) => {
-					console.log(response);
-				},
-				(error) => {
-					console.log(error);
-				}
-			);
+
 		});
 	};
 
-	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
-	useEffect(() => {
-		getCountryCoveredMtd();
-	}, []);
+const handleSetCurrentLocation =async()=>{
+	setShowLoader(true);
+	await updateShipment(singleShipmentId, shipmentCurrentLocation).then(
+		(response) => {
+			console.log(response);
+			
+			setShowLoader(false);
+			toast.success('New Location Created', {
+				progressClassName: 'bg-red-500 h-1',
+				autoClose: 3000,
+			});
+			setShowUpdateShipmentLocation(false)
+		},
+		(error) => {
+			console.log(error);
+			setShowLoader(false);
+
+		}
+	);
+}
 
 	return {
 		handleChangeCountry,
@@ -111,6 +92,7 @@ function useUpdateShipmentLocation(singleShipmentId:string) {
 		handleChangeCity,
 		handleChangeAddress,
 		getShipmentLocation,
+		handleSetCurrentLocation,
 		shipmentCurrentLocation,
 		showLoader,
 		address,

@@ -14,6 +14,7 @@ function useResendVerification() {
 		setShowLoading(true);
 		resendVerification(email).then(
 			(response) => {
+				console.log(response)
 				setShowLoading(false);
 				if (response.status === 201) {
 					toast.success('Verification Resend sucessful, check your email', {

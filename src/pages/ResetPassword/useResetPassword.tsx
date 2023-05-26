@@ -21,9 +21,11 @@ function useResetPassword() {
 		setShowLoading(true);
 		resetPassword(resetPasswordObj).then(
 			(response) => {
+				console.log(response)
 				setShowLoading(false);
 			},
 			(error) => {
+				console.log(error, 'error')
 				setShowLoading(false);
 			}
 		);

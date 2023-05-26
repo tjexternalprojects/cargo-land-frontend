@@ -197,17 +197,8 @@ function useNewShipmentForm() {
 			return;
 		}
 
-		let addressLocation:string | Record<string, number> 
-		// if(shipmentDetails.shipment_type === 'airport_to_airport'){
-			addressLocation= {
-				longitude:airport.longitude,
-				latitude:airport.latitude
-			}
-			console.log(addressLocation)
-		// } else{
-		// 	addressLocation = address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
-		// }
-		fetchLocation(addressLocation ).then((data) => {
+		
+		fetchLocation(address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name ).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1 &&  shipmentDetails.shipment_type === 'door_to_door') {
 				console.log(data)

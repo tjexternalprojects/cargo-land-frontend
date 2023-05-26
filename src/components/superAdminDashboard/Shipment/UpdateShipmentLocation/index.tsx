@@ -4,36 +4,41 @@ import {
 	MdOutlineMyLocation,
 	MdOutlineShareLocation,
 	RiSearch2Line,
-} from '@/assets';
-import React from 'react';
-import useUpdateShipmentLocation from './useUpdateShipmentLocation';
-import { Country, State, City } from 'country-state-city';
-import { RingLoader } from '@/components';
+} from "@/assets";
+import React from "react";
+import useUpdateShipmentLocation from "./useUpdateShipmentLocation";
+import { Country, State, City } from "country-state-city";
+import { RingLoader } from "@/components";
 
 interface ShipmentLocationProps {
 	setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>;
-	singleShipmentId:string
+	singleShipmentId: string;
 }
 
-const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLocationProps) => {
+const index = ({
+	setShowUpdateShipmentLocation,
+	singleShipmentId,
+}: ShipmentLocationProps) => {
 	const {
 		handleChangeCountry,
 		handleChangeState,
 		handleChangeCity,
 		handleChangeAddress,
 		getShipmentLocation,
+		handleSetCurrentLocation,
+		shipmentCurrentLocation,
 		showLoader,
 		address,
 		stateCity,
 		countryState,
 		country,
-	} = useUpdateShipmentLocation(singleShipmentId);
+	} = useUpdateShipmentLocation(singleShipmentId, setShowUpdateShipmentLocation);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" w-11/12  md:w-1/2  fixed bg-white shadow-lg pb-3 ">
 				<div className="flex  w-full justify-between px-3 py-2 text-white  bg-blue-900  ">
 					<div>
-						<span className="font-bold">Update Current Location</span>
+						<span className="font-bold">Add New Location</span>
 					</div>
 					<div
 						onClick={() => setShowUpdateShipmentLocation(false)}
@@ -44,7 +49,9 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 				</div>
 				<div className="px-3 gap-4 flex-col ">
 					<div className=" p-4 bg-white">
-						<label className="text-lg text-gray-400">Shipment Next Bot Position</label>
+						<label className="text-lg text-gray-400">
+							Shipment New Location
+						</label>
 
 						{/* COUNTRY */}
 						<form onSubmit={getShipmentLocation}>
@@ -58,7 +65,9 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 										<select
 											className="w-full outline-none"
 											value={JSON.stringify(country)}
-											onChange={(e) => handleChangeCountry(JSON.parse(e.target.value))}
+											onChange={(e) =>
+												handleChangeCountry(JSON.parse(e.target.value))
+											}
 											required
 										>
 											<option value={0}>Select Country</option>
@@ -88,17 +97,24 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 										<select
 											className="w-full outline-none"
 											value={JSON.stringify(countryState)}
-											onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
+											onChange={(e) =>
+												handleChangeState(JSON.parse(e.target.value))
+											}
 											disabled={Object.keys(country).length === 0}
 											required
 										>
 											<option value={0}>Select State</option>
 
-											{State.getStatesOfCountry(country?.isoCode).map((states) => (
-												<option value={JSON.stringify(states)} key={states?.isoCode}>
-													{states?.name}
-												</option>
-											))}
+											{State.getStatesOfCountry(country?.isoCode).map(
+												(states) => (
+													<option
+														value={JSON.stringify(states)}
+														key={states?.isoCode}
+													>
+														{states?.name}
+													</option>
+												)
+											)}
 										</select>
 										<div className="text-xl text-gray-500">
 											<MdOutlineShareLocation />
@@ -117,18 +133,21 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 											disabled={Object.keys(countryState).length === 0}
 											className="w-full outline-none"
 											value={JSON.stringify(stateCity)}
-											onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
+											onChange={(e) =>
+												handleChangeCity(JSON.parse(e.target.value))
+											}
 											required
 										>
 											<option value={0}>Select City</option>
 
-											{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
-												(cities, key) => (
-													<option value={JSON.stringify(cities)} key={key}>
-														{cities?.name}
-													</option>
-												)
-											)}
+											{City.getCitiesOfState(
+												country?.isoCode,
+												countryState?.isoCode
+											).map((cities, key) => (
+												<option value={JSON.stringify(cities)} key={key}>
+													{cities?.name}
+												</option>
+											))}
 										</select>
 										<div className="text-xl text-gray-500">
 											<MdOutlineMyLocation />
@@ -147,7 +166,7 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 										<input
 											type="text"
 											className="w-full outline-none px-2 bg-white"
-											value={address ?? ''}
+											value={address ?? ""}
 											placeholder="type in shipment street address location"
 											onChange={(e) => handleChangeAddress(e.target.value)}
 											disabled={Object.keys(stateCity).length === 0}
@@ -160,19 +179,45 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 								</div>
 							</div>
 
-							<button
-								disabled={showLoader || address == ''}
-								type="submit"
-								className="hover:shadow-md  shadow-gray-50 shadow-sm w-full p-2  rounded-sm  bg-blue-700 font-bold text-white text-md"
-							>
-								{showLoader ? (
-									<div className="w-full flex items-center justify-center">
-										<RingLoader size={30} loaderColor="white" textColor="text-white-900" />
-									</div>
-								) : (
-									<span>Validate Address</span>
-								)}
-							</button>
+							{shipmentCurrentLocation.formattedAddress ? (
+								<button
+									onClick={handleSetCurrentLocation}
+									className="hover:shadow-md  shadow-gray-50 shadow-sm w-full p-2  rounded-sm  bg-blue-700 font-bold text-white text-md"
+								>
+
+									{showLoader ? (
+										<div className="w-full flex items-center justify-center">
+											<RingLoader
+												size={30}
+												loaderColor="white"
+												textColor="text-white-900"
+											/>
+										</div>) :
+										<><div className=" font-extrabold text-xl text-white">
+											<span className="underline">Address Found: </span>
+											{shipmentCurrentLocation.formattedAddress}
+										</div>
+											Proceed</>}
+								</button>
+							) : (
+								<button
+									disabled={showLoader || address == ""}
+									type="submit"
+									className="hover:shadow-md  shadow-gray-50 shadow-sm w-full p-2  rounded-sm  bg-blue-700 font-bold text-white text-md"
+								>
+									{showLoader ? (
+										<div className="w-full flex items-center justify-center">
+											<RingLoader
+												size={30}
+												loaderColor="white"
+												textColor="text-white-900"
+											/>
+										</div>
+									) : (
+										<span>Validate Address</span>
+									)}
+								</button>
+							)}
 						</form>
 					</div>
 				</div>
