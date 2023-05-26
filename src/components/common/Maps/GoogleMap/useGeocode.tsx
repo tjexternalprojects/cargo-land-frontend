@@ -11,17 +11,13 @@ const useGeocode = () => {
 	const [location, setLocation] = useState<Location | null>(null);
 	const [error, setError] = useState<any>(null);
 
-	const fetchLocation = async (payload?:Record<string, number>) => {
-		console.log(payload)
-		let url = ""
-		// if(payload?.latitude){
-			url =	`https://maps.googleapis.com/maps/api/geocode/json?latlng=${payload?.latitude},${payload?.longitude}&key=${GOOGLE_MAP_API_KEY}`
-				
-		// }else{
-		// 	url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address as string)}&key=${GOOGLE_MAP_API_KEY}`
-		// }	
+	const fetchLocation = async (address: string) => {
 		try {
-			const response = await fetch(url);
+			const response = await fetch(
+				`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+					address
+				)}&key=${GOOGLE_MAP_API_KEY}`
+			);
 			const data = await response.json();
 			if (data.status === 'OK') {
 				return data;

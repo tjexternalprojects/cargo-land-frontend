@@ -197,9 +197,6 @@ const NewShipmentForm = () => {
 										Airport to Airport
 									</option>
 								</select>
-								<div className="text-xl text-gray-500">
-									{Country.getCountryByCode(country?.isoCode)?.flag}
-								</div>
 							</div>
 						</div>
 					</div>
@@ -319,7 +316,7 @@ const NewShipmentForm = () => {
 							{shipmentDetails.shipment_type === 'airport_to_airport' && (
 								<div>
 									<small className="text-gray-400 font-bold">
-										Airports
+										Airports {address}
 										<span className="text-red-500"> * </span>
 									</small>
 									<div className=" flex  border-b-2 mt-2 p-2">
