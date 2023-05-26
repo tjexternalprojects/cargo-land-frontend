@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import {
 	AiOutlineClose,
 	BiCloudUpload,
@@ -41,6 +41,11 @@ const NewShipmentForm = () => {
 		image_slider_settings,
 		shipmentDetails,
 	} = useNewShipmentForm();
+
+	useEffect(()=>{
+		{console.log(airportList)}
+	},[airportList])
+
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full ">
@@ -329,8 +334,8 @@ const NewShipmentForm = () => {
 										>
 											<option value="">Select Airport</option>
 
-											{airportList.map((airport, key) => (
-												
+											{airportList?.map((airport:any, key:number) => (
+											
 												<option value={JSON.stringify(airport)}  key={key}>
 													{airport.name}, {airport.city}
 												</option>
