@@ -1,5 +1,5 @@
 import React from "react";
-import { AiOutlineClose, AiOutlineEdit } from "@/assets";
+import { AiOutlineClose, AiOutlineEdit, shipmentDefaultImg } from "@/assets";
 import useShipmentModal from "./useSingleShipmentModal";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -41,10 +41,14 @@ const ShipmentModal = ({
           </div>
         </div>
         <div className="px-3 flex gap-4 flex-col overflow-y-auto  md:flex-row max-h-70-screen">
-          <div className="p-2 md:overflow-y-auto">
+          <div className="p-2 md:overflow-y-auto w-1/2 flex-grow">
             {/* <div className=" md:w-96 h-96 border bg-red-500 "> */}
             <div className=" max-w-xl  ">
-              <ImageGallery lazyLoad={true} items={shipmentImages} />
+             {shipmentImages.length > 0 ?
+             <ImageGallery lazyLoad={true} items={shipmentImages} />:
+             <div>
+             <img src={shipmentDefaultImg} />
+             </div>}
             </div>
             {/* </div> */}
             <div className="w-full text-center">

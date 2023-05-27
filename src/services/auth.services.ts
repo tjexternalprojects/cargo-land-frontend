@@ -14,15 +14,15 @@ function AuthServices() {
 	};
 
 	const resendVerification = (email: string) => {
-		return api.post('/user/resend-verification', { email });
+		return api.patch('/user/resend-verification', { email });
 	};
 
 	const forgotPassword = (email: string) => {
 		return api.post('/user/forgot-password', { email });
 	};
 
-	const resetPassword = (payload: Record<string, string | undefined>) => {
-		return api.post('/user/reset-password', payload);
+	const resetPassword = (payload: Record<string, string | undefined>, token:string) => {
+		return api.patch('/user/reset-password/'+token, payload);
 	};
 
 	const logout = () => {

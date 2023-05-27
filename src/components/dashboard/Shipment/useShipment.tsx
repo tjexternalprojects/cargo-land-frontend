@@ -10,12 +10,16 @@ function useShipment() {
 	});
 
 	const resetShipment = (shipmentCurrentTab: string, form_level: number) => {
+	
+
 		const resetShipmentDetails = {
 			shipment_title: '',
 			shipment_description: '',
 			shipment_weight: 0,
 			images: [],
-			current_location: {
+			shipment_type: '',
+			start_location: {
+				location_id: '',
 				country: '',
 				state: '',
 				city: '',
@@ -26,15 +30,22 @@ function useShipment() {
 			},
 			recipient_full_name: '',
 			recipient_email: '',
-			shipment_destination: {
+			recipient_phone_number: '',
+			final_destination: {
+				location_id: '',
 				country: '',
 				state: '',
 				city: '',
 				address: '',
+				formattedAddress: '',
 				longitude: null,
 				latitude: null,
 			},
+			shipment_current_location: {},
+			shipment_heading_to: {},
+			shipment_addresses: [],
 		};
+
 
 		setState({
 			...state,
@@ -72,9 +83,7 @@ function useShipment() {
 		});
 	};
 
-// 	useEffect(()=>{
-// resetShipment();
-// 	},[])
+
 	return { handleNewShipment, handleShowTab, handleCancelEdit, state, animationDirection };
 }
 export default useShipment;

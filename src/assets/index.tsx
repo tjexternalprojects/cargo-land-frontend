@@ -86,6 +86,7 @@ export { default as userImg } from './images/user.png';
 
 // Shipment Images
 export { default as package1 } from './images/shipment/package1.jpg';
+export {default as shipmentDefaultImg} from './images/shipment/shipmentDefaultImage.png'
 
 // Landing Page
 export { default as CircleBg } from './images/landingPage/circleBg';

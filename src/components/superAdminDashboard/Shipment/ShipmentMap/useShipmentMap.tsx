@@ -14,10 +14,9 @@ function useTrackShipment() {
 	const SingleShipment= async()=>{
 		setLoading(true)
 		await getSingleShipment(params.shipment_id as string).then(response=>{
-			console.log(response, 'hhhhhhhhhhhhh')
 			setSingleShipment(response.data)
 			setLoading(false)
-
+			console.log(singleShipment)
 		},error=>{
 			console.log(error)
 			setShowTrackingIdInput(true)

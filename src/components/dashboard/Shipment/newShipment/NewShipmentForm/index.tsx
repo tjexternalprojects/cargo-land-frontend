@@ -107,6 +107,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="number"
+									min={0}
 									value={shipmentDetails.shipment_weight ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
@@ -163,6 +164,7 @@ const NewShipmentForm = () => {
 											className="hidden"
 											onChange={handleImageChange}
 											accept="image/*"
+											
 										/>
 									</div>
 								</label>

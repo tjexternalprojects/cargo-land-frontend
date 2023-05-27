@@ -55,13 +55,14 @@ function useShipmentModal(
 	};
 
 	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
+		console.log( )
 		const shipmentDetails = {
 			shipment_id: shipment?.id,
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,
 			images: shipment?.images,
-			shipment_type: shipment?.shipment_type,
+			shipment_type:shipment?.shipment_Type.toLowerCase(),
 			start_location: {
 				location_id: shipment?.start_location?.location_id,
 				country: shipment?.start_location?.country,
@@ -69,8 +70,8 @@ function useShipmentModal(
 				city: shipment?.start_location?.city,
 				address: shipment?.start_location?.address,
 				formattedAddress: shipment?.start_location?.formattedAddress,
-				longitude: shipment?.current_location?.longitude,
-				latitude: shipment?.current_location?.latitude,
+				longitude: shipment?.start_location?.longitude,
+				latitude: shipment?.start_location?.latitude,
 			},
 			recipient_full_name: shipment?.recipient_full_name,
 			recipient_email: shipment?.recipient_email,

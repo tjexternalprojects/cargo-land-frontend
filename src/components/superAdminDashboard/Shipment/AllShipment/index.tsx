@@ -62,8 +62,8 @@ const Shipment = () => {
 									</th>
 									<td className="px-6 py-4">{shipment.shipment_title}</td>
 									<td className="px-6 py-4">{shipment.shipment_title}</td>
-									<td className="px-6 py-4">{shipment.sendersAddress}</td>
-									<td className="px-6 py-4">{shipment.recepientAddress}</td>
+									<td className="px-6 py-4">{shipment?.start_location?.formattedAddress}</td>
+									<td className="px-6 py-4">{shipment?.final_destination?.formattedAddress}</td>
 									<td className="px-6 py-4">
 										{shipment.shipment_Type === 'DOOR_TO_DOOR'
 											? 'Door to Door'

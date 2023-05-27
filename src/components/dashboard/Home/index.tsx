@@ -211,12 +211,12 @@ const home = () => {
 												<MapDirection
 													height="30vh"
 													startLocation={{
-														lng: parseFloat(val.current_location.longitude),
-														lat: parseFloat(val.current_location.latitude),
+														lng: parseFloat(val.start_location.longitude),
+														lat: parseFloat(val.start_location.latitude),
 													}}
 													endLocation={{
-														lng: parseFloat(val.shipment_destination.longitude),
-														lat: parseFloat(val.shipment_destination.latitude),
+														lng: parseFloat(val.final_destination.longitude),
+														lat: parseFloat(val.final_destination.latitude),
 													}}
 												/>
 											</div>

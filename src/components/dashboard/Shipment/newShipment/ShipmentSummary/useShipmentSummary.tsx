@@ -149,7 +149,6 @@ function useShipmentSummary() {
 			phone_number: state.single_user_data?.phoneNumber,
 		};
 
-		console.log(payload);
 		initiatePayment(payload).then(
 			(response) => {
 				// console.log(response)

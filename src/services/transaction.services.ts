@@ -31,3 +31,8 @@ function transactionServices() {
 }
 
 export default transactionServices;
+
+
+// localhost:4300/shipment/update-single-shipment-price/:id with *{
+//     "delivery_price":23400
+// }* req.body

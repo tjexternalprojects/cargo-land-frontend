@@ -55,7 +55,7 @@ const TrackShipment = () => {
 														<GoPackage />
 													</div>
 
-													{singleShipment?.sendersAddress}
+													{singleShipment?.start_location?.formattedAddress}
 												</div>
 											</div>
 
@@ -65,7 +65,7 @@ const TrackShipment = () => {
 													<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<BiCurrentLocation className="text-white" />
 													</div>
-													{singleShipment?.currentLocation}
+													{singleShipment?.shipment_current_location?.formattedAddress}
 													{singleShipment?.shipment_Status === 'CHECKED' ||
 													singleShipment?.shipment_Status === 'TRANSIT' ? (
 														<button
@@ -90,7 +90,7 @@ const TrackShipment = () => {
 														<ImLocation />
 													</div>
 
-													{singleShipment?.recepientAddress}
+													{singleShipment?.final_destination?.formattedAddress}
 												</div>
 											</div>
 										</div>
@@ -127,7 +127,7 @@ const TrackShipment = () => {
 													<span>Address</span>
 												</div>
 												<div>
-													<h1 className="text-xl font-bold">{singleShipment?.recepientAddress}</h1>
+													<h1 className="text-xl font-bold">{singleShipment?.final_destination?.formattedAddress}</h1>
 												</div>
 											</div>
 										</div>
@@ -135,16 +135,16 @@ const TrackShipment = () => {
 											<MapDirection3
 												height="80vh"
 												startLocation={{
-													lng: parseFloat(singleShipment?.current_location?.longitude),
-													lat: parseFloat(singleShipment?.current_location?.latitude),
+													lng: parseFloat(singleShipment?.start_location?.longitude),
+													lat: parseFloat(singleShipment?.start_location?.latitude),
 												}}
 												midLocation={{
 													lng: parseFloat("3.3474517"),
 													lat: parseFloat("6.6135101"),
 												}}
 												endLocation={{
-													lng: parseFloat(singleShipment?.shipment_destination?.longitude),
-													lat: parseFloat(singleShipment?.shipment_destination?.latitude),
+													lng: parseFloat(singleShipment?.final_destination?.longitude),
+													lat: parseFloat(singleShipment?.final_destination?.latitude),
 												}}
 											/>
 										</div>

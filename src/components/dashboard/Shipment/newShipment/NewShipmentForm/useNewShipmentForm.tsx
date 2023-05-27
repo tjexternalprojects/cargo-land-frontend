@@ -218,7 +218,7 @@ function useNewShipmentForm() {
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
 			shipmentDetails.shipment_weight == '' ||
-			shipmentDetails.images?.length == 0 ||
+			// shipmentDetails.images?.length == 0 ||
 			Object.keys(country).length === 0
 		) {
 			setShowLoader(false);

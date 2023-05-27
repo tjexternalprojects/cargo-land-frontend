@@ -16,11 +16,12 @@ function useResendVerification() {
 			(response) => {
 				console.log(response)
 				setShowLoading(false);
-				if (response.status === 201) {
-					toast.success('Verification Resend sucessful, check your email', {
+				if (response.status === 200) {
+					toast.success('Verification resent sucessful, check your email', {
 						progressClassName: 'bg-green-500 h-1',
 						autoClose: 3000,
 					});
+					setEmail('')
 				} else {
 					toast.error('Oops! an Error occured, please retry', {
 						progressClassName: 'bg-red-500 h-1',
