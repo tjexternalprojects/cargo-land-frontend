@@ -1,11 +1,15 @@
 import React from 'react';
-import { HiDocumentText } from '@/assets';
+import { AiOutlineClose, HiDocumentText } from '@/assets';
 import useBusinessDocument from './useBusinessDocuments';
-const BusinessDocuments = () => {
-	const { handleDocumentUpload, businessDocument } = useBusinessDocument();
+
+interface MyComponentProps {
+	setActiveTab: (tab: string) => void;
+}
+const BusinessDocuments = ({ setActiveTab }: MyComponentProps) => {
+	const { handleDocumentUpload, handleRemoveDocument, handleSubmitForm, businessDocument } = useBusinessDocument(setActiveTab);
 	return (
 		<form className=" text-gray-500 ">
-			<div className="flex flex-col">
+			<div className="flex flex-col mb-10">
 				<small>
 					<i className="text-red-400">Upload your business CAC or TIN Document</i>
 				</small>
@@ -25,11 +29,24 @@ const BusinessDocuments = () => {
 						</div>
 					</label>
 				</div>
+				<div className='mt-3 md:mx-10'>
 
 				{businessDocument.map((docs: any, index: number) => (
-					<div key={index}>{docs.name}</div>
-				))}
+					<div className='flex items-center gap-3 border-l-2 border-l-blue-800 pl-2 justify-between'>
+						<div key={index}>{docs.name.length >20?docs.name.split(0, 20)+'...': docs.name}</div>
+						<AiOutlineClose className='text-red-500 cursor-pointer' onClick={()=>handleRemoveDocument(index)}/>
+					</div>
+					))}
+					</div>
 			</div>
+
+				<button
+				onClick={handleSubmitForm}
+					className="hover:shadow-md  shadow-gray-50 shadow-sm  py-2 px-5 rounded-sm  bg-blue-900 font-bold text-white text-md"
+					type="button"
+				>
+					Submit
+				</button>
 		</form>
 	);
 };

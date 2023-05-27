@@ -24,7 +24,6 @@ function useShipment() {
 		setLoading(true);
 		adminGetAllShipments(`?page=${currentPage}&limit=7`).then(
 			(response) => {
-				console.log(response);
 				setHasNextPage(response.data.hasNextPage);
 				setHasPreviousPage(response.data.hasPreviousPage);
 				setAllShipment(response.data.allUserShipment);
@@ -46,6 +45,7 @@ function useShipment() {
 
 	const handleSelectShipment =(val:any)=>{
 		setSelectedShipment(val)
+		console.log(val, 'kkkkkkkkkkk')
 		setShowModal(true)
 	}
 	const setActivePage = ()=>{

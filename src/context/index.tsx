@@ -37,7 +37,7 @@ type AppState = {
 	userCurrentTab: String;
 	updateUser: Boolean;
 	all_users: Record<string, string>[];
-	business_account: Record<string, string | string[]> | null;
+	business_account:any;
 
 	// Auth
 	showForgetPassword: boolean;

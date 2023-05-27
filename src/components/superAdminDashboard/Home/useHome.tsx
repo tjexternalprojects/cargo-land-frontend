@@ -231,7 +231,7 @@ const setActivePage = ()=>{
 }
   useEffect(() => {
     setActivePage()
-    getTransactionHistory();
+    // getTransactionHistory();
     allUsersMtd();
     allTransitShipment();
     getAllShipment();

@@ -14,7 +14,7 @@ const index = () => {
 			</p>
 			<div className="relative w-full">
 				{showBusinessForm && (
-					<div className="bg-white bg-opacity-10 flex flex-col items-center backdrop-filter backdrop-blur-md absolute h-full w-full z-10">
+					<div className="bg-white bg-opacity-10 flex flex-col items-center backdrop-filter backdrop-blur-md absolute h-full w-full z-0">
 						<div className="mb-20 text-center">
 							You are currently on Regular account, upgrade to business account get massive discount
 							on shipment cost

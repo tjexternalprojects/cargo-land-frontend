@@ -10,13 +10,13 @@ interface MyComponentProps {
 	setActiveTab: (tab: string) => void;
 }
 const BusinessData = ({ setActiveTab }: MyComponentProps) => {
-	const { handleSubmitBusinessData, setBusinessData, businessData } = useBusinessData(setActiveTab);
+	const { handleSubmitBusinessData, setBusinessData, state, businessData } = useBusinessData(setActiveTab);
 	return (
 		<form className=" text-gray-500 flex flex-col space-y-4" onSubmit={handleSubmitBusinessData}>
 			<div className="flex flex-col">
 				<div className=" border-b-2 flex items-center  mt-2 px-5 border-white">
 					<input
-						value={businessData.business_name}
+						value={state.business_account?.business_name}
 						onChange={(e) => setBusinessData({ ...businessData, business_name: e.target.value })}
 						type="text"
 						placeholder="Business Name"
@@ -30,7 +30,7 @@ const BusinessData = ({ setActiveTab }: MyComponentProps) => {
 			<div className="flex flex-col">
 				<div className="border-white border-b-2  px-5  flex items-center">
 					<input
-						value={businessData.business_number}
+						value={state.business_account?.business_number}
 						onChange={(e) => setBusinessData({ ...businessData, business_number: e.target.value })}
 						type="tel"
 						placeholder="Business Number"
@@ -44,7 +44,7 @@ const BusinessData = ({ setActiveTab }: MyComponentProps) => {
 			<div className="flex flex-col">
 				<div className="border-white border-b-2  px-5  flex items-center">
 					<input
-						value={businessData.business_email}
+						value={state.business_account?.business_email}
 						onChange={(e) => setBusinessData({ ...businessData, business_email: e.target.value })}
 						type="email"
 						placeholder="Email address"
@@ -58,7 +58,7 @@ const BusinessData = ({ setActiveTab }: MyComponentProps) => {
 			<div className="flex flex-col">
 				<div className="border-white border-b-2  px-5  flex items-center">
 					<input
-						value={businessData.phone_number}
+						value={state.business_account?.phone_number}
 						onChange={(e) => setBusinessData({ ...businessData, phone_number: e.target.value })}
 						type="tel"
 						placeholder="Phone Number"
@@ -72,7 +72,7 @@ const BusinessData = ({ setActiveTab }: MyComponentProps) => {
 			<div className="flex flex-col">
 				<div className="border-white border-b-2  px-5  flex items-center">
 					<textarea
-						value={businessData.office_address}
+						value={state.business_account?.office_address}
 						onChange={(e) => setBusinessData({ ...businessData, office_address: e.target.value })}
 						placeholder="Office Address"
 						className="text-sm rounded-xl flex-grow h-11 outline-none bg-transparent"

@@ -1,6 +1,6 @@
 function UserContext() {
 	const single_user_data = null;
-	const business_account: Record<string, string> | null = null;
+	const business_account: any = {};
 	const all_users: Record<string, string>[] = [];
 	const userCurrentTab = 'item1';
 	const updateUser = false;

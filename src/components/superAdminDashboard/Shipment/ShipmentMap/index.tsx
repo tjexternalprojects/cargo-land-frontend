@@ -39,10 +39,10 @@ const TrackShipment = () => {
 										<div className="flex justify-between items-center">
 											<div>
 												<small>Shipment ID</small>
-												<div className="font-bold">{singleShipment.id}</div>
+												<div className="font-bold">{singleShipment?.id}</div>
 											</div>
 											<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
-												{singleShipment.shipment_Status}
+												{singleShipment?.shipment_Status}
 											</label>
 										</div>
 										<hr className="my-5" />
@@ -55,7 +55,7 @@ const TrackShipment = () => {
 														<GoPackage />
 													</div>
 
-													{singleShipment.sendersAddress}
+													{singleShipment?.sendersAddress}
 												</div>
 											</div>
 
@@ -65,9 +65,9 @@ const TrackShipment = () => {
 													<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<BiCurrentLocation className="text-white" />
 													</div>
-													{singleShipment.currentLocation}
-													{singleShipment.shipment_Status === 'CHECKED' ||
-													singleShipment.shipment_Status === 'TRANSIT' ? (
+													{singleShipment?.currentLocation}
+													{singleShipment?.shipment_Status === 'CHECKED' ||
+													singleShipment?.shipment_Status === 'TRANSIT' ? (
 														<button
 															onClick={() => setShowUpdateShipmentLocation(true)}
 															className="px-2 py-1 bg-green-700 text-white rounded"
@@ -153,7 +153,7 @@ const TrackShipment = () => {
 								{showUpdateShipmentLocation && (
 									<UpdateShipmentLocation
 										setShowUpdateShipmentLocation={setShowUpdateShipmentLocation}
-										singleShipmentId={singleShipment.id}
+										singleShipmentId={singleShipment?.id}
 									/>
 								)}
 							</>

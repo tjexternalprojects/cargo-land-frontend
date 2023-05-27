@@ -64,11 +64,11 @@ function useSidebar() {
 			name: 'Users',
 			icon: BiUserPin,
 		},
-		{
-			route_to: '/admin/transactions',
-			name: 'Transactions',
-			icon: GrTransaction,
-		},
+		// {
+		// 	route_to: '/admin/transactions',
+		// 	name: 'Transactions',
+		// 	icon: GrTransaction,
+		// },
 	];
 
 	const isRouteActive = (route: string): boolean => {

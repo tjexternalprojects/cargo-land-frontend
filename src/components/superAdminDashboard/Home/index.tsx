@@ -71,7 +71,7 @@ const home = () => {
 
 			{/* Bottom */}
 			<div className=" flex  gap-3  justify-between  flex-wrap md:flex-nowrap">
-				<div className="">
+				{/* <div className="">
 					<h4 className="text-xl mb-3">Latest Transaction</h4>
 					<hr />
 					<div className=" space-y-3 mt-3">
@@ -104,12 +104,12 @@ const home = () => {
 							</div>
 						))}
 					</div>
-				</div>
+				</div> */}
 				<div className="">
 					<h4 className="text-xl mb-3">Recent User</h4>
 					<hr />
 					{userLoading ? (
-						<div className="w-full border flex items-center justify-center">
+						<div className="w-full flex items-center justify-center">
 							<RingLoader size={50} textColor="text-blue-900" />
 						</div>
 					) : (
@@ -171,7 +171,7 @@ const home = () => {
 					<div className="mt-3">
 						<div className="w-full flex items-center">
 						{shipmentLoading ? (
-						<div className="w-full border flex items-center justify-center">
+						<div className="w-full  flex items-center justify-center">
 							<RingLoader size={50} textColor="text-blue-900" />
 						</div>
 					) : (
