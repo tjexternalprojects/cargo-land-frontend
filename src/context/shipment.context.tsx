@@ -1,57 +1,6 @@
 import React, { useState } from 'react';
 import { ShipmentSummaryInterface } from '@/interfaces/shipmentInterface';
 function GeneralContext() {
-	// const shipmentDetails = {
-	// 	shipment_title: '',
-	// 	shipment_description: '',
-	// 	shipment_weight: 0,
-	// 	images: [],
-	// 	shipment_type: '',
-	// 	current_location: {
-	// 		active:true,
-	// 		country: '',
-	// 		state: '',
-	// 		city: '',
-	// 		address: '',
-	// 		formattedAddress: '',
-	// 		longitude: null,
-	// 		latitude: null,
-	// 	},
-	// 	recipient_full_name: '',
-	// 	recipient_email: '',
-	// 	recipient_phone_number:'',
-	// 	shipment_destination: {
-	// 		country: '',
-	// 		state: '',
-	// 		city: '',
-	// 		address: '',
-	// 		formattedAddress: '',
-	// 		longitude: null,
-	// 		latitude: null,
-	// 	},
-	// 	shipment_location:{
-	// 		active:false,
-	// 		country: '',
-	// 		state: '',
-	// 		city: '',
-	// 		address: '',
-	// 		formattedAddress: '',
-	// 		longitude: null,
-	// 		latitude: null,
-	// 	},
-	// 	heading_to:[
-	// 		{
-	// 		active:false,
-	// 		country: '',
-	// 		state: '',
-	// 		city: '',
-	// 		address: '',
-	// 		formattedAddress: '',
-	// 		longitude: null,
-	// 		latitude: null,	
-	// 		}
-	// 	]
-	// };
 
 	const shipmentDetails = {
 		shipment_title: '',
@@ -83,8 +32,7 @@ function GeneralContext() {
 			latitude: null,
 		},
 		shipment_current_location: {},
-		shipment_heading_to: {
-		},
+		shipment_heading_to: {},
 		shipment_addresses: [],
 	};
 

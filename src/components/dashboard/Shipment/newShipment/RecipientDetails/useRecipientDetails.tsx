@@ -45,28 +45,28 @@ function useNewShipmentForm() {
 	const resetInputs = () => {
 		setShipmentDetails({
 			...shipmentDetails,
-			recipient_full_name: state.shipmentDetails.recipient_full_name as string,
-			recipient_email: state.shipmentDetails.recipient_email as string,
-			recipient_phone_number: state.shipmentDetails.recipient_phone_number as string,
+			recipient_full_name: state.shipmentDetails?.recipient_full_name as string,
+			recipient_email: state.shipmentDetails?.recipient_email as string,
+			recipient_phone_number: state.shipmentDetails?.recipient_phone_number as string,
 			final_destination: {
-				location_id:'',
-				country: state.shipmentDetails.final_destination.country,
-				state: state.shipmentDetails.final_destination.state,
-				city: state.shipmentDetails.final_destination.city,
-				address: state.shipmentDetails.final_destination.address as string,
-				formattedAddress: state.shipmentDetails.final_destination.formattedAddress as string,
-				longitude: state.shipmentDetails.final_destination.longitude as number,
-				latitude: state.shipmentDetails.final_destination.latitude as number,
+				location_id:state.shipmentDetails?.final_destination?.location_id,
+				country: state.shipmentDetails?.final_destination?.country,
+				state: state.shipmentDetails?.final_destination?.state,
+				city: state.shipmentDetails?.final_destination?.city,
+				address: state.shipmentDetails?.final_destination?.address as string,
+				formattedAddress: state.shipmentDetails?.final_destination?.formattedAddress as string,
+				longitude: state.shipmentDetails?.final_destination?.longitude as number,
+				latitude: state.shipmentDetails?.final_destination?.latitude as number,
 			},
 		});
-		if (state.shipmentDetails.start_location.country !== '') {
+		if (state.shipmentDetails?.start_location?.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
-				state.shipmentDetails.shipment_destination.country.isoCode
+				state.shipmentDetails?.final_destination?.country?.isoCode
 			);
 			setCountry(getCountryDetails);
-			setCountryState(state.shipmentDetails.final_destination.state);
-			setStateCity(state.shipmentDetails.final_destination.city);
-			setAddress(state.shipmentDetails.final_destination.address);
+			setCountryState(state.shipmentDetails?.final_destination?.state);
+			setStateCity(state.shipmentDetails?.final_destination?.city);
+			setAddress(state.shipmentDetails?.final_destination?.address);
 		} else {
 			setCountry({});
 		}
@@ -86,12 +86,14 @@ function useNewShipmentForm() {
 				country: country,
 				state: countryState,
 				city: stateCity,
-				address: address,
+				address: '',
 				formattedAddress: '',
 				longitude: null,
 				latitude: null,
 			},
 		});
+		setAddress('')
+
 	};
 
 	const handleChangeCountry = (country: Record<string, string>) => {
@@ -190,27 +192,7 @@ function useNewShipmentForm() {
 			});
 
 
-			setState((prevState) => ({
-				...prevState,
-				shipmentDetails: {
-				  ...prevState.shipmentDetails,
-				  shipment_current_location: { ...prevState.shipmentDetails.start_location },
-				  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
-				},
-			  }));
-	
-	
-			  setState((prevState) => ({
-				...prevState,
-				shipmentDetails: {
-				  ...prevState.shipmentDetails,
-				  shipment_addresses: [
-					...prevState.shipmentDetails.shipment_addresses,
-					{ ...prevState.shipmentDetails.shipment_current_location },
-					{ ...prevState.shipmentDetails.shipment_heading_to },
-				  ],
-				},
-			  }));
+
 
 		});
 	};
@@ -300,73 +282,34 @@ function useNewShipmentForm() {
 	const moveNext = async () => {
 		setShowLoader(true);
 
-
-		// await setState((prevState) => ({
-		// 	...prevState,
-		// 	shipmentDetails: {
-		// 		...prevState.shipmentDetails,
-		// 		shipment_current_location: { ...prevState.shipmentDetails.start_location },
-		// 		shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
-		// 	  shipment_addresses: [
-		// 		...prevState.shipmentDetails.shipment_addresses,
-		// 		{ ...prevState.shipmentDetails.shipment_current_location },
-		// 		{ ...prevState.shipmentDetails.shipment_heading_to },
-		// 	  ],
-		// 	},
-		//   }));
-
-
-		// setState((prevState) => ({
-		// 	...prevState,
-		// 	shipmentDetails: {
-		// 	  ...prevState.shipmentDetails,
-		// 	  shipment_current_location: { ...prevState.shipmentDetails.start_location },
-		// 	  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
-		// 	},
-		//   }));
-
-
-		//   setState((prevState) => ({
-		// 	...prevState,
-		// 	shipmentDetails: {
-		// 	  ...prevState.shipmentDetails,
-		// 	  shipment_addresses: [
-		// 		...prevState.shipmentDetails.shipment_addresses,
-		// 		{ ...prevState.shipmentDetails.shipment_current_location },
-		// 		{ ...prevState.shipmentDetails.shipment_heading_to },
-		// 	  ],
-		// 	},
-		//   }));
-
 		  console.log(state.shipmentDetails)
-		  setShowLoader(false);
 
-		// let shipment_images = state.shipmentDetails.images as [];
-		// const { images, ...newPayload } = state.shipmentDetails;
-		// const payload = JSON.stringify(newPayload);
-		// console.log(state.shipmentDetails)
-		// const formData = new FormData();
-		// formData.append('payload', payload);
-		// for (let i = 0; i < shipment_images.length; i++) {
-		// 	formData.append('images', shipment_images[i]);
-		// }
-		// await createShipment(formData).then(
-		// 	(response) => {
-		// 		console.log(response);
-		// 		setShowLoader(false);
-		// 		setState({
-		// 			...state,
-		// 			shipmentCurrentTab: 'item3',
-		// 			form_level: 2,
-		// 		});
-		// 		getAllUserShipment();
-		// 		resetShipment();
-		// 	},
-		// 	(error) => {
-		// 		console.log(error);
-		// 		setShowLoader(false);
-		// 	}
-		// );
+		let shipment_images = state.shipmentDetails.images as [];
+		const { images, ...newPayload } = state.shipmentDetails;
+		const payload = JSON.stringify(newPayload);
+		console.log(state.shipmentDetails)
+		const formData = new FormData();
+		formData.append('payload', payload);
+		for (let i = 0; i < shipment_images.length; i++) {
+			formData.append('images', shipment_images[i]);
+		}
+		await createShipment(formData).then(
+			(response) => {
+				console.log(response);
+				setShowLoader(false);
+				setState({
+					...state,
+					shipmentCurrentTab: 'item3',
+					form_level: 2,
+				});
+				getAllUserShipment();
+				resetShipment();
+			},
+			(error) => {
+				console.log(error);
+				setShowLoader(false);
+			}
+		);
 	};
 
 	const getCountryCoveredMtd = () => {
@@ -385,7 +328,7 @@ function useNewShipmentForm() {
 
 		// GET ALL AIRPORTS
 	useEffect(() => {
-		fetchAirports(country.name);
+		fetchAirports(country?.name);
 	}, [country, countryState]);
 
 	// UPDATE THE GLOBAL STATE
@@ -394,6 +337,27 @@ function useNewShipmentForm() {
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
 		}));
+		setState((prevState) => ({
+			...prevState,
+			shipmentDetails: {
+			  ...prevState.shipmentDetails,
+			  shipment_current_location: { ...prevState.shipmentDetails.start_location },
+			  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
+			},
+		  }));
+
+		  const newArr:any = []
+		  newArr.push(state.shipmentDetails.start_location)
+		  newArr.push(shipmentDetails.final_destination)
+
+		  
+		  setState((prevState) => ({
+			...prevState,
+			shipmentDetails: {
+			  ...prevState.shipmentDetails,
+			  shipment_addresses: newArr,
+			},
+		  }));
 	}, [shipmentDetails]);
 
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND

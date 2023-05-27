@@ -102,7 +102,7 @@ const home = () => {
 					</div>
 					<hr />
 					{transactionHistoryLoader ? (
-						<div className="w-full border flex items-center justify-center mt-3">
+						<div className="w-full flex items-center justify-center mt-3">
 							<RingLoader size={50} textColor="text-blue-900" />
 						</div>
 					) : (
@@ -172,7 +172,7 @@ const home = () => {
 					<hr />
 					<div className="mt-3">
 						{latestShipmentLoader ? (
-							<div className="w-full border flex items-center justify-center">
+							<div className="w-full flex items-center justify-center">
 								<RingLoader size={50} textColor="text-blue-900" />
 							</div>
 						) : (

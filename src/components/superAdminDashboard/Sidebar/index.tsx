@@ -1,5 +1,5 @@
 import { BiChevronDown, BiChevronLeft, CiSettings, logo, TbLogout, userImg } from '@/assets';
-import { NavLink, useMatch } from 'react-router-dom';
+import { Link, NavLink, useMatch } from 'react-router-dom';
 import useLogin from '@/pages/Login/useLogin';
 import useSidebar from './useSidebar';
 import React from 'react';
@@ -101,9 +101,11 @@ const sidebar = () => {
 						</div>
 					</div>
 					<div className="flex gap-2 text-2xl">
+					<Link to="/admin/profile"  onClick={() => handleToggleSidebar('/admin/profile')} >
 						<div className=" transition-all duration-75 ease-linear rounded-full text-blue-900 p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">
 							<CiSettings />
 						</div>
+						</Link>
 						<div
 							onClick={handleLogout}
 							className="transition-all duration-75 ease-linear rounded-full p-2 text-blue-900 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer"

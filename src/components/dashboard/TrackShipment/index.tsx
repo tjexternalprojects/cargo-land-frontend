@@ -25,7 +25,7 @@ const TrackShipment = () => {
 								<div
 									key={index}
 									onClick={() => getInidividualShipment(index)}
-									className={`hover:bg-red-100 hover:text-black  cursor-pointer rounded-sm p-2 shadow flex justify-between sm:items-center sm:flex-row flex-col sm:space-x-4  ${val?.id === singleShipment?.id && 'bg-red-500 text-white'}`}
+									className={`  cursor-pointer rounded-sm p-2 hover:shadow flex justify-between sm:items-center sm:flex-row flex-col sm:space-x-4  ${val?.id === singleShipment?.id ? 'bg-blue-900 hover:text-black text-white': ''} `}
 								>
 									<div>
 										<small>Shipment ID</small>
@@ -116,28 +116,14 @@ const TrackShipment = () => {
 								</div>
 							</div>
 						</div>
+						{ singleShipment?.current_location?.longitude} nnnnn
 						<div className="mt-5 ">
-							<MapDirection height="80vh" startLocation={{ lng: parseFloat(singleShipment?.current_location?.longitude), lat: parseFloat(singleShipment?.current_location?.latitude) }}
-								endLocation={{ lng: parseFloat(singleShipment?.shipment_destination?.longitude), lat: parseFloat(singleShipment?.shipment_destination?.latitude) }} />
+							{singleShipment ? <MapDirection height="80vh" startLocation={{ lng: parseFloat(singleShipment?.current_location?.longitude), lat: parseFloat(singleShipment?.current_location?.latitude) }}
+								endLocation={{ lng: parseFloat(singleShipment?.shipment_destination?.longitude), lat: parseFloat(singleShipment?.shipment_destination?.latitude) }} /> :
+								<div className='text-xl w-full h-full text-center uppercase font-extrabold'>Select a shipment to display details</div>
+								}
 						</div>
-						{/* <div className="mt-5">
-					<h3>Item List</h3>
-					<table className=" w-full">
-						<thead>
-							<tr>
-								<td>Item Id</td>
-								<td>Item Name</td>
-								<td>Item Category</td>
-								<td>Item Weight</td>
-								<td>Item Quantity</td>
-								<td>Actions</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr></tr>
-						</tbody>
-					</table>
-				</div> */}
+					
 					</div>
 				</div>
 			) : (

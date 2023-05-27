@@ -29,6 +29,7 @@ const NewShipmentForm = () => {
 		handleChangeCity,
 		handleChangeAddress,
 		handleChangeAirport,
+		handleChangeDeliveryType,
 		airportList,
 		airport,
 		state,
@@ -179,12 +180,7 @@ const NewShipmentForm = () => {
 								<select
 									className="w-full outline-none bg-white"
 									value={(shipmentDetails.shipment_type as string) ?? ''}
-									onChange={(e) =>
-										setShipmentDetails({
-											...shipmentDetails,
-											shipment_type: e.target.value,
-										})
-									}
+									onChange={(e) =>handleChangeDeliveryType(e.target.value)}
 									required
 								>
 									<option value="" disabled>

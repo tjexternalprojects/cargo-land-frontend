@@ -61,6 +61,7 @@ function App() {
 								<Route path="/admin/shipment/update/:shipment_id" element={<AUpdateShipment />} />
 								<Route path="/admin/transactions" element={<ATransactions />} />
 								<Route path="/admin/shipment/:current_page" element={<AShipment />} />
+								<Route path="/admin/profile" element={<UserProfile />} />
 							</Route>
 						</Route>
 						<Route path="/" element={<LandingPage />} />

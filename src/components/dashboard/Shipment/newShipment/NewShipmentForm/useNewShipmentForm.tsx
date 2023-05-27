@@ -58,31 +58,31 @@ function useNewShipmentForm() {
 	const resetInputs = () => {
 		setShipmentDetails({
 			...shipmentDetails,
-			shipment_title: state.shipmentDetails.shipment_title as string,
-			shipment_description: state.shipmentDetails.shipment_description as string,
-			shipment_weight: state.shipmentDetails.shipment_weight as string,
-			images: state.shipmentDetails.images,
-			shipment_type: state.shipmentDetails.shipment_type as string,
+			shipment_title: state.shipmentDetails?.shipment_title as string,
+			shipment_description: state.shipmentDetails?.shipment_description as string,
+			shipment_weight: state.shipmentDetails?.shipment_weight as string,
+			images: state.shipmentDetails?.images,
+			shipment_type: state.shipmentDetails?.shipment_type as string,
 			start_location: {
-				location_id: state.shipmentDetails.start_location.location_id,
-				country: state.shipmentDetails.start_location.country,
-				state: state.shipmentDetails.start_location.state,
-				city: state.shipmentDetails.start_location.city,
-				address: state.shipmentDetails.start_location.address as string,
-				formattedAddress: state.shipmentDetails.start_location.formattedAddress as string,
-				longitude: state.shipmentDetails.start_location.longitude as number,
-				latitude: state.shipmentDetails.start_location.latitude as number,
+				location_id: state.shipmentDetails?.start_location?.location_id,
+				country: state.shipmentDetails?.start_location?.country,
+				state: state.shipmentDetails?.start_location?.state,
+				city: state.shipmentDetails?.start_location?.city,
+				address: state.shipmentDetails?.start_location?.address as string,
+				formattedAddress: state.shipmentDetails?.start_location?.formattedAddress as string,
+				longitude: state.shipmentDetails?.start_location?.longitude as number,
+				latitude: state.shipmentDetails?.start_location?.latitude as number,
 			},
 		});
 		setPreviewImage(state.shipmentDetails.images);
-		setAddress(state.shipmentDetails.start_location.address);
-		if (state.shipmentDetails.start_location.country !== '') {
+		setAddress(state.shipmentDetails?.start_location?.address);
+		if (state.shipmentDetails?.start_location?.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
-				state.shipmentDetails.start_location.country?.isoCode
+				state.shipmentDetails?.start_location?.country?.isoCode
 			);
 			setCountry(getCountryDetails);
-			setCountryState(state.shipmentDetails.start_location.state);
-			setStateCity(state.shipmentDetails.start_location.city);
+			setCountryState(state.shipmentDetails?.start_location?.state);
+			setStateCity(state.shipmentDetails?.start_location?.city);
 		} else {
 			setCountry({});
 		}
@@ -123,14 +123,43 @@ function useNewShipmentForm() {
 				country: country,
 				state: countryState,
 				city: stateCity,
-				address: address,
+				address: '',
 				formattedAddress: '',
 				longitude: null,
 				latitude: null,
 			},
 		});
+		setAddress('')
 	};
 
+	
+
+	const handleChangeDeliveryType=(val:string)=>{
+	
+
+
+		setShipmentDetails({
+			...shipmentDetails,
+			start_location: {
+				...shipmentDetails.start_location,
+				location_id: shipmentDetails.start_location?.location_id,
+				country: {},
+				state: {},
+				city: {},
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+		});
+		setCountry({})
+		setAddress('')
+		setShipmentDetails({
+			...shipmentDetails,
+			shipment_type: val,
+		})
+		console.log(val)
+	}
 	const handleChangeCountry = (country: any) => {
 		resetShipmentStateOnChangeAddress();
 
@@ -285,7 +314,7 @@ function useNewShipmentForm() {
 
 	// GET ALL AIRPORTS
 	useEffect(() => {
-		fetchAirports(country.name);
+		fetchAirports(country?.name);
 	}, [country, countryState]);
 
 	// UPDATE THE GLOBAL STATE
@@ -321,6 +350,7 @@ function useNewShipmentForm() {
 		handleChangeCity,
 		handleChangeAddress,
 		handleChangeAirport,
+		handleChangeDeliveryType,
 		airportList,
 		airport,
 		state,

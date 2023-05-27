@@ -143,6 +143,7 @@ const RecipientDetails = () => {
 			</div>
 
 			{showShipmentModal && (
+				// <ShipmentModal selectedShipment={selectedShipment} setShowModal={setShowShipmentModal} />
 				<ShipmentModal selectedShipment={selectedShipment} setShowModal={setShowShipmentModal} />
 			)}
 		</>
