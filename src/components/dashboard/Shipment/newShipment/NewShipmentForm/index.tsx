@@ -315,7 +315,7 @@ const NewShipmentForm = () => {
 							{shipmentDetails.shipment_type === 'airport_to_airport' && (
 								<div>
 									<small className="text-gray-400 font-bold">
-										Airports {address}
+										Airports
 										<span className="text-red-500"> * </span>
 									</small>
 									<div className=" flex  border-b-2 mt-2 p-2">

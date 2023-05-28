@@ -6,7 +6,12 @@ import {
 	ImLocation,
 	RiUserReceivedLine,
 } from '@/assets';
-import { MapDirection3, SearchShipmentModal, UpdateShipmentLocation } from '@/components/';
+import {
+	MapDirection3,
+	RingLoader,
+	SearchShipmentModal,
+	UpdateShipmentLocation,
+} from '@/components/';
 import { useGeocode, LoadingPage } from '@/components';
 import useTrackShipment from './useShipmentMap';
 
@@ -48,9 +53,23 @@ const TrackShipment = () => {
 										<hr className="my-5" />
 										<div className="ml-8 md:ml-0">
 											<div className="text-sm">
-												<span className="pl-6">From</span>{' '}
-												<span className="text-lg font-extrabold text-red-500">(A)</span>
-												<div className="text-black font-bold border-l-2 pl-6 py-10 border-slate-300  relative">
+												<div className="space-x-3 flex items-center">
+													<span className="pl-6">From</span>
+													<span className="text-lg font-extrabold text-red-500">(A)</span>
+													{singleShipment?.shipment_current_location?.location_id !==
+													singleShipment?.start_location?.location_id ? (
+														<span>
+															<button className="px-2 py-1 bg-red-700 text-white rounded">
+																Set As Current location
+															</button>
+														</span>
+													) : (
+														<span>
+															<RingLoader size={50} textColor="text-blue-900" />
+														</span>
+													)}
+												</div>
+												<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300  relative">
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<GoPackage />
 													</div>
@@ -58,33 +77,46 @@ const TrackShipment = () => {
 													{singleShipment?.start_location?.formattedAddress}
 												</div>
 											</div>
+											{singleShipment?.shipment_Status === 'CHECKED' ||
+											singleShipment?.shipment_Status === 'TRANSIT' ? (
+												<>
+													{singleShipment?.shipment_addresses.map((val: any, index: number) => (
+														<div key={index} className="text-sm">
+															<span className="pl-6">Through</span>
+															<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
+																<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
+																	<BiCurrentLocation className="text-white" />
+																</div>
+																{singleShipment?.shipment_current_location?.formattedAddress}
+																<br />
 
-											<div className="text-sm">
-												<span className="pl-6">Current location</span>
-												<div className="text-black font-bold border-l-2 pl-6 py-10 border-slate-300 relative">
-													<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
-														<BiCurrentLocation className="text-white" />
-													</div>
-													{singleShipment?.shipment_current_location?.formattedAddress}
-													{singleShipment?.shipment_Status === 'CHECKED' ||
-													singleShipment?.shipment_Status === 'TRANSIT' ? (
+																<button className="px-2 py-1 bg-red-700 text-white rounded">
+																	Set As Current location
+																</button>
+															</div>
+														</div>
+													))}
+
+													<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
 														<button
 															onClick={() => setShowUpdateShipmentLocation(true)}
 															className="px-2 py-1 bg-green-700 text-white rounded"
 														>
-															Add Location
+															Add New Route
 														</button>
-													) : (
-														<span className="text-red-500 text-lg font-bold">
-															SHIPMENT HASN'T BEEN CHECKED BY CLIENT
-														</span>
-													)}
+													</div>
+												</>
+											) : (
+												<div className="text-red-500 text-lg font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
+													SHIPMENT HASN'T BEEN CHECKED BY CLIENT
 												</div>
-											</div>
-
+											)}
 											<div className="text-sm">
-												<span className="pl-6">To</span>{' '}
-												<span className="text-lg font-extrabold text-red-500">(B)</span>
+												<div className="space-x-3 flex items-center">
+													<span className="pl-6">To</span>
+													<span className="text-lg font-extrabold text-red-500">(B)</span>
+												</div>
+
 												<div className="text-black font-bold  pl-6 relative">
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<ImLocation />
@@ -92,6 +124,22 @@ const TrackShipment = () => {
 
 													{singleShipment?.final_destination?.formattedAddress}
 												</div>
+
+												{singleShipment?.shipment_current_location?.location_id !==
+												singleShipment?.final_destination?.location_id ? (
+													<div className="space-y-3">
+														<button className="px-2 py-1 bg-red-700 text-white rounded">
+															Set As Current location
+														</button>
+														<button className="px-2 py-1 bg-blue-900 text-white rounded">
+															Set As Next Check Point
+														</button>
+													</div>
+												) : (
+													<span>
+														<RingLoader size={50} textColor="text-blue-900" />
+													</span>
+												)}
 											</div>
 										</div>
 									</div>
@@ -127,12 +175,14 @@ const TrackShipment = () => {
 													<span>Address</span>
 												</div>
 												<div>
-													<h1 className="text-xl font-bold">{singleShipment?.final_destination?.formattedAddress}</h1>
+													<h1 className="text-xl font-bold">
+														{singleShipment?.final_destination?.formattedAddress}
+													</h1>
 												</div>
 											</div>
 										</div>
 										<div className="mt-5 ">
-											<MapDirection3
+											{/* <MapDirection3
 												height="80vh"
 												startLocation={{
 													lng: parseFloat(singleShipment?.start_location?.longitude),
@@ -146,7 +196,7 @@ const TrackShipment = () => {
 													lng: parseFloat(singleShipment?.final_destination?.longitude),
 													lat: parseFloat(singleShipment?.final_destination?.latitude),
 												}}
-											/>
+											/> */}
 										</div>
 									</div>
 								</div>

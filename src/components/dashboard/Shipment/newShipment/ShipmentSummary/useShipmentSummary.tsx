@@ -28,6 +28,50 @@ function useShipmentSummary() {
 		initialSlide: 0,
 	};
 
+		const resetShipment = (shipmentCurrentTab: string, form_level: number) => {
+			const resetShipmentDetails = {
+				shipment_title: '',
+				shipment_description: '',
+				shipment_weight: 0,
+				images: [],
+				shipment_type: '',
+				start_location: {
+					location_id: '',
+					country: '',
+					state: '',
+					city: '',
+					address: '',
+					formattedAddress: '',
+					longitude: null,
+					latitude: null,
+				},
+				recipient_full_name: '',
+				recipient_email: '',
+				recipient_phone_number: '',
+				final_destination: {
+					location_id: '',
+					country: '',
+					state: '',
+					city: '',
+					address: '',
+					formattedAddress: '',
+					longitude: null,
+					latitude: null,
+				},
+				shipment_current_location: {},
+				shipment_heading_to: {},
+				shipment_addresses: [],
+			};
+
+			setState({
+				...state,
+				shipmentDetails: resetShipmentDetails,
+				shipmentCurrentTab,
+				form_level,
+				editShipment: false,
+			});
+		};
+		
 	const getCheckedShipment = () => {
 		const unchecked = state.allShipments.filter((obj: any) => obj.shipment_Status == 'UNCHECK');
 
@@ -56,7 +100,7 @@ function useShipmentSummary() {
 		const deliveryPriceTotal = items_array.reduce(
 			(total: number, obj: { checked: boolean; delivery_price: string }) => {
 				if (obj.checked === true) {
-					setTotalShipmentToCheckout(prevTotal => prevTotal + 1);
+					setTotalShipmentToCheckout((prevTotal) => prevTotal + 1);
 					const deliveryPrice =
 						typeof obj.delivery_price === 'number'
 							? obj.delivery_price
@@ -77,10 +121,6 @@ function useShipmentSummary() {
 		setUnCheckedShipment(updatedArray);
 		calculateTotalPrice(updatedArray);
 	};
-
-	useEffect(() => {
-		getCheckedShipment();
-	}, [state.allShipments]);
 
 	const handleShowModal = (selected_shipment: Record<string, string>) => {
 		setSelectedShipment(selected_shipment);
@@ -104,6 +144,7 @@ function useShipmentSummary() {
 			}
 		);
 	};
+
 	const handleRemoveItem = (shipment_id: string) => {
 		confirmAlert({
 			title: 'Remove?',
@@ -123,10 +164,7 @@ function useShipmentSummary() {
 		});
 	};
 	const handleAddShipment = () => {
-		setState({
-			...state,
-			shipmentCurrentTab: 'item1',
-		});
+		resetShipment('item1', 0);
 	};
 
 	const handlePayment = () => {
@@ -176,6 +214,7 @@ function useShipmentSummary() {
 			}
 		);
 	};
+
 	const handleSummary = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
@@ -185,6 +224,9 @@ function useShipmentSummary() {
 		});
 	};
 
+	useEffect(() => {
+		getCheckedShipment();
+	}, [state.allShipments]);
 	return {
 		handleSummary,
 		setShowShipmentModal,

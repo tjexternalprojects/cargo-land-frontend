@@ -87,3 +87,4 @@ export const AUpdateShipment = lazy(() => import('./superAdminDashboard/Shipment
 export const SearchShipmentModal  = lazy(() => import('./superAdminDashboard/Shipment/ShipmentIDModal'));
 export const RejectShipmentModal = lazy(()=>import('./superAdminDashboard/Shipment/RejectShipmentModal'))
 export const UpdateShipmentLocation = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentLocation'))
+export const UpdateShipmentPrice = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentPrice'))

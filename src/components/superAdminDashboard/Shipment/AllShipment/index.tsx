@@ -10,6 +10,7 @@ const Shipment = () => {
 		hasPreviousPage,
 		showModal,
 		selectedShipment,
+		setSelectedShipment,
 		setShowModal,
 		handleSelectShipment,
 		getAllShipment,
@@ -19,7 +20,7 @@ const Shipment = () => {
 		<div className="overflow-auto">
 			<div className="relative overflow-auto max-h-72-screen min-h-72-screen mt-5">
 				{loading ? (
-					<div className="w-full border flex items-center justify-center">
+					<div className="w-full flex items-center justify-center">
 						<RingLoader size={200} textColor="text-blue-900" />
 					</div>
 				) : (
@@ -69,17 +70,16 @@ const Shipment = () => {
 											? 'Door to Door'
 											: 'Airport to Airport'}
 									</td>
-									<td 
-									
-									
-									className={`
+									<td
+										className={`
 								 ${shipment.shipment_Status === 'UNCHECK' ? 'text-blue-500' : ''} 
 								 ${shipment.shipment_Status === 'CHECKED' ? 'text-green-700' : ''} 
 								 ${shipment.shipment_Status === 'TRANSIT' ? 'text-green-500' : ''} 
 								 ${shipment.shipment_Status === 'REJECTED' ? 'text-red-500' : ''} 
 								 font-extrabold px-6 py-4`}
-									>{shipment.shipment_Status}</td>
-									
+									>
+										{shipment.shipment_Status}
+									</td>
 								</tr>
 							))}
 						</tbody>
@@ -98,7 +98,11 @@ const Shipment = () => {
 			)}
 
 			{showModal && (
-				<ShipmentModal selectedShipment={selectedShipment} setShowModal={setShowModal} />
+				<ShipmentModal
+					modalSelectedShipment={selectedShipment}
+					setSelectedShipment={setSelectedShipment}
+					setShowSingleModal={setShowModal}
+				/>
 			)}
 		</div>
 	);

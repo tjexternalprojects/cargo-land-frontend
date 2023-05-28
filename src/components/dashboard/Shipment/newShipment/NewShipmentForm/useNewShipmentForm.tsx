@@ -298,7 +298,7 @@ function useNewShipmentForm() {
 		}
 	};
 
-	const getCounteryCovered = () => {
+	const getCountryCoveredMtd = () => {
 		getCountryCovered().then(
 			(response) => {
 				setCountryCovered(Object.values(response.data));
@@ -327,7 +327,7 @@ function useNewShipmentForm() {
 
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
 	useEffect(() => {
-		getCounteryCovered();
+		getCountryCoveredMtd();
 	}, []);
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED

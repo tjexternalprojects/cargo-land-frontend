@@ -1,5 +1,11 @@
 import { FC, useEffect, useState } from 'react';
-import { useJsApiLoader, GoogleMap, Marker, DirectionsRenderer } from '@react-google-maps/api';
+import {
+	useJsApiLoader,
+	GoogleMap,
+	Marker,
+	DirectionsRenderer,
+	Polyline,
+} from '@react-google-maps/api';
 
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
@@ -53,7 +59,6 @@ const MapDirection: FC<MapDirectionProps> = ({
 		}
 	}, [isLoaded, startLocation, midLocation, endLocation]);
 
-
 	useEffect(() => {
 		if (map && directionsResponse) {
 			if (movingMarker) {
@@ -96,7 +101,6 @@ const MapDirection: FC<MapDirectionProps> = ({
 		}
 	}, [map, directionsResponse, startLocation]);
 
-
 	return isLoaded ? (
 		<GoogleMap
 			center={startLocation}
@@ -110,12 +114,35 @@ const MapDirection: FC<MapDirectionProps> = ({
 			}}
 			onLoad={(map) => setMap(map)}
 		>
-			{map && <Marker position={startLocation} />}
+			{/* {map && <Marker position={startLocation} />}
 			{map && <Marker position={midLocation} />}
-			{map && <Marker position={endLocation} />}
+			{map && <Marker position={endLocation} />} */}
 
-
-			{directionsResponse && <DirectionsRenderer directions={directionsResponse} />}
+			{directionsResponse && (
+				<>
+					<DirectionsRenderer directions={directionsResponse} />
+					<Marker
+						position={startLocation}
+						icon={{
+							path: window.google.maps.SymbolPath.CIRCLE,
+							fillColor: '#ff0000', // Change the color code to the desired color
+							fillOpacity: 1,
+							strokeWeight: 0,
+							scale: 6,
+						}}
+					/>
+					<Marker
+						position={endLocation}
+						icon={{
+							path: window.google.maps.SymbolPath.CIRCLE,
+							fillColor: '#00ff00', // Change the color code to the desired color
+							fillOpacity: 1,
+							strokeWeight: 0,
+							scale: 6,
+						}}
+					/>
+				</>
+			)}
 		</GoogleMap>
 	) : (
 		<div>Loading Google Maps API...</div>

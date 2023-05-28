@@ -15,7 +15,7 @@ function useShipment() {
 	const [currentPage, setCurrentPage] = useState(Number(params.current_page));
 	const [hasNextPage, setHasNextPage] = useState();
 	const [hasPreviousPage, setHasPreviousPage] = useState();
-	const [showModal, setShowModal] = useState(false)
+	const [showModal, setShowModal] = useState<boolean>(false)
 
 	const getAllShipment = () => {
 		if (isNaN(currentPage)) {
@@ -68,6 +68,7 @@ function useShipment() {
 		hasPreviousPage,
 		showModal,
 		selectedShipment,
+		setSelectedShipment,
 		setShowModal,
 		handleSelectShipment,
 		getAllShipment,

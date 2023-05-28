@@ -16,13 +16,13 @@ function useTrackShipment() {
 		setLoading(false);
 	};
 
-	const getInidividualShipment = (index: number) => {
+	const getIndividualShipmentMtd = (index: number) => {
 		setSingleShipment(trackingShipments[index]);
 	};
 
 	useEffect(() => {
 		getActiveShipment();
-		getInidividualShipment(0);
+		getIndividualShipmentMtd(0);
 	}, [state.allShipments]);
 
 	useEffect(()=>{
@@ -30,7 +30,7 @@ function useTrackShipment() {
 		console.log( singleShipment?.current_location?.longitude)
 	},[state.trackingShipments])
 
-	return { trackingShipments, singleShipment, getActiveShipment, getInidividualShipment };
+	return { trackingShipments, singleShipment, getActiveShipment, getIndividualShipmentMtd };
 }
 
 export default useTrackShipment;

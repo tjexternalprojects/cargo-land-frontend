@@ -57,7 +57,6 @@ function ShipmentServices() {
 		return api.put(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
 	};
 
-
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
@@ -66,18 +65,28 @@ function ShipmentServices() {
 	// GET http://localhost:4300/shipment/get-all-shipment?shipment_Type=DOOR_TO_DOOR
 	// GET http://localhost:4300/shipment/get-all-shipment?shipment_status=pending
 
-	// ADMIN END-POINT
-	const adminGetAllShipments = (parms?: string) => {
-		return api.get('/shipment/get-all-shipment' + parms);
+	// ADMIN END-POINT  ========================================================================================================
+
+	const adminGetAllShipments = (params?: string) => {
+		return api.get('/shipment/get-all-shipment' + params);
 	};
 
-	const rejectShipment = (payload:Record<string, string>)=>{
-		return api.patch(`/shipment/update-shipment-rejected/${payload.shipment_id}`, {reason:payload.reason})
-	}
+	const rejectShipment = (payload: Record<string, string>) => {
+		return api.patch(`/shipment/update-shipment-rejected/${payload.shipment_id}`, {
+			reason: payload.reason,
+		});
+	};
 
-	const getSingleShipment = (shipment_id:string)=>{
-		return api.get('/shipment/get-single-shipment/'+shipment_id)
-	}
+	const getSingleShipment = (shipment_id: string) => {
+		return api.get('/shipment/get-single-shipment/' + shipment_id);
+	};
+
+	const updateShipmentPrice = (shipment_id: string, delivery_price:number) => {
+		return api.patch(`/shipment/update-single-shipment-price/${shipment_id}`, {
+			delivery_price: delivery_price,
+		});
+	};
+
 	// FOR HOME PAGE GRAPHS =================
 
 	const getGraphData = (duration: Record<string, string | number>) => {
@@ -170,6 +179,7 @@ function ShipmentServices() {
 		getSingleShipment,
 		getAllUserShipmentPaginated,
 		getShipmentInRange,
+		updateShipmentPrice,
 	};
 }
 
