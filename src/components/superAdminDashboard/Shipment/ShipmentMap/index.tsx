@@ -63,7 +63,7 @@ const TrackShipment = () => {
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<GoPackage />
 													</div>
-													<div className='flex justify-between items-center'>
+													<div className='flex justify-between items-start'>
 														{singleShipment?.start_location?.formattedAddress}
 														<div className='flex bg-blue-900 p-2 rounded-md text-white items-center justify-center cursor-pointer hover:bg-blue-800'><BsThreeDotsVertical /> </div>
 													</div>
@@ -82,7 +82,7 @@ const TrackShipment = () => {
 																	<BiCurrentLocation className="text-white" />
 																</div>
 
-																<div className='flex justify-between items-center'>
+																<div className='flex justify-between items-start'>
 																	{val?.shipment_addresses?.formattedAddress}
 																	<div className='flex bg-blue-900 p-2 rounded-md text-white items-center justify-center cursor-pointer hover:bg-blue-800'><BsThreeDotsVertical /> </div>
 																</div>
@@ -116,8 +116,11 @@ const TrackShipment = () => {
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<ImLocation />
 													</div>
-
-													{singleShipment?.final_destination?.formattedAddress}
+													<div className='flex justify-between items-start'>
+													{singleShipment?.final_destination?.formattedAddress} 
+																	<div className='flex bg-blue-900 p-2 rounded-md text-white items-center justify-center cursor-pointer hover:bg-blue-800'><BsThreeDotsVertical /> </div>
+																</div>
+													
 												</div>
 
 
