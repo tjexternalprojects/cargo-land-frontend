@@ -1,10 +1,64 @@
-import React from 'react'
-const index = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+import { BsThreeDotsVertical } from '@/assets';
+import React, { useState } from 'react';
+import useShipmentMenu from './useShipmentMenu';
+interface ShipmentMenuProps {
+	singleShipment: any;
+	location_id: string;
 }
+const Dropdown = ({ singleShipment, location_id }: ShipmentMenuProps) => {
+	const { toggleDropdown, isOpen } = useShipmentMenu(location_id);
 
-export default index
+	return (
+		<div>
+			<button
+				className="flex items-center justify-center p-2 font-medium text-white bg-blue-900 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+				onClick={toggleDropdown}
+			>
+				<BsThreeDotsVertical />
+			</button>
+			<div className="relative z-20 ">
+				<div
+					className={`absolute right-0 w-48 mt-2 origin-top-right bg-white rounded-md shadow-lg transition-transform transform ${
+						isOpen ? 'scale-100' : 'scale-0'
+					}`}
+				>
+					<div
+						className={`py-1 transition-opacity duration-300 ${
+							isOpen ? 'opacity-100' : 'opacity-0'
+						}`}
+						role="menu"
+						aria-orientation="vertical"
+						aria-labelledby="options-menu"
+					>
+						{singleShipment?.start_location?.location_id !==
+							singleShipment?.shipment_current_location && (
+							<div
+								className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+								role="menuitem"
+							>
+								Set as Current Location
+							</div>
+						)}
+						<div
+							className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+							role="menuitem"
+						>
+							Set as Next Check Point
+						</div>
+						{location_id !== singleShipment?.final_destination?.location_id &&
+							(location_id !== singleShipment?.start_location?.location_id && (
+								<div
+									className="block px-4 py-2 text-red-500 hover:bg-gray-200 cursor-pointer"
+									role="menuitem"
+								>
+									Delete Route
+								</div>
+							))}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default Dropdown;

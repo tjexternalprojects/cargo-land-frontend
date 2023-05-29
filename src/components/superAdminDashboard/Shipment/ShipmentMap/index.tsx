@@ -13,7 +13,7 @@ import {
 	SearchShipmentModal,
 	UpdateShipmentLocation,
 } from '@/components/';
-import { useGeocode, LoadingPage } from '@/components';
+import { useGeocode, LoadingPage, ShipmentMenu } from '@/components';
 import useTrackShipment from './useShipmentMap';
 
 const TrackShipment = () => {
@@ -37,7 +37,7 @@ const TrackShipment = () => {
 							<SearchShipmentModal setShowTrackingIdInput={setShowTrackingIdInput} />
 						) : (
 							<>
-								<div className="flex mt-8 gap-5 flex-col md:flex-row ">
+								<div className="flex mt-8 gap-5 flex-col md:flex-row bg-white p-10">
 									<div className=" md:w-7/12">
 										<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
 											Shipment Tracking
@@ -57,23 +57,24 @@ const TrackShipment = () => {
 												<div className="space-x-3 flex items-center">
 													<span className="pl-6">From</span>
 													<span className="text-lg font-extrabold text-red-500">(A)</span>
-
 												</div>
 												<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300  relative">
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<GoPackage />
 													</div>
-													<div className='flex justify-between items-start'>
+													<div className="flex justify-between items-start">
 														{singleShipment?.start_location?.formattedAddress}
-														<div className='flex bg-blue-900 p-2 rounded-md text-white items-center justify-center cursor-pointer hover:bg-blue-800'><BsThreeDotsVertical /> </div>
+														<ShipmentMenu
+															singleShipment={singleShipment}
+															location_id={singleShipment?.start_location?.location_id}
+														/>
 													</div>
 												</div>
 											</div>
 											{singleShipment?.shipment_Status === 'CHECKED' ||
-												singleShipment?.shipment_Status === 'TRANSIT' ? (
+											singleShipment?.shipment_Status === 'TRANSIT' ? (
 												<>
 													{singleShipment?.shipment_addresses.map((val: any, index: number) => (
-
 														<div key={index} className="text-sm">
 															{val.location_id}
 															<span className="pl-6">Through</span>
@@ -82,14 +83,15 @@ const TrackShipment = () => {
 																	<BiCurrentLocation className="text-white" />
 																</div>
 
-																<div className='flex justify-between items-start'>
-																	{val?.shipment_addresses?.formattedAddress}
-																	<div className='flex bg-blue-900 p-2 rounded-md text-white items-center justify-center cursor-pointer hover:bg-blue-800'><BsThreeDotsVertical /> </div>
+																<div className="flex justify-between items-start">
+																	{val?.formattedAddress}
+																	<ShipmentMenu
+																		singleShipment={singleShipment}
+																		location_id={val?.location_id}
+																	/>
 																</div>
-
 															</div>
 														</div>
-
 													))}
 
 													<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
@@ -116,14 +118,14 @@ const TrackShipment = () => {
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<ImLocation />
 													</div>
-													<div className='flex justify-between items-start'>
-													{singleShipment?.final_destination?.formattedAddress} 
-																	<div className='flex bg-blue-900 p-2 rounded-md text-white items-center justify-center cursor-pointer hover:bg-blue-800'><BsThreeDotsVertical /> </div>
-																</div>
-													
+													<div className="flex justify-between items-start">
+														{singleShipment?.final_destination?.formattedAddress}
+														<ShipmentMenu
+															singleShipment={singleShipment}
+															location_id={singleShipment?.final_destination?.location_id}
+														/>
+													</div>
 												</div>
-
-
 											</div>
 										</div>
 									</div>

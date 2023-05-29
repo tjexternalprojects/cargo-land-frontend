@@ -73,7 +73,7 @@ const handleSetCurrentLocation =async()=>{
 			
 			setShowLoader(false);
 			toast.success('New Location Created', {
-				progressClassName: 'bg-red-500 h-1',
+				progressClassName: 'bg-green-500 h-1',
 				autoClose: 3000,
 			});
 			setShowUpdateShipmentLocation(false)
