@@ -22,7 +22,7 @@ const index = () => {
 							<p className="text-lg text-gray-700 text-center mb-8">
 								Thank you for your payment! Your transaction has been processed successfully. <hr />
 								<br />
-								<span className="font-bold text-red-500 uppercase">{paymentStatus.message}</span>
+								<span className="font-bold text-green-500 uppercase">{paymentStatus.message}</span>
 							</p>
 							<div className="bg-gray-200 rounded-md p-4 mb-8">
 								<h3 className="text-lg font-medium text-gray-800 mb-4">Transaction details:</h3>

@@ -338,27 +338,7 @@ function useNewShipmentForm() {
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
 		}));
-		// setState((prevState) => ({
-		// 	...prevState,
-		// 	shipmentDetails: {
-		// 	  ...prevState.shipmentDetails,
-		// 	  shipment_current_location: { ...prevState.shipmentDetails.start_location },
-		// 	  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
-		// 	},
-		//   }));
-
-		//   const newArr:any = []
-		//   newArr.push(state.shipmentDetails.start_location)
-		//   newArr.push(shipmentDetails.final_destination)
-
-		  
-		//   setState((prevState) => ({
-		// 	...prevState,
-		// 	shipmentDetails: {
-		// 	  ...prevState.shipmentDetails,
-		// 	  shipment_addresses: newArr,
-		// 	},
-		//   }));
+		
 	}, [shipmentDetails]);
 
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
