@@ -5,7 +5,7 @@ import { Country } from 'country-state-city';
 import { useGeocode } from '@/components';
 
 function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>) {
-	const { updateShipment } = ShipmentServices();
+	const { updateShipmentLocation } = ShipmentServices();
 	const { fetchLocation } = useGeocode();
 	const [showLoader, setShowLoader] = useState(false);
 	const [shipmentCurrentLocation, setShipmentCurrentLocation] = useState<Record<string, string>>(
@@ -34,6 +34,15 @@ function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmen
 		setAddress(address);
 	};
 
+		const generateID = () => {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		return (
+			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Math.random().toString().substring(2, 6) +
+			Date.now().toString().slice(-4)
+		).substring(0, 9)
+	}
+
 	const getShipmentLocation = async (e: React.FormEvent<HTMLFormElement>) => {
 		setShowLoader(true);
 		e.preventDefault();
@@ -51,6 +60,7 @@ function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmen
 
 			const { lat, lng } = data.results[0].geometry.location;
 			const newAddress = {
+				location_id:generateID(),
 				country: country,
 				state: countryState,
 				city: stateCity,
@@ -67,21 +77,20 @@ function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmen
 
 const handleSetCurrentLocation =async()=>{
 	setShowLoader(true);
-	await updateShipment(singleShipmentId, shipmentCurrentLocation).then(
+	await updateShipmentLocation(singleShipmentId, shipmentCurrentLocation).then(
 		(response) => {
 			console.log(response);
-			
+
 			setShowLoader(false);
 			toast.success('New Location Created', {
 				progressClassName: 'bg-green-500 h-1',
 				autoClose: 3000,
 			});
-			setShowUpdateShipmentLocation(false)
+			setShowUpdateShipmentLocation(false);
 		},
 		(error) => {
 			console.log(error);
 			setShowLoader(false);
-
 		}
 	);
 }

@@ -81,8 +81,8 @@ function ShipmentServices() {
 		return api.get('/shipment/get-single-shipment/' + shipment_id);
 	};
 
-	const updateShipmentLocation = (shipment_id: string) => {
-		return api.get('/shipment/update-shipment-location/' + shipment_id);
+	const updateShipmentLocation = (shipment_id: string, shipment_data: any) => {
+		return api.patch('/shipment/update-shipment-location/' + shipment_id, shipment_data);
 	};
 
 	const updateShipmentPrice = (shipment_id: string, delivery_price: number) => {
@@ -184,6 +184,7 @@ function ShipmentServices() {
 		getAllUserShipmentPaginated,
 		getShipmentInRange,
 		updateShipmentPrice,
+		updateShipmentLocation,
 	};
 }
 
