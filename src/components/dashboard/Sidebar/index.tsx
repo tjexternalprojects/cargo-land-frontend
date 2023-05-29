@@ -30,7 +30,6 @@ const sidebar = () => {
 			>
 				<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2 ">
 					<Link to="/">
-						{' '}
 						<img src={logo} className=" w-24 h-8" alt="" />
 					</Link>
 				</div>

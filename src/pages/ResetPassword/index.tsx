@@ -34,10 +34,10 @@ const Login = () => {
 											<input
 												onChange={(e) => {
 													setErrorMessage(''),
-														setResetPassword({ ...resetPasswordObj, new_password: e.target.value });
+														setResetPassword({ ...resetPasswordObj, password: e.target.value });
 												}}
 												type="password"
-												value={resetPasswordObj.new_password}
+												value={resetPasswordObj.password}
 												minLength={6}
 												placeholder="Password"
 												className="text-sm flex-grow h-10 outline-none bg-white"
@@ -53,10 +53,10 @@ const Login = () => {
 													setErrorMessage(''),
 														setResetPassword({
 															...resetPasswordObj,
-															confirm_password: e.target.value,
+															confirmPassword: e.target.value,
 														});
 												}}
-												value={resetPasswordObj.confirm_password}
+												value={resetPasswordObj.confirmPassword}
 												minLength={6}
 												type="password"
 												placeholder="Confirm password"

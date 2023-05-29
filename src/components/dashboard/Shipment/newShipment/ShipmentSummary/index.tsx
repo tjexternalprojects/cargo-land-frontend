@@ -69,8 +69,8 @@ const RecipientDetails = () => {
 											>
 												{val.id}
 											</td>
-											<td className="p-3 w-1/4">{val.sendersAddress}</td>
-											<td className="p-3 w-1/4">{val.recepientAddress}</td>
+											<td className="p-3 w-1/4">{val.start_location?.formattedAddress}</td>
+											<td className="p-3 w-1/4">{val.final_destination?.formattedAddress}</td>
 											<td className="p-3 w-1/4 font-bold">
 												{val.shipment_Type === 'AIRPORT_TO_AIRPORT'
 													? 'Airport to Airport'

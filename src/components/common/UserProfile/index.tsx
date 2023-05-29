@@ -3,7 +3,11 @@ import { motion } from 'framer-motion';
 import { fadeSlide } from '@/utils/animations';
 import useUserProfile from './useUserProfile';
 import { AccountType, PersonalDetails } from '@/components';
-const index = () => {
+
+interface UserProfilePros{
+	isAdmin:boolean
+}
+const index = ({isAdmin}:UserProfilePros) => {
 	const { state, animationDirection, handleShowTab } = useUserProfile();
 	return (
 		<div className="space-y-10  w-full ">
@@ -12,7 +16,7 @@ const index = () => {
 			</div>
 			<div className=" flex gap-3 mb-32 mb:mb-0 w-full ">
 				{/* SIDE NAVIGATION */}
-				<div className="fixed mt-16 pb-3 md:pb-0 md:bg-transparent z-20 bg-gray-200 bottom-0 md:top-20 w-full md:w-auto ">
+				<div className="fixed mt-16 pb-3 md:pb-0 md:bg-transparent z-10 bg-gray-200 bottom-0 md:top-20 w-full md:w-auto ">
 					<div className="mt-3 md:mt-10 border-l-2 space-y-2 ">
 						<div
 							onClick={() => handleShowTab('item1', 1)}
@@ -24,7 +28,7 @@ const index = () => {
 						>
 							Personal&nbsp;Details
 						</div>
-						<div>
+						{isAdmin === false && <div>
 							<div
 								onClick={() => handleShowTab('item2', 2)}
 								className={`${
@@ -35,7 +39,7 @@ const index = () => {
 							>
 								Account&nbsp;Type
 							</div>
-						</div>
+						</div>}
 					</div>
 				</div>
 

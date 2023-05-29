@@ -50,6 +50,7 @@ function useLogin() {
 				}
 			},
 			(error) => {
+				console.log(error)
 				setShowLoading(false);
 				if (error.code == 'ERR_NETWORK') {
 					toast.error(error.message, {

@@ -4,10 +4,8 @@ function transactionServices() {
 	const initiatePayment = (payload: any) => {
 		return api.post('/payment/initiate', payload);
 	};
-	const verifyPayment = (params: Record<string, string | null>) => {
-		return api.get(
-			`/payment/verify?status=${params.status}&tx_ref=${params.txRef}&transaction_id=${params.transactionId}`
-		);
+	const verifyPayment = (payload: Record<string, string | null>) => {
+		return api.post('/payment/verify-webhook-4-cargoland', payload);
 	};
 
 	const allWithdrawal = () => {
@@ -15,7 +13,10 @@ function transactionServices() {
 	};
 
 	// { amount, accountNumber, bank, password, accountName }
-	const makeWithdrawal = (payload: Record<string, string | number>) => {};
+	const makeWithdrawal = (payload: Record<string, string | number>) => {
+		return api.get('/withdraw/withdraw', payload);
+
+	};
 
 	const userPaymentHistory = () => {
 		return api.get('/payment/getall-user-payment');
@@ -30,3 +31,8 @@ function transactionServices() {
 }
 
 export default transactionServices;
+
+
+// localhost:4300/shipment/update-single-shipment-price/:id with *{
+//     "delivery_price":23400
+// }* req.body

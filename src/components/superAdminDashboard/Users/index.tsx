@@ -10,7 +10,7 @@ const Users = () => {
 		<div>
 			<div className="relative overflow-auto mt-5  w-full">
 				{loading ? (
-					<div className="w-full border flex items-center justify-center">
+					<div className="w-full flex items-center justify-center">
 						<RingLoader size={200} textColor="text-blue-900" />
 					</div>
 				) : (

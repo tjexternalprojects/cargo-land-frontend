@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import {
 	AiOutlineClose,
 	BiCloudUpload,
@@ -28,6 +28,10 @@ const NewShipmentForm = () => {
 		handleChangeState,
 		handleChangeCity,
 		handleChangeAddress,
+		handleChangeAirport,
+		handleChangeDeliveryType,
+		airportList,
+		airport,
 		state,
 		stateCity,
 		address,
@@ -38,6 +42,7 @@ const NewShipmentForm = () => {
 		image_slider_settings,
 		shipmentDetails,
 	} = useNewShipmentForm();
+
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full ">
@@ -102,6 +107,7 @@ const NewShipmentForm = () => {
 								<input
 									className="w-full outline-none"
 									type="number"
+									min={0}
 									value={shipmentDetails.shipment_weight ?? ''}
 									onChange={(e) =>
 										setShipmentDetails({
@@ -158,6 +164,7 @@ const NewShipmentForm = () => {
 											className="hidden"
 											onChange={handleImageChange}
 											accept="image/*"
+											
 										/>
 									</div>
 								</label>
@@ -165,6 +172,33 @@ const NewShipmentForm = () => {
 						)}
 					</div>
 
+					{/* Delivery type */}
+					<div className="mt-7  shadow-sm rounded-sm p-4 bg-white">
+						<div>
+							<small className="text-gray-400 font-bold">
+								Delivery Type <span className="text-red-500"> * </span>
+							</small>
+							<div className=" border-b-2 flex  mt-2 p-2 bg-white">
+								<select
+									className="w-full outline-none bg-white"
+									value={(shipmentDetails.shipment_type as string) ?? ''}
+									onChange={(e) =>handleChangeDeliveryType(e.target.value)}
+									required
+								>
+									<option value="" disabled>
+										Select Delivery Type
+									</option>
+
+									<option value="door_to_door" className="space-x-10">
+										Door to Door
+									</option>
+									<option value="airport_to_airport" className="space-x-10">
+										Airport to Airport
+									</option>
+								</select>
+							</div>
+						</div>
+					</div>
 					<div className="mt-7  shadow-sm rounded-sm p-4 bg-white">
 						<label className="text-lg text-gray-400">Shipment Current Location for pickup</label>
 
@@ -177,7 +211,8 @@ const NewShipmentForm = () => {
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
-										className="w-full outline-none"
+									disabled={shipmentDetails.shipment_type === ''}
+										className="w-full outline-none bg-white"
 										value={JSON.stringify(country)}
 										onChange={(e) => handleChangeCountry(JSON.parse(e.target.value))}
 										required
@@ -200,14 +235,14 @@ const NewShipmentForm = () => {
 							</div>
 
 							{/* STATE */}
-							<div>
+							{shipmentDetails.shipment_type === 'door_to_door' && (	<><div>
 								<small className="text-gray-400 font-bold">
 									State
 									<span className="text-red-500"> * </span>
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
-										className="w-full outline-none"
+										className="w-full outline-none bg-white"
 										value={JSON.stringify(countryState)}
 										onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
 										disabled={Object.keys(country).length === 0}
@@ -226,74 +261,101 @@ const NewShipmentForm = () => {
 									</div>
 								</div>
 							</div>
+								{/* // CITY */}
+								<div>
+									<small className="text-gray-400 font-bold">
+										City
+										<span className="text-red-500"> * </span>
+									</small>
+									<div className=" flex  border-b-2 mt-2 p-2">
+										<select
+											disabled={Object.keys(countryState).length === 0}
+											className="w-full outline-none bg-white"
+											value={JSON.stringify(stateCity)}
+											onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
+											required
+										>
+											<option value={0}>Select City</option>
 
-							{/* CITY */}
-							<div>
-								<small className="text-gray-400 font-bold">
-									City
-									<span className="text-red-500"> * </span>
-								</small>
-								<div className=" flex  border-b-2 mt-2 p-2">
-									<select
-										disabled={Object.keys(countryState).length === 0}
-										className="w-full outline-none"
-										value={JSON.stringify(stateCity)}
-										onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
-										required
-									>
-										<option value={0}>Select City</option>
+											{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
+												(cities, key) => (
+													<option value={JSON.stringify(cities)} key={key}>
+														{cities?.name}
+													</option>
+												)
+											)}
+										</select>
+										<div className="text-xl text-gray-500">
+											<MdOutlineMyLocation />
+										</div>
+									</div>
+								</div><div className="mt-3">
+									<small className=" text-gray-400 font-bold">
+										Address
+										<span className="text-red-500"> * </span>
+									</small>
+									<div className=" flex  border-b-2 mt-2 p-2">
+										<div className="text-xl text-gray-500">
+											<RiSearch2Line />
+										</div>
+										<input
+											type="text"
+											className="w-full outline-none px-2 bg-white"
+											value={address ?? ''}
+											placeholder="type in shipment street address location"
+											onChange={(e) => handleChangeAddress(e.target.value)}
+											disabled={Object.keys(stateCity).length === 0}
+											required />
+										<div className="text-xl text-gray-500">
+											<MdAddLocationAlt />
+										</div>
+									</div>
+								</div></>
+							)}
+							{shipmentDetails.shipment_type === 'airport_to_airport' && (
+								<div>
+									<small className="text-gray-400 font-bold">
+										Airports
+										<span className="text-red-500"> * </span>
+									</small>
+									<div className=" flex  border-b-2 mt-2 p-2">
+										<select
+											disabled={Object.keys(country).length === 0}
+											className="w-full outline-none bg-white"
+											value={JSON.stringify(airport)}
+											onChange={(e) => handleChangeAirport(JSON.parse(e.target.value))}
+											required
+										>
+											<option value="">Select Airport</option>
 
-										{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
-											(cities, key) => (
-												<option value={JSON.stringify(cities)} key={key}>
-													{cities?.name}
+											{airportList?.map((airport:any, key:number) => (
+											
+												<option value={JSON.stringify(airport)}  key={key}>
+													{airport.name}, {airport.city}
 												</option>
-											)
-										)}
-									</select>
-									<div className="text-xl text-gray-500">
-										<MdOutlineMyLocation />
+											))}
+										</select>
+										<div className="text-xl text-gray-500">
+											<MdOutlineMyLocation />
+										</div>
 									</div>
 								</div>
-							</div>
-							<div className="mt-3">
-								<small className=" text-gray-400 font-bold">
-									Address
-									<span className="text-red-500"> * </span>
-								</small>
-								<div className=" flex  border-b-2 mt-2 p-2">
-									<div className="text-xl text-gray-500">
-										<RiSearch2Line />
-									</div>
-									<input
-										type="text"
-										className="w-full outline-none px-2 bg-white"
-										value={address ?? ''}
-										placeholder="type in shipment street address location"
-										onChange={(e) => handleChangeAddress(e.target.value)}
-										disabled={Object.keys(stateCity).length === 0}
-										required
-									/>
-									<div className="text-xl text-gray-500">
-										<MdAddLocationAlt />
-									</div>
-								</div>
-							</div>
-							{shipmentDetails.current_location?.latitude &&
-								shipmentDetails.current_location?.longitude && (
+							)}
+							{shipmentDetails.start_location?.latitude &&
+								shipmentDetails.start_location?.longitude && (
 									<>
 										<AddressMap
 											formatted_address={
-												shipmentDetails?.current_location?.formattedAddress as string
+												shipmentDetails?.start_location?.formattedAddress as string
 											}
 											geoLocation={{
-												lng: shipmentDetails.current_location?.longitude as number,
-												lat: shipmentDetails.current_location?.latitude as number,
+												lng: shipmentDetails.start_location?.longitude as number,
+												lat: shipmentDetails.start_location?.latitude as number,
 											}}
 										/>
 										<div className=" font-extrabold text-xl text-red-500">
 											<span className="underline">Address Found: </span>
-											{shipmentDetails.current_location?.formattedAddress}
+											{shipmentDetails.start_location?.formattedAddress}
 										</div>
 									</>
 								)}
@@ -307,7 +369,7 @@ const NewShipmentForm = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-4">
-						{shipmentDetails.current_location?.formattedAddress == '' ? (
+						{shipmentDetails.start_location?.formattedAddress == '' ? (
 							<button
 								disabled={showLoader}
 								type="submit"

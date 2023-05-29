@@ -102,7 +102,7 @@ const home = () => {
 					</div>
 					<hr />
 					{transactionHistoryLoader ? (
-						<div className="w-full border flex items-center justify-center mt-3">
+						<div className="w-full flex items-center justify-center mt-3">
 							<RingLoader size={50} textColor="text-blue-900" />
 						</div>
 					) : (
@@ -172,7 +172,7 @@ const home = () => {
 					<hr />
 					<div className="mt-3">
 						{latestShipmentLoader ? (
-							<div className="w-full border flex items-center justify-center">
+							<div className="w-full flex items-center justify-center">
 								<RingLoader size={50} textColor="text-blue-900" />
 							</div>
 						) : (
@@ -211,12 +211,12 @@ const home = () => {
 												<MapDirection
 													height="30vh"
 													startLocation={{
-														lng: parseFloat(val.current_location.longitude),
-														lat: parseFloat(val.current_location.latitude),
+														lng: parseFloat(val.start_location.longitude),
+														lat: parseFloat(val.start_location.latitude),
 													}}
 													endLocation={{
-														lng: parseFloat(val.shipment_destination.longitude),
-														lat: parseFloat(val.shipment_destination.latitude),
+														lng: parseFloat(val.final_destination.longitude),
+														lat: parseFloat(val.final_destination.latitude),
 													}}
 												/>
 											</div>

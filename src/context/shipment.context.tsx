@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { ShipmentSummaryInterface } from '@/interfaces/shipmentInterface';
 function GeneralContext() {
+
 	const shipmentDetails = {
 		shipment_title: '',
 		shipment_description: '',
 		shipment_weight: 0,
 		images: [],
-		current_location: {
+		shipment_type: '',
+		start_location: {
+			location_id: '',
 			country: '',
 			state: '',
 			city: '',
@@ -17,8 +20,9 @@ function GeneralContext() {
 		},
 		recipient_full_name: '',
 		recipient_email: '',
-		shipment_type: '',
-		shipment_destination: {
+		recipient_phone_number: '',
+		final_destination: {
+			location_id: '',
 			country: '',
 			state: '',
 			city: '',
@@ -27,8 +31,12 @@ function GeneralContext() {
 			longitude: null,
 			latitude: null,
 		},
+		shipment_current_location: {},
+		shipment_heading_to: {},
+		shipment_addresses: [],
 	};
 
+	
 	const allShipments: never[] = [];
 	const trackingShipments: any = [];
 	const shipmentCurrentTab = 'item1';

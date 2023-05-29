@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { AppContext, AppContextType } from '@/context';
 import {
@@ -19,13 +19,26 @@ function useSidebar() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const user_info = localStorage.getItem('user_info');
 	const userInfo = user_info ? JSON.parse(user_info) : null;
-	const handleToggleSidebar = () => {
+	const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
+	const location = useLocation();
+	const [activeRoute, setActiveRoute] = useState(location.pathname);
+	const [activeSubRoute, setActiveSubRoute]= useState("")
+
+
+	const handleToggleSidebar = (activePage:string, sub_val:boolean=false) => {
+
+			setActiveRoute(activePage);
+			sub_val == true && setActiveSubRoute(activePage)
 		setState((prevState) => ({
 			...prevState,
 			toggleAdminSideBar: !state.toggleAdminSideBar,
 		}));
 	};
-	const location = useLocation();
+
+
+	  const handleToggleSubMenu = (index:number) => {
+			setActiveSubMenu(index === activeSubMenu ? null : index);
+		};
 	const navigationLinks = [
 		{
 			route_to: '/admin',
@@ -33,26 +46,51 @@ function useSidebar() {
 			icon: TbLayoutDashboard,
 		},
 		{
+			name: 'Shipment',
+			icon: GoPackage,
+			sub_menu: [
+				{
+					route_to: '/admin/shipment/' + useParams().current_page,
+					name: 'All Shipment',
+				},
+				{
+					route_to: '/admin/shipment/update/' + useParams().shipment_id,
+					name: 'Update Shipment',
+				},
+			],
+		},
+		{
 			route_to: '/admin/users/' + useParams().current_page,
 			name: 'Users',
 			icon: BiUserPin,
 		},
-		{
-			route_to: '/admin/track_shipment',
-			name: 'Track Shipment',
-			icon: TbTruckDelivery,
-		},
-		{
-			route_to: '/admin/transactions',
-			name: 'Transactions',
-			icon: GrTransaction,
-		},
-		{
-			route_to: '/admin/shipment',
-			name: 'Shipment',
-			icon: GoPackage,
-		},
+		// {
+		// 	route_to: '/admin/transactions',
+		// 	name: 'Transactions',
+		// 	icon: GrTransaction,
+		// },
 	];
-	return { userInfo, state, navigationLinks, location, handleToggleSidebar };
+
+	const isRouteActive = (route: string): boolean => {
+		return useLocation().pathname.startsWith(route);
+	  };
+	
+	// useEffect(() => {
+	// 	const matchedLink = navigationLinks.find((link) => link?.sub_menu?.route_to === activeRoute);
+	// 	if (matchedLink) {
+	// 		setNewRoute(matchedLink.route_to as string);
+	// 	}
+	// }, [newRoute]);
+
+	return {
+		userInfo,
+		state,
+		navigationLinks,
+		location,
+		activeSubMenu,
+		activeSubRoute,	
+		activeRoute, isRouteActive, handleToggleSidebar,
+		handleToggleSubMenu,
+	};
 }
 export default useSidebar;

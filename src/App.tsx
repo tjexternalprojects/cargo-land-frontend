@@ -7,7 +7,7 @@ import {
 	TrackShipment,
 	AdminHome,
 	AUsers,
-	ATrackShipment,
+	AUpdateShipment,
 	ATransactions,
 	AShipment,
 	LoadingPage,
@@ -50,7 +50,7 @@ function App() {
 								<Route path="/dashboard/all_shipment/:current_page" element={<AllShipment />} />
 								<Route path="/dashboard/track_shipment" element={<TrackShipment />} />
 								<Route path="/dashboard/history" element={<History />} />
-								<Route path="/dashboard/user" element={<UserProfile />} />
+								<Route path="/dashboard/user" element={<UserProfile isAdmin={false} />} />
 								<Route path="/dashboard/payment/verify" element={<VerifyPayment />} />
 							</Route>
 						</Route>
@@ -58,9 +58,10 @@ function App() {
 							<Route path="/admin" element={<Admin />}>
 								<Route path="" element={<AdminHome />} />
 								<Route path="/admin/users/:current_page" element={<AUsers />} />
-								<Route path="/admin/track_shipment" element={<ATrackShipment />} />
+								<Route path="/admin/shipment/update/:shipment_id" element={<AUpdateShipment />} />
 								<Route path="/admin/transactions" element={<ATransactions />} />
-								<Route path="/admin/shipment" element={<AShipment />} />
+								<Route path="/admin/shipment/:current_page" element={<AShipment />} />
+								<Route path="/admin/profile" element={<UserProfile isAdmin={true} />} />
 							</Route>
 						</Route>
 						<Route path="/" element={<LandingPage />} />

@@ -11,7 +11,7 @@ import { useGeocode } from '@/components';
 import useTrackShipment from './useTrackShipment';
 import { Link } from 'react-router-dom';
 const TrackShipment = () => {
-	const { trackingShipments, singleShipment, getInidividualShipment } = useTrackShipment();
+	const { trackingShipments, singleShipment, getIndividualShipmentMtd } = useTrackShipment();
 	return (
 		<div className="mt-8 ">
 			<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase ">
@@ -24,8 +24,10 @@ const TrackShipment = () => {
 							{trackingShipments.map((val: any, index: number) => (
 								<div
 									key={index}
-									onClick={() => getInidividualShipment(index)}
-									className={`hover:bg-red-100 hover:text-black  cursor-pointer rounded-sm p-2 shadow flex justify-between sm:items-center sm:flex-row flex-col sm:space-x-4  ${val?.id === singleShipment?.id && 'bg-red-500 text-white'}`}
+									onClick={() => getIndividualShipmentMtd(index)}
+									className={`  cursor-pointer rounded-sm p-2 hover:shadow flex justify-between sm:items-center sm:flex-row flex-col sm:space-x-4  ${
+										val?.id === singleShipment?.id ? 'bg-blue-900 hover:text-black text-white' : ''
+									} `}
 								>
 									<div>
 										<small>Shipment ID</small>
@@ -38,51 +40,51 @@ const TrackShipment = () => {
 							))}
 						</div>
 						<hr className="my-5" />
-						{singleShipment && <div>
-							<div className="flex items-start space-x-2">
-								<div className="flex items-center flex-col">
-									<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
-										<GoPackage />
+						{singleShipment && (
+							<div>
+								<div className="flex items-start space-x-2">
+									<div className="flex items-center flex-col">
+										<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
+											<GoPackage />
+										</div>
+										<div className=" h-10 w-0.5 bg-slate-300"></div>
 									</div>
-									<div className=" h-10 w-0.5 bg-slate-300"></div>
-								</div>
-								<div className="text-sm">
-									<span>From</span>
-									<div className="text-black font-bold">
-										{singleShipment?.sendersAddress}
+									<div className="text-sm">
+										<span>From</span>
+										<div className="text-black font-bold">{singleShipment?.sendersAddress}</div>
 									</div>
 								</div>
-							</div>
 
-							<div className="flex items-start space-x-2">
-								<div className="flex items-center flex-col">
-									<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
-										<BiCurrentLocation />
+								<div className="flex items-start space-x-2">
+									<div className="flex items-center flex-col">
+										<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
+											<BiCurrentLocation />
+										</div>
+										<div className=" h-10 w-0.5 bg-slate-300"></div>
 									</div>
-									<div className=" h-10 w-0.5 bg-slate-300"></div>
-								</div>
-								<div className="text-sm">
-									<span>Current location</span>
-									<div className="text-black font-bold">
-										{singleShipment?.current_shipment_location}
+									<div className="text-sm">
+										<span>Current location</span>
+										<div className="text-black font-bold">
+											{singleShipment?.current_shipment_location}
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<div className="flex items-start space-x-2">
-								<div className="flex items-center flex-col">
-									<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
-										<ImLocation />
+								<div className="flex items-start space-x-2">
+									<div className="flex items-center flex-col">
+										<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center">
+											<ImLocation />
+										</div>
 									</div>
-								</div>
-								<div className="text-sm">
-									<span>To</span>
-									<div className="text-black font-bold">
-										{singleShipment?.recepientAddress}
+									<div className="text-sm">
+										<span>To</span>
+										<div className="text-black font-bold">
+											{singleShipment?.final_destination?.formattedAddress}
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>}
+						)}
 					</div>
 					<div className=" w-full ">
 						<div className="flex flex-col md:flex-row    justify-between w-full gap-5">
@@ -112,32 +114,31 @@ const TrackShipment = () => {
 									<span>Address</span>
 								</div>
 								<div>
-									<h1 className="text-xl font-bold">{singleShipment?.recepientAddress}</h1>
+									<h1 className="text-xl font-bold">
+										{singleShipment?.final_destination?.formattedAddress}
+									</h1>
 								</div>
 							</div>
 						</div>
 						<div className="mt-5 ">
-							<MapDirection height="80vh" startLocation={{ lng: parseFloat(singleShipment?.current_location?.longitude), lat: parseFloat(singleShipment?.current_location?.latitude) }}
-								endLocation={{ lng: parseFloat(singleShipment?.shipment_destination?.longitude), lat: parseFloat(singleShipment?.shipment_destination?.latitude) }} />
+							{singleShipment ? (
+								<MapDirection
+									height="80vh"
+									startLocation={{
+										lng: parseFloat(singleShipment?.start_location?.longitude),
+										lat: parseFloat(singleShipment?.start_location?.latitude),
+									}}
+									endLocation={{
+										lng: parseFloat(singleShipment?.final_destination?.longitude),
+										lat: parseFloat(singleShipment?.final_destination?.latitude),
+									}}
+								/>
+							) : (
+								<div className="text-xl w-full h-full text-center uppercase font-extrabold">
+									Select a shipment to display details
+								</div>
+							)}
 						</div>
-						{/* <div className="mt-5">
-					<h3>Item List</h3>
-					<table className=" w-full">
-						<thead>
-							<tr>
-								<td>Item Id</td>
-								<td>Item Name</td>
-								<td>Item Category</td>
-								<td>Item Weight</td>
-								<td>Item Quantity</td>
-								<td>Actions</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr></tr>
-						</tbody>
-					</table>
-				</div> */}
 					</div>
 				</div>
 			) : (

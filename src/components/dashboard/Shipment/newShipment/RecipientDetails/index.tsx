@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import {
+	BsTelephoneForward,
 	FaUserEdit,
 	MdAddLocationAlt,
 	MdAttachEmail,
@@ -10,6 +11,9 @@ import {
 } from '@/assets';
 import { AddressMap, RingLoader } from '@/components';
 import { Country, State, City } from 'country-state-city';
+import PhoneInputWithCountry from 'react-phone-number-input/react-hook-form';
+import 'react-phone-number-input/style.css';
+import { useForm } from 'react-hook-form';
 
 import useRecipientDetails from './useRecipientDetails';
 
@@ -23,6 +27,9 @@ const RecipientDetails = () => {
 		handleChangeCity,
 		handleChangeAddress,
 		handleUpdateShipment,
+		handleChangeAirport,
+		airportList,
+		airport,
 		state,
 		stateCity,
 		address,
@@ -31,6 +38,8 @@ const RecipientDetails = () => {
 		country,
 		shipmentDetails,
 	} = useRecipientDetails();
+	const { control, handleSubmit } = useForm();
+
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full">
@@ -39,7 +48,7 @@ const RecipientDetails = () => {
 				</div>
 				<p className="text-xl mt-4">Recipient Details</p>
 
-				<form className=" w-9/12 my-5" onSubmit={handleRecipientDetails}>
+				<form className=" w-9/12 my-5" onSubmit={handleSubmit(handleRecipientDetails)}>
 					<div className="bg-white p-4 shadow-sm rounded-sm">
 						<label className="text-sm text-gray-400">
 							Recipient Full Name <span className="text-red-500"> * </span>{' '}
@@ -85,36 +94,25 @@ const RecipientDetails = () => {
 							</div>
 						</div>
 
-						<div>
-							<small className="text-gray-400 font-bold">
-								Delivery Type <span className="text-red-500"> * </span>
-							</small>
-							<div className=" border-b-2 flex  mt-2 p-2 bg-white">
-								<select
-									className="w-full outline-none"
-									value={(shipmentDetails.shipment_type as string) ?? ''}
-									onChange={(e) =>
+						<div className="mt-3">
+							<label className="text-sm text-gray-400">
+								Recipient Phone Number <span className="text-red-500"> * </span>
+							</label>
+							<div className=" border-b-2 flex  mt-2">
+								<PhoneInputWithCountry
+									name="phoneInputWithCountrySelect"
+									control={control}
+									rules={{ required: true }}
+									placeholder="Enter phone number"
+									className=" outline-none focus:outline-none border-none"
+									value={(shipmentDetails.recipient_phone_number as string) ?? ''}
+									onChange={(e: string) =>
 										setShipmentDetails({
 											...shipmentDetails,
-											shipment_type: e.target.value,
+											recipient_phone_number: e,
 										})
 									}
-									required
-								>
-									<option value="" disabled>
-										Select Delivery Type
-									</option>
-
-									<option value="door_to_door" className="space-x-10">
-										Door to Door
-									</option>
-									<option value="airport_to_airport" className="space-x-10">
-										Airport to Airport
-									</option>
-								</select>
-								<div className="text-xl text-gray-500">
-									{Country.getCountryByCode(country?.isoCode)?.flag}
-								</div>
+								/>
 							</div>
 						</div>
 					</div>
@@ -150,101 +148,134 @@ const RecipientDetails = () => {
 								</div>
 							</div>
 
-							<div>
-								<small className="text-gray-400 font-bold">
-									State <span className="text-red-500"> * </span>
-								</small>
-								<div className=" border-b-2 flex  mt-2 p-2 bg-white">
-									<select
-										className="w-full outline-none"
-										value={JSON.stringify(countryState)}
-										onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
-										disabled={Object.keys(country).length === 0}
-										required
-									>
-										<option value="0">Select State</option>
+							{state.shipmentDetails.shipment_type === 'airport_to_airport' && (
+								<div>
+									<small className="text-gray-400 font-bold">
+										Airports
+										<span className="text-red-500"> * </span>
+									</small>
+									<div className=" flex  border-b-2 mt-2 p-2">
+										<select
+											disabled={Object.keys(country).length === 0}
+											className="w-full outline-none bg-white"
+											value={JSON.stringify(airport)}
+											onChange={(e) => handleChangeAirport(JSON.parse(e.target.value))}
+											required
+										>
+											<option value="">Select Airport</option>
 
-										{State.getStatesOfCountry(country?.isoCode).map((states) => (
-											<option value={JSON.stringify(states)} key={states?.isoCode}>
-												{states?.name}
-											</option>
-										))}
-									</select>
-									<div className="text-xl text-gray-500">
-										<MdOutlineShareLocation />
-									</div>
-								</div>
-							</div>
-
-							<div>
-								<small className="text-gray-400 font-bold">
-									City <span className="text-red-500"> * </span>
-								</small>
-								<div className=" border-b-2 flex  mt-2 p-2 bg-white">
-									<select
-										disabled={Object.keys(countryState).length === 0}
-										className="w-full outline-none"
-										value={JSON.stringify(stateCity)}
-										onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
-										required
-									>
-										<option value="0">Select City</option>
-
-										{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
-											(cities, key) => (
-												<option value={JSON.stringify(cities)} key={key}>
-													{cities?.name}
+											{airportList.map((airport:any, key:number) => (
+												<option value={JSON.stringify(airport)} key={key}>
+													{airport.name}, {airport.city}
 												</option>
-											)
-										)}
-									</select>
-									<div className="text-xl text-gray-500">
-										<MdOutlineMyLocation />
+											))}
+										</select>
+										<div className="text-xl text-gray-500">
+											<MdOutlineMyLocation />
+										</div>
 									</div>
 								</div>
-							</div>
+							)}
 
-							<div className="mt-3">
-								<small className=" text-gray-400 font-bold">
-									Address <span className="text-red-500"> * </span>
-								</small>
-								<div className=" border-b-2 flex  mt-2 p-2 bg-white">
-									<div className="text-xl text-gray-500">
-										<RiSearch2Line />
+							{state.shipmentDetails.shipment_type === 'door_to_door' && (
+								<>
+									<div>
+										<small className="text-gray-400 font-bold">
+											State <span className="text-red-500"> * </span>
+										</small>
+										<div className=" border-b-2 flex  mt-2 p-2 bg-white">
+											<select
+												className="w-full outline-none"
+												value={JSON.stringify(countryState)}
+												onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
+												disabled={Object.keys(country).length === 0}
+												required
+											>
+												<option value="0">Select State</option>
+
+												{State.getStatesOfCountry(country?.isoCode).map((states) => (
+													<option value={JSON.stringify(states)} key={states?.isoCode}>
+														{states?.name}
+													</option>
+												))}
+											</select>
+											<div className="text-xl text-gray-500">
+												<MdOutlineShareLocation />
+											</div>
+										</div>
 									</div>
-									<input
-										type="text"
-										className="w-full outline-none px-2 bg-white"
-										value={address ?? ''}
-										placeholder="type in shipment street address location"
-										onChange={(e) => handleChangeAddress(e.target.value)}
-										disabled={Object.keys(stateCity).length === 0}
-										required
-									/>
-									<div className="text-xl text-gray-500">
-										<MdAddLocationAlt />
+
+									<div>
+										<small className="text-gray-400 font-bold">
+											City <span className="text-red-500"> * </span>
+										</small>
+										<div className=" border-b-2 flex  mt-2 p-2 bg-white">
+											<select
+												disabled={Object.keys(countryState).length === 0}
+												className="w-full outline-none"
+												value={JSON.stringify(stateCity)}
+												onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
+												required
+											>
+												<option value="0">Select City</option>
+
+												{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
+													(cities, key) => (
+														<option value={JSON.stringify(cities)} key={key}>
+															{cities?.name}
+														</option>
+													)
+												)}
+											</select>
+											<div className="text-xl text-gray-500">
+												<MdOutlineMyLocation />
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							{shipmentDetails.shipment_destination?.latitude &&
-								shipmentDetails.shipment_destination?.longitude && (
+
+									<div className="mt-3">
+										<small className=" text-gray-400 font-bold">
+											Address <span className="text-red-500"> * </span>
+										</small>
+										<div className=" border-b-2 flex  mt-2 p-2 bg-white">
+											<div className="text-xl text-gray-500">
+												<RiSearch2Line />
+											</div>
+											<input
+												type="text"
+												className="w-full outline-none px-2 bg-white"
+												value={address ?? ''}
+												placeholder="type in shipment street address location"
+												onChange={(e) => handleChangeAddress(e.target.value)}
+												disabled={Object.keys(stateCity).length === 0}
+												required
+											/>
+											<div className="text-xl text-gray-500">
+												<MdAddLocationAlt />
+											</div>
+										</div>
+									</div>
+								</>
+							)}
+							{shipmentDetails.final_destination?.latitude &&
+								shipmentDetails.final_destination?.longitude && (
 									<>
 										<AddressMap
 											formatted_address={
-												shipmentDetails?.shipment_destination?.formattedAddress as string
+												shipmentDetails?.final_destination?.formattedAddress as string
 											}
 											geoLocation={{
-												lng: shipmentDetails.shipment_destination?.longitude as number,
-												lat: shipmentDetails.shipment_destination?.latitude as number,
+												lng: shipmentDetails.final_destination?.longitude as number,
+												lat: shipmentDetails.final_destination?.latitude as number,
 											}}
 										/>
 										<div className=" font-extrabold text-xl text-red-500">
 											<span className="underline">Address Found: </span>
-											{shipmentDetails.shipment_destination?.formattedAddress}
+											{shipmentDetails.final_destination?.formattedAddress}
 										</div>
 									</>
 								)}
-							{showLoader && shipmentDetails.shipment_destination?.formattedAddress === '' && (
+							{showLoader && shipmentDetails.final_destination?.formattedAddress === '' && (
 								<div className="w-full flex items-center justify-center">
 									<RingLoader text="Validating address..." textColor="text-blue-900" />
 								</div>
@@ -254,7 +285,7 @@ const RecipientDetails = () => {
 
 					<hr className="mt-5" />
 					<div className="mt-5">
-						{shipmentDetails.shipment_destination?.formattedAddress === '' ? (
+						{shipmentDetails.final_destination?.formattedAddress === '' ? (
 							<button
 								disabled={showLoader}
 								type="submit"

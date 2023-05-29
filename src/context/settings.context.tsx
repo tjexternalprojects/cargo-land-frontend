@@ -9,6 +9,7 @@ function SettingsContext() {
 	const showForgetPassword = false;
 	const showResendToken = false;
 	const resendTokenMessage = '';
+	const activePage = ''
 	return {
 		notifications,
 		toggleNotification,
@@ -18,6 +19,7 @@ function SettingsContext() {
 		showForgetPassword,
 		showResendToken,
 		resendTokenMessage,
+		activePage,
 	};
 }
 

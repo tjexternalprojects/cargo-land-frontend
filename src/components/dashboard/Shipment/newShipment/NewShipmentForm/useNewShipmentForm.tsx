@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
+import axios from 'axios';
+import airportCodes from 'airport-codes';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
@@ -17,10 +19,13 @@ function useNewShipmentForm() {
 	const [countryState, setCountryState] = useState<any>({});
 	const [stateCity, setStateCity] = useState<any>({});
 	const [address, setAddress] = useState<string>('');
+	const [airportList, setAirportList] = useState<Record<string, string>[]>([]);
+	const [airport, setAirport] = useState<any>({});
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
 
 	// function to handle shipment data details
-	interface CurrentLocation {
+	interface StartLocation {
+		location_id?: string,
 		country: any;
 		state: any;
 		city: any;
@@ -35,37 +40,49 @@ function useNewShipmentForm() {
 		shipment_description?: string;
 		shipment_weight?: string;
 		images?: any;
-		current_location?: CurrentLocation;
+		shipment_type?: string;
+		start_location?: StartLocation;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
 
+	const generateID = () => {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		return (
+			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Math.random().toString().substring(2, 6) +
+			Date.now().toString().slice(-4)
+		).substring(0, 9)
+	}
+
 	const resetInputs = () => {
 		setShipmentDetails({
 			...shipmentDetails,
-			shipment_title: state.shipmentDetails.shipment_title as string,
-			shipment_description: state.shipmentDetails.shipment_description as string,
-			shipment_weight: state.shipmentDetails.shipment_weight as string,
-			images: state.shipmentDetails.images,
-			current_location: {
-				country: state.shipmentDetails.current_location.country,
-				state: state.shipmentDetails.current_location.state,
-				city: state.shipmentDetails.current_location.city,
-				address: state.shipmentDetails.current_location.address as string,
-				formattedAddress: state.shipmentDetails.current_location.formattedAddress as string,
-				longitude: state.shipmentDetails.current_location.longitude as number,
-				latitude: state.shipmentDetails.current_location.latitude as number,
+			shipment_title: state.shipmentDetails?.shipment_title as string,
+			shipment_description: state.shipmentDetails?.shipment_description as string,
+			shipment_weight: state.shipmentDetails?.shipment_weight as string,
+			images: state.shipmentDetails?.images,
+			shipment_type: state.shipmentDetails?.shipment_type as string,
+			start_location: {
+				location_id: state.shipmentDetails?.start_location?.location_id,
+				country: state.shipmentDetails?.start_location?.country,
+				state: state.shipmentDetails?.start_location?.state,
+				city: state.shipmentDetails?.start_location?.city,
+				address: state.shipmentDetails?.start_location?.address as string,
+				formattedAddress: state.shipmentDetails?.start_location?.formattedAddress as string,
+				longitude: state.shipmentDetails?.start_location?.longitude as number,
+				latitude: state.shipmentDetails?.start_location?.latitude as number,
 			},
 		});
 		setPreviewImage(state.shipmentDetails.images);
-		setAddress(state.shipmentDetails.current_location.address);
-		if (state.shipmentDetails.current_location.country !== '') {
+		setAddress(state.shipmentDetails?.start_location?.address);
+		if (state.shipmentDetails?.start_location?.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
-				state.shipmentDetails.current_location.country?.isoCode
+				state.shipmentDetails?.start_location?.country?.isoCode
 			);
 			setCountry(getCountryDetails);
-			setCountryState(state.shipmentDetails.current_location.state);
-			setStateCity(state.shipmentDetails.current_location.city);
+			setCountryState(state.shipmentDetails?.start_location?.state);
+			setStateCity(state.shipmentDetails?.start_location?.city);
 		} else {
 			setCountry({});
 		}
@@ -100,19 +117,49 @@ function useNewShipmentForm() {
 		});
 		setShipmentDetails({
 			...shipmentDetails,
-			current_location: {
-				...shipmentDetails.current_location,
+			start_location: {
+				...shipmentDetails.start_location,
+				location_id: shipmentDetails.start_location?.location_id,
 				country: country,
 				state: countryState,
 				city: stateCity,
-				address: address,
+				address: '',
 				formattedAddress: '',
 				longitude: null,
 				latitude: null,
 			},
 		});
+		setAddress('')
 	};
 
+	
+
+	const handleChangeDeliveryType=(val:string)=>{
+	
+
+
+		setShipmentDetails({
+			...shipmentDetails,
+			start_location: {
+				...shipmentDetails.start_location,
+				location_id: shipmentDetails.start_location?.location_id,
+				country: {},
+				state: {},
+				city: {},
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+		});
+		setCountry({})
+		setAddress('')
+		setShipmentDetails({
+			...shipmentDetails,
+			shipment_type: val,
+		})
+		console.log(val)
+	}
 	const handleChangeCountry = (country: any) => {
 		resetShipmentStateOnChangeAddress();
 
@@ -139,13 +186,29 @@ function useNewShipmentForm() {
 		resetShipmentStateOnChangeAddress();
 		setCountryState(state);
 	};
-	const handleChangeCity = (city: any) => {
+	const handleChangeCity = async (city: any) => {
 		resetShipmentStateOnChangeAddress();
+
 		setStateCity(city);
+	};
+	const handleChangeAirport = (selected_airport: any) => {
+		resetShipmentStateOnChangeAddress();
+		setAirport(selected_airport);
+		setAddress(selected_airport.name + ' Airport');
+		setStateCity({ ...stateCity, name: selected_airport.city });
+		setCountryState({ ...countryState, name: '' });
 	};
 	const handleChangeAddress = (address: any) => {
 		resetShipmentStateOnChangeAddress();
 		setAddress(address);
+	};
+
+	const fetchAirports = (country: string) => {
+		const airportCodesJson = airportCodes.toJSON();
+		const airports = airportCodesJson.filter((airport: any) => {
+			return airport.country === country;
+		});
+		setAirportList(airports);
 	};
 
 	const handleSubmitNewShipmentForm = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -155,7 +218,7 @@ function useNewShipmentForm() {
 			shipmentDetails.shipment_title == '' ||
 			shipmentDetails.shipment_description == '' ||
 			shipmentDetails.shipment_weight == '' ||
-			shipmentDetails.images?.length == 0 ||
+			// shipmentDetails.images?.length == 0 ||
 			Object.keys(country).length === 0
 		) {
 			setShowLoader(false);
@@ -177,19 +240,20 @@ function useNewShipmentForm() {
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
 			setShowLoader(false);
-			if (data.results.length > 1) {
+			if (data.results.length > 1 && shipmentDetails.shipment_type === 'door_to_door') {
+				console.log(data);
 				toast.error(
 					'Multiple address match please re-check your address, you can add local government area to be specific'
 				);
 				return;
 			}
-
 			const { lat, lng } = data.results[0].geometry.location;
 
 			setShipmentDetails({
 				...shipmentDetails,
-				current_location: {
-					...shipmentDetails.current_location,
+				start_location: {
+					...shipmentDetails.start_location,
+					location_id:generateID(),
 					country: country,
 					state: countryState,
 					city: stateCity,
@@ -234,7 +298,7 @@ function useNewShipmentForm() {
 		}
 	};
 
-	const getCounteryCovered = () => {
+	const getCountryCoveredMtd = () => {
 		getCountryCovered().then(
 			(response) => {
 				setCountryCovered(Object.values(response.data));
@@ -248,6 +312,11 @@ function useNewShipmentForm() {
 		);
 	};
 
+	// GET ALL AIRPORTS
+	useEffect(() => {
+		fetchAirports(country?.name);
+	}, [country, countryState]);
+
 	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
 		setState((prevState) => ({
@@ -258,10 +327,11 @@ function useNewShipmentForm() {
 
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND
 	useEffect(() => {
-		getCounteryCovered();
+		getCountryCoveredMtd();
 	}, []);
 
 	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
+
 	useEffect(() => {
 		resetInputs();
 	}, [state.editShipment]);
@@ -279,6 +349,10 @@ function useNewShipmentForm() {
 		handleChangeState,
 		handleChangeCity,
 		handleChangeAddress,
+		handleChangeAirport,
+		handleChangeDeliveryType,
+		airportList,
+		airport,
 		state,
 		stateCity,
 		address,
