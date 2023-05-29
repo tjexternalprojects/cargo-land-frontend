@@ -29,6 +29,7 @@ function useNewShipmentForm() {
 		recipient_email?: string;
 		recipient_phone_number?: string;
 		final_destination?: Record<string, string | number | null>;
+		shipment_heading_to?:string;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
@@ -48,6 +49,7 @@ function useNewShipmentForm() {
 			recipient_full_name: state.shipmentDetails?.recipient_full_name as string,
 			recipient_email: state.shipmentDetails?.recipient_email as string,
 			recipient_phone_number: state.shipmentDetails?.recipient_phone_number as string,
+			shipment_heading_to:state.shipmentDetails?.shipment_heading_to as string,
 			final_destination: {
 				location_id:state.shipmentDetails?.final_destination?.location_id,
 				country: state.shipmentDetails?.final_destination?.country,
@@ -175,12 +177,13 @@ function useNewShipmentForm() {
 			}
 
 			const { lat, lng } = data.results[0].geometry.location;
-
+			const location_id = generateID()
 			setShipmentDetails({
 				...shipmentDetails,
+				shipment_heading_to: location_id,
 				final_destination: {
 					...shipmentDetails.final_destination,
-					location_id:generateID(),
+					location_id:location_id,
 					country: country,
 					state: countryState,
 					city: stateCity,
@@ -228,10 +231,8 @@ function useNewShipmentForm() {
 				longitude: null,
 				latitude: null,
 			},
-			shipment_current_location: {
-			},
-			shipment_heading_to: {
-			},
+			shipment_current_location: "",
+			shipment_heading_to: "",
 			shipment_addresses: [],
 		};
 		
@@ -337,27 +338,27 @@ function useNewShipmentForm() {
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
 		}));
-		setState((prevState) => ({
-			...prevState,
-			shipmentDetails: {
-			  ...prevState.shipmentDetails,
-			  shipment_current_location: { ...prevState.shipmentDetails.start_location },
-			  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
-			},
-		  }));
+		// setState((prevState) => ({
+		// 	...prevState,
+		// 	shipmentDetails: {
+		// 	  ...prevState.shipmentDetails,
+		// 	  shipment_current_location: { ...prevState.shipmentDetails.start_location },
+		// 	  shipment_heading_to: { ...prevState.shipmentDetails.final_destination },
+		// 	},
+		//   }));
 
-		  const newArr:any = []
-		  newArr.push(state.shipmentDetails.start_location)
-		  newArr.push(shipmentDetails.final_destination)
+		//   const newArr:any = []
+		//   newArr.push(state.shipmentDetails.start_location)
+		//   newArr.push(shipmentDetails.final_destination)
 
 		  
-		  setState((prevState) => ({
-			...prevState,
-			shipmentDetails: {
-			  ...prevState.shipmentDetails,
-			  shipment_addresses: newArr,
-			},
-		  }));
+		//   setState((prevState) => ({
+		// 	...prevState,
+		// 	shipmentDetails: {
+		// 	  ...prevState.shipmentDetails,
+		// 	  shipment_addresses: newArr,
+		// 	},
+		//   }));
 	}, [shipmentDetails]);
 
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND

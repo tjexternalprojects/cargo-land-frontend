@@ -41,6 +41,7 @@ function useNewShipmentForm() {
 		shipment_weight?: string;
 		images?: any;
 		shipment_type?: string;
+		shipment_current_location?:string;
 		start_location?: StartLocation;
 	}
 
@@ -63,6 +64,7 @@ function useNewShipmentForm() {
 			shipment_weight: state.shipmentDetails?.shipment_weight as string,
 			images: state.shipmentDetails?.images,
 			shipment_type: state.shipmentDetails?.shipment_type as string,
+			shipment_current_location:state.shipmentDetails?.shipment_current_location as string,
 			start_location: {
 				location_id: state.shipmentDetails?.start_location?.location_id,
 				country: state.shipmentDetails?.start_location?.country,
@@ -248,12 +250,13 @@ function useNewShipmentForm() {
 				return;
 			}
 			const { lat, lng } = data.results[0].geometry.location;
-
+			const location_id = generateID()
 			setShipmentDetails({
 				...shipmentDetails,
+				shipment_current_location:location_id,
 				start_location: {
 					...shipmentDetails.start_location,
-					location_id:generateID(),
+					location_id:location_id,
 					country: country,
 					state: countryState,
 					city: stateCity,

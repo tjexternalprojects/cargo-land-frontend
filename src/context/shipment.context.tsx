@@ -31,8 +31,8 @@ function GeneralContext() {
 			longitude: null,
 			latitude: null,
 		},
-		shipment_current_location: {},
-		shipment_heading_to: {},
+		shipment_current_location: "",
+		shipment_heading_to: "",
 		shipment_addresses: [],
 	};
 

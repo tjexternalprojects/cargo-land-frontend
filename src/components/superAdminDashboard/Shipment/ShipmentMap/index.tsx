@@ -37,7 +37,7 @@ const TrackShipment = () => {
 						) : (
 							<>
 								<div className="flex mt-8 gap-5 flex-col md:flex-row ">
-									<div className=" md:w-6/12">
+									<div className=" md:w-7/12">
 										<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
 											Shipment Tracking
 										</div>
@@ -51,18 +51,22 @@ const TrackShipment = () => {
 											</label>
 										</div>
 										<hr className="my-5" />
-										<div className="ml-8 md:ml-0">
+										<div className="ml-8 md:ml-0 bg-gray-300">
 											<div className="text-sm">
 												<div className="space-x-3 flex items-center">
 													<span className="pl-6">From</span>
 													<span className="text-lg font-extrabold text-red-500">(A)</span>
 													{singleShipment?.shipment_current_location?.location_id !==
-													singleShipment?.start_location?.location_id ? (
-														<span>
-															<button className="px-2 py-1 bg-red-700 text-white rounded">
+														singleShipment?.start_location?.location_id ? (
+														<div className="flex gap-2 pl-6 mt-2">
+															<button className="px-2 py-1 text-sm bg-red-700 text-white rounded">
 																Set As Current location
 															</button>
-														</span>
+
+															<button className="px-2 py-1 bg-blue-900 text-white rounded">
+																Set As Next Check Point
+															</button>
+														</div>
 													) : (
 														<span>
 															<RingLoader size={50} textColor="text-blue-900" />
@@ -78,23 +82,32 @@ const TrackShipment = () => {
 												</div>
 											</div>
 											{singleShipment?.shipment_Status === 'CHECKED' ||
-											singleShipment?.shipment_Status === 'TRANSIT' ? (
+												singleShipment?.shipment_Status === 'TRANSIT' ? (
 												<>
 													{singleShipment?.shipment_addresses.map((val: any, index: number) => (
-														<div key={index} className="text-sm">
-															<span className="pl-6">Through</span>
-															<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
-																<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
-																	<BiCurrentLocation className="text-white" />
-																</div>
-																{singleShipment?.shipment_current_location?.formattedAddress}
-																<br />
+														(val.location_id !== singleShipment?.start_location?.location_id || val.location_id !== singleShipment?.final_destination?.location_id) && (
+															<div key={index} className="text-sm">
+																{val.location_id}
+																<span className="pl-6">Through</span>
+																<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
+																	<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
+																		<BiCurrentLocation className="text-white" />
+																	</div>
+																	{singleShipment?.shipment_current_location?.formattedAddress}
+																	<br />
 
-																<button className="px-2 py-1 bg-red-700 text-white rounded">
-																	Set As Current location
-																</button>
+																	<div className="flex gap-2 mt-2">
+																		<button className="px-2 py-1 text-sm bg-red-700 text-white rounded">
+																			Set As Current location
+																		</button>
+
+																		<button className="px-2 py-1 bg-blue-900 text-white rounded">
+																			Set As Next Check Point
+																		</button>
+																	</div>
+																</div>
 															</div>
-														</div>
+														)
 													))}
 
 													<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
@@ -126,11 +139,12 @@ const TrackShipment = () => {
 												</div>
 
 												{singleShipment?.shipment_current_location?.location_id !==
-												singleShipment?.final_destination?.location_id ? (
-													<div className="space-y-3">
-														<button className="px-2 py-1 bg-red-700 text-white rounded">
+													singleShipment?.final_destination?.location_id ? (
+													<div className="flex gap-2 pl-6 mt-2">
+														<button className="px-2 py-1 text-sm bg-red-700 text-white rounded">
 															Set As Current location
 														</button>
+
 														<button className="px-2 py-1 bg-blue-900 text-white rounded">
 															Set As Next Check Point
 														</button>
