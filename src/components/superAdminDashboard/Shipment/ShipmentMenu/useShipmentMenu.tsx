@@ -43,7 +43,7 @@ function useShipmentMenu(location_id:string) {
 
 		confirmAlert({
 			title: 'Delete Location?',
-			message: 'Are you sure you want to logout',
+			message: 'Are you sure you want to Delete this location',
 			buttons: [
 				{
 					label: 'Yes',

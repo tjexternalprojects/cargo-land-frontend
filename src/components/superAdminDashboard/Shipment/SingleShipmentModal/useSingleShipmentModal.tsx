@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserServices } from '@/services';
+import { UserServices, ShipmentServices } from '@/services';
 import { confirmAlert } from 'react-confirm-alert';
 import { AppContextType, AppContext } from '@/context';
 import { toast } from 'react-toastify';
@@ -8,6 +8,7 @@ function useShipmentModal(
 	modalSelectedShipment: any,
 ) {
 	const { adminGetSingleUser } = UserServices();
+	const {updteShipmentToTransit} = ShipmentServices()
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
 	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({});
 	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false);
@@ -37,7 +38,33 @@ function useShipmentModal(
 	};
 
 	const handleSetOnTransit = (shipment_id: string) => {
-		navigate(`/admin/shipment/update/${shipment_id}`);
+
+		confirmAlert({
+			title: 'Set Shipment on Transit?',
+			message: 'Are you sure you want to set this shipment on transit',
+			buttons: [
+				{
+					label: 'Yes',
+					onClick: () => {
+
+						updteShipmentToTransit(shipment_id).then(response=>{
+							console.log(response)
+						},error=>{
+							console.log(error)
+						})
+						
+					},
+				},
+				{
+					label: 'No',
+					onClick: () => {},
+				},
+			],
+		});
+
+
+
+	
 	};
 
 	const getUserDetails = async () => {
