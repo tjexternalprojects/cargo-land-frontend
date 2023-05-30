@@ -5,7 +5,7 @@ import { Country } from 'country-state-city';
 import { useGeocode } from '@/components';
 
 function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>) {
-	const { updateShipmentLocation } = ShipmentServices();
+	const { addNewLocation } = ShipmentServices();
 	const { fetchLocation } = useGeocode();
 	const [showLoader, setShowLoader] = useState(false);
 	const [shipmentCurrentLocation, setShipmentCurrentLocation] = useState<Record<string, string>>(
@@ -77,7 +77,7 @@ function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmen
 
 const handleSetCurrentLocation =async()=>{
 	setShowLoader(true);
-	await updateShipmentLocation(singleShipmentId, shipmentCurrentLocation).then(
+	await addNewLocation(singleShipmentId, shipmentCurrentLocation).then(
 		(response) => {
 			console.log(response);
 
@@ -91,6 +91,10 @@ const handleSetCurrentLocation =async()=>{
 		(error) => {
 			console.log(error);
 			setShowLoader(false);
+			toast.error(error.response.data.Error, {
+				progressClassName: 'bg-red-500 h-1',
+				autoClose: 3000,
+			});
 		}
 	);
 }

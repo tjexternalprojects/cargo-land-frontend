@@ -36,6 +36,10 @@ function useShipmentModal(
 		navigate(`/admin/shipment/update/${shipment_id}`);
 	};
 
+	const handleSetOnTransit = (shipment_id: string) => {
+		navigate(`/admin/shipment/update/${shipment_id}`);
+	};
+
 	const getUserDetails = async () => {
 		console.log(modalSelectedShipment, 'user IDDDDDDD');
 		await adminGetSingleUser(modalSelectedShipment.userID).then(
@@ -83,6 +87,7 @@ function useShipmentModal(
 		setShowRejectShipmentModal,
 		setShowUpdateShipmentPrice,
 		handleUpdatePrice,
+		handleSetOnTransit,
 		shipmentCurrentPrice,
 		showUpdateShipmentPrice,
 		showRejectShipmentModal,

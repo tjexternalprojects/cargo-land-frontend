@@ -21,6 +21,7 @@ const ShipmentModal = ({
 		setShowRejectShipmentModal,
 		setShowUpdateShipmentPrice,
 		handleUpdatePrice,
+		handleSetOnTransit,
 		shipmentCurrentPrice,
 		showUpdateShipmentPrice,
 		showRejectShipmentModal,
@@ -106,7 +107,7 @@ const ShipmentModal = ({
 								{modalSelectedShipment.shipment_Status === 'CHECKED' && (
 									<div className="gap-2 flex w-full justify-between">
 										<button
-											onClick={() => handleViewOnMap(modalSelectedShipment.id)}
+											onClick={() => handleSetOnTransit(modalSelectedShipment.id)}
 											className="px-2 py-1 bg-green-800 text-white rounded"
 										>
 											Mark as Transit

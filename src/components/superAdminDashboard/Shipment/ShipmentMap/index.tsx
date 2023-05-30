@@ -168,7 +168,7 @@ const TrackShipment = () => {
 											</div>
 										</div>
 										<div className="mt-5 ">
-											<MapDirection3
+											{/* <MapDirection3
 												height="80vh"
 												startLocation={{
 													lng: parseFloat(singleShipment?.start_location?.longitude),
@@ -182,7 +182,7 @@ const TrackShipment = () => {
 													lng: parseFloat(singleShipment?.final_destination?.longitude),
 													lat: parseFloat(singleShipment?.final_destination?.latitude),
 												}}
-											/>
+											/> */}
 										</div>
 									</div>
 								</div>

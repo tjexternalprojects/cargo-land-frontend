@@ -67,6 +67,15 @@ function ShipmentServices() {
 
 	// ADMIN END-POINT  ========================================================================================================
 
+	// localhost:4300/shipment/update-shipment-location/CGLDMZpR
+	// ?operation=removeLocation&locationID=84758485
+	// ?operation=updateHeading&locationID=84758485
+	// ?operation=updateCurrentLocation&locationID=84758485
+	// ?operation=deleteLocation&locationID=84758485
+
+
+
+
 	const adminGetAllShipments = (params?: string) => {
 		return api.get('/shipment/get-all-shipment' + params);
 	};
@@ -81,16 +90,38 @@ function ShipmentServices() {
 		return api.get('/shipment/get-single-shipment/' + shipment_id);
 	};
 
-	const updateShipmentLocation = (shipment_id: string, shipment_data: any) => {
-		return api.patch('/shipment/update-shipment-location/' + shipment_id, shipment_data);
-	};
-
+	// const updateShipmentLocation = (shipment_id: string, shipment_data: any) => {
+	// 	return api.patch('/shipment/update-shipment-location/' + shipment_id, shipment_data);
+	// };
+	const updteShipmentTransit =()=>{
+		return api.
+	}
 	const updateShipmentPrice = (shipment_id: string, delivery_price: number) => {
 		return api.patch(`/shipment/update-single-shipment-price/${shipment_id}`, {
 			delivery_price: delivery_price,
 		});
 	};
 
+	// ENDPOINT FOR UPDATING SHIPMENT LOCATION
+	const addNewLocation = (shipment_id: string, payload: any)=>{
+		return api.patch('/shipment/update-shipment-location/' + shipment_id, payload);
+	}
+
+	const removeLocation = (shipment_id: string, location_id:string)=>{
+		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=removeLocation&locationID=${location_id}`);
+	}
+
+	const updateHeadingTo = (shipment_id: string, location_id:string)=>{
+		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=updateHeading&locationID=${location_id}`);
+	}
+
+	const updateCurrentLocation = (shipment_id: string, location_id:string)=>{
+		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=updateCurrentLocation&locationID=${location_id}`);
+	}
+
+	const deleteLocation = (shipment_id: string, location_id:string)=>{
+		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=deleteLocation&locationID=${location_id}`);
+	}
 	// FOR HOME PAGE GRAPHS =================
 
 	const getGraphData = (duration: Record<string, string | number>) => {
@@ -184,7 +215,11 @@ function ShipmentServices() {
 		getAllUserShipmentPaginated,
 		getShipmentInRange,
 		updateShipmentPrice,
-		updateShipmentLocation,
+		addNewLocation,
+		removeLocation,
+		updateHeadingTo,
+		updateCurrentLocation,
+		deleteLocation,
 	};
 }
 

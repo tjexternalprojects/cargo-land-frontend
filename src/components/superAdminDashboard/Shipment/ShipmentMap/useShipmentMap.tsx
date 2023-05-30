@@ -7,10 +7,10 @@ function useTrackShipment() {
 	const params = useParams();
 	const [singleShipment, setSingleShipment] = useState<any>({});
 	const [showTrackingIdInput, setShowTrackingIdInput] = useState(false);
-	const { state, setState } = useContext<AppContextType>(AppContext);
+	const { setState } = useContext<AppContextType>(AppContext);
 	const [showUpdateShipmentLocation, setShowUpdateShipmentLocation] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [selectedMenu, setSelectedMenu] = useState();
+
 
 	const SingleShipment = async () => {
 		setLoading(true);
