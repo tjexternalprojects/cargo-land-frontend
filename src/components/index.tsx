@@ -86,6 +86,6 @@ export const AShipment = lazy(() => import('./superAdminDashboard/Shipment/AllSh
 export const AUpdateShipment = lazy(() => import('./superAdminDashboard/Shipment/ShipmentMap'));
 export const SearchShipmentModal  = lazy(() => import('./superAdminDashboard/Shipment/ShipmentIDModal'));
 export const RejectShipmentModal = lazy(()=>import('./superAdminDashboard/Shipment/RejectShipmentModal'))
-export const UpdateShipmentLocation = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentLocation'))
+export const AddNewRoute = lazy(() => import('./superAdminDashboard/Shipment/AddNewRoute'));
 export const UpdateShipmentPrice = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentPrice'))
 export { default as ShipmentMenu } from './superAdminDashboard/Shipment/ShipmentMenu';

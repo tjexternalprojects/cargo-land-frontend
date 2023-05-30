@@ -44,6 +44,7 @@ function GeneralContext() {
 	const editShipment = false;
 	const form_level = 0;
 	const initializePayment = {};
+	const activeShipmentMenu = null;
 
 	return {
 		shipmentSummary,
@@ -54,6 +55,7 @@ function GeneralContext() {
 		allShipments,
 		trackingShipments,
 		initializePayment,
+		activeShipmentMenu,
 	};
 }
 

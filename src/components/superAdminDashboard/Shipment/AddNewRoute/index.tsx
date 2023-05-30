@@ -6,16 +6,20 @@ import {
 	RiSearch2Line,
 } from '@/assets';
 import React from 'react';
-import useUpdateShipmentLocation from './useUpdateShipmentLocation';
+import useAddNewRoute from './useAddNewRoute';
 import { Country, State, City } from 'country-state-city';
 import { AddressMap, RingLoader } from '@/components';
 
 interface ShipmentLocationProps {
 	setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>;
+	setSingleShipment:any;
 	singleShipmentId: string;
 }
 
-const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLocationProps) => {
+const index = ({
+	setShowUpdateShipmentLocation,
+	setSingleShipment, singleShipmentId,
+}: ShipmentLocationProps) => {
 	const {
 		handleChangeCountry,
 		handleChangeState,
@@ -29,7 +33,7 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 		stateCity,
 		countryState,
 		country,
-	} = useUpdateShipmentLocation(singleShipmentId, setShowUpdateShipmentLocation);
+	} = useAddNewRoute(singleShipmentId,setSingleShipment, setShowUpdateShipmentLocation);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" w-11/12  md:w-1/2  fixed bg-white shadow-lg pb-3 ">
@@ -58,7 +62,7 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 									</small>
 									<div className=" flex  border-b-2 mt-2 p-2">
 										<select
-											className="w-full outline-none"
+											className="w-full bg-white outline-none"
 											value={JSON.stringify(country)}
 											onChange={(e) => handleChangeCountry(JSON.parse(e.target.value))}
 											required
@@ -88,7 +92,7 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 									</small>
 									<div className=" flex  border-b-2 mt-2 p-2">
 										<select
-											className="w-full outline-none"
+											className="w-full bg-white outline-none"
 											value={JSON.stringify(countryState)}
 											onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
 											disabled={Object.keys(country).length === 0}
@@ -117,7 +121,7 @@ const index = ({ setShowUpdateShipmentLocation, singleShipmentId }: ShipmentLoca
 									<div className=" flex  border-b-2 mt-2 p-2">
 										<select
 											disabled={Object.keys(countryState).length === 0}
-											className="w-full outline-none"
+											className="w-full bg-white outline-none"
 											value={JSON.stringify(stateCity)}
 											onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
 											required

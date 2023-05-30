@@ -26,6 +26,7 @@ const {
 	trackingShipments,
 	allShipments,
 	initializePayment,
+	activeShipmentMenu,
 } = ShipmentContext();
 
 // Define the global state object
@@ -37,7 +38,7 @@ type AppState = {
 	userCurrentTab: String;
 	updateUser: Boolean;
 	all_users: Record<string, string>[];
-	business_account:any;
+	business_account: any;
 
 	// Auth
 	showForgetPassword: boolean;
@@ -54,13 +55,14 @@ type AppState = {
 	editShipment: boolean;
 	form_level: number;
 	initializePayment: Record<string, string | string[]> | null;
+	activeShipmentMenu:String | null;
 
 	// settings
 	settings: string;
 	notifications: Notification[];
 	toggleAdminSideBar: boolean;
 	toggleNotification: boolean;
-	activePage:string;
+	activePage: string;
 };
 
 const initialState: AppState = {
@@ -85,6 +87,7 @@ const initialState: AppState = {
 	editShipment,
 	form_level,
 	initializePayment,
+	activeShipmentMenu,
 
 	// settings
 	settings: theme,

@@ -44,7 +44,7 @@ const ShipmentModal = ({
 					</div>
 				</div>
 				<div className="px-3 flex gap-4 flex-col overflow-y-auto  md:flex-row max-h-70-screen pt-4">
-					<div className="p-2 md:overflow-y-auto w-1/2 flex-grow">
+					<div className="p-2 md:overflow-y-auto md:w-1/2  flex-grow">
 						{/* <div className=" md:w-96 h-96 border bg-red-500 "> */}
 						<div className=" max-w-xl  ">
 							{shipmentImages.length > 0 ? (
@@ -121,7 +121,10 @@ const ShipmentModal = ({
 									</div>
 								)}
 								{modalSelectedShipment.shipment_Status === 'TRANSIT' && (
-									<button className="px-2 py-1 bg-green-800 text-white rounded">
+									<button
+										onClick={() => handleViewOnMap(modalSelectedShipment.id)}
+										className="px-2 py-1 bg-green-800 text-white rounded"
+									>
 										Update Location
 									</button>
 								)}

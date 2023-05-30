@@ -9,7 +9,7 @@ function useShipmentModal(
 	setSelectedShipment: any,
 ) {
 	const { adminGetSingleUser } = UserServices();
-	const {updteShipmentToTransit} = ShipmentServices()
+	const {updateShipmentToTransit} = ShipmentServices()
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
 	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({});
 	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false);
@@ -48,7 +48,7 @@ function useShipmentModal(
 					label: 'Yes',
 					onClick: () => {
 						setTransitLoader(true)
-						updteShipmentToTransit(shipment_id).then(response=>{
+						updateShipmentToTransit(shipment_id).then(response=>{
 							console.log(response)
 							setSelectedShipment(response.data)
 						setTransitLoader(false)
@@ -74,7 +74,6 @@ function useShipmentModal(
 	};
 
 	const getUserDetails = async () => {
-		console.log(modalSelectedShipment, 'user IDDDDDDD');
 		await adminGetSingleUser(modalSelectedShipment.userID).then(
 			(response) => {
 				setShipmentCreator(response.data.user);

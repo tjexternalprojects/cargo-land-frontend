@@ -38,7 +38,7 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 					</div>
 				</div>
 				<div className="px-3 flex gap-4 flex-col overflow-y-auto  md:flex-row max-h-70-screen">
-					<div className="p-2 md:overflow-y-auto w-1/2 flex-grow">
+					<div className="p-2 md:overflow-y-auto md:w-1/2 flex-grow">
 						{/* <div className=" md:w-96 h-96 border bg-red-500 "> */}
 						<div className=" max-w-xl  ">
 							{shipmentImages.length > 0 ? (

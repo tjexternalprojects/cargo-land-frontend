@@ -4,7 +4,11 @@ import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
 import { useGeocode } from '@/components';
 
-function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>) {
+function useAddNewRoute(
+	singleShipmentId: string,
+	setSingleShipment: any,
+	setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>
+) {
 	const { addNewLocation } = ShipmentServices();
 	const { fetchLocation } = useGeocode();
 	const [showLoader, setShowLoader] = useState(false);
@@ -17,38 +21,40 @@ function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmen
 	const [address, setAddress] = useState<string>('');
 
 	const handleChangeCountry = (country: any) => {
-		setShipmentCurrentLocation({})
-			setCountry(country);
+		setShipmentCurrentLocation({});
+		setCountry(country);
 	};
 
 	const handleChangeState = (state: any) => {
-		setShipmentCurrentLocation({})
+		setShipmentCurrentLocation({});
 		setCountryState(state);
 	};
 	const handleChangeCity = (city: any) => {
-		setShipmentCurrentLocation({})
+		setShipmentCurrentLocation({});
 		setStateCity(city);
 	};
 	const handleChangeAddress = (address: any) => {
-		setShipmentCurrentLocation({})
+		setShipmentCurrentLocation({});
 		setAddress(address);
 	};
 
-		const generateID = () => {
-		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	const generateID = () => {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		return (
-			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Array.from({ length: 3 }, () =>
+				characters.charAt(Math.floor(Math.random() * characters.length))
+			).join('') +
 			Math.random().toString().substring(2, 6) +
 			Date.now().toString().slice(-4)
-		).substring(0, 9)
-	}
+		).substring(0, 9);
+	};
 
 	const getShipmentLocation = async (e: React.FormEvent<HTMLFormElement>) => {
 		setShowLoader(true);
 		e.preventDefault();
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
-		).then(async(data) => {
+		).then(async (data) => {
 			console.log(data);
 			setShowLoader(false);
 			if (data.results.length > 1) {
@@ -60,7 +66,7 @@ function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmen
 
 			const { lat, lng } = data.results[0].geometry.location;
 			const newAddress = {
-				location_id:generateID(),
+				location_id: generateID(),
 				country: country,
 				state: countryState,
 				city: stateCity,
@@ -69,35 +75,32 @@ function useUpdateShipmentLocation(singleShipmentId:string, setShowUpdateShipmen
 				longitude: lng,
 				latitude: lat,
 			};
-			console.log(newAddress)
 			setShipmentCurrentLocation(newAddress);
-
 		});
 	};
 
-const handleSetCurrentLocation =async()=>{
-	setShowLoader(true);
-	await addNewLocation(singleShipmentId, shipmentCurrentLocation).then(
-		(response) => {
-			console.log(response);
-
-			setShowLoader(false);
-			toast.success('New Location Created', {
-				progressClassName: 'bg-green-500 h-1',
-				autoClose: 3000,
-			});
-			setShowUpdateShipmentLocation(false);
-		},
-		(error) => {
-			console.log(error);
-			setShowLoader(false);
-			toast.error(error.response.data.Error, {
-				progressClassName: 'bg-red-500 h-1',
-				autoClose: 3000,
-			});
-		}
-	);
-}
+	const handleSetCurrentLocation = async () => {
+		setShowLoader(true);
+		await addNewLocation(singleShipmentId, shipmentCurrentLocation).then(
+			(response) => {
+				setShowLoader(false);
+				setSingleShipment(response.data.shipment);
+				toast.success(response.data.message, {
+					progressClassName: 'bg-green-500 h-1',
+					autoClose: 3000,
+				});
+				setShowUpdateShipmentLocation(false);
+			},
+			(error) => {
+				console.log(error);
+				setShowLoader(false);
+				toast.error(error.response.data.Error, {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
+	};
 
 	return {
 		handleChangeCountry,
@@ -115,4 +118,4 @@ const handleSetCurrentLocation =async()=>{
 		country,
 	};
 }
-export default useUpdateShipmentLocation;
+export default useAddNewRoute;

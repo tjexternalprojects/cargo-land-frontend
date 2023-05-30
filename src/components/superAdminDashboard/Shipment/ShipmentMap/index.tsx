@@ -7,12 +7,7 @@ import {
 	ImLocation,
 	RiUserReceivedLine,
 } from '@/assets';
-import {
-	MapDirection3,
-	RingLoader,
-	SearchShipmentModal,
-	UpdateShipmentLocation,
-} from '@/components/';
+import { MapDirection3, RingLoader, SearchShipmentModal, AddNewRoute } from '@/components/';
 import { useGeocode, LoadingPage, ShipmentMenu } from '@/components';
 import useTrackShipment from './useShipmentMap';
 
@@ -22,6 +17,8 @@ const TrackShipment = () => {
 		showTrackingIdInput,
 		loading,
 		showUpdateShipmentLocation,
+		setSingleShipment,
+		handleSetOnTransit,
 		setShowUpdateShipmentLocation,
 		setShowTrackingIdInput,
 	} = useTrackShipment();
@@ -47,28 +44,43 @@ const TrackShipment = () => {
 												<small>Shipment ID</small>
 												<div className="font-bold">{singleShipment?.id}</div>
 											</div>
-											<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
-												{singleShipment?.shipment_Status}
-											</label>
+											<div className="flex flex-col space-y-3">
+												{singleShipment?.shipment_Status === 'CHECKED' && (
+													<button
+														onClick={() => handleSetOnTransit(singleShipment?.id)}
+														className="px-2 py-1 bg-green-800 text-white rounded"
+													>
+														Mark as Transit
+													</button>
+												)}
+												<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
+													{singleShipment?.shipment_Status}
+												</label>
+											</div>
 										</div>
 										<hr className="my-5" />
 										<div className="ml-8 md:ml-0">
 											<div className="text-sm">
-												<div className="space-x-3 flex items-center">
-													<span className="pl-6">From</span>
-													<span className="text-lg font-extrabold text-red-500">(A)</span>
+												<div className="flex justify-between items-center">
+													<div className="space-x-3 flex items-center">
+														<span className="pl-6">From</span>
+														<span className="text-lg font-extrabold text-red-500">(A)</span>
+														{singleShipment?.shipment_current_location ==
+															singleShipment?.start_location?.location_id && (
+															<RingLoader size={20} textColor="text-blue-900" />
+														)}
+													</div>
+													<ShipmentMenu
+														singleShipment={singleShipment}
+														setSingleShipment={setSingleShipment}
+														location_id={singleShipment?.start_location?.location_id}
+													/>
 												</div>
 												<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300  relative">
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<GoPackage />
 													</div>
-													<div className="flex justify-between items-start">
-														{singleShipment?.start_location?.formattedAddress}
-														<ShipmentMenu
-															singleShipment={singleShipment}
-															location_id={singleShipment?.start_location?.location_id}
-														/>
-													</div>
+													{singleShipment?.start_location?.formattedAddress}
 												</div>
 											</div>
 											{singleShipment?.shipment_Status === 'CHECKED' ||
@@ -76,20 +88,25 @@ const TrackShipment = () => {
 												<>
 													{singleShipment?.shipment_addresses.map((val: any, index: number) => (
 														<div key={index} className="text-sm">
-															{val.location_id}
-															<span className="pl-6">Through</span>
+															<div className="flex justify-between items-center">
+																<div className="space-x-3 flex items-center">
+																	<span className="pl-6">Through</span>
+																	{singleShipment?.shipment_current_location ==
+																		val?.location_id && (
+																		<RingLoader size={20} textColor="text-blue-900" />
+																	)}
+																</div>
+																<ShipmentMenu
+																	singleShipment={singleShipment}
+																	setSingleShipment={setSingleShipment}
+																	location_id={val?.location_id}
+																/>
+															</div>
 															<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
 																<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 																	<BiCurrentLocation className="text-white" />
 																</div>
-
-																<div className="flex justify-between items-start">
-																	{val?.formattedAddress}
-																	<ShipmentMenu
-																		singleShipment={singleShipment}
-																		location_id={val?.location_id}
-																	/>
-																</div>
+																{val?.formattedAddress}
 															</div>
 														</div>
 													))}
@@ -109,22 +126,26 @@ const TrackShipment = () => {
 												</div>
 											)}
 											<div className="text-sm">
-												<div className="space-x-3 flex items-center">
-													<span className="pl-6">To</span>
-													<span className="text-lg font-extrabold text-red-500">(B)</span>
+												<div className="flex justify-between items-center">
+													<div className="space-x-3 flex items-center">
+														<span className="pl-6">To</span>
+														<span className="text-lg font-extrabold text-red-500">(B)</span>
+														{singleShipment?.shipment_current_location ==
+															singleShipment?.final_destination?.location_id && (
+															<RingLoader size={20} textColor="text-blue-900" />
+														)}
+													</div>
+													<ShipmentMenu
+														singleShipment={singleShipment}
+														setSingleShipment={setSingleShipment}
+														location_id={singleShipment?.final_destination?.location_id}
+													/>
 												</div>
-
 												<div className="text-black font-bold  pl-6 relative">
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
 														<ImLocation />
 													</div>
-													<div className="flex justify-between items-start">
-														{singleShipment?.final_destination?.formattedAddress}
-														<ShipmentMenu
-															singleShipment={singleShipment}
-															location_id={singleShipment?.final_destination?.location_id}
-														/>
-													</div>
+													{singleShipment?.final_destination?.formattedAddress}
 												</div>
 											</div>
 										</div>
@@ -168,27 +189,25 @@ const TrackShipment = () => {
 											</div>
 										</div>
 										<div className="mt-5 ">
-											{/* <MapDirection3
+											<MapDirection3
 												height="80vh"
 												startLocation={{
 													lng: parseFloat(singleShipment?.start_location?.longitude),
 													lat: parseFloat(singleShipment?.start_location?.latitude),
 												}}
-												midLocation={{
-													lng: parseFloat("3.3474517"),
-													lat: parseFloat("6.6135101"),
-												}}
+												middle_routes={singleShipment?.shipment_addresses}
 												endLocation={{
 													lng: parseFloat(singleShipment?.final_destination?.longitude),
 													lat: parseFloat(singleShipment?.final_destination?.latitude),
 												}}
-											/> */}
+											/>
 										</div>
 									</div>
 								</div>
 								{showUpdateShipmentLocation && (
-									<UpdateShipmentLocation
+									<AddNewRoute
 										setShowUpdateShipmentLocation={setShowUpdateShipmentLocation}
+										setSingleShipment={setSingleShipment}
 										singleShipmentId={singleShipment?.id}
 									/>
 								)}

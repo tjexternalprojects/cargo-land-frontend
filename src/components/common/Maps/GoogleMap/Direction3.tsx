@@ -12,8 +12,8 @@ const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 interface MapDirectionProps {
 	height: string;
 	startLocation: google.maps.LatLngLiteral;
-	midLocation: google.maps.LatLngLiteral;
 	endLocation: google.maps.LatLngLiteral;
+	middle_routes:any
 }
 
 type MapLibrary = 'places' | 'drawing' | 'geometry' | 'localContext' | 'visualization';
@@ -23,7 +23,7 @@ const MAP_LIBRARIES: MapLibrary[] = ['places'];
 const MapDirection: FC<MapDirectionProps> = ({
 	height,
 	startLocation,
-	midLocation,
+	middle_routes,
 	endLocation,
 }) => {
 	const [map, setMap] = useState<google.maps.Map | null>(null);

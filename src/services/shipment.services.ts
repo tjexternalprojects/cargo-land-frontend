@@ -93,9 +93,9 @@ function ShipmentServices() {
 	// const updateShipmentLocation = (shipment_id: string, shipment_data: any) => {
 	// 	return api.patch('/shipment/update-shipment-location/' + shipment_id, shipment_data);
 	// };
-	const updteShipmentToTransit =(shipment_id: string)=>{
-		return api.patch(`/shipment/update-shipment-transit/${shipment_id}`)
-	}
+	const updateShipmentToTransit = (shipment_id: string) => {
+		return api.patch(`/shipment/update-shipment-transit/${shipment_id}`);
+	};
 	const updateShipmentPrice = (shipment_id: string, delivery_price: number) => {
 		return api.patch(`/shipment/update-single-shipment-price/${shipment_id}`, {
 			delivery_price: delivery_price,
@@ -220,7 +220,7 @@ function ShipmentServices() {
 		updateHeadingTo,
 		updateCurrentLocation,
 		deleteLocation,
-		updteShipmentToTransit,
+		updateShipmentToTransit,
 	};
 }
 
