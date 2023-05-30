@@ -27,7 +27,7 @@ const ShipmentModal = ({
 		showRejectShipmentModal,
 		shipmentCreator,
 		shipmentImages,
-	} = useShipmentModal(modalSelectedShipment);
+	} = useShipmentModal(modalSelectedShipment, setSelectedShipment);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" md:w-9/12 w-11/12  fixed bg-white shadow-lg pb-3 ">

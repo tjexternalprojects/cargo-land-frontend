@@ -6,6 +6,7 @@ import { AppContextType, AppContext } from '@/context';
 import { toast } from 'react-toastify';
 function useShipmentModal(
 	modalSelectedShipment: any,
+	setSelectedShipment: any,
 ) {
 	const { adminGetSingleUser } = UserServices();
 	const {updteShipmentToTransit} = ShipmentServices()
@@ -15,7 +16,7 @@ function useShipmentModal(
 	const [showUpdateShipmentPrice, setShowUpdateShipmentPrice] = useState(false);
 	const [shipmentCurrentPrice, setShipmentCurrentPrice] = useState<number>(0);
 	const { state, setState } = useContext<AppContextType>(AppContext);
-
+	const [transitLoader, setTransitLoader] = useState(false)
 	const navigate = useNavigate();
 
 
@@ -46,13 +47,18 @@ function useShipmentModal(
 				{
 					label: 'Yes',
 					onClick: () => {
-
+						setTransitLoader(true)
 						updteShipmentToTransit(shipment_id).then(response=>{
 							console.log(response)
+							setSelectedShipment(response.data)
+						setTransitLoader(false)
+
 						},error=>{
 							console.log(error)
+						setTransitLoader(false)
+
 						})
-						
+
 					},
 				},
 				{
@@ -115,6 +121,7 @@ function useShipmentModal(
 		setShowUpdateShipmentPrice,
 		handleUpdatePrice,
 		handleSetOnTransit,
+		transitLoader,
 		shipmentCurrentPrice,
 		showUpdateShipmentPrice,
 		showRejectShipmentModal,
