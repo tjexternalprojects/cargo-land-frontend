@@ -11,6 +11,27 @@ function useTrackShipment() {
 	const { setState } = useContext<AppContextType>(AppContext);
 	const [showUpdateShipmentLocation, setShowUpdateShipmentLocation] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [addressesCoordinate, setAddressesCordinate] = useState([])
+	const [lastLabel, setLastLabel]= useState("")
+
+	const generateLocationLabel = (index: number) => {
+		let label = '';
+		index++;
+	  
+		while (index >= 0) {
+		  label = String.fromCharCode(65 + (index % 26)) + label;
+		  index = Math.floor(index / 26) - 1;
+		}
+
+		// if(singleShipment?.shipment_addresses.length-1 == 1){
+
+		// 	console.log(label)
+		// 	// setLastLabel(label)
+		// 	// console.log(lastLabel)
+		// }
+		return label;
+	  };
+	  
 
 	const handleSetOnTransit = (shipment_id: string) => {
 		confirmAlert({
@@ -24,12 +45,10 @@ function useTrackShipment() {
 						setLoading(true);
 						updateShipmentToTransit(shipment_id).then(
 							(response) => {
-								console.log(response);
 								setSingleShipment(response.data);
 								setLoading(false);
 							},
 							(error) => {
-								console.log(error);
 								setLoading(false);
 							}
 						);
@@ -58,7 +77,6 @@ function useTrackShipment() {
 					handleSetOnTransit(params.shipment_id as string);
 			},
 			(error) => {
-				console.log(error);
 				setShowTrackingIdInput(true);
 				setLoading(false);
 			}
@@ -79,11 +97,15 @@ function useTrackShipment() {
 	useEffect(() => {
 		SingleShipment();
 	}, [params.shipment_id]);
+
+
 	return {
 		singleShipment,
 		showTrackingIdInput,
 		loading,
 		showUpdateShipmentLocation,
+		addressesCoordinate,
+		generateLocationLabel,
 		setSingleShipment,
 		handleSetOnTransit,
 		setShowUpdateShipmentLocation,

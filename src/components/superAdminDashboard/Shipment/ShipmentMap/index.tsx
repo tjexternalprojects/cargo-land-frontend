@@ -17,6 +17,8 @@ const TrackShipment = () => {
 		showTrackingIdInput,
 		loading,
 		showUpdateShipmentLocation,
+		addressesCoordinate,
+		generateLocationLabel,
 		setSingleShipment,
 		handleSetOnTransit,
 		setShowUpdateShipmentLocation,
@@ -91,6 +93,7 @@ const TrackShipment = () => {
 															<div className="flex justify-between items-center">
 																<div className="space-x-3 flex items-center">
 																	<span className="pl-6">Through</span>
+																	<span className="text-lg font-extrabold text-red-500">({ generateLocationLabel(index) })</span>
 																	{singleShipment?.shipment_current_location ==
 																		val?.location_id && (
 																		<RingLoader size={20} textColor="text-blue-900" />
@@ -129,7 +132,7 @@ const TrackShipment = () => {
 												<div className="flex justify-between items-center">
 													<div className="space-x-3 flex items-center">
 														<span className="pl-6">To</span>
-														<span className="text-lg font-extrabold text-red-500">(B)</span>
+														<span className="text-lg font-extrabold text-red-500">({generateLocationLabel(singleShipment?.shipment_addresses?.length)})</span>
 														{singleShipment?.shipment_current_location ==
 															singleShipment?.final_destination?.location_id && (
 															<RingLoader size={20} textColor="text-blue-900" />
@@ -195,7 +198,9 @@ const TrackShipment = () => {
 													lng: parseFloat(singleShipment?.start_location?.longitude),
 													lat: parseFloat(singleShipment?.start_location?.latitude),
 												}}
-												middle_routes={singleShipment?.shipment_addresses}
+										
+												locations={singleShipment?.shipment_addresses}
+											
 												endLocation={{
 													lng: parseFloat(singleShipment?.final_destination?.longitude),
 													lat: parseFloat(singleShipment?.final_destination?.latitude),

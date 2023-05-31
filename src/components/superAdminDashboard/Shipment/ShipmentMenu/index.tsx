@@ -10,7 +10,6 @@ interface ShipmentMenuProps {
 const Dropdown = ({ singleShipment, setSingleShipment, location_id }: ShipmentMenuProps) => {
 	const { toggleDropdown, setCurrentLocation, setNextCheckPoint, deleteRoute, loading, isOpen } =
 		useShipmentMenu(location_id, setSingleShipment);
-	console.log(singleShipment);
 	return (
 		<div>
 			<button

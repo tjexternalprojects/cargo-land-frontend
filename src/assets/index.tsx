@@ -84,6 +84,7 @@ export { IoMdCart } from 'react-icons/io';
 // images
 export { default as logo } from './images/logo.png';
 export { default as userImg } from './images/user.png';
+export { default as rippleLoader} from './images/RippleLoader.svg';
 
 // Shipment Images
 export { default as package1 } from './images/shipment/package1.jpg';

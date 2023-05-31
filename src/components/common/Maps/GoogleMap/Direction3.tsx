@@ -6,14 +6,14 @@ import {
 	DirectionsRenderer,
 	Polyline,
 } from '@react-google-maps/api';
-
+import {rippleLoader} from '@/assets'
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
 interface MapDirectionProps {
 	height: string;
 	startLocation: google.maps.LatLngLiteral;
+	locations: any;
 	endLocation: google.maps.LatLngLiteral;
-	middle_routes:any
 }
 
 type MapLibrary = 'places' | 'drawing' | 'geometry' | 'localContext' | 'visualization';
@@ -23,7 +23,7 @@ const MAP_LIBRARIES: MapLibrary[] = ['places'];
 const MapDirection: FC<MapDirectionProps> = ({
 	height,
 	startLocation,
-	middle_routes,
+	locations,
 	endLocation,
 }) => {
 	const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -43,11 +43,23 @@ const MapDirection: FC<MapDirectionProps> = ({
 		const results = await directionsService.route({
 			origin: startLocation,
 			destination: endLocation,
-			waypoints: [{ location: midLocation }],
+			waypoints: locations.map((location:any) => ({
+				location: {
+				  lat: location.latitude,
+				  lng: location.longitude,
+				} as google.maps.LatLngLiteral ,
+				stopover: true,
+			  })),
+			  
+			  optimizeWaypoints: true,
 			travelMode: window.google.maps.TravelMode.DRIVING,
 		});
 		setDirectionsResponse(results);
 	}
+
+
+	
+
 
 	function clearRoute() {
 		setDirectionsResponse(null);
@@ -57,10 +69,13 @@ const MapDirection: FC<MapDirectionProps> = ({
 		if (isLoaded) {
 			calculateRoute();
 		}
-	}, [isLoaded, startLocation, midLocation, endLocation]);
+	}, [isLoaded, startLocation, locations, endLocation]);
 
 	useEffect(() => {
 		if (map && directionsResponse) {
+
+		
+
 			if (movingMarker) {
 				movingMarker.setMap(null); // Remove the previous moving marker from the map
 			}
@@ -123,14 +138,10 @@ const MapDirection: FC<MapDirectionProps> = ({
 					<DirectionsRenderer directions={directionsResponse} />
 					<Marker
 						position={startLocation}
-						icon={{
-							path: window.google.maps.SymbolPath.CIRCLE,
-							fillColor: '#ff0000', // Change the color code to the desired color
-							fillOpacity: 1,
-							strokeWeight: 0,
-							scale: 6,
-						}}
+						label={" "}
+						icon={rippleLoader}
 					/>
+					
 					<Marker
 						position={endLocation}
 						icon={{
