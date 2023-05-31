@@ -27,7 +27,6 @@ function useTrackShipment() {
 
 	useEffect(()=>{
 		setSingleShipment(state.trackingShipments)
-		console.log( singleShipment?.current_location?.longitude)
 	},[state.trackingShipments])
 
 	return { trackingShipments, singleShipment, getActiveShipment, getIndividualShipmentMtd };

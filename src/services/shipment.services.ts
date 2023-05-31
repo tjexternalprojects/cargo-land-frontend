@@ -24,7 +24,6 @@ function ShipmentServices() {
 	const getAllUserShipment = async () => {
 		await api.get('/shipment/get-all-user-shipment').then(
 			(res) => {
-				console.log(res);
 				setState((prevState) => ({
 					...prevState,
 					allShipments: res.data.allUserShipment,

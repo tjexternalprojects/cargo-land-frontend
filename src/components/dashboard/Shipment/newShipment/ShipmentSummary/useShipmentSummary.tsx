@@ -189,7 +189,6 @@ function useShipmentSummary() {
 
 		initiatePayment(payload).then(
 			(response) => {
-				// console.log(response)
 				toast.success(response.data.message, {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
@@ -204,7 +203,6 @@ function useShipmentSummary() {
 				setShipmentLoader(false);
 			},
 			(error) => {
-				console.log(error);
 				toast.error(error.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,

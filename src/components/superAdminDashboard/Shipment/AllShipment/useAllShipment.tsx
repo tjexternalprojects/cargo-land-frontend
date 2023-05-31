@@ -24,7 +24,6 @@ function useShipment() {
 		setLoading(true);
 		adminGetAllShipments(`?page=${currentPage}&limit=7`).then(
 			(response) => {
-				console.log(response)
 				setHasNextPage(response.data.hasNextPage);
 				setHasPreviousPage(response.data.hasPreviousPage);
 				setAllShipment(response.data.allUserShipment);
@@ -33,7 +32,6 @@ function useShipment() {
 				setLoading(false);
 			},
 			(error) => {
-				console.log(error);
 				setLoading(false);
 				toast.error(error.data.message, {
 					progressClassName: 'bg-red-500 h-1',

@@ -24,7 +24,6 @@ function useUsers() {
 		setLoading(true);
 		await getAllUsers(Number(currentPage), 7).then(
 			(response) => {
-				console.log(response);
 				setHasNextPage(response.data.hasNextPage);
 				setHasPreviousPage(response.data.hasPreviousPage);
 				setAllUsers(response.data.users);
@@ -33,7 +32,6 @@ function useUsers() {
 				setLoading(false);
 			},
 			(error) => {
-				console.log(error);
 				setLoading(false);
 				toast.error('Failed to load user', {
 					progressClassName: 'bg-red-500 h-1',

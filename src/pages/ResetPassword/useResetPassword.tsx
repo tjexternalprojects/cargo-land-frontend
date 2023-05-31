@@ -22,7 +22,6 @@ function useResetPassword() {
 		setShowLoading(true);
 		resetPassword(resetPasswordObj, token as string).then(
 			(response) => {
-				console.log(response)
 				setShowLoading(false);
 				toast.success(response.data.message, {
 					progressClassName: 'bg-green-500 h-1',
@@ -31,7 +30,6 @@ function useResetPassword() {
 				navigate('/login')
 			},
 			(error) => {
-				console.log(error, 'error')
 				setShowLoading(false);
 				toast.error(error.response?.data?.message, {
 					progressClassName: 'bg-red-500 h-1',

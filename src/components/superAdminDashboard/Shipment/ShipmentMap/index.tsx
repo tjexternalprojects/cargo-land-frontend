@@ -17,7 +17,8 @@ const TrackShipment = () => {
 		showTrackingIdInput,
 		loading,
 		showUpdateShipmentLocation,
-		addressesCoordinate,
+		currentLocation,
+		routeToLocation,
 		generateLocationLabel,
 		setSingleShipment,
 		handleSetOnTransit,
@@ -93,7 +94,9 @@ const TrackShipment = () => {
 															<div className="flex justify-between items-center">
 																<div className="space-x-3 flex items-center">
 																	<span className="pl-6">Through</span>
-																	<span className="text-lg font-extrabold text-red-500">({ generateLocationLabel(index) })</span>
+																	<span className="text-lg font-extrabold text-red-500">
+																		({generateLocationLabel(index)})
+																	</span>
 																	{singleShipment?.shipment_current_location ==
 																		val?.location_id && (
 																		<RingLoader size={20} textColor="text-blue-900" />
@@ -132,7 +135,10 @@ const TrackShipment = () => {
 												<div className="flex justify-between items-center">
 													<div className="space-x-3 flex items-center">
 														<span className="pl-6">To</span>
-														<span className="text-lg font-extrabold text-red-500">({generateLocationLabel(singleShipment?.shipment_addresses?.length)})</span>
+														<span className="text-lg font-extrabold text-red-500">
+															({generateLocationLabel(singleShipment?.shipment_addresses?.length)})
+														</span>
+														<div className='h-4 w-4 rounded-full bg-green-400'></div>
 														{singleShipment?.shipment_current_location ==
 															singleShipment?.final_destination?.location_id && (
 															<RingLoader size={20} textColor="text-blue-900" />
@@ -154,7 +160,7 @@ const TrackShipment = () => {
 										</div>
 									</div>
 									<div className=" w-full py-5">
-										<div className="flex flex-col md:flex-row    justify-between w-full gap-5">
+										<div className="flex flex-col md:flex-row justify-between w-full gap-5">
 											<div className="border-2 p-3 rounded-md flex-grow w-full">
 												<div className="flex items-center text-sm space-x-2 text-slate-500">
 													<RiUserReceivedLine />
@@ -198,13 +204,13 @@ const TrackShipment = () => {
 													lng: parseFloat(singleShipment?.start_location?.longitude),
 													lat: parseFloat(singleShipment?.start_location?.latitude),
 												}}
-										
 												locations={singleShipment?.shipment_addresses}
-											
 												endLocation={{
 													lng: parseFloat(singleShipment?.final_destination?.longitude),
 													lat: parseFloat(singleShipment?.final_destination?.latitude),
 												}}
+												currentLocation={currentLocation}
+												routeToLocation={routeToLocation}
 											/>
 										</div>
 									</div>

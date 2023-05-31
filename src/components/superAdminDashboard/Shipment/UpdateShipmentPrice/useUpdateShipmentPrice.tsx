@@ -24,7 +24,6 @@ function useUpdateShipmentPrice(
 		setLoading(true);
 		updateShipmentPrice(selectedShipment?.id, price).then(
 			(response) => {
-				console.log(response);
 				setLoading(false);
 				toast.success('Shipment price updated successfully', {
 					progressClassName: 'bg-green-500 h-1',
@@ -37,7 +36,6 @@ function useUpdateShipmentPrice(
 				setShowUpdateShipmentPrice(false);
 			},
 			(error) => {
-				console.log(error);
 				setLoading(false);
 			}
 		);

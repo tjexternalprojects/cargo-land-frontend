@@ -167,7 +167,6 @@ function useNewShipmentForm() {
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
-			// console.log(data)
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
@@ -283,12 +282,10 @@ function useNewShipmentForm() {
 	const moveNext = async () => {
 		setShowLoader(true);
 
-		  console.log(state.shipmentDetails)
 
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
-		console.log(state.shipmentDetails)
 		const formData = new FormData();
 		formData.append('payload', payload);
 		for (let i = 0; i < shipment_images.length; i++) {
@@ -296,7 +293,6 @@ function useNewShipmentForm() {
 		}
 		await createShipment(formData).then(
 			(response) => {
-				console.log(response);
 				setShowLoader(false);
 				setState({
 					...state,
@@ -307,7 +303,6 @@ function useNewShipmentForm() {
 				resetShipment();
 			},
 			(error) => {
-				console.log(error);
 				setShowLoader(false);
 			}
 		);

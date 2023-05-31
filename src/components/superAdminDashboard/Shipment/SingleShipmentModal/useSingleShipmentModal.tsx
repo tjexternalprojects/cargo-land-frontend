@@ -31,7 +31,6 @@ function useShipmentModal(
 		}
 
 		setShipmentImages(shipment_images);
-		console.log(shipmentImages);
 	};
 
 	const handleViewOnMap = (shipment_id: string) => {
@@ -49,12 +48,10 @@ function useShipmentModal(
 					onClick: () => {
 						setTransitLoader(true)
 						updateShipmentToTransit(shipment_id).then(response=>{
-							console.log(response)
 							setSelectedShipment(response.data)
 						setTransitLoader(false)
 
 						},error=>{
-							console.log(error)
 						setTransitLoader(false)
 
 						})
@@ -77,10 +74,8 @@ function useShipmentModal(
 		await adminGetSingleUser(modalSelectedShipment.userID).then(
 			(response) => {
 				setShipmentCreator(response.data.user);
-				console.log(response);
 			},
 			(error) => {
-				console.log(error);
 			}
 		);
 	};

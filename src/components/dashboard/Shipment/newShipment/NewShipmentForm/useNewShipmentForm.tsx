@@ -160,7 +160,6 @@ function useNewShipmentForm() {
 			...shipmentDetails,
 			shipment_type: val,
 		})
-		console.log(val)
 	}
 	const handleChangeCountry = (country: any) => {
 		resetShipmentStateOnChangeAddress();
@@ -243,7 +242,6 @@ function useNewShipmentForm() {
 		).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1 && shipmentDetails.shipment_type === 'door_to_door') {
-				console.log(data);
 				toast.error(
 					'Multiple address match please re-check your address, you can add local government area to be specific'
 				);

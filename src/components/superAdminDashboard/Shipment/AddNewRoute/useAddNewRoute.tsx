@@ -55,7 +55,6 @@ function useAddNewRoute(
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then(async (data) => {
-			console.log(data);
 			setShowLoader(false);
 			if (data.results.length > 1) {
 				toast.error(
@@ -92,7 +91,6 @@ function useAddNewRoute(
 				setShowUpdateShipmentLocation(false);
 			},
 			(error) => {
-				console.log(error);
 				setShowLoader(false);
 				toast.error(error.response.data.Error, {
 					progressClassName: 'bg-red-500 h-1',

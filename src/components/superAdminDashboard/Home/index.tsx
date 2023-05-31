@@ -189,14 +189,14 @@ const home = () => {
 												<h4 className="font-bold ">{val.id}</h4>
 											</div>
 											<div className="flex justify-between items-center mt-2">
-												<div className="felx flex-col">
+												<div className="flex flex-col">
 													<div className="font-bold">Title: {val.shipment_title}</div>
 													<div className="flex flex-col text-xs">
 														<div>
 															Date Created: <span>{new Date(val.createdAt).toLocaleString()}</span>
 														</div>
 														<div>
-															Delevery Date: <span>In View</span>
+															Delivery Date: <span>In View</span>
 														</div>
 													</div>
 												</div>

@@ -91,13 +91,11 @@ function useHome() {
 		setTransactionHistoryLoader(true);
 		userPaymentHistory().then(
 			(response) => {
-				console.log(response);
 				setTransactionHistory(response.data.data);
 				setTransactionHistoryLoader(false);
 			},
 			(error) => {
 				setTransactionHistoryLoader(false);
-				console.log(error);
 			}
 		);
 	};

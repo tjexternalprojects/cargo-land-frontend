@@ -29,13 +29,10 @@ function usePayment() {
 		...config,
 		text: 'Pay with Flutterwave!',
 		callback: async (response: any) => {
-			// console.log(response);
 			closePaymentModal(); // this will close the modal programmatically
 		},
 		onClose: async () => {
-			// setTimeout(async () => {
-			// await axios.post("http://localhost:4300/payment/flutterwave", data);
-			// }, 7000);
+		
 		},
 	};
 
