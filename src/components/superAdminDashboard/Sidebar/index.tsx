@@ -24,7 +24,9 @@ const sidebar = () => {
 				} animate_faster`}
 			>
 				<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2  ">
-					<img src={logo} className=" w-24 h-8" alt="" />
+					<Link to="/">
+						<img src={logo} className=" w-24 h-8" alt="" />
+					</Link>
 				</div>
 				<div className="flex-grow mt-10 ">
 					<ul className="text-lg font-bold">

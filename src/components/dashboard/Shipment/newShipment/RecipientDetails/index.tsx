@@ -188,8 +188,6 @@ const RecipientDetails = () => {
 												className="w-full outline-none"
 												value={JSON.stringify(countryState)}
 												onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
-												disabled={Object.keys(country).length === 0}
-												required
 											>
 												<option value="0">Select State</option>
 
@@ -211,11 +209,9 @@ const RecipientDetails = () => {
 										</small>
 										<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 											<select
-												disabled={Object.keys(countryState).length === 0}
 												className="w-full outline-none"
 												value={JSON.stringify(stateCity)}
 												onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
-												required
 											>
 												<option value="0">Select City</option>
 
@@ -247,7 +243,7 @@ const RecipientDetails = () => {
 												value={address ?? ''}
 												placeholder="type in shipment street address location"
 												onChange={(e) => handleChangeAddress(e.target.value)}
-												disabled={Object.keys(stateCity).length === 0}
+												disabled={Object.keys(country).length === 0}
 												required
 											/>
 											<div className="text-xl text-gray-500">

@@ -19,6 +19,7 @@ const TrackShipment = () => {
 		showUpdateShipmentLocation,
 		currentLocation,
 		routeToLocation,
+		handleSetShipmentSuccessful,
 		generateLocationLabel,
 		setSingleShipment,
 		handleSetOnTransit,
@@ -42,7 +43,7 @@ const TrackShipment = () => {
 										<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
 											Shipment Tracking
 										</div>
-										<div className="flex justify-between items-center">
+										<div className="flex md:flex-row flex-col space-y-2 justify-between items-center">
 											<div>
 												<small>Shipment ID</small>
 												<div className="font-bold">{singleShipment?.id}</div>
@@ -56,6 +57,16 @@ const TrackShipment = () => {
 														Mark as Transit
 													</button>
 												)}
+												{singleShipment?.shipment_Status === 'TRANSIT' &&
+													singleShipment?.shipment_current_location ==
+														singleShipment?.final_destination?.location_id && (
+														<button
+															onClick={() => handleSetShipmentSuccessful(singleShipment?.id)}
+															className="px-2 py-1 bg-green-800 text-white rounded"
+														>
+															Mark as Delivered
+														</button>
+													)}
 												<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
 													{singleShipment?.shipment_Status}
 												</label>
@@ -73,11 +84,14 @@ const TrackShipment = () => {
 															<RingLoader size={20} textColor="text-blue-900" />
 														)}
 													</div>
-													<ShipmentMenu
-														singleShipment={singleShipment}
-														setSingleShipment={setSingleShipment}
-														location_id={singleShipment?.start_location?.location_id}
-													/>
+													{singleShipment?.shipment_Status === 'CHECKED' ||
+														(singleShipment?.shipment_Status === 'TRANSIT' && (
+															<ShipmentMenu
+																singleShipment={singleShipment}
+																setSingleShipment={setSingleShipment}
+																location_id={singleShipment?.start_location?.location_id}
+															/>
+														))}
 												</div>
 												<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300  relative">
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
@@ -102,11 +116,14 @@ const TrackShipment = () => {
 																		<RingLoader size={20} textColor="text-blue-900" />
 																	)}
 																</div>
-																<ShipmentMenu
-																	singleShipment={singleShipment}
-																	setSingleShipment={setSingleShipment}
-																	location_id={val?.location_id}
-																/>
+																{singleShipment?.shipment_Status === 'CHECKED' ||
+																	(singleShipment?.shipment_Status === 'TRANSIT' && (
+																		<ShipmentMenu
+																			singleShipment={singleShipment}
+																			setSingleShipment={setSingleShipment}
+																			location_id={val?.location_id}
+																		/>
+																	))}
 															</div>
 															<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
 																<div className="bg-green-800 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">
@@ -117,14 +134,17 @@ const TrackShipment = () => {
 														</div>
 													))}
 
-													<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
-														<button
-															onClick={() => setShowUpdateShipmentLocation(true)}
-															className="px-2 py-1 bg-green-700 text-white rounded"
-														>
-															Add New Route
-														</button>
-													</div>
+													{singleShipment?.shipment_Status === 'CHECKED' ||
+														(singleShipment?.shipment_Status === 'TRANSIT' && (
+															<div className="text-black font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
+																<button
+																	onClick={() => setShowUpdateShipmentLocation(true)}
+																	className="px-2 py-1 bg-green-700 text-white rounded"
+																>
+																	Add New Route
+																</button>
+															</div>
+														))}
 												</>
 											) : (
 												<div className="text-red-500 text-lg font-bold border-l-2 pl-6 pb-10 pt-2 border-slate-300 relative">
@@ -144,11 +164,14 @@ const TrackShipment = () => {
 															<RingLoader size={20} textColor="text-blue-900" />
 														)}
 													</div>
-													<ShipmentMenu
-														singleShipment={singleShipment}
-														setSingleShipment={setSingleShipment}
-														location_id={singleShipment?.final_destination?.location_id}
-													/>
+													{singleShipment?.shipment_Status === 'CHECKED' ||
+														(singleShipment?.shipment_Status === 'TRANSIT' && (
+															<ShipmentMenu
+																singleShipment={singleShipment}
+																setSingleShipment={setSingleShipment}
+																location_id={singleShipment?.final_destination?.location_id}
+															/>
+														))}
 												</div>
 												<div className="text-black font-bold  pl-6 relative">
 													<div className="bg-slate-300 rounded-full p-2 text-xl inline-flex items-center justify-center absolute -left-5 -top-7">

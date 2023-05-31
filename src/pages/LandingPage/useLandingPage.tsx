@@ -7,7 +7,7 @@ function useLandingPage() {
 	const navigate = useNavigate();
 	const handleGetStarted = () => {
 		if (state.user.loggedIn) {
-			navigate('/dashaboard');
+			navigate('/dashboard');
 		} else {
 			navigate('/login');
 		}

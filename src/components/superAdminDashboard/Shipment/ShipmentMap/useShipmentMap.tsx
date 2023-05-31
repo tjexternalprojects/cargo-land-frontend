@@ -3,8 +3,9 @@ import { ShipmentServices } from '@/services';
 import { useContext, useEffect, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 function useTrackShipment() {
-	const { updateShipmentToTransit, getSingleShipment } = ShipmentServices();
+	const { updateShipmentToTransit, updateShipmentToSuccessful, getSingleShipment } = ShipmentServices();
 	const params = useParams();
 	const [singleShipment, setSingleShipment] = useState<any>({});
 	const [showTrackingIdInput, setShowTrackingIdInput] = useState(false);
@@ -22,6 +23,40 @@ function useTrackShipment() {
 			index = Math.floor(index / 26) - 1;
 		}
 		return label;
+	};
+
+	const handleSetShipmentSuccessful = (shipment_id: string) => {
+		confirmAlert({
+			title: 'Set Shipment as Delivered?',
+			message: 'Have you Confirm that this Shipment has been delivered?',
+			buttons: [
+				{
+					label: 'Yes',
+					onClick: () => {
+						setLoading(true);
+						updateShipmentToSuccessful(shipment_id).then(
+							(response) => {
+								console.log(response);
+								setSingleShipment(response.data);
+								setLoading(false);
+							},
+							(error) => {
+								console.log(error);
+								setLoading(false);
+								toast.info('Oops! an Error occurred', {
+									progressClassName: 'bg-red-500 h-1',
+									autoClose: 3000,
+								});
+							}
+						);
+					},
+				},
+				{
+					label: 'No',
+					onClick: () => {},
+				},
+			],
+		});
 	};
 
 	const handleSetOnTransit = (shipment_id: string) => {
@@ -128,6 +163,7 @@ function useTrackShipment() {
 		showUpdateShipmentLocation,
 		currentLocation,
 		routeToLocation,
+		handleSetShipmentSuccessful,
 		generateLocationLabel,
 		setSingleShipment,
 		handleSetOnTransit,

@@ -103,6 +103,7 @@ function useHome() {
 	const getLatestShipment = () => {
 		setLatestShipmentLoader(true);
 		getAllUserShipmentPaginated(1, 1).then((response) => {
+			console.log(response)
 			setLatestShipment(response.data.allUserShipment);
 			setLatestShipmentLoader(false);
 		});

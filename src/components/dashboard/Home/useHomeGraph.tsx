@@ -9,31 +9,30 @@ function HomeGraph() {
 		totalValue: number;
 		shipmentDetails: Record<string, any>;
 	}
-
+	const { getShipmentInRange } = ShipmentServices();
 	const [shipmentSummary, setShipmentSummary] = useState<ShipmentSummaryInterface[]>([]);
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-	const getGraphData = async (duration: Record<string, string | number>) => {
+	const getGraphData = (duration: Record<string, string | number>) => {
 		let newData: ShipmentSummaryInterface;
-		await ShipmentServices()
-			.getShipmentInRange(duration as Record<string, string>)
-			.then(
-				(response) => {
-					newData = {
-						id: duration.id as number,
-						month: `${duration.month}, ${duration.year}`,
-						totalValue: response.data.allSHipment.length,
-						shipmentDetails: response.data.allSHipment,
-					};
-					setShipmentSummary((prevState) => [...prevState, newData]);
-				},
-				(error) => {
-					toast.error(error.response.data.message, {
-						progressClassName: 'bg-red-500 h-1',
-						autoClose: 3000,
-					});
-				}
-			);
+		getShipmentInRange(duration as Record<string, string>).then(
+			(response) => {
+				newData = {
+					id: duration.id as number,
+					month: `${duration.month}, ${duration.year}`,
+					totalValue: response.data.allSHipment.length,
+					shipmentDetails: response.data.allSHipment,
+				};
+				setShipmentSummary((prevState) => [...prevState, newData]);
+				console.log(duration)
+			},
+			(error) => {
+				toast.error(error.response.data.message, {
+					progressClassName: 'bg-red-500 h-1',
+					autoClose: 3000,
+				});
+			}
+		);
 	};
 
 	const getShipmentDateRange = async (month_to_show: number) => {
@@ -68,7 +67,6 @@ function HomeGraph() {
 				endMonth: end_time,
 			};
 			payload_array.unshift(payload_obj);
-
 			if (current_month == 0) {
 				current_year = current_year - 1;
 				current_month = 12;

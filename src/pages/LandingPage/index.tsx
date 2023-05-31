@@ -1,4 +1,4 @@
-import { AboutUs, Business, Contact, Header, Hero, GetStarted, Services } from '@/components';
+import { AboutUs, Business, Contact, Header, Hero, GetStarted, Services, HomePageTrackShipment } from '@/components';
 import Footer from '@/components/common/Footer';
 import { UserServices } from '@/services';
 import React, { useEffect } from 'react';
@@ -13,6 +13,7 @@ const LandingPage = () => {
 			{/*  Site header */}
 			<Header />
 			<Hero />
+			<HomePageTrackShipment/>
 			<Services />
 			<Business />
 			<AboutUs />
