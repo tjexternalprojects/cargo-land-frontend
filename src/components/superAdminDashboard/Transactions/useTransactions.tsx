@@ -1,18 +1,18 @@
-import { AppContextType, AppContext } from "@/context";
-import { useContext, useEffect } from "react";
+import { AppContextType, AppContext } from '@/context';
+import { useContext, useEffect } from 'react';
 
 function useTransitions() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-	const setActivePage = ()=>{
+	const setActivePage = () => {
 		setState((prevState) => ({
-		  ...prevState,
-		  activePage: 'Transactions',
-		})); 
-	  }
+			...prevState,
+			activePage: 'Transactions',
+		}));
+	};
 
-	  useEffect(() => {
-		setActivePage()
+	useEffect(() => {
+		setActivePage();
 	}, []);
 	return {};
 }

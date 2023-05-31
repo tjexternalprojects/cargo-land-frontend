@@ -60,7 +60,6 @@ function useShipmentMenu(location_id: string, setSingleShipment: any) {
 		);
 	};
 
-
 	const deleteRoute = (shipment_id: string, location_id: string) => {
 		confirmAlert({
 			title: 'Delete Location?',

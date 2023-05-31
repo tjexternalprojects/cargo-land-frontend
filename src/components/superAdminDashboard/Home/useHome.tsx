@@ -201,8 +201,7 @@ function useHome() {
 			(response) => {
 				setTransactionHistory(response.data.data);
 			},
-			(error) => {
-			}
+			(error) => {}
 		);
 	};
 

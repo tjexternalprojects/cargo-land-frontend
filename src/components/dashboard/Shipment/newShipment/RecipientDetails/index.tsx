@@ -164,7 +164,7 @@ const RecipientDetails = () => {
 										>
 											<option value="">Select Airport</option>
 
-											{airportList.map((airport:any, key:number) => (
+											{airportList.map((airport: any, key: number) => (
 												<option value={JSON.stringify(airport)} key={key}>
 													{airport.name}, {airport.city}
 												</option>

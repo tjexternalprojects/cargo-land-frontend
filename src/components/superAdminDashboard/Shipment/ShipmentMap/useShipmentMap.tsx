@@ -74,7 +74,10 @@ function useTrackShipment() {
 		);
 	};
 
-	const GetUpdatedLatLong = ( obj_location_id:string, stateToUpdate: (arg0: { lng: any; lat: any; }) => void) => {
+	const GetUpdatedLatLong = (
+		obj_location_id: string,
+		stateToUpdate: (arg0: { lng: any; lat: any }) => void
+	) => {
 		const { start_location, final_destination, shipment_addresses } = singleShipment;
 
 		const location_ids = {
@@ -94,7 +97,6 @@ function useTrackShipment() {
 			: { lng: null, lat: null };
 		stateToUpdate(coordinates);
 	};
-
 
 	const setActivePage = () => {
 		setState((prevState) => ({
@@ -116,7 +118,7 @@ function useTrackShipment() {
 	}, [singleShipment?.shipment_current_location]);
 
 	useEffect(() => {
-				GetUpdatedLatLong(singleShipment?.shipment_heading_to, setRouteToLocation);
+		GetUpdatedLatLong(singleShipment?.shipment_heading_to, setRouteToLocation);
 	}, [singleShipment?.shipment_heading_to]);
 
 	return {

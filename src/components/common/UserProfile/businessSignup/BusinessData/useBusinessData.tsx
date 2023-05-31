@@ -18,7 +18,7 @@ function useBusinessData(setActiveTab: (tab: string) => void) {
 			business_account: businessData,
 		});
 		setActiveTab('business_document');
-		console.log(state.business_account)
+		console.log(state.business_account);
 	};
 	return { handleSubmitBusinessData, setBusinessData, state, businessData };
 }

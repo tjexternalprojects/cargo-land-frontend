@@ -15,7 +15,6 @@ function transactionServices() {
 	// { amount, accountNumber, bank, password, accountName }
 	const makeWithdrawal = (payload: Record<string, string | number>) => {
 		return api.get('/withdraw/withdraw', payload);
-
 	};
 
 	const userPaymentHistory = () => {
@@ -31,7 +30,6 @@ function transactionServices() {
 }
 
 export default transactionServices;
-
 
 // localhost:4300/shipment/update-single-shipment-price/:id with *{
 //     "delivery_price":23400

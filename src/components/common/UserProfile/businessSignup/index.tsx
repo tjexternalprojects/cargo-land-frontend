@@ -55,11 +55,10 @@ const BusinessSignup = () => {
 					</div>
 					{activeTab == 'business_document' && (
 						<motion.div className="mx-10  w-full" animate={slideUp(0, 0.3)}>
-							<BusinessDocuments setActiveTab={setActiveTab}/>
+							<BusinessDocuments setActiveTab={setActiveTab} />
 						</motion.div>
 					)}
 				</div>
-				
 			</div>
 		</div>
 	);

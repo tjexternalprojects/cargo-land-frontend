@@ -8,15 +8,14 @@ function useShipmentModal(
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
 	selectedShipment: any
 ) {
-	const { adminGetSingleUser } = UserServices()
+	const { adminGetSingleUser } = UserServices();
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
-	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({})
-	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false)
-	const [selectedShipmentProps, setSelectedShipmentProps] = useState<any>(selectedShipment)
+	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({});
+	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false);
+	const [selectedShipmentProps, setSelectedShipmentProps] = useState<any>(selectedShipment);
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false);
 	const { deleteShipment, getAllUserShipment } = ShipmentServices();
-
 
 	const navigate = useNavigate();
 	const handleCloseModal = () => {
@@ -37,32 +36,32 @@ function useShipmentModal(
 		console.log(shipmentImages);
 	};
 
-
-
 	const getUserDetails = async () => {
-		await adminGetSingleUser(selectedShipment.userID).then(response => {
-			setShipmentCreator(response.data.user)
-			console.log(response)
-		}, error => {
-			console.log(error)
-		})
-	}
-
+		await adminGetSingleUser(selectedShipment.userID).then(
+			(response) => {
+				setShipmentCreator(response.data.user);
+				console.log(response);
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
 
 	const handleEdit = (shipment: Record<string, any> | undefined) => {
-		console.log(shipment)
+		console.log(shipment);
 		shipmentToEdit(shipment);
 	};
 
 	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
-		console.log( )
+		console.log();
 		const shipmentDetails = {
 			shipment_id: shipment?.id,
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,
 			images: shipment?.images,
-			shipment_type:shipment?.shipment_Type.toLowerCase(),
+			shipment_type: shipment?.shipment_Type.toLowerCase(),
 			start_location: {
 				location_id: shipment?.start_location?.location_id,
 				country: shipment?.start_location?.country,
@@ -130,18 +129,29 @@ function useShipmentModal(
 				},
 				{
 					label: 'No',
-					onClick: () => { },
+					onClick: () => {},
 				},
 			],
 		});
 	};
 
-
 	useEffect(() => {
 		arrangeImage();
 		getUserDetails();
 	}, [selectedShipment]);
-	return { handleCloseModal, getUserDetails, setShowRejectShipmentModal, setSelectedShipmentProps, handleEdit, handleDeleteItem, removeShipmentLoader, selectedShipmentProps, showRejectShipmentModal, shipmentCreator, shipmentImages };
+	return {
+		handleCloseModal,
+		getUserDetails,
+		setShowRejectShipmentModal,
+		setSelectedShipmentProps,
+		handleEdit,
+		handleDeleteItem,
+		removeShipmentLoader,
+		selectedShipmentProps,
+		showRejectShipmentModal,
+		shipmentCreator,
+		shipmentImages,
+	};
 }
 
 export default useShipmentModal;

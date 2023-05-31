@@ -72,9 +72,6 @@ function ShipmentServices() {
 	// ?operation=updateCurrentLocation&locationID=84758485
 	// ?operation=deleteLocation&locationID=84758485
 
-
-
-
 	const adminGetAllShipments = (params?: string) => {
 		return api.get('/shipment/get-all-shipment' + params);
 	};
@@ -102,25 +99,33 @@ function ShipmentServices() {
 	};
 
 	// ENDPOINT FOR UPDATING SHIPMENT LOCATION
-	const addNewLocation = (shipment_id: string, payload: any)=>{
+	const addNewLocation = (shipment_id: string, payload: any) => {
 		return api.patch('/shipment/update-shipment-location/' + shipment_id, payload);
-	}
+	};
 
-	const removeLocation = (shipment_id: string, location_id:string)=>{
-		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=removeLocation&locationID=${location_id}`);
-	}
+	const removeLocation = (shipment_id: string, location_id: string) => {
+		return api.patch(
+			`/shipment/update-shipment-location/${shipment_id}?operation=removeLocation&locationID=${location_id}`
+		);
+	};
 
-	const updateHeadingTo = (shipment_id: string, location_id:string)=>{
-		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=updateHeading&locationID=${location_id}`);
-	}
+	const updateHeadingTo = (shipment_id: string, location_id: string) => {
+		return api.patch(
+			`/shipment/update-shipment-location/${shipment_id}?operation=updateHeading&locationID=${location_id}`
+		);
+	};
 
-	const updateCurrentLocation = (shipment_id: string, location_id:string)=>{
-		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=updateCurrentLocation&locationID=${location_id}`);
-	}
+	const updateCurrentLocation = (shipment_id: string, location_id: string) => {
+		return api.patch(
+			`/shipment/update-shipment-location/${shipment_id}?operation=updateCurrentLocation&locationID=${location_id}`
+		);
+	};
 
-	const deleteLocation = (shipment_id: string, location_id:string)=>{
-		return api.patch(`/shipment/update-shipment-location/${shipment_id}?operation=deleteLocation&locationID=${location_id}`);
-	}
+	const deleteLocation = (shipment_id: string, location_id: string) => {
+		return api.patch(
+			`/shipment/update-shipment-location/${shipment_id}?operation=deleteLocation&locationID=${location_id}`
+		);
+	};
 	// FOR HOME PAGE GRAPHS =================
 
 	const getGraphData = (duration: Record<string, string | number>) => {

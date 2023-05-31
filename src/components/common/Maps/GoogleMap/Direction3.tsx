@@ -15,7 +15,7 @@ interface MapDirectionProps {
 	locations: any;
 	endLocation: google.maps.LatLngLiteral;
 	currentLocation: any;
-	routeToLocation:any;
+	routeToLocation: any;
 }
 
 type MapLibrary = 'places' | 'drawing' | 'geometry' | 'localContext' | 'visualization';

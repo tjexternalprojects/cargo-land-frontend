@@ -11,11 +11,11 @@ function useShipment() {
 	const { adminGetAllShipments } = ShipmentServices();
 	const [loading, setLoading] = useState(false);
 	const [allShipment, setAllShipment] = useState([]);
-	const [selectedShipment, setSelectedShipment]= useState({})
+	const [selectedShipment, setSelectedShipment] = useState({});
 	const [currentPage, setCurrentPage] = useState(Number(params.current_page));
 	const [hasNextPage, setHasNextPage] = useState();
 	const [hasPreviousPage, setHasPreviousPage] = useState();
-	const [showModal, setShowModal] = useState<boolean>(false)
+	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const getAllShipment = () => {
 		if (isNaN(currentPage)) {
@@ -41,20 +41,19 @@ function useShipment() {
 		);
 	};
 
-
-	const handleSelectShipment =(val:any)=>{
-		setSelectedShipment(val)
-		setShowModal(true)
-	}
-	const setActivePage = ()=>{
+	const handleSelectShipment = (val: any) => {
+		setSelectedShipment(val);
+		setShowModal(true);
+	};
+	const setActivePage = () => {
 		setState((prevState) => ({
-		  ...prevState,
-		  activePage: 'Shipment',
-		})); 
-	  }
+			...prevState,
+			activePage: 'Shipment',
+		}));
+	};
 
 	useEffect(() => {
-		setActivePage()
+		setActivePage();
 		getAllShipment();
 	}, [currentPage]);
 

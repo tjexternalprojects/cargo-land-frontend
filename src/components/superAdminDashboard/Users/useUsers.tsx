@@ -41,19 +41,19 @@ function useUsers() {
 		);
 	};
 
-	const setActivePage = ()=>{
+	const setActivePage = () => {
 		setState((prevState) => ({
-		  ...prevState,
-		  activePage: 'Users',
-		})); 
-	  }
+			...prevState,
+			activePage: 'Users',
+		}));
+	};
 
 	useEffect(() => {
 		allUsers();
 	}, [currentPage]);
 
 	useEffect(() => {
-		setActivePage()
+		setActivePage();
 	}, []);
 	return {
 		allUser,

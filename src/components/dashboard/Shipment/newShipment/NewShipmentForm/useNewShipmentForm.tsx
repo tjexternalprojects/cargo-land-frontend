@@ -25,7 +25,7 @@ function useNewShipmentForm() {
 
 	// function to handle shipment data details
 	interface StartLocation {
-		location_id?: string,
+		location_id?: string;
 		country: any;
 		state: any;
 		city: any;
@@ -41,20 +41,22 @@ function useNewShipmentForm() {
 		shipment_weight?: string;
 		images?: any;
 		shipment_type?: string;
-		shipment_current_location?:string;
+		shipment_current_location?: string;
 		start_location?: StartLocation;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
 
 	const generateID = () => {
-		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		return (
-			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Array.from({ length: 3 }, () =>
+				characters.charAt(Math.floor(Math.random() * characters.length))
+			).join('') +
 			Math.random().toString().substring(2, 6) +
 			Date.now().toString().slice(-4)
-		).substring(0, 9)
-	}
+		).substring(0, 9);
+	};
 
 	const resetInputs = () => {
 		setShipmentDetails({
@@ -64,7 +66,7 @@ function useNewShipmentForm() {
 			shipment_weight: state.shipmentDetails?.shipment_weight as string,
 			images: state.shipmentDetails?.images,
 			shipment_type: state.shipmentDetails?.shipment_type as string,
-			shipment_current_location:state.shipmentDetails?.shipment_current_location as string,
+			shipment_current_location: state.shipmentDetails?.shipment_current_location as string,
 			start_location: {
 				location_id: state.shipmentDetails?.start_location?.location_id,
 				country: state.shipmentDetails?.start_location?.country,
@@ -131,15 +133,10 @@ function useNewShipmentForm() {
 				latitude: null,
 			},
 		});
-		setAddress('')
+		setAddress('');
 	};
 
-	
-
-	const handleChangeDeliveryType=(val:string)=>{
-	
-
-
+	const handleChangeDeliveryType = (val: string) => {
 		setShipmentDetails({
 			...shipmentDetails,
 			start_location: {
@@ -154,13 +151,13 @@ function useNewShipmentForm() {
 				latitude: null,
 			},
 		});
-		setCountry({})
-		setAddress('')
+		setCountry({});
+		setAddress('');
 		setShipmentDetails({
 			...shipmentDetails,
 			shipment_type: val,
-		})
-	}
+		});
+	};
 	const handleChangeCountry = (country: any) => {
 		resetShipmentStateOnChangeAddress();
 
@@ -248,13 +245,13 @@ function useNewShipmentForm() {
 				return;
 			}
 			const { lat, lng } = data.results[0].geometry.location;
-			const location_id = generateID()
+			const location_id = generateID();
 			setShipmentDetails({
 				...shipmentDetails,
-				shipment_current_location:location_id,
+				shipment_current_location: location_id,
 				start_location: {
 					...shipmentDetails.start_location,
-					location_id:location_id,
+					location_id: location_id,
 					country: country,
 					state: countryState,
 					city: stateCity,

@@ -138,7 +138,7 @@ const TrackShipment = () => {
 														<span className="text-lg font-extrabold text-red-500">
 															({generateLocationLabel(singleShipment?.shipment_addresses?.length)})
 														</span>
-														<div className='h-4 w-4 rounded-full bg-green-400'></div>
+														<div className="h-4 w-4 rounded-full bg-green-400"></div>
 														{singleShipment?.shipment_current_location ==
 															singleShipment?.final_destination?.location_id && (
 															<RingLoader size={20} textColor="text-blue-900" />

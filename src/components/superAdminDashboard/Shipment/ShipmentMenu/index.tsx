@@ -1,10 +1,10 @@
-import { BsThreeDotsVertical } from "@/assets";
-import React, { useState } from "react";
-import useShipmentMenu from "./useShipmentMenu";
-import { LoadingPage } from "@/components";
+import { BsThreeDotsVertical } from '@/assets';
+import React, { useState } from 'react';
+import useShipmentMenu from './useShipmentMenu';
+import { LoadingPage } from '@/components';
 interface ShipmentMenuProps {
 	singleShipment: any;
-	setSingleShipment:any;
+	setSingleShipment: any;
 	location_id: string;
 }
 const Dropdown = ({ singleShipment, setSingleShipment, location_id }: ShipmentMenuProps) => {

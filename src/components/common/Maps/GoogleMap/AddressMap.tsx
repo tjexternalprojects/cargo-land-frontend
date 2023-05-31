@@ -7,7 +7,7 @@ const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 interface AddressMapProps {
 	geoLocation: { lng: number; lat: number };
 	formatted_address: string;
-	height?:string
+	height?: string;
 }
 
 type MapLibrary = 'places' | 'drawing' | 'geometry' | 'localContext' | 'visualization';

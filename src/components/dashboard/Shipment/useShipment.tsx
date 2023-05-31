@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { AppContext, AppContextType } from '@/context';
 import { useLocation } from 'react-router-dom';
 function useShipment() {
-	 const location = useLocation();
+	const location = useLocation();
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [animationDirection, setAnimationDirection] = useState({
 		prev_direction: 1,
@@ -10,8 +10,6 @@ function useShipment() {
 	});
 
 	const resetShipment = (shipmentCurrentTab: string, form_level: number) => {
-	
-
 		const resetShipmentDetails = {
 			shipment_title: '',
 			shipment_description: '',
@@ -45,7 +43,6 @@ function useShipment() {
 			shipment_heading_to: {},
 			shipment_addresses: [],
 		};
-
 
 		setState({
 			...state,
@@ -82,7 +79,6 @@ function useShipment() {
 			shipmentCurrentTab: item,
 		});
 	};
-
 
 	return { handleNewShipment, handleShowTab, handleCancelEdit, state, animationDirection };
 }

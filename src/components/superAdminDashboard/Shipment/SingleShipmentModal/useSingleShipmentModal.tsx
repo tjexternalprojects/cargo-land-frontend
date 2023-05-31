@@ -4,21 +4,17 @@ import { UserServices, ShipmentServices } from '@/services';
 import { confirmAlert } from 'react-confirm-alert';
 import { AppContextType, AppContext } from '@/context';
 import { toast } from 'react-toastify';
-function useShipmentModal(
-	modalSelectedShipment: any,
-	setSelectedShipment: any,
-) {
+function useShipmentModal(modalSelectedShipment: any, setSelectedShipment: any) {
 	const { adminGetSingleUser } = UserServices();
-	const {updateShipmentToTransit} = ShipmentServices()
+	const { updateShipmentToTransit } = ShipmentServices();
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
 	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({});
 	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false);
 	const [showUpdateShipmentPrice, setShowUpdateShipmentPrice] = useState(false);
 	const [shipmentCurrentPrice, setShipmentCurrentPrice] = useState<number>(0);
 	const { state, setState } = useContext<AppContextType>(AppContext);
-	const [transitLoader, setTransitLoader] = useState(false)
+	const [transitLoader, setTransitLoader] = useState(false);
 	const navigate = useNavigate();
-
 
 	const arrangeImage = () => {
 		const shipment_images: Record<string, string>[] = [];
@@ -38,7 +34,6 @@ function useShipmentModal(
 	};
 
 	const handleSetOnTransit = (shipment_id: string) => {
-
 		confirmAlert({
 			title: 'Set Shipment on Transit?',
 			message: 'Are you sure you want to set this shipment on transit',
@@ -46,16 +41,16 @@ function useShipmentModal(
 				{
 					label: 'Yes',
 					onClick: () => {
-						setTransitLoader(true)
-						updateShipmentToTransit(shipment_id).then(response=>{
-							setSelectedShipment(response.data)
-						setTransitLoader(false)
-
-						},error=>{
-						setTransitLoader(false)
-
-						})
-
+						setTransitLoader(true);
+						updateShipmentToTransit(shipment_id).then(
+							(response) => {
+								setSelectedShipment(response.data);
+								setTransitLoader(false);
+							},
+							(error) => {
+								setTransitLoader(false);
+							}
+						);
 					},
 				},
 				{
@@ -64,10 +59,6 @@ function useShipmentModal(
 				},
 			],
 		});
-
-
-
-	
 	};
 
 	const getUserDetails = async () => {
@@ -75,8 +66,7 @@ function useShipmentModal(
 			(response) => {
 				setShipmentCreator(response.data.user);
 			},
-			(error) => {
-			}
+			(error) => {}
 		);
 	};
 

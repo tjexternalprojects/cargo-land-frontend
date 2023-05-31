@@ -55,7 +55,7 @@ type AppState = {
 	editShipment: boolean;
 	form_level: number;
 	initializePayment: Record<string, string | string[]> | null;
-	activeShipmentMenu:String | null;
+	activeShipmentMenu: String | null;
 
 	// settings
 	settings: string;

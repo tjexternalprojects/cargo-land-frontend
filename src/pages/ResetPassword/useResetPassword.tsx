@@ -11,7 +11,7 @@ function useResetPassword() {
 	const navigate = useNavigate();
 	const [resetPasswordObj, setResetPassword] = useState({
 		password: '',
-		confirmPassword: ''
+		confirmPassword: '',
 	});
 	const handleRestPassword = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -27,7 +27,7 @@ function useResetPassword() {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
 				});
-				navigate('/login')
+				navigate('/login');
 			},
 			(error) => {
 				setShowLoading(false);

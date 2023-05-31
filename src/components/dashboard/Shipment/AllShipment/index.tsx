@@ -4,7 +4,17 @@ import { Pagination, RingLoader } from '@/components';
 import ShipmentModal from '../SingleShipmentModal';
 
 const index = () => {
-	const { allShipment, currentPage, loading, result, showModal, selectedShipment, setShowModal,setCurrentPage, handleSelectShipment } = useAllShipment();
+	const {
+		allShipment,
+		currentPage,
+		loading,
+		result,
+		showModal,
+		selectedShipment,
+		setShowModal,
+		setCurrentPage,
+		handleSelectShipment,
+	} = useAllShipment();
 	return (
 		<div className="overflow-auto">
 			<div className="relative overflow-auto max-h-72-screen min-h-72-screen mt-5">
@@ -38,7 +48,11 @@ const index = () => {
 						</thead>
 						<tbody>
 							{allShipment.map((shipment: any, index: number) => (
-								<tr className="bg-white border-b cursor-pointer hover:bg-red-100" key={index} onClick={() => handleSelectShipment(shipment)}>
+								<tr
+									className="bg-white border-b cursor-pointer hover:bg-red-100"
+									key={index}
+									onClick={() => handleSelectShipment(shipment)}
+								>
 									<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 										{shipment.id}
 									</th>
@@ -65,7 +79,7 @@ const index = () => {
 				loading={loading}
 			/>
 
-		{showModal && (
+			{showModal && (
 				<ShipmentModal selectedShipment={selectedShipment} setShowModal={setShowModal} />
 			)}
 		</div>

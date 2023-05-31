@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ShipmentSummaryInterface } from '@/interfaces/shipmentInterface';
 function GeneralContext() {
-
 	const shipmentDetails = {
 		shipment_title: '',
 		shipment_description: '',
@@ -31,12 +30,11 @@ function GeneralContext() {
 			longitude: null,
 			latitude: null,
 		},
-		shipment_current_location: "",
-		shipment_heading_to: "",
+		shipment_current_location: '',
+		shipment_heading_to: '',
 		shipment_addresses: [],
 	};
 
-	
 	const allShipments: never[] = [];
 	const trackingShipments: any = [];
 	const shipmentCurrentTab = 'item1';

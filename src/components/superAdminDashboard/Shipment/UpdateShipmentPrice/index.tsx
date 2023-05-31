@@ -7,7 +7,7 @@ import { RingLoader } from '@/components';
 interface ShipmentPriceProps {
 	selectedShipment: any;
 	setSelectedShipment: any;
-	shipmentCurrentPrice:number;
+	shipmentCurrentPrice: number;
 	setShowUpdateShipmentPrice: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const index = ({

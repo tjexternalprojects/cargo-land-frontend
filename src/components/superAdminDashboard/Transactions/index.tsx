@@ -1,7 +1,7 @@
 import React from 'react';
 import useTransitions from './useTransactions';
 const index = () => {
-	const {}= useTransitions()
+	const {} = useTransitions();
 	return <div></div>;
 };
 

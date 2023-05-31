@@ -21,9 +21,7 @@ export const ResendToken = lazy(() => import('./resendVerification'));
 
 // Business SignUp
 export const BusinessSignup = lazy(() => import('./common/UserProfile/businessSignup'));
-export const BusinessData = lazy(
-	() => import('./common/UserProfile/businessSignup/BusinessData')
-);
+export const BusinessData = lazy(() => import('./common/UserProfile/businessSignup/BusinessData'));
 export const BusinessDocuments = lazy(
 	() => import('./common/UserProfile/businessSignup/BusinessDocuments')
 );
@@ -45,9 +43,7 @@ export const PersonalDetails = lazy(() => import('./common/UserProfile/PersonalD
 export const UpdatePassword = lazy(
 	() => import('./common/UserProfile/PersonalDetails/UpdatePassword')
 );
-export const UserDetails = lazy(
-	() => import('./common/UserProfile/PersonalDetails/UserDetails')
-);
+export const UserDetails = lazy(() => import('./common/UserProfile/PersonalDetails/UserDetails'));
 export const UserImage = lazy(() => import('./common/UserProfile/PersonalDetails/UserImage'));
 
 export const AccountType = lazy(() => import('./common/UserProfile/AccountType'));
@@ -80,12 +76,17 @@ export const AUsers = lazy(() => import('./superAdminDashboard/Users'));
 export const AUserDetailsModal = lazy(() => import('./superAdminDashboard/Users/UserDetailsModal'));
 export const ATransactions = lazy(() => import('./superAdminDashboard/Transactions'));
 
-
-// SHIPMENT 
+// SHIPMENT
 export const AShipment = lazy(() => import('./superAdminDashboard/Shipment/AllShipment'));
 export const AUpdateShipment = lazy(() => import('./superAdminDashboard/Shipment/ShipmentMap'));
-export const SearchShipmentModal  = lazy(() => import('./superAdminDashboard/Shipment/ShipmentIDModal'));
-export const RejectShipmentModal = lazy(()=>import('./superAdminDashboard/Shipment/RejectShipmentModal'))
+export const SearchShipmentModal = lazy(
+	() => import('./superAdminDashboard/Shipment/ShipmentIDModal')
+);
+export const RejectShipmentModal = lazy(
+	() => import('./superAdminDashboard/Shipment/RejectShipmentModal')
+);
 export const AddNewRoute = lazy(() => import('./superAdminDashboard/Shipment/AddNewRoute'));
-export const UpdateShipmentPrice = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentPrice'))
+export const UpdateShipmentPrice = lazy(
+	() => import('./superAdminDashboard/Shipment/UpdateShipmentPrice')
+);
 export { default as ShipmentMenu } from './superAdminDashboard/Shipment/ShipmentMenu';

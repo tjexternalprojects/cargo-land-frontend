@@ -22,23 +22,20 @@ function useSidebar() {
 	const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
 	const location = useLocation();
 	const [activeRoute, setActiveRoute] = useState(location.pathname);
-	const [activeSubRoute, setActiveSubRoute]= useState("")
+	const [activeSubRoute, setActiveSubRoute] = useState('');
 
-
-	const handleToggleSidebar = (activePage:string, sub_val:boolean=false) => {
-
-			setActiveRoute(activePage);
-			sub_val == true && setActiveSubRoute(activePage)
+	const handleToggleSidebar = (activePage: string, sub_val: boolean = false) => {
+		setActiveRoute(activePage);
+		sub_val == true && setActiveSubRoute(activePage);
 		setState((prevState) => ({
 			...prevState,
 			toggleAdminSideBar: !state.toggleAdminSideBar,
 		}));
 	};
 
-
-	  const handleToggleSubMenu = (index:number) => {
-			setActiveSubMenu(index === activeSubMenu ? null : index);
-		};
+	const handleToggleSubMenu = (index: number) => {
+		setActiveSubMenu(index === activeSubMenu ? null : index);
+	};
 	const navigationLinks = [
 		{
 			route_to: '/admin',
@@ -73,8 +70,8 @@ function useSidebar() {
 
 	const isRouteActive = (route: string): boolean => {
 		return useLocation().pathname.startsWith(route);
-	  };
-	
+	};
+
 	// useEffect(() => {
 	// 	const matchedLink = navigationLinks.find((link) => link?.sub_menu?.route_to === activeRoute);
 	// 	if (matchedLink) {
@@ -88,8 +85,10 @@ function useSidebar() {
 		navigationLinks,
 		location,
 		activeSubMenu,
-		activeSubRoute,	
-		activeRoute, isRouteActive, handleToggleSidebar,
+		activeSubRoute,
+		activeRoute,
+		isRouteActive,
+		handleToggleSidebar,
 		handleToggleSubMenu,
 	};
 }

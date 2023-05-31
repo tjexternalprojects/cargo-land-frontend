@@ -4,7 +4,6 @@ import { useContext } from 'react';
 function usePayment() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-
 	const config = {
 		public_key: import.meta.env.VITE_REACT_APP_FLUTTERWAVE_TEST_KEY,
 		tx_ref: state.initializePayment?.id as string,
@@ -31,9 +30,7 @@ function usePayment() {
 		callback: async (response: any) => {
 			closePaymentModal(); // this will close the modal programmatically
 		},
-		onClose: async () => {
-		
-		},
+		onClose: async () => {},
 	};
 
 	const handlePayment = () => {};

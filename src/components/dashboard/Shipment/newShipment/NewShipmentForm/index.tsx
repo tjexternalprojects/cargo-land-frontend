@@ -164,7 +164,6 @@ const NewShipmentForm = () => {
 											className="hidden"
 											onChange={handleImageChange}
 											accept="image/*"
-											
 										/>
 									</div>
 								</label>
@@ -182,7 +181,7 @@ const NewShipmentForm = () => {
 								<select
 									className="w-full outline-none bg-white"
 									value={(shipmentDetails.shipment_type as string) ?? ''}
-									onChange={(e) =>handleChangeDeliveryType(e.target.value)}
+									onChange={(e) => handleChangeDeliveryType(e.target.value)}
 									required
 								>
 									<option value="" disabled>
@@ -211,7 +210,7 @@ const NewShipmentForm = () => {
 								</small>
 								<div className=" flex  border-b-2 mt-2 p-2">
 									<select
-									disabled={shipmentDetails.shipment_type === ''}
+										disabled={shipmentDetails.shipment_type === ''}
 										className="w-full outline-none bg-white"
 										value={JSON.stringify(country)}
 										onChange={(e) => handleChangeCountry(JSON.parse(e.target.value))}
@@ -235,82 +234,87 @@ const NewShipmentForm = () => {
 							</div>
 
 							{/* STATE */}
-							{shipmentDetails.shipment_type === 'door_to_door' && (	<><div>
-								<small className="text-gray-400 font-bold">
-									State
-									<span className="text-red-500"> * </span>
-								</small>
-								<div className=" flex  border-b-2 mt-2 p-2">
-									<select
-										className="w-full outline-none bg-white"
-										value={JSON.stringify(countryState)}
-										onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
-										disabled={Object.keys(country).length === 0}
-										required
-									>
-										<option value={0}>Select State</option>
+							{shipmentDetails.shipment_type === 'door_to_door' && (
+								<>
+									<div>
+										<small className="text-gray-400 font-bold">
+											State
+											<span className="text-red-500"> * </span>
+										</small>
+										<div className=" flex  border-b-2 mt-2 p-2">
+											<select
+												className="w-full outline-none bg-white"
+												value={JSON.stringify(countryState)}
+												onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
+												disabled={Object.keys(country).length === 0}
+												required
+											>
+												<option value={0}>Select State</option>
 
-										{State.getStatesOfCountry(country?.isoCode).map((states) => (
-											<option value={JSON.stringify(states)} key={states?.isoCode}>
-												{states?.name}
-											</option>
-										))}
-									</select>
-									<div className="text-xl text-gray-500">
-										<MdOutlineShareLocation />
-									</div>
-								</div>
-							</div>
-								{/* // CITY */}
-								<div>
-									<small className="text-gray-400 font-bold">
-										City
-										<span className="text-red-500"> * </span>
-									</small>
-									<div className=" flex  border-b-2 mt-2 p-2">
-										<select
-											disabled={Object.keys(countryState).length === 0}
-											className="w-full outline-none bg-white"
-											value={JSON.stringify(stateCity)}
-											onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
-											required
-										>
-											<option value={0}>Select City</option>
-
-											{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
-												(cities, key) => (
-													<option value={JSON.stringify(cities)} key={key}>
-														{cities?.name}
+												{State.getStatesOfCountry(country?.isoCode).map((states) => (
+													<option value={JSON.stringify(states)} key={states?.isoCode}>
+														{states?.name}
 													</option>
-												)
-											)}
-										</select>
-										<div className="text-xl text-gray-500">
-											<MdOutlineMyLocation />
+												))}
+											</select>
+											<div className="text-xl text-gray-500">
+												<MdOutlineShareLocation />
+											</div>
 										</div>
 									</div>
-								</div><div className="mt-3">
-									<small className=" text-gray-400 font-bold">
-										Address
-										<span className="text-red-500"> * </span>
-									</small>
-									<div className=" flex  border-b-2 mt-2 p-2">
-										<div className="text-xl text-gray-500">
-											<RiSearch2Line />
-										</div>
-										<input
-											type="text"
-											className="w-full outline-none px-2 bg-white"
-											value={address ?? ''}
-											placeholder="type in shipment street address location"
-											onChange={(e) => handleChangeAddress(e.target.value)}
-											disabled={Object.keys(stateCity).length === 0}
-											required />
-										<div className="text-xl text-gray-500">
-											<MdAddLocationAlt />
+									{/* // CITY */}
+									<div>
+										<small className="text-gray-400 font-bold">
+											City
+											<span className="text-red-500"> * </span>
+										</small>
+										<div className=" flex  border-b-2 mt-2 p-2">
+											<select
+												disabled={Object.keys(countryState).length === 0}
+												className="w-full outline-none bg-white"
+												value={JSON.stringify(stateCity)}
+												onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
+												required
+											>
+												<option value={0}>Select City</option>
+
+												{City.getCitiesOfState(country?.isoCode, countryState?.isoCode).map(
+													(cities, key) => (
+														<option value={JSON.stringify(cities)} key={key}>
+															{cities?.name}
+														</option>
+													)
+												)}
+											</select>
+											<div className="text-xl text-gray-500">
+												<MdOutlineMyLocation />
+											</div>
 										</div>
 									</div>
-								</div></>
+									<div className="mt-3">
+										<small className=" text-gray-400 font-bold">
+											Address
+											<span className="text-red-500"> * </span>
+										</small>
+										<div className=" flex  border-b-2 mt-2 p-2">
+											<div className="text-xl text-gray-500">
+												<RiSearch2Line />
+											</div>
+											<input
+												type="text"
+												className="w-full outline-none px-2 bg-white"
+												value={address ?? ''}
+												placeholder="type in shipment street address location"
+												onChange={(e) => handleChangeAddress(e.target.value)}
+												disabled={Object.keys(stateCity).length === 0}
+												required
+											/>
+											<div className="text-xl text-gray-500">
+												<MdAddLocationAlt />
+											</div>
+										</div>
+									</div>
+								</>
 							)}
 							{shipmentDetails.shipment_type === 'airport_to_airport' && (
 								<div>
@@ -328,9 +332,8 @@ const NewShipmentForm = () => {
 										>
 											<option value="">Select Airport</option>
 
-											{airportList?.map((airport:any, key:number) => (
-											
-												<option value={JSON.stringify(airport)}  key={key}>
+											{airportList?.map((airport: any, key: number) => (
+												<option value={JSON.stringify(airport)} key={key}>
 													{airport.name}, {airport.city}
 												</option>
 											))}

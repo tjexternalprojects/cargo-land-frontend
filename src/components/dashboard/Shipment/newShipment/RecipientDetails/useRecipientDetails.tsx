@@ -29,19 +29,21 @@ function useNewShipmentForm() {
 		recipient_email?: string;
 		recipient_phone_number?: string;
 		final_destination?: Record<string, string | number | null>;
-		shipment_heading_to?:string;
+		shipment_heading_to?: string;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
 
 	const generateID = () => {
-		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		return (
-			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Array.from({ length: 3 }, () =>
+				characters.charAt(Math.floor(Math.random() * characters.length))
+			).join('') +
 			Math.random().toString().substring(2, 6) +
 			Date.now().toString().slice(-4)
-		).substring(0, 9)
-	}
+		).substring(0, 9);
+	};
 
 	const resetInputs = () => {
 		setShipmentDetails({
@@ -49,9 +51,9 @@ function useNewShipmentForm() {
 			recipient_full_name: state.shipmentDetails?.recipient_full_name as string,
 			recipient_email: state.shipmentDetails?.recipient_email as string,
 			recipient_phone_number: state.shipmentDetails?.recipient_phone_number as string,
-			shipment_heading_to:state.shipmentDetails?.shipment_heading_to as string,
+			shipment_heading_to: state.shipmentDetails?.shipment_heading_to as string,
 			final_destination: {
-				location_id:state.shipmentDetails?.final_destination?.location_id,
+				location_id: state.shipmentDetails?.final_destination?.location_id,
 				country: state.shipmentDetails?.final_destination?.country,
 				state: state.shipmentDetails?.final_destination?.state,
 				city: state.shipmentDetails?.final_destination?.city,
@@ -94,8 +96,7 @@ function useNewShipmentForm() {
 				latitude: null,
 			},
 		});
-		setAddress('')
-
+		setAddress('');
 	};
 
 	const handleChangeCountry = (country: Record<string, string>) => {
@@ -128,26 +129,26 @@ function useNewShipmentForm() {
 		setStateCity(city);
 	};
 
-		const handleChangeAirport = (selected_airport: any) => {
-			resetShipmentStateOnChangeAddress();
-			setAirport(selected_airport);
-			setAddress(selected_airport.name + ' Airport');
-			setStateCity({ ...stateCity, name: selected_airport.city });
-			setCountryState({ ...countryState, name: '' });
-		};
+	const handleChangeAirport = (selected_airport: any) => {
+		resetShipmentStateOnChangeAddress();
+		setAirport(selected_airport);
+		setAddress(selected_airport.name + ' Airport');
+		setStateCity({ ...stateCity, name: selected_airport.city });
+		setCountryState({ ...countryState, name: '' });
+	};
 
 	const handleChangeAddress = (address: any) => {
 		resetShipmentStateOnChangeAddress();
 		setAddress(address);
 	};
 
-		const fetchAirports = (country: string) => {
-			const airportCodesJson = airportCodes.toJSON();
-			const airports = airportCodesJson.filter((airport: any) => {
-				return airport.country === country;
-			});
-			setAirportList(airports);
-		};
+	const fetchAirports = (country: string) => {
+		const airportCodesJson = airportCodes.toJSON();
+		const airports = airportCodesJson.filter((airport: any) => {
+			return airport.country === country;
+		});
+		setAirportList(airports);
+	};
 
 	const handleRecipientDetails: SubmitHandler<FieldValues> = async () => {
 		setShowLoader(true);
@@ -176,13 +177,13 @@ function useNewShipmentForm() {
 			}
 
 			const { lat, lng } = data.results[0].geometry.location;
-			const location_id = generateID()
+			const location_id = generateID();
 			setShipmentDetails({
 				...shipmentDetails,
 				shipment_heading_to: location_id,
 				final_destination: {
 					...shipmentDetails.final_destination,
-					location_id:location_id,
+					location_id: location_id,
 					country: country,
 					state: countryState,
 					city: stateCity,
@@ -192,15 +193,10 @@ function useNewShipmentForm() {
 					latitude: lat,
 				},
 			});
-
-
-
-
 		});
 	};
 
 	const resetShipment = () => {
-
 		const resetShipmentDetails = {
 			shipment_title: '',
 			shipment_description: '',
@@ -230,11 +226,10 @@ function useNewShipmentForm() {
 				longitude: null,
 				latitude: null,
 			},
-			shipment_current_location: "",
-			shipment_heading_to: "",
+			shipment_current_location: '',
+			shipment_heading_to: '',
 			shipment_addresses: [],
 		};
-		
 
 		setState((prevState) => ({
 			...prevState,
@@ -282,7 +277,6 @@ function useNewShipmentForm() {
 	const moveNext = async () => {
 		setShowLoader(true);
 
-
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
@@ -322,7 +316,7 @@ function useNewShipmentForm() {
 		);
 	};
 
-		// GET ALL AIRPORTS
+	// GET ALL AIRPORTS
 	useEffect(() => {
 		fetchAirports(country?.name);
 	}, [country, countryState]);
@@ -333,7 +327,6 @@ function useNewShipmentForm() {
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
 		}));
-		
 	}, [shipmentDetails]);
 
 	// GET LIST OF COUNTRIES COVERED BY CARGOLAND

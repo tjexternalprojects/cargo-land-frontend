@@ -28,50 +28,50 @@ function useShipmentSummary() {
 		initialSlide: 0,
 	};
 
-		const resetShipment = (shipmentCurrentTab: string, form_level: number) => {
-			const resetShipmentDetails = {
-				shipment_title: '',
-				shipment_description: '',
-				shipment_weight: 0,
-				images: [],
-				shipment_type: '',
-				start_location: {
-					location_id: '',
-					country: '',
-					state: '',
-					city: '',
-					address: '',
-					formattedAddress: '',
-					longitude: null,
-					latitude: null,
-				},
-				recipient_full_name: '',
-				recipient_email: '',
-				recipient_phone_number: '',
-				final_destination: {
-					location_id: '',
-					country: '',
-					state: '',
-					city: '',
-					address: '',
-					formattedAddress: '',
-					longitude: null,
-					latitude: null,
-				},
-				shipment_current_location: {},
-				shipment_heading_to: {},
-				shipment_addresses: [],
-			};
-
-			setState({
-				...state,
-				shipmentDetails: resetShipmentDetails,
-				shipmentCurrentTab,
-				form_level,
-				editShipment: false,
-			});
+	const resetShipment = (shipmentCurrentTab: string, form_level: number) => {
+		const resetShipmentDetails = {
+			shipment_title: '',
+			shipment_description: '',
+			shipment_weight: 0,
+			images: [],
+			shipment_type: '',
+			start_location: {
+				location_id: '',
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+			recipient_full_name: '',
+			recipient_email: '',
+			recipient_phone_number: '',
+			final_destination: {
+				location_id: '',
+				country: '',
+				state: '',
+				city: '',
+				address: '',
+				formattedAddress: '',
+				longitude: null,
+				latitude: null,
+			},
+			shipment_current_location: {},
+			shipment_heading_to: {},
+			shipment_addresses: [],
 		};
-		
+
+		setState({
+			...state,
+			shipmentDetails: resetShipmentDetails,
+			shipmentCurrentTab,
+			form_level,
+			editShipment: false,
+		});
+	};
+
 	const getCheckedShipment = () => {
 		const unchecked = state.allShipments.filter((obj: any) => obj.shipment_Status == 'UNCHECK');
 

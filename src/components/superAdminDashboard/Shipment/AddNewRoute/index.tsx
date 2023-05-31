@@ -12,13 +12,14 @@ import { AddressMap, RingLoader } from '@/components';
 
 interface ShipmentLocationProps {
 	setShowUpdateShipmentLocation: React.Dispatch<React.SetStateAction<boolean>>;
-	setSingleShipment:any;
+	setSingleShipment: any;
 	singleShipmentId: string;
 }
 
 const index = ({
 	setShowUpdateShipmentLocation,
-	setSingleShipment, singleShipmentId,
+	setSingleShipment,
+	singleShipmentId,
 }: ShipmentLocationProps) => {
 	const {
 		handleChangeCountry,
@@ -33,7 +34,7 @@ const index = ({
 		stateCity,
 		countryState,
 		country,
-	} = useAddNewRoute(singleShipmentId,setSingleShipment, setShowUpdateShipmentLocation);
+	} = useAddNewRoute(singleShipmentId, setSingleShipment, setShowUpdateShipmentLocation);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" w-11/12  md:w-1/2  fixed bg-white shadow-lg pb-3 ">
