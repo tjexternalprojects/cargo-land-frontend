@@ -83,6 +83,9 @@ export const AUpdateShipment = lazy(() => import('./superAdminDashboard/Shipment
 export const SearchShipmentModal = lazy(
 	() => import('./superAdminDashboard/Shipment/ShipmentIDModal')
 );
+export const InputShipmentSecrete = lazy(
+	() => import('./superAdminDashboard/Shipment/InputShipmentSecrete')
+);
 export const RejectShipmentModal = lazy(
 	() => import('./superAdminDashboard/Shipment/RejectShipmentModal')
 );

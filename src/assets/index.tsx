@@ -1,4 +1,5 @@
 // icons
+export { FaKeycdn } from 'react-icons/fa';
 export {
 	GrClose,
 	GrContactInfo,

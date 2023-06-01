@@ -83,9 +83,10 @@ function ShipmentServices() {
 		return api.patch(`/shipment/update-shipment-transit/${shipment_id}`);
 	};
 
-	const updateShipmentToSuccessful = (shipment_id:string)=>{
-		return api.patch(`/shipment/update-shipment-successful/${shipment_id}`);
-	}
+	const updateShipmentToSuccessful = (shipment_id: string, secreteID:string) => {
+		console.log(secreteID, 'shipment secret')
+		return api.patch(`/shipment/update-shipment-delivered/${shipment_id}`, { secreteID });
+	};
 
 	const updateShipmentPrice = (shipment_id: string, delivery_price: number) => {
 		return api.patch(`/shipment/update-single-shipment-price/${shipment_id}`, {

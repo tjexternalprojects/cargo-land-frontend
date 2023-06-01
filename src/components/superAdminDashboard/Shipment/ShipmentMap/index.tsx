@@ -7,7 +7,13 @@ import {
 	ImLocation,
 	RiUserReceivedLine,
 } from '@/assets';
-import { MapDirection3, RingLoader, SearchShipmentModal, AddNewRoute } from '@/components/';
+import {
+	MapDirection3,
+	RingLoader,
+	SearchShipmentModal,
+	AddNewRoute,
+	InputShipmentSecrete,
+} from '@/components/';
 import { useGeocode, LoadingPage, ShipmentMenu } from '@/components';
 import useTrackShipment from './useShipmentMap';
 
@@ -19,7 +25,8 @@ const TrackShipment = () => {
 		showUpdateShipmentLocation,
 		currentLocation,
 		routeToLocation,
-		handleSetShipmentSuccessful,
+		showShipmentSecrete,
+		setShowShipmentSecrete,
 		generateLocationLabel,
 		setSingleShipment,
 		handleSetOnTransit,
@@ -61,7 +68,7 @@ const TrackShipment = () => {
 													singleShipment?.shipment_current_location ==
 														singleShipment?.final_destination?.location_id && (
 														<button
-															onClick={() => handleSetShipmentSuccessful(singleShipment?.id)}
+															onClick={() => setShowShipmentSecrete(true)}
 															className="px-2 py-1 bg-green-800 text-white rounded"
 														>
 															Mark as Delivered
@@ -245,6 +252,11 @@ const TrackShipment = () => {
 										singleShipmentId={singleShipment?.id}
 									/>
 								)}
+								{showShipmentSecrete && <InputShipmentSecrete
+									setSingleShipment={setSingleShipment}
+									singleShipmentId={singleShipment?.id}
+									setShowShipmentSecrete={setShowShipmentSecrete}
+								/>}
 							</>
 						)}
 					</>
