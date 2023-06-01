@@ -66,6 +66,8 @@ const TrackShipment = () => {
 												)}
 												{singleShipment?.shipment_Status === 'TRANSIT' &&
 													singleShipment?.shipment_current_location ==
+														singleShipment?.final_destination?.location_id &&
+													singleShipment?.shipment_heading_to ==
 														singleShipment?.final_destination?.location_id && (
 														<button
 															onClick={() => setShowShipmentSecrete(true)}
@@ -252,11 +254,13 @@ const TrackShipment = () => {
 										singleShipmentId={singleShipment?.id}
 									/>
 								)}
-								{showShipmentSecrete && <InputShipmentSecrete
-									setSingleShipment={setSingleShipment}
-									singleShipmentId={singleShipment?.id}
-									setShowShipmentSecrete={setShowShipmentSecrete}
-								/>}
+								{showShipmentSecrete && (
+									<InputShipmentSecrete
+										setSingleShipment={setSingleShipment}
+										singleShipmentId={singleShipment?.id}
+										setShowShipmentSecrete={setShowShipmentSecrete}
+									/>
+								)}
 							</>
 						)}
 					</>

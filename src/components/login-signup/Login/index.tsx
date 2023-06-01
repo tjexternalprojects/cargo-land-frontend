@@ -12,7 +12,7 @@ const login = () => {
 		verifyEmail,
 		googleLoginSuccess,
 		googleLoginFailure,
-		hadleVerifyEmail,
+		 handleVerifyEmail,
 		handleLogin,
 		setLoginData,
 		showForgotPassword,
@@ -58,8 +58,8 @@ const login = () => {
 							Forgotten Password?
 						</span>
 						{verifyEmail && (
-							<span className="text-red-800 text-sm cursor-pointer" onClick={hadleVerifyEmail}>
-								Verifiy Email
+							<span className="text-red-800 text-sm cursor-pointer" onClick={handleVerifyEmail}>
+								Verify Email
 							</span>
 						)}
 					</div>

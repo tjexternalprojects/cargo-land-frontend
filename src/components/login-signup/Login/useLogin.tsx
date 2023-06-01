@@ -69,7 +69,7 @@ function useLogin() {
 		);
 	};
 
-	const hadleVerifyEmail = () => {
+	const handleVerifyEmail = () => {
 		setState({
 			...state,
 			showResendToken: true,
@@ -82,7 +82,7 @@ function useLogin() {
 			email: credentialResponse.email,
 			avatar: credentialResponse.picture,
 		};
-
+		console.log(credentialResponse);
 		LocalStorageServices.setUserInfo(user_info);
 		LocalStorageServices.setLocalAccessToken(credentialResponse.jti);
 		navigate('/dashboard');
@@ -95,7 +95,7 @@ function useLogin() {
 		});
 	};
 	return {
-		hadleVerifyEmail,
+		handleVerifyEmail,
 		showForgotPassword,
 		setLoginData,
 		handleLogin,

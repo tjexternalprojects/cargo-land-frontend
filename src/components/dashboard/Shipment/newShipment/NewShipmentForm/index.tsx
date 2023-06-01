@@ -15,6 +15,8 @@ import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
 import { AddressMap, RingLoader } from '@/components';
 import Slider from 'react-slick';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 const NewShipmentForm = () => {
 	const {
@@ -42,6 +44,37 @@ const NewShipmentForm = () => {
 		image_slider_settings,
 		shipmentDetails,
 	} = useNewShipmentForm();
+
+	  const galleryStyles: React.CSSProperties = {
+			width: '100%',
+			height: '300px', // Adjust the height as needed
+			objectFit: 'cover',
+		};
+
+		const itemsToShow = 4;
+	// const imageItems = previewImage.map((image: any, index: number) => ({
+	// 	original: typeof image === 'string' ? image : undefined,
+	// 	originalAlt: 'Shipment',
+	// 	renderItem: () => (
+	// 		<div className="relative w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl">
+	// 			<img
+	// 				src={typeof image === 'string' ? image : undefined}
+	// 				alt="Shipment"
+	// 				className="object-cover w-full h-full rounded-xl"
+	// 			/>
+
+	// 			<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100 hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+	// 				<div
+	// 					className="cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2 rounded-full hover:border border-slate-50"
+	// 					onClick={() => removeImage(index)}
+	// 				>
+	// 					<AiOutlineClose />
+	// 				</div>
+	// 			</div>
+	// 		</div>
+	// 	),
+	// }));
+
 
 	return (
 		<>
@@ -128,30 +161,24 @@ const NewShipmentForm = () => {
 							Images
 							<span className="text-red-500"> * | Upload maximum of 5 images</span>
 						</label>
-						<Slider {...image_slider_settings}>
-							{previewImage.map((image: any, index: number) => (
-								<div
-									key={index}
-									className="relative w-32 h-32 border-2  bg-slate-200 shadow flex items-center justify-center rounded-xl"
-								>
-									<img
-										src={typeof image === 'string' ? image : undefined}
-										alt="Shipment"
-										className="object-cover w-full  h-full rounded-xl"
-									/>
-
-									<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100  hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
-										<div
-											className=" cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2  rounded-full hover:border border-slate-50"
-											onClick={() => removeImage(index)}
-										>
-											<AiOutlineClose />
+						{previewImage.length > 0 && (
+							<div className="my-image-gallery">
+								<ImageGallery
+									items={previewImage}
+									additionalClass="custom-image-gallery"
+									showThumbnails={true}
+									showPlayButton={false}
+									renderCustomControls={() => null} // To hide the default navigation controls
+									renderItem={(item) => (
+										<div className="image-gallery-image">
+											<img src={item.original} alt={item.originalAlt} style={galleryStyles} />
 										</div>
-									</div>
-								</div>
-							))}
-						</Slider>
-
+									)}
+								/>
+							</div>
+						)}
+						{/* </Slider> */}
+						<br />
 						{previewImage.length < 5 && (
 							<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
 								<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
@@ -271,6 +298,7 @@ const NewShipmentForm = () => {
 												disabled={Object.keys(countryState).length === 0}
 												className="w-full outline-none bg-white"
 												value={JSON.stringify(stateCity)}
+												onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
 											>
 												<option value={0}>Select City</option>
 

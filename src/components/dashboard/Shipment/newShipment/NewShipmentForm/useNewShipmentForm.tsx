@@ -237,6 +237,7 @@ function useNewShipmentForm() {
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
+			console.log(data)
 			setShowLoader(false);
 			if (data.results.length > 1 && shipmentDetails.shipment_type === 'door_to_door') {
 				toast.error(
@@ -272,6 +273,7 @@ function useNewShipmentForm() {
 		});
 	};
 
+	const click
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
 		if (files && files.length > 0) {
@@ -284,7 +286,17 @@ function useNewShipmentForm() {
 						...prevDetails,
 						images: [...prevDetails.images, file],
 					}));
-					setPreviewImage((prevImages: any) => [...prevImages, dataUrl]);
+
+					setPreviewImage((prevImages: any) => [
+						...prevImages,
+						{
+							original: dataUrl,
+							thumbnail: dataUrl,
+							thumbnailHeight: '4px',
+							thumbnailLoading: 'lazy',
+							bulletOnClick,
+						},
+					]);
 				};
 				reader.readAsDataURL(file);
 			} else {
