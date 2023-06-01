@@ -55,7 +55,7 @@ const home = () => {
 						)}
 					</div>
 				</div>
-
+						<Link to="/admin/shipment/1">
 				<div className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center">
 					<div className=" w-20">{/* <LineGraph data={sent_data} /> */}</div>
 					<div className="flex flex-col items-end text-red-500">
@@ -67,6 +67,7 @@ const home = () => {
 						)}
 					</div>
 				</div>
+				</Link>
 			</div>
 
 			{/* Bottom */}
