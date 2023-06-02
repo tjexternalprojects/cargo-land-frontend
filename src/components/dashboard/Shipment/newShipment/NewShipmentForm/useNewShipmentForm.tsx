@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
-import axios from 'axios';
 import airportCodes from 'airport-codes';
 
 function useNewShipmentForm() {
@@ -22,6 +21,7 @@ function useNewShipmentForm() {
 	const [airportList, setAirportList] = useState<Record<string, string>[]>([]);
 	const [airport, setAirport] = useState<any>({});
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
+	const [imageFullScreen, setImageFullScreen] = useState(false);
 
 	// function to handle shipment data details
 	interface StartLocation {
@@ -102,16 +102,6 @@ function useNewShipmentForm() {
 		initialSlide: 0,
 	};
 
-	const removeImage = (indexToRemove: number) => {
-		const newPreviewImage = [...previewImage];
-		newPreviewImage.splice(indexToRemove, 1);
-		setPreviewImage(newPreviewImage);
-		if (shipmentDetails.images) {
-			const newShipmentImages = [...shipmentDetails.images];
-			newShipmentImages.splice(indexToRemove, 1);
-			setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
-		}
-	};
 
 	const resetShipmentStateOnChangeAddress = () => {
 		setState({
@@ -273,7 +263,23 @@ function useNewShipmentForm() {
 		});
 	};
 
-	const click
+	const handleImageScreenChange =(isFullScreen: any)=>{
+		setImageFullScreen(isFullScreen)
+	}
+
+	const removeImage = (indexToRemove: number) => {
+		console.log(indexToRemove)
+		const newPreviewImage = [...previewImage];
+		newPreviewImage.splice(indexToRemove, 1);
+		setPreviewImage(newPreviewImage);
+		if (shipmentDetails.images) {
+			const newShipmentImages = [...shipmentDetails.images];
+			newShipmentImages.splice(indexToRemove, 1);
+			setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
+		}
+	};
+
+
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
 		if (files && files.length > 0) {
@@ -292,9 +298,6 @@ function useNewShipmentForm() {
 						{
 							original: dataUrl,
 							thumbnail: dataUrl,
-							thumbnailHeight: '4px',
-							thumbnailLoading: 'lazy',
-							bulletOnClick,
 						},
 					]);
 				};
@@ -361,6 +364,8 @@ function useNewShipmentForm() {
 		handleChangeAddress,
 		handleChangeAirport,
 		handleChangeDeliveryType,
+		handleImageScreenChange,
+		imageFullScreen,
 		airportList,
 		airport,
 		state,
