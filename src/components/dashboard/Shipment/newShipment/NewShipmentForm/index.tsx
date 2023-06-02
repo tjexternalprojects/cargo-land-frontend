@@ -163,43 +163,52 @@ const NewShipmentForm = () => {
 							<span className="text-red-500"> * | Upload maximum of 5 images</span>
 						</label>
 						{previewImage.length > 0 && (
-					<div className="overflow-x-auto w-80-screen md:w-full">
-							<ImageGallery
-								items={previewImage}
-								showThumbnails={true}
-								showPlayButton={false}
-								onScreenChange={handleImageScreenChange}
-								renderItem={(item) => (
+							<div className="overflow-x-auto w-80-screen md:w-full">
+								<ImageGallery
+									items={previewImage}
+									showThumbnails={true}
+									showPlayButton={false}
+									onScreenChange={handleImageScreenChange}
+									renderItem={(item) => (
+										<div
+											className={` ${
+												!imageFullScreen && 'md:w-32   h-44 image-gallery-image relative rounded-xl'
+											} overflow-x-auto border-2 bg-slate-200 shadow flex items-center justify-center `}
+										>
+											<img
+												className="object-cover w-full h-full rounded-xl"
+												src={item.original}
+												alt={item.originalAlt}
+											/>
 
-									<div className={`image-gallery-image relative ${!imageFullScreen && 'md:w-32   h-44'} overflow-x-auto border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl`}>
-
-										<img className="object-cover w-full h-full rounded-xl" src={item.original} alt={item.originalAlt} />
-
-										{!imageFullScreen && <div className="absolute transition-all ease-in-out duration-150 hover:opacity-100 hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
-											<div
-												className="cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2 rounded-full hover:border border-slate-50"
-												onClick={() => removeImage(previewImage.indexOf(item))}
-											>
-												<AiOutlineClose />
-											</div>
-										</div>}
-									</div>
-								)}
-								renderThumbInner={(item) => (<>
-									{!imageFullScreen && <div className=" h-10 w-full max-w-full overflow-x-auto whitespace-nowrap">
-									<img
-									  className="object-contain w-full h-full "
-									  src={item.thumbnail}
-									  alt={item.thumbnailAlt}
-									/>
-									</div>}
-									</>
-								  )}
-							/>
+											{!imageFullScreen && (
+												<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100 hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
+													<div
+														className="cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2 rounded-full hover:border border-slate-50"
+														onClick={() => removeImage(previewImage.indexOf(item))}
+													>
+														<AiOutlineClose />
+													</div>
+												</div>
+											)}
+										</div>
+									)}
+									renderThumbInner={(item) => (
+										<>
+											{!imageFullScreen && (
+												<div className=" h-10 w-full max-w-full overflow-x-auto whitespace-nowrap">
+													<img
+														className="object-contain w-full h-full "
+														src={item.thumbnail}
+														alt={item.thumbnailAlt}
+													/>
+												</div>
+											)}
+										</>
+									)}
+								/>
 							</div>
-							
-						)
-						}
+						)}
 						{/* </Slider> */}
 						<br />
 						{previewImage.length < 5 && (
