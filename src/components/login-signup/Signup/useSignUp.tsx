@@ -96,6 +96,7 @@ function useSignUp() {
 		GOOGLE_SIGNUP_CLIENT_ID,
 		showLoading,
 		signUpData,
+		signupWithGoogle,
 		setSignUpData,
 		setShowPassword,
 		handleSingupSubmit,

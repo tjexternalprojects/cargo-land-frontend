@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 
 export const LandingPage = lazy(() => import('./LandingPage'));
+export const TrackShipmentPage = lazy(() => import('./TrackShipment'));
 export const Login = lazy(() => import('./Login'));
 export const ResetPassword = lazy(() => import('./ResetPassword'));
 export const Dashboard = lazy(() => import('./Dashboard'));
