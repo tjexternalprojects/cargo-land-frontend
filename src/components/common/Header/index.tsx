@@ -27,6 +27,9 @@ const Header = () => {
 							<a href="#Direction">Direction</a>
 						</li>
 						<li className="cursor-pointer">
+							<a href="">Track Shipment</a>
+						</li>
+						<li className="cursor-pointer">
 							<a href="#Contact">Contact Us</a>
 						</li>
 					</ul>

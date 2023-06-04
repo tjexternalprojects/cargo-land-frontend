@@ -60,6 +60,7 @@ export {
 	BsCurrencyDollar,
 	BsCheckLg,
 	BsThreeDotsVertical,
+	BsGoogle,
 } from 'react-icons/bs';
 export {
 	AiOutlineNumber,

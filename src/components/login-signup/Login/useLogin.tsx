@@ -94,6 +94,10 @@ function useLogin() {
 			autoClose: 3000,
 		});
 	};
+
+	const loginWithGoogle = () => {
+		window.open(import.meta.env.VITE_REACT_APP_BASE_URL + '/auth/google/callback');
+	};
 	return {
 		handleVerifyEmail,
 		showForgotPassword,
@@ -101,6 +105,7 @@ function useLogin() {
 		handleLogin,
 		googleLoginSuccess,
 		googleLoginFailure,
+		loginWithGoogle,
 		loginData,
 		showLoading,
 		GOOGLE_LOGIN_CLIENT_ID,

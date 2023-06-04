@@ -67,7 +67,6 @@ export const Business = lazy(() => import('./LandingPage/Business'));
 export const Contact = lazy(() => import('./LandingPage/Contact'));
 export const GetStarted = lazy(() => import('./LandingPage/GetStarted'));
 export const AboutUs = lazy(() => import('./LandingPage/AboutUs'));
-export const HomePageTrackShipment = lazy(() => import('./LandingPage/TrackShipment'));
 
 // SUPER ADMIN DASHBOARD ======================================================
 export const ATopBar = lazy(() => import('./superAdminDashboard/TopBar'));
