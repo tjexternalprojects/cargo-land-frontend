@@ -88,15 +88,15 @@ function useSignUp() {
 		});
 	};
 
-	const signupWithGoogle = () => {
-		window.open(import.meta.env.VITE_REACT_APP_BASE_URL + '/auth/google/callback');
+	const continueWithGoogle = () => {
+		window.open(import.meta.env.VITE_REACT_APP_BASE_URL + 'auth/google/callback', '_self');
 	};
 	return {
 		showPassword,
 		GOOGLE_SIGNUP_CLIENT_ID,
 		showLoading,
 		signUpData,
-		signupWithGoogle,
+		continueWithGoogle,
 		setSignUpData,
 		setShowPassword,
 		handleSingupSubmit,

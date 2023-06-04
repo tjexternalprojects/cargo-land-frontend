@@ -91,6 +91,8 @@ export { default as rippleLoader } from './images/RippleLoader.svg';
 // Shipment Images
 export { default as package1 } from './images/shipment/package1.jpg';
 export { default as shipmentDefaultImg } from './images/shipment/shipmentDefaultImage.png';
+export { default as shipmentOverview } from './images/trackShipment/shipment.jpg';
+
 
 // Landing Page
 export { default as CircleBg } from './images/landingPage/circleBg';

@@ -117,11 +117,13 @@ function useTrackShipment() {
 	}, [params.shipment_id]);
 
 	useEffect(() => {
-		GetUpdatedLatLong(singleShipment?.shipment_current_location, setCurrentLocation);
+		singleShipment?.shipment_Status === 'TRANSIT' &&
+			GetUpdatedLatLong(singleShipment?.shipment_current_location, setCurrentLocation);
 	}, [singleShipment?.shipment_current_location]);
 
 	useEffect(() => {
-		GetUpdatedLatLong(singleShipment?.shipment_heading_to, setRouteToLocation);
+		singleShipment?.shipment_Status === 'TRANSIT' &&
+			GetUpdatedLatLong(singleShipment?.shipment_heading_to, setRouteToLocation);
 	}, [singleShipment?.shipment_heading_to]);
 
 	return {

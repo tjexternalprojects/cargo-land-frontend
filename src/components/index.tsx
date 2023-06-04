@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 // common components
 export const Header = lazy(() => import('./common/Header'));
+export const Footer = lazy(() => import('./common/Footer'));
 export const LineGraph = lazy(() => import('./common/Graph/LingGraph'));
 export const MapDirection = lazy(() => import('./common/Maps/GoogleMap/Direction'));
 export const MapDirection3 = lazy(() => import('./common/Maps/GoogleMap/Direction3'));
@@ -67,6 +68,10 @@ export const Business = lazy(() => import('./LandingPage/Business'));
 export const Contact = lazy(() => import('./LandingPage/Contact'));
 export const GetStarted = lazy(() => import('./LandingPage/GetStarted'));
 export const AboutUs = lazy(() => import('./LandingPage/AboutUs'));
+
+// Track Shipment
+export const ShipmentSearchBox = lazy(() => import('./TrackShipmentPage/ShipmentSearchBox'));
+export const TrackResult = lazy(() => import('./TrackShipmentPage/TrackResult'));
 
 // SUPER ADMIN DASHBOARD ======================================================
 export const ATopBar = lazy(() => import('./superAdminDashboard/TopBar'));

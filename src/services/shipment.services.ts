@@ -49,6 +49,10 @@ function ShipmentServices() {
 		return api.patch(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
 	};
 
+
+	const trackShipment = (payload:Record<string, string>)=>{
+		return api.get(`/shipment/track-single-shipment?secretID=${payload.secreteID}&trackingID=${payload.trackingID}`)
+	}
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
@@ -142,6 +146,7 @@ function ShipmentServices() {
 		deleteLocation,
 		updateShipmentToTransit,
 		updateShipmentToSuccessful,
+		trackShipment,
 	};
 }
 
