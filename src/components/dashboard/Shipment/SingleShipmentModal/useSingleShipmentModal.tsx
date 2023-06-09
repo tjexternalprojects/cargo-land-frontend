@@ -60,7 +60,10 @@ function useShipmentModal(
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,
-			images: shipment?.images,
+			images: shipment?.images.map((url:string) => ({
+				original: url,
+				thumbnail: url,
+			})),
 			shipment_type: shipment?.shipment_Type.toLowerCase(),
 			start_location: {
 				location_id: shipment?.start_location?.location_id,

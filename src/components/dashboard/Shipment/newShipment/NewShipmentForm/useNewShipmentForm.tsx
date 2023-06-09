@@ -319,6 +319,7 @@ function useNewShipmentForm() {
 
 	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
+		console.log(previewImage, 'shipment details');
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },

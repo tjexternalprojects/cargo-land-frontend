@@ -13,7 +13,6 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 	const {
 		handleCloseModal,
 		setShowRejectShipmentModal,
-		setSelectedShipmentProps,
 		handleEdit,
 		handleDeleteItem,
 		handleImageScreenChange,
