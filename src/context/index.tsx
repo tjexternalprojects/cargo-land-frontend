@@ -22,8 +22,8 @@ const {
 	shipmentSummary,
 	shipmentCurrentTab,
 	editShipment,
+	singleShipment,
 	form_level,
-	trackingShipments,
 	allShipments,
 	initializePayment,
 	activeShipmentMenu,
@@ -50,8 +50,8 @@ type AppState = {
 	shipmentDetails: any;
 	shipmentSummary: any;
 	shipmentCurrentTab: string;
+	singleShipment:any;
 	allShipments: any;
-	trackingShipments: any;
 	editShipment: boolean;
 	form_level: number;
 	initializePayment: Record<string, string | string[]> | null;
@@ -83,8 +83,8 @@ const initialState: AppState = {
 	shipmentDetails,
 	shipmentSummary,
 	allShipments,
-	trackingShipments,
 	editShipment,
+	singleShipment,
 	form_level,
 	initializePayment,
 	activeShipmentMenu,

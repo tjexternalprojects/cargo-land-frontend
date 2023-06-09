@@ -36,10 +36,10 @@ const index = () => {
 									Sender's Address
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Recepient's Address
+									Recipient's Address
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Deleivery Type
+									Delivery Type
 								</th>
 								<th scope="col" className="px-6 py-3">
 									Shipment Status
@@ -64,7 +64,17 @@ const index = () => {
 											? 'Door to Door'
 											: 'Airport to Airport'}
 									</td>
-									<td className="px-6 py-4">{shipment.shipment_Status}</td>
+									<td
+										className={`
+								 ${shipment.shipment_Status === 'UNCHECK' ? 'text-blue-500' : ''} 
+								 ${shipment.shipment_Status === 'CHECKED' ? 'text-yellow-600' : ''} 
+								 ${shipment.shipment_Status === 'TRANSIT' ? 'text-green-500' : ''} 
+								 ${shipment.shipment_Status === 'SUCCESSFUL' ? 'text-green-700' : ''} 
+								 ${shipment.shipment_Status === 'REJECTED' ? 'text-red-500' : ''} 
+								 font-extrabold px-6 py-4`}
+									>
+										{shipment.shipment_Status}
+									</td>
 								</tr>
 							))}
 						</tbody>

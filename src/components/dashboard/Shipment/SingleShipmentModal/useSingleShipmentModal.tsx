@@ -16,6 +16,7 @@ function useShipmentModal(
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false);
 	const { deleteShipment, getAllUserShipment } = ShipmentServices();
+	const [imageFullScreen, setImageFullScreen] = useState(false);
 
 	const navigate = useNavigate();
 	const handleCloseModal = () => {
@@ -33,28 +34,27 @@ function useShipmentModal(
 		}
 
 		setShipmentImages(shipment_images);
-		console.log(shipmentImages);
 	};
 
 	const getUserDetails = async () => {
 		await adminGetSingleUser(selectedShipment.userID).then(
 			(response) => {
 				setShipmentCreator(response.data.user);
-				console.log(response);
 			},
 			(error) => {
-				console.log(error);
 			}
 		);
 	};
 
 	const handleEdit = (shipment: Record<string, any> | undefined) => {
-		console.log(shipment);
 		shipmentToEdit(shipment);
 	};
 
+	const handleImageScreenChange = (isFullScreen: any) => {
+		setImageFullScreen(isFullScreen);
+	};
+
 	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
-		console.log();
 		const shipmentDetails = {
 			shipment_id: shipment?.id,
 			shipment_title: shipment?.shipment_title,
@@ -135,6 +135,10 @@ function useShipmentModal(
 		});
 	};
 
+	const handleShowOnMap = (shipment_details: any) => {
+		setState({ ...state, singleShipment: shipment_details });
+		navigate('/dashboard/track_shipment');
+	};
 	useEffect(() => {
 		arrangeImage();
 		getUserDetails();
@@ -146,6 +150,9 @@ function useShipmentModal(
 		setSelectedShipmentProps,
 		handleEdit,
 		handleDeleteItem,
+		handleImageScreenChange,
+		handleShowOnMap,
+		imageFullScreen,
 		removeShipmentLoader,
 		selectedShipmentProps,
 		showRejectShipmentModal,

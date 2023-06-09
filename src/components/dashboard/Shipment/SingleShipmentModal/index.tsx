@@ -16,6 +16,9 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 		setSelectedShipmentProps,
 		handleEdit,
 		handleDeleteItem,
+		handleImageScreenChange,
+		handleShowOnMap,
+		imageFullScreen,
 		removeShipmentLoader,
 		selectedShipmentProps,
 		showRejectShipmentModal,
@@ -39,17 +42,46 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 				</div>
 				<div className="px-3 flex gap-4 flex-col overflow-y-auto  md:flex-row max-h-70-screen">
 					<div className="p-2 md:overflow-y-auto md:w-1/2 flex-grow">
-						{/* <div className=" md:w-96 h-96 border bg-red-500 "> */}
-						<div className=" max-w-xl  ">
+						<div className="">
 							{shipmentImages.length > 0 ? (
-								<ImageGallery lazyLoad={true} items={shipmentImages} />
+								<ImageGallery
+									items={shipmentImages}
+									showThumbnails={true}
+									showPlayButton={false}
+									onScreenChange={handleImageScreenChange}
+									renderItem={(item) => (
+										<div
+											className={` ${
+												!imageFullScreen && 'md:w-32 h-64 image-gallery-image relative rounded-xl'
+											} overflow-x-auto border-2 bg-slate-200 shadow flex items-center justify-center `}
+										>
+											<img
+												className="object-cover w-full h-full rounded-xl"
+												src={item.original}
+												alt={item.originalAlt}
+											/>
+										</div>
+									)}
+									renderThumbInner={(item) => (
+										<>
+											{!imageFullScreen && (
+												<div className=" h-10 w-full max-w-full overflow-x-auto whitespace-nowrap">
+													<img
+														className="object-contain w-full h-full "
+														src={item.thumbnail}
+														alt={item.thumbnailAlt}
+													/>
+												</div>
+											)}
+										</>
+									)}
+								/>
 							) : (
 								<div>
 									<img src={shipmentDefaultImg} />
 								</div>
 							)}
 						</div>
-						{/* </div> */}
 						<div className="w-full text-center">
 							<div className="p-2 uppercase font-extrabold">{selectedShipment?.shipment_title}</div>
 							<div>
@@ -57,8 +89,9 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 								<span
 									className={`
 								 ${selectedShipmentProps.shipment_Status === 'UNCHECK' ? 'text-blue-500' : ''} 
-								 ${selectedShipmentProps.shipment_Status === 'CHECKED' ? 'text-green-700' : ''} 
+								 ${selectedShipmentProps.shipment_Status === 'CHECKED' ? 'text-yellow-600' : ''} 
 								 ${selectedShipmentProps.shipment_Status === 'TRANSIT' ? 'text-green-500' : ''} 
+								 ${selectedShipmentProps.shipment_Status === 'SUCCESSFUL' ? 'text-green-700' : ''} 
 								 ${selectedShipmentProps.shipment_Status === 'REJECTED' ? 'text-red-500' : ''} 
 								 font-bold`}
 								>
@@ -109,6 +142,19 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 								</div>
 							</div>
 						)}
+						<div className='w-full flex items-center justify-center'>
+							<button
+								onClick={() => handleShowOnMap(selectedShipmentProps)}
+								type="button"
+								className="hover:shadow-md  shadow-gray-50 shadow-sm mt-3 p-2 rounded-sm  bg-blue-700 font-bold text-white text-md"
+							>
+								{selectedShipmentProps.shipment_Status === 'TRANSIT' ? (
+									<span>Track Shipment</span>
+								) : (
+									<span>View On Map</span>
+								)}
+							</button>
+						</div>
 					</div>
 					<div className="w-full md:overflow-y-auto  ">
 						<div className=" md:pt-0 pt-3 space-y-4 ">

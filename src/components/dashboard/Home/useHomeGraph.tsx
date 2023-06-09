@@ -24,7 +24,6 @@ function HomeGraph() {
 					shipmentDetails: response.data.allSHipment,
 				};
 				setShipmentSummary((prevState) => [...prevState, newData]);
-				console.log(duration)
 			},
 			(error) => {
 				toast.error(error.response.data.message, {

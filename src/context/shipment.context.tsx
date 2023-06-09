@@ -36,22 +36,22 @@ function GeneralContext() {
 	};
 
 	const allShipments: never[] = [];
-	const trackingShipments: any = [];
 	const shipmentCurrentTab = 'item1';
 	const shipmentSummary: ShipmentSummaryInterface[] = [];
 	const editShipment = false;
 	const form_level = 0;
 	const initializePayment = {};
 	const activeShipmentMenu = null;
+	const singleShipment = {}
 
 	return {
 		shipmentSummary,
 		shipmentDetails,
 		shipmentCurrentTab,
+		singleShipment,
 		editShipment,
 		form_level,
 		allShipments,
-		trackingShipments,
 		initializePayment,
 		activeShipmentMenu,
 	};

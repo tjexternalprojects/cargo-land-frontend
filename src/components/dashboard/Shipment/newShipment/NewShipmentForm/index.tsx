@@ -14,13 +14,11 @@ import {
 import { Country, State, City } from 'country-state-city';
 import useNewShipmentForm from './useNewShipmentForm';
 import { AddressMap, RingLoader } from '@/components';
-import Slider from 'react-slick';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 const NewShipmentForm = () => {
 	const {
 		handleSubmitNewShipmentForm,
-		setCountryState,
 		setShipmentDetails,
 		handleImageChange,
 		removeImage,
@@ -35,46 +33,15 @@ const NewShipmentForm = () => {
 		imageFullScreen,
 		airportList,
 		airport,
-		state,
 		stateCity,
 		address,
 		countryState,
 		previewImage,
 		showLoader,
 		country,
-		image_slider_settings,
 		shipmentDetails,
 	} = useNewShipmentForm();
 
-	const galleryStyles: React.CSSProperties = {
-		width: '100%',
-		height: '300px', // Adjust the height as needed
-		objectFit: 'cover',
-	};
-
-
-	// const imageItems = previewImage.map((image: any, index: number) => ({
-	// 	original: typeof image === 'string' ? image : undefined,
-	// 	originalAlt: 'Shipment',
-	// 	renderItem: () => (
-	// 		<div className="relative w-32 h-32 border-2 bg-slate-200 shadow flex items-center justify-center rounded-xl">
-	// 			<img
-	// 				src={typeof image === 'string' ? image : undefined}
-	// 				alt="Shipment"
-	// 				className="object-cover w-full h-full rounded-xl"
-	// 			/>
-
-	// 			<div className="absolute transition-all ease-in-out duration-150 hover:opacity-100 hover:bg-black hover:bg-opacity-40 h-full w-full top-0 text-white flex items-center justify-center text-3xl rounded-xl">
-	// 				<div
-	// 					className="cursor-pointer transition-all ease-in-out duration-75 hover:bg-red-900/90 p-2 rounded-full hover:border border-slate-50"
-	// 					onClick={() => removeImage(index)}
-	// 				>
-	// 					<AiOutlineClose />
-	// 				</div>
-	// 			</div>
-	// 		</div>
-	// 	),
-	// }));
 
 
 	return (

@@ -92,17 +92,6 @@ function useNewShipmentForm() {
 		}
 	};
 
-	// Function to handle shipment images
-	const image_slider_settings = {
-		dots: true,
-		infinite: false,
-		speed: 500,
-		slidesToShow: 4,
-		slidesToScroll: 1,
-		initialSlide: 0,
-	};
-
-
 	const resetShipmentStateOnChangeAddress = () => {
 		setState({
 			...state,
@@ -227,7 +216,6 @@ function useNewShipmentForm() {
 		fetchLocation(
 			address + ', ' + stateCity.name + ', ' + countryState.name + ', ' + country.name
 		).then((data) => {
-			console.log(data)
 			setShowLoader(false);
 			if (data.results.length > 1 && shipmentDetails.shipment_type === 'door_to_door') {
 				toast.error(
@@ -268,7 +256,6 @@ function useNewShipmentForm() {
 	}
 
 	const removeImage = (indexToRemove: number) => {
-		console.log(indexToRemove)
 		const newPreviewImage = [...previewImage];
 		newPreviewImage.splice(indexToRemove, 1);
 		setPreviewImage(newPreviewImage);
@@ -375,7 +362,6 @@ function useNewShipmentForm() {
 		previewImage,
 		showLoader,
 		country,
-		image_slider_settings,
 		shipmentDetails,
 	};
 }

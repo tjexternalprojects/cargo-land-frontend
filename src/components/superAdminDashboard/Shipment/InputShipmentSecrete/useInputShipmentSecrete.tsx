@@ -24,12 +24,15 @@ function useUpdateShipmentPrice(
 						setLoading(true);
 						updateShipmentToSuccessful(singleShipmentId, shipmentSecrete).then(
 							(response) => {
-								console.log(response);
 								setSingleShipment(response.data);
 								setLoading(false);
+								setShowShipmentSecrete(false);
+								toast.success("Shipment delivery confirmed", {
+									progressClassName: 'bg-green-500 h-1',
+									autoClose: 3000,
+								});
 							},
 							(error) => {
-								console.log(error);
 								setLoading(false);
 								toast.info(error.response.data.message, {
 									progressClassName: 'bg-red-500 h-1',

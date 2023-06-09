@@ -53,6 +53,10 @@ function ShipmentServices() {
 	const trackShipment = (payload:Record<string, string>)=>{
 		return api.get(`/shipment/track-single-shipment?secretID=${payload.secreteID}&trackingID=${payload.trackingID}`)
 	}
+
+		const getAllShipmentsParams = (params?: string) => {
+			return api.get('/shipment/get-all-user-shipment' + params);
+		};
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
@@ -88,7 +92,6 @@ function ShipmentServices() {
 	};
 
 	const updateShipmentToSuccessful = (shipment_id: string, secreteID:string) => {
-		console.log(secreteID, 'shipment secret')
 		return api.patch(`/shipment/update-shipment-delivered/${shipment_id}`, { secreteID });
 	};
 
@@ -128,16 +131,20 @@ function ShipmentServices() {
 	};
 
 	return {
+		// User Endpoint
 		updateShipment,
 		createShipment,
+		deleteShipment,
+		getAllUserShipment,
+		getAllShipmentsParams,
+		getCountryCovered,
+		getShipmentInRange,
+
+		// Admin Endpoint
 		rejectShipment,
 		adminGetAllShipments,
-		deleteShipment,
-		getCountryCovered,
-		getAllUserShipment,
-		getSingleShipment,
 		getAllUserShipmentPaginated,
-		getShipmentInRange,
+		getSingleShipment,
 		updateShipmentPrice,
 		addNewLocation,
 		removeLocation,
@@ -146,6 +153,8 @@ function ShipmentServices() {
 		deleteLocation,
 		updateShipmentToTransit,
 		updateShipmentToSuccessful,
+
+		// General Endpoint
 		trackShipment,
 	};
 }

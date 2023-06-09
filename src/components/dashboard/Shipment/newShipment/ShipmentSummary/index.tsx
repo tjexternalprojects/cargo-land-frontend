@@ -9,7 +9,6 @@ import {
 	RiUserReceivedLine,
 	userImg,
 } from '@/assets';
-import Slider from 'react-slick';
 
 import useShipmentSummary from './useShipmentSummary';
 import { RingLoader, ShipmentModal } from '@/components';

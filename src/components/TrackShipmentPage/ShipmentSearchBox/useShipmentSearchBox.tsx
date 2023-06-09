@@ -15,14 +15,14 @@ function useShipmentSearchBox(setSingleShipment: any) {
 		};
 		trackShipment(payload).then(
 			(response) => {
-				console.log(response);
 				setLoading(false);
 				setSingleShipment(response.data);
+                setTrackingID("");
+                setSecreteID("");
 			},
 			(error) => {
-				console.log(error);
 				setLoading(false);
-				toast.error(error.response.message, {
+				toast.error(error.response.data.message, {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
 				});

@@ -47,7 +47,7 @@ const MapDirection: FC<MapDirectionProps> = ({
 		const results = await directionsService.route({
 			origin: startLocation,
 			destination: endLocation,
-			waypoints: locations.map((location: any) => ({
+			waypoints: locations?.map((location: any) => ({
 				location: {
 					lat: location.latitude,
 					lng: location.longitude,
@@ -61,9 +61,6 @@ const MapDirection: FC<MapDirectionProps> = ({
 		setDirectionsResponse(results);
 	}
 
-	// function clearRoute() {
-	// 	setDirectionsResponse(null);
-	// }
 
 	useEffect(() => {
 		if (isLoaded) {

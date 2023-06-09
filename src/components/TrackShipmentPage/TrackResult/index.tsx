@@ -16,23 +16,14 @@ import {
 } from '@/components/';
 import useTrackResult from './useTrackResult';
 
-interface TrackResultProp{
-
+interface TrackResultProp {
+	singleShipment: any;
 }
-const index = ({ singleShipment }:any) => {
-	const {
-		singleShipment,
-		showUpdateShipmentLocation,
-		currentLocation,
-		routeToLocation,
-		showShipmentSecrete,
-		setShowShipmentSecrete,
-		generateLocationLabel,
-		setSingleShipment,
-		setShowUpdateShipmentLocation,
-	} = useTrackResult();
+const index = ({ singleShipment }: TrackResultProp) => {
+	const { currentLocation, routeToLocation, generateLocationLabel } =
+		useTrackResult(singleShipment);
 	return (
-		<div>
+		<div className="px-10 pt-20  md:px-20 lg:px-44">
 			<div className="flex mt-8 gap-5 flex-col md:flex-row bg-white p-10">
 				<div className=" md:w-7/12">
 					<div className=" tracking-widest text-sm text-gray-500  font-bold uppercase mb-5">
@@ -168,20 +159,6 @@ const index = ({ singleShipment }:any) => {
 					</div>
 				</div>
 			</div>
-			{showUpdateShipmentLocation && (
-				<AddNewRoute
-					setShowUpdateShipmentLocation={setShowUpdateShipmentLocation}
-					setSingleShipment={setSingleShipment}
-					singleShipmentId={singleShipment?.id}
-				/>
-			)}
-			{showShipmentSecrete && (
-				<InputShipmentSecrete
-					setSingleShipment={setSingleShipment}
-					singleShipmentId={singleShipment?.id}
-					setShowShipmentSecrete={setShowShipmentSecrete}
-				/>
-			)}
 		</div>
 	);
 };

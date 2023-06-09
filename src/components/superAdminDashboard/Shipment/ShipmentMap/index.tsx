@@ -110,7 +110,8 @@ const TrackShipment = () => {
 												</div>
 											</div>
 											{singleShipment?.shipment_Status === 'CHECKED' ||
-											singleShipment?.shipment_Status === 'TRANSIT' ? (
+											singleShipment?.shipment_Status === 'TRANSIT' ||
+											singleShipment?.shipment_Status === 'SUCCESSFUL' ? (
 												<>
 													{singleShipment?.shipment_addresses.map((val: any, index: number) => (
 														<div key={index} className="text-sm">

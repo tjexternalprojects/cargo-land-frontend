@@ -82,7 +82,6 @@ function useLogin() {
 			email: credentialResponse.email,
 			avatar: credentialResponse.picture,
 		};
-		console.log(credentialResponse);
 		LocalStorageServices.setUserInfo(user_info);
 		LocalStorageServices.setLocalAccessToken(credentialResponse.jti);
 		navigate('/dashboard');
@@ -96,7 +95,7 @@ function useLogin() {
 	};
 
 	const continueWithGoogle = () => {
-		window.open(import.meta.env.VITE_REACT_APP_BASE_URL + 'auth/google/callback','_self');
+		window.open('http://server.cargolandglobal.com/auth/google/callback', '_self');
 	};
 	return {
 		handleVerifyEmail,
