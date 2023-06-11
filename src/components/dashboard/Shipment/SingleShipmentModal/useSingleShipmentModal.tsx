@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { UserServices, ShipmentServices } from '@/services';
 import { confirmAlert } from 'react-confirm-alert';
 import { AppContextType, AppContext } from '@/context';
+import { OtherServices } from '@/services';
 import { toast } from 'react-toastify';
 function useShipmentModal(
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
 	selectedShipment: any
 ) {
+	const { convertUrlsToFiles } = OtherServices();
 	const { adminGetSingleUser } = UserServices();
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
 	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({});
@@ -41,8 +43,7 @@ function useShipmentModal(
 			(response) => {
 				setShipmentCreator(response.data.user);
 			},
-			(error) => {
-			}
+			(error) => {}
 		);
 	};
 
@@ -54,16 +55,18 @@ function useShipmentModal(
 		setImageFullScreen(isFullScreen);
 	};
 
-	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
+	const shipmentToEdit = async(shipment: Record<string, any> | undefined) => {
+		
 		const shipmentDetails = {
 			shipment_id: shipment?.id,
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,
-			images: shipment?.images.map((url:string) => ({
+			previewImage:shipment?.images.map((url: string) => ({
 				original: url,
 				thumbnail: url,
 			})),
+			images:await convertUrlsToFiles(shipment?.images),
 			shipment_type: shipment?.shipment_Type.toLowerCase(),
 			start_location: {
 				location_id: shipment?.start_location?.location_id,
@@ -77,6 +80,7 @@ function useShipmentModal(
 			},
 			recipient_full_name: shipment?.recipient_full_name,
 			recipient_email: shipment?.recipient_email,
+			recipient_phone_number: shipment?.recipient_phone_number,
 			final_destination: {
 				location_id: shipment?.final_destination?.location_id,
 				country: shipment?.final_destination?.country,

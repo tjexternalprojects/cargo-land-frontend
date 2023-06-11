@@ -32,7 +32,7 @@ function useNewShipmentForm() {
 		shipment_heading_to?: string;
 	}
 
-	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
+	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({recipient_phone_number:state.shipmentDetails.recipient_phone_number});
 
 	const generateID = () => {
 		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -155,6 +155,7 @@ function useNewShipmentForm() {
 		if (
 			shipmentDetails.recipient_full_name == '' ||
 			shipmentDetails.recipient_email == '' ||
+			shipmentDetails.recipient_phone_number == ''||
 			Object.keys(country).length === 0
 		) {
 			setShowLoader(false);
@@ -201,6 +202,7 @@ function useNewShipmentForm() {
 			shipment_title: '',
 			shipment_description: '',
 			shipment_weight: 0,
+			previewImage:[],
 			images: [],
 			shipment_type: '',
 			start_location: {
@@ -239,6 +241,7 @@ function useNewShipmentForm() {
 
 	const handleUpdateShipment = (shipment_id: string) => {
 		setShowLoader(true);
+		delete state.shipmentDetails.previewImage;
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
@@ -249,7 +252,7 @@ function useNewShipmentForm() {
 		}
 
 		updateShipment(shipment_id, formData).then(
-			(response) => {
+			() => {
 				setShowLoader(false);
 				toast.success('Shipment Updated Successfully', {
 					progressClassName: 'bg-green-500 h-1',
@@ -265,7 +268,7 @@ function useNewShipmentForm() {
 					editShipment: false,
 				});
 			},
-			(error) => {
+			() => {
 				setShowLoader(false);
 				toast.error('Sorry an error occured! Please Try again', {
 					progressClassName: 'bg-red-500 h-1',
@@ -276,7 +279,7 @@ function useNewShipmentForm() {
 	};
 	const moveNext = async () => {
 		setShowLoader(true);
-
+		delete state.shipmentDetails.previewImage;
 		let shipment_images = state.shipmentDetails.images as [];
 		const { images, ...newPayload } = state.shipmentDetails;
 		const payload = JSON.stringify(newPayload);
@@ -286,7 +289,7 @@ function useNewShipmentForm() {
 			formData.append('images', shipment_images[i]);
 		}
 		await createShipment(formData).then(
-			(response) => {
+			() => {
 				setShowLoader(false);
 				setState({
 					...state,
@@ -296,7 +299,7 @@ function useNewShipmentForm() {
 				getAllUserShipment();
 				resetShipment();
 			},
-			(error) => {
+			() => {
 				setShowLoader(false);
 			}
 		);
@@ -307,7 +310,7 @@ function useNewShipmentForm() {
 			(response) => {
 				setCountryCovered(Object.values(response.data));
 			},
-			(error) => {
+			() => {
 				toast.error('Error getting countries', {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,
@@ -334,11 +337,11 @@ function useNewShipmentForm() {
 		getCountryCoveredMtd();
 	}, []);
 
-	// RESET INPUTS TO PREVIOUS SHIPMENT WHICH ONE TO BE EDITED
+	// RESET INPUTS TO PREVIOUS SHIPMENT THE ONE TO BE EDITED
 	useEffect(() => {
 		resetInputs();
 	}, [state.editShipment]);
-
+	
 	return {
 		handleRecipientDetails,
 		setCountryState,

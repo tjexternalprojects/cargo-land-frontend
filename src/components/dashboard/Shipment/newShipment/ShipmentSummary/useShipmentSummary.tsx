@@ -33,6 +33,7 @@ function useShipmentSummary() {
 			shipment_title: '',
 			shipment_description: '',
 			shipment_weight: 0,
+			previewImage:[],
 			images: [],
 			shipment_type: '',
 			start_location: {
@@ -70,6 +71,7 @@ function useShipmentSummary() {
 			form_level,
 			editShipment: false,
 		});
+		
 	};
 
 	const getCheckedShipment = () => {

@@ -129,7 +129,7 @@ const NewShipmentForm = () => {
 							Images
 							<span className="text-red-500"> * | Upload maximum of 5 images</span>
 						</label>
-						{previewImage.length > 0 && (
+						{previewImage?.length > 0 && (
 							<div className="overflow-x-auto w-80-screen md:w-full">
 								<ImageGallery
 									items={previewImage}
@@ -178,7 +178,7 @@ const NewShipmentForm = () => {
 						)}
 						{/* </Slider> */}
 						<br />
-						{previewImage.length < 5 && (
+						{previewImage?.length < 5 && (
 							<div className="mt-10  h-10  bg-blue-700 text-white shadow inline-flex items-center pl-5 overflow-hidden">
 								<label className="  h-20 flex items-center justify-between space-x-3  cursor-pointer">
 									<span className="text-sm md:text-md">Upload shipment image</span>

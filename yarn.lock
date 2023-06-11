@@ -1965,6 +1965,13 @@ caniuse-lite@^1.0.30001449, caniuse-lite@^1.0.30001464:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001478.tgz#0ef8a1cf8b16be47a0f9fc4ecfc952232724b32a"
   integrity sha512-gMhDyXGItTHipJj2ApIvR+iVB5hd0KP3svMWWXDvZOmjzJJassGLMfxRkQCSYgGd2gtdL/ReeiyvMSFD1Ss6Mw==
 
+"chainsaw@>=0.0.7 <0.1":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/chainsaw/-/chainsaw-0.0.9.tgz#11a05102d1c4c785b6d0415d336d5a3a1612913e"
+  integrity sha512-nG8PYH+/4xB+8zkV4G844EtfvZ5tTiLFoX3dZ4nhF4t3OCKIb9UvaFyNmeZO2zOSmRWzBoTD+napN6hiL+EgcA==
+  dependencies:
+    traverse ">=0.3.0 <0.4"
+
 chalk@^2.0.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
@@ -2938,6 +2945,13 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+"hashish@>=0.0.2 <0.1":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/hashish/-/hashish-0.0.4.tgz#6d60bc6ffaf711b6afd60e426d077988014e6554"
+  integrity sha512-xyD4XgslstNAs72ENaoFvgMwtv8xhiDtC2AtzCG+8yF7W/Knxxm9BX+e2s25mm+HxMKh0rBmXVOEGF3zNImXvA==
+  dependencies:
+    traverse ">=0.2.4"
+
 hero-slider@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/hero-slider/-/hero-slider-3.1.0.tgz#540f3e38dccde0add7a2a9c83c918bae86fe64f1"
@@ -3881,6 +3895,13 @@ regjsparser@^0.9.1:
   dependencies:
     jsesc "~0.5.0"
 
+remove@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/remove/-/remove-0.1.5.tgz#095ffd827d65c9f41ad97d33e416a75811079955"
+  integrity sha512-AJMA9oWvJzdTjwIGwSQZsjGQiRx73YTmiOWmfCp1fpLa/D4n7jKcpoA+CZiVLJqKcEKUuh1Suq80c5wF+L/qVQ==
+  dependencies:
+    seq ">= 0.3.5"
+
 resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
@@ -3923,6 +3944,13 @@ rollup@^3.18.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
+rollup@^3.24.0:
+  version "3.24.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.24.0.tgz#865dee1fe0bb528747b59914dfab25e6f480e370"
+  integrity sha512-OgraHOIg2YpHQTjl0/ymWfFNBEyPucB7lmhXrQUh38qNOegxLapSPFs9sNr0qKR75awW41D93XafoR2QfhBdUQ==
+  optionalDependencies:
+    fsevents "~2.3.2"
+
 run-parallel@^1.1.9:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/run-parallel/-/run-parallel-1.2.0.tgz#66d1368da7bdf921eb9d95bd1a9229e7f21a43ee"
@@ -3957,6 +3985,14 @@ semver@^7.3.7:
   integrity sha512-RgOxM8Mw+7Zus0+zcLEUn8+JfoLpj/huFTItQy2hsM4khuC1HYRDp0cU482Ewn/Fcy6bCjufD8vAj7voC66KQw==
   dependencies:
     lru-cache "^6.0.0"
+
+"seq@>= 0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/seq/-/seq-0.3.5.tgz#ae02af3a424793d8ccbf212d69174e0c54dffe38"
+  integrity sha512-sisY2Ln1fj43KBkRtXkesnRHYNdswIkIibvNe/0UKm2GZxjMbqmccpiatoKr/k2qX5VKiLU8xm+tz/74LAho4g==
+  dependencies:
+    chainsaw ">=0.0.7 <0.1"
+    hashish ">=0.0.2 <0.1"
 
 shallowequal@^1.1.0:
   version "1.1.0"
@@ -4199,6 +4235,16 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+traverse@>=0.2.4:
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.7.tgz#46961cd2d57dd8706c36664acde06a248f1173fe"
+  integrity sha512-/y956gpUo9ZNCb99YjxG7OaslxZWHfCHAUUfshwqOXmxUIvqLjVO581BT+gM59+QV9tFe6/CGG53tsA1Y7RSdg==
+
+"traverse@>=0.3.0 <0.4":
+  version "0.3.9"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.3.9.tgz#717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9"
+  integrity sha512-iawgk0hLP3SxGKDfnDJf8wTz4p2qImnyihM5Hh/sGvQ3K37dPi/w8sRhdNIxYA1TwFwc5mDhIJq+O0RsvXBKdQ==
 
 ts-interface-checker@^0.1.9:
   version "0.1.13"

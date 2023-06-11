@@ -10,7 +10,7 @@ function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.images);
+	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.previewImage);
 	const { getCountryCovered } = ShipmentServices();
 
 	// Current address
@@ -39,6 +39,7 @@ function useNewShipmentForm() {
 		shipment_title?: string;
 		shipment_description?: string;
 		shipment_weight?: string;
+		previewImage?:string[];
 		images?: any;
 		shipment_type?: string;
 		shipment_current_location?: string;
@@ -64,6 +65,7 @@ function useNewShipmentForm() {
 			shipment_title: state.shipmentDetails?.shipment_title as string,
 			shipment_description: state.shipmentDetails?.shipment_description as string,
 			shipment_weight: state.shipmentDetails?.shipment_weight as string,
+			previewImage:state.shipmentDetails?.previewImage,
 			images: state.shipmentDetails?.images,
 			shipment_type: state.shipmentDetails?.shipment_type as string,
 			shipment_current_location: state.shipmentDetails?.shipment_current_location as string,
@@ -78,7 +80,7 @@ function useNewShipmentForm() {
 				latitude: state.shipmentDetails?.start_location?.latitude as number,
 			},
 		});
-		setPreviewImage(state.shipmentDetails.images);
+		setPreviewImage(state.shipmentDetails.previewImage);
 		setAddress(state.shipmentDetails?.start_location?.address);
 		if (state.shipmentDetails?.start_location?.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
@@ -319,7 +321,6 @@ function useNewShipmentForm() {
 
 	// UPDATE THE GLOBAL STATE
 	useEffect(() => {
-		console.log(previewImage, 'shipment details');
 		setState((prevState) => ({
 			...prevState,
 			shipmentDetails: { ...prevState.shipmentDetails, ...shipmentDetails },
