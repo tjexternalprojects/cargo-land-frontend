@@ -93,7 +93,6 @@ export { default as package1 } from './images/shipment/package1.jpg';
 export { default as shipmentDefaultImg } from './images/shipment/shipmentDefaultImage.png';
 export { default as shipmentOverview } from './images/trackShipment/shipment.jpg';
 
-
 // Landing Page
 export { default as CircleBg } from './images/landingPage/circleBg';
 export { default as TitleLine } from './images/landingPage/TitleLine';

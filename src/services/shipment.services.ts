@@ -6,7 +6,6 @@ import api from './api.services';
 function ShipmentServices() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 
-
 	const createShipment = (shipmentData: FormData) => {
 		return api.post('/shipment/create-shipment', shipmentData);
 	};
@@ -49,14 +48,15 @@ function ShipmentServices() {
 		return api.patch(`/shipment/update-single-shipment/${shipment_id}`, shipment_data);
 	};
 
+	const trackShipment = (payload: Record<string, string>) => {
+		return api.get(
+			`/shipment/track-single-shipment?secretID=${payload.secreteID}&trackingID=${payload.trackingID}`
+		);
+	};
 
-	const trackShipment = (payload:Record<string, string>)=>{
-		return api.get(`/shipment/track-single-shipment?secretID=${payload.secreteID}&trackingID=${payload.trackingID}`)
-	}
-
-		const getAllShipmentsParams = (params?: string) => {
-			return api.get('/shipment/get-all-user-shipment' + params);
-		};
+	const getAllShipmentsParams = (params?: string) => {
+		return api.get('/shipment/get-all-user-shipment' + params);
+	};
 	//  localhost:4300/shipment/update-shipment-transit/:id
 	// localhost:4300/shipment/update-shipment-delivered/:id
 	// localhost:4300/shipment/update-shipment-rejected/:id
@@ -91,7 +91,7 @@ function ShipmentServices() {
 		return api.patch(`/shipment/update-shipment-transit/${shipment_id}`);
 	};
 
-	const updateShipmentToSuccessful = (shipment_id: string, secreteID:string) => {
+	const updateShipmentToSuccessful = (shipment_id: string, secreteID: string) => {
 		return api.patch(`/shipment/update-shipment-delivered/${shipment_id}`, { secreteID });
 	};
 

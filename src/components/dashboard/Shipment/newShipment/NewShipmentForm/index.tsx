@@ -42,8 +42,6 @@ const NewShipmentForm = () => {
 		shipmentDetails,
 	} = useNewShipmentForm();
 
-
-
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full ">

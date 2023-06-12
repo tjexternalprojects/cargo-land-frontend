@@ -50,7 +50,7 @@ type AppState = {
 	shipmentDetails: any;
 	shipmentSummary: any;
 	shipmentCurrentTab: string;
-	singleShipment:any;
+	singleShipment: any;
 	allShipments: any;
 	editShipment: boolean;
 	form_level: number;

@@ -39,10 +39,10 @@ const RecipientDetails = () => {
 					<div className="bg-white  rounded-sm shadow-md  box-border w-full">
 						<div className=" h-screen-55 rounded-md overflow-auto w-full p-3 ">
 							<table className=" w-full  bg-white rounded-sm">
-								<thead className=" text-left  w-full bg-slate-100 ">
+								<thead className=" text-left  w-full bg-slate-100">
 									<tr>
 										<th>Select</th>
-										<th className="p-3">Shipment Id</th>
+										<th className="p-3">Shipment&nbsp;Id</th>
 										<th>Current Location</th>
 										<th>Destination</th>
 										<th>Shipment Type</th>

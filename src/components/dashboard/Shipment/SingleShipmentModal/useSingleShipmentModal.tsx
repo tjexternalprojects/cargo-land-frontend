@@ -55,18 +55,17 @@ function useShipmentModal(
 		setImageFullScreen(isFullScreen);
 	};
 
-	const shipmentToEdit = async(shipment: Record<string, any> | undefined) => {
-		
+	const shipmentToEdit = async (shipment: Record<string, any> | undefined) => {
 		const shipmentDetails = {
 			shipment_id: shipment?.id,
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,
-			previewImage:shipment?.images.map((url: string) => ({
+			previewImage: shipment?.images.map((url: string) => ({
 				original: url,
 				thumbnail: url,
 			})),
-			images:await convertUrlsToFiles(shipment?.images),
+			images: await convertUrlsToFiles(shipment?.images),
 			shipment_type: shipment?.shipment_Type.toLowerCase(),
 			start_location: {
 				location_id: shipment?.start_location?.location_id,
@@ -108,15 +107,15 @@ function useShipmentModal(
 	const removeShipment = async (shipment_id: string) => {
 		setRemoveShipmentLoader(true);
 		await deleteShipment(shipment_id).then(
-			(response) => {
-				toast.success('Item Removed Successfully', {
+			() => {
+				toast.success('Item Deleted Successfully', {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
 				});
 				getAllUserShipment();
 				setRemoveShipmentLoader(false);
 			},
-			(error) => {
+			() => {
 				setRemoveShipmentLoader(false);
 			}
 		);

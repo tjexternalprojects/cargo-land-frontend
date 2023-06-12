@@ -32,7 +32,9 @@ function useNewShipmentForm() {
 		shipment_heading_to?: string;
 	}
 
-	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({recipient_phone_number:state.shipmentDetails.recipient_phone_number});
+	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({
+		recipient_phone_number: state.shipmentDetails.recipient_phone_number,
+	});
 
 	const generateID = () => {
 		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -155,7 +157,7 @@ function useNewShipmentForm() {
 		if (
 			shipmentDetails.recipient_full_name == '' ||
 			shipmentDetails.recipient_email == '' ||
-			shipmentDetails.recipient_phone_number == ''||
+			shipmentDetails.recipient_phone_number == '' ||
 			Object.keys(country).length === 0
 		) {
 			setShowLoader(false);
@@ -202,7 +204,7 @@ function useNewShipmentForm() {
 			shipment_title: '',
 			shipment_description: '',
 			shipment_weight: 0,
-			previewImage:[],
+			previewImage: [],
 			images: [],
 			shipment_type: '',
 			start_location: {
@@ -341,7 +343,7 @@ function useNewShipmentForm() {
 	useEffect(() => {
 		resetInputs();
 	}, [state.editShipment]);
-	
+
 	return {
 		handleRecipientDetails,
 		setCountryState,

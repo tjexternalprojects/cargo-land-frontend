@@ -27,7 +27,7 @@ function useUpdateShipmentPrice(
 								setSingleShipment(response.data);
 								setLoading(false);
 								setShowShipmentSecrete(false);
-								toast.success("Shipment delivery confirmed", {
+								toast.success('Shipment delivery confirmed', {
 									progressClassName: 'bg-green-500 h-1',
 									autoClose: 3000,
 								});

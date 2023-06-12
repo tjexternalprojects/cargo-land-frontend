@@ -61,7 +61,6 @@ const MapDirection: FC<MapDirectionProps> = ({
 		setDirectionsResponse(results);
 	}
 
-
 	useEffect(() => {
 		if (isLoaded) {
 			calculateRoute();

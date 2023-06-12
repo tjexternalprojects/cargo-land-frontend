@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-function useTrackResult(singleShipment:any) {
+function useTrackResult(singleShipment: any) {
 	const [currentLocation, setCurrentLocation] = useState<Record<string, number>>({});
 	const [routeToLocation, setRouteToLocation] = useState<Record<string, number>>({});
 	const generateLocationLabel = (index: number) => {
@@ -38,8 +38,6 @@ function useTrackResult(singleShipment:any) {
 		stateToUpdate(coordinates);
 	};
 
-
-
 	useEffect(() => {
 		singleShipment?.shipment_Status === 'TRANSIT' &&
 			GetUpdatedLatLong(singleShipment?.shipment_current_location, setCurrentLocation);
@@ -56,4 +54,4 @@ function useTrackResult(singleShipment:any) {
 		generateLocationLabel,
 	};
 }
-export default useTrackResult
+export default useTrackResult;

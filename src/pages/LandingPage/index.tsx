@@ -1,4 +1,13 @@
-import { AboutUs, Business, Contact, Header, Footer, Hero, GetStarted, Services } from '@/components';
+import {
+	AboutUs,
+	Business,
+	Contact,
+	Header,
+	Footer,
+	Hero,
+	GetStarted,
+	Services,
+} from '@/components';
 import { UserServices } from '@/services';
 import React, { useEffect } from 'react';
 

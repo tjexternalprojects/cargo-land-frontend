@@ -33,7 +33,7 @@ function useShipmentSummary() {
 			shipment_title: '',
 			shipment_description: '',
 			shipment_weight: 0,
-			previewImage:[],
+			previewImage: [],
 			images: [],
 			shipment_type: '',
 			start_location: {
@@ -64,14 +64,13 @@ function useShipmentSummary() {
 			shipment_addresses: [],
 		};
 
-		setState({
-			...state,
+		setState((prevState) => ({
+			...prevState,
 			shipmentDetails: resetShipmentDetails,
 			shipmentCurrentTab,
 			form_level,
 			editShipment: false,
-		});
-		
+		}));
 	};
 
 	const getCheckedShipment = () => {

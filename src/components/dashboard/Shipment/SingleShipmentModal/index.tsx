@@ -141,7 +141,7 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 								</div>
 							</div>
 						)}
-						<div className='w-full flex items-center justify-center'>
+						<div className="w-full flex items-center justify-center">
 							<button
 								onClick={() => handleShowOnMap(selectedShipmentProps)}
 								type="button"
@@ -164,6 +164,13 @@ const ShipmentModal = ({ selectedShipment, setShowModal }: ShipmentModalProps) =
 								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-2">Tracking ID:</div>
 									<div className="p-2 font-bold">{selectedShipment.id}</div>
+								</div>
+								<div className="flex flex-col ">
+									<div className=" border-l-2 w-full bg-slate-100 p-2">Date Created:</div>
+									<div className="p-2">
+										{new Date(selectedShipment.createdAt).toDateString()}{' '}
+										{new Date(selectedShipment.createdAt).toLocaleTimeString()}{' '}
+									</div>
 								</div>
 								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-2">Title:</div>

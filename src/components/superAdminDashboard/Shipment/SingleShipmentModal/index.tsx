@@ -145,6 +145,13 @@ const ShipmentModal = ({
 									<div className="p-2 font-bold">{modalSelectedShipment.id}</div>
 								</div>
 								<div className="flex flex-col ">
+									<div className=" border-l-2 w-full bg-slate-100 p-2">Date Created:</div>
+									<div className="p-2">
+										{new Date(modalSelectedShipment.createdAt).toDateString()}{' '}
+										{new Date(modalSelectedShipment.createdAt).toLocaleTimeString()}{' '}
+									</div>
+								</div>
+								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-2">Title:</div>
 									<div className="p-2">{modalSelectedShipment.shipment_title}</div>
 								</div>

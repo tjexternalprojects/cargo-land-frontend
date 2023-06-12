@@ -1,9 +1,9 @@
 import { Contact, Footer, Header, ShipmentSearchBox, TrackResult } from '@/components';
-import React from 'react'
+import React from 'react';
 import useTrackShipment from './useTrackShipment';
 const index = () => {
-  const { singleShipment, setSingleShipment } = useTrackShipment();
-  return (
+	const { singleShipment, setSingleShipment } = useTrackShipment();
+	return (
 		<div className="flex flex-col min-h-screen overflow-hidden">
 			<Header />
 			<ShipmentSearchBox setSingleShipment={setSingleShipment} />
@@ -12,6 +12,6 @@ const index = () => {
 			<Footer />
 		</div>
 	);
-}
+};
 
-export default index
+export default index;

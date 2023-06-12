@@ -60,8 +60,11 @@ function App() {
 								<Route path="" element={<AdminHome />} />
 								<Route path="/admin/users/:current_page" element={<AUsers />} />
 								<Route path="/admin/shipment/update/:shipment_id" element={<AUpdateShipment />} />
-								<Route path="/admin/trans
-								actions" element={<ATransactions />} />
+								<Route
+									path="/admin/trans
+								actions"
+									element={<ATransactions />}
+								/>
 								<Route path="/admin/shipment/:current_page" element={<AShipment />} />
 								<Route path="/admin/profile" element={<UserProfile isAdmin={true} />} />
 							</Route>

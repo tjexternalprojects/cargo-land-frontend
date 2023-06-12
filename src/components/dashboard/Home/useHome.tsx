@@ -53,7 +53,6 @@ function useHome() {
 			)
 		);
 
-
 		let successfulShipmentsCount = state.shipmentSummary.reduce(function (
 			count: number,
 			shipment: { shipmentDetails: any }

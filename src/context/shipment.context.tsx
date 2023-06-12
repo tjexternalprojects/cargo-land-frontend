@@ -5,7 +5,7 @@ function GeneralContext() {
 		shipment_title: '',
 		shipment_description: '',
 		shipment_weight: 0,
-		previewImage:[],
+		previewImage: [],
 		images: [],
 		shipment_type: '',
 		start_location: {
@@ -43,7 +43,7 @@ function GeneralContext() {
 	const form_level = 0;
 	const initializePayment = {};
 	const activeShipmentMenu = null;
-	const singleShipment = {}
+	const singleShipment = {};
 
 	return {
 		shipmentSummary,

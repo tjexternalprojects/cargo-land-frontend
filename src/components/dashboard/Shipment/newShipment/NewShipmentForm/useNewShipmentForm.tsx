@@ -39,7 +39,7 @@ function useNewShipmentForm() {
 		shipment_title?: string;
 		shipment_description?: string;
 		shipment_weight?: string;
-		previewImage?:string[];
+		previewImage?: string[];
 		images?: any;
 		shipment_type?: string;
 		shipment_current_location?: string;
@@ -65,7 +65,7 @@ function useNewShipmentForm() {
 			shipment_title: state.shipmentDetails?.shipment_title as string,
 			shipment_description: state.shipmentDetails?.shipment_description as string,
 			shipment_weight: state.shipmentDetails?.shipment_weight as string,
-			previewImage:state.shipmentDetails?.previewImage,
+			previewImage: state.shipmentDetails?.previewImage,
 			images: state.shipmentDetails?.images,
 			shipment_type: state.shipmentDetails?.shipment_type as string,
 			shipment_current_location: state.shipmentDetails?.shipment_current_location as string,
@@ -253,9 +253,9 @@ function useNewShipmentForm() {
 		});
 	};
 
-	const handleImageScreenChange =(isFullScreen: any)=>{
-		setImageFullScreen(isFullScreen)
-	}
+	const handleImageScreenChange = (isFullScreen: any) => {
+		setImageFullScreen(isFullScreen);
+	};
 
 	const removeImage = (indexToRemove: number) => {
 		const newPreviewImage = [...previewImage];
@@ -267,7 +267,6 @@ function useNewShipmentForm() {
 			setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
 		}
 	};
-
 
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;

@@ -27,7 +27,8 @@ const Shipment = () => {
 							Package&nbsp;Details
 						</div>
 						<div>
-							{state.form_level > 0 && state.shipmentDetails.shipment_title !== '' ? (
+							{(state.form_level > 0 && state.shipmentDetails.shipment_title !== '') ||
+							state.editShipment ? (
 								<div
 									onClick={() => handleShowTab('item2', 2)}
 									className={`${

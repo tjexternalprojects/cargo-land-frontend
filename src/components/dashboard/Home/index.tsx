@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import { LineGraph, MapDirection, RingLoader } from '@/components';
 import { BsArrowDownRight, BsArrowUpRight, FaEye, FaEyeSlash, SlGraph } from '@/assets';
 import useHome from './useHome';
-import useHomeGraph from './useHomeGraph'
+import useHomeGraph from './useHomeGraph';
 import { Link } from 'react-router-dom';
 const home = () => {
 	const { getShipmentDateRange } = useHomeGraph();
 	useEffect(() => {
 		getShipmentDateRange(6);
-		
 	}, []);
 	const {
 		successful_shipment_graph,

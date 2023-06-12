@@ -44,7 +44,8 @@ const home = () => {
 					</div>
 				</div>
 
-				<div className=" inline-flex rounded-md gap-3 p-4  bg-green-50  flex-grow  justify-between  shadow-md items-center">
+				<Link
+					to="/admin/users/1" className=" inline-flex rounded-md gap-3 p-4  bg-green-50  flex-grow  justify-between  shadow-md items-center">
 					<div className=" w-20">{/* <LineGraph data={received_data} /> */}</div>
 					<div className="flex flex-col items-end text-green-500">
 						<div>Total Users</div>
@@ -54,7 +55,7 @@ const home = () => {
 							<div className=" text-5xl font-thin">{totalUsers}</div>
 						)}
 					</div>
-				</div>
+				</Link>
 				<Link
 					to="/admin/shipment/1"
 					className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center"
@@ -140,7 +141,7 @@ const home = () => {
 													</div>{' '}
 													<div className=" italic text-xs text-gray-400">
 														<span className="font-bold">Account Status</span>{' '}
-														{val.isVerified ? 'Verified' : 'Not Verfied'}
+														{val.isVerified ? 'Verified' : 'Not Verified'}
 													</div>
 												</div>
 											</div>
@@ -198,9 +199,7 @@ const home = () => {
 																	Date Created:{' '}
 																	<span>{new Date(val.createdAt).toLocaleString()}</span>
 																</div>
-																<div>
-																	Delivery Date: <span>In View</span>
-																</div>
+																
 															</div>
 														</div>
 														<div>

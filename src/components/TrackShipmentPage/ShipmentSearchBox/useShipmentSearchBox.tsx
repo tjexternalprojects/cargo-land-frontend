@@ -17,8 +17,8 @@ function useShipmentSearchBox(setSingleShipment: any) {
 			(response) => {
 				setLoading(false);
 				setSingleShipment(response.data);
-                setTrackingID("");
-                setSecreteID("");
+				setTrackingID('');
+				setSecreteID('');
 			},
 			(error) => {
 				setLoading(false);

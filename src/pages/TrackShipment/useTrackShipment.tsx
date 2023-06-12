@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState } from 'react';
 
-function useTrackShipment(){
-    const [singleShipment, setSingleShipment]= useState<any>(null)
-    return { singleShipment, setSingleShipment };
+function useTrackShipment() {
+	const [singleShipment, setSingleShipment] = useState<any>(null);
+	return { singleShipment, setSingleShipment };
 }
-export default useTrackShipment
+export default useTrackShipment;
