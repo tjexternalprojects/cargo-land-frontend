@@ -23,7 +23,7 @@ const index = ({ navigate_to }: searchShipmentProps) => {
 						value={shipmentId}
 						required
 						onChange={(e) => setShipmentId(e.target.value)}
-						placeholder="Search parcel by Shipment ID"
+						placeholder="Search parcel by Tracking ID"
 						className="w-full outline-none h-full"
 					/>
 					{searchLoading ? (

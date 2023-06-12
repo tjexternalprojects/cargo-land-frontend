@@ -4,7 +4,17 @@ import { Pagination, RingLoader } from '@/components';
 import ShipmentModal from '../SingleShipmentModal';
 
 const index = () => {
-	const { allShipment, currentPage, loading, result, showModal, selectedShipment, setShowModal,setCurrentPage, handleSelectShipment } = useAllShipment();
+	const {
+		allShipment,
+		currentPage,
+		loading,
+		result,
+		showModal,
+		selectedShipment,
+		setShowModal,
+		setCurrentPage,
+		handleSelectShipment,
+	} = useAllShipment();
 	return (
 		<div className="overflow-auto">
 			<div className="relative overflow-auto max-h-72-screen min-h-72-screen mt-5">
@@ -17,31 +27,42 @@ const index = () => {
 						<thead className="text-xs text-gray-700 uppercase bg-gray-100">
 							<tr>
 								<th scope="col" className="px-6 py-3">
-									Tracking Id
+									Tracking&nbsp;Id
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Shipment Title
+									Date&nbsp;created
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Sender's Address
+									Shipment&nbsp;Title
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Recepient's Address
+									Sender's&nbsp;Address
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Deleivery Type
+									Recipient's&nbsp;Address
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Shipment Status
+									Delivery&nbsp;Type
+								</th>
+								<th scope="col" className="px-6 py-3">
+									Shipment&nbsp;Status
 								</th>
 							</tr>
 						</thead>
 						<tbody>
 							{allShipment.map((shipment: any, index: number) => (
-								<tr className="bg-white border-b cursor-pointer hover:bg-red-100" key={index} onClick={() => handleSelectShipment(shipment)}>
+								<tr
+									className="bg-white border-b cursor-pointer hover:bg-red-100"
+									key={index}
+									onClick={() => handleSelectShipment(shipment)}
+								>
 									<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 										{shipment.id}
 									</th>
+									<td className="px-6 py-4">
+										{new Date(shipment.createdAt).toDateString()}{' '}
+										{new Date(shipment.createdAt).toLocaleTimeString()}{' '}
+									</td>
 									<td className="px-6 py-4">{shipment.shipment_title}</td>
 									<td className="px-6 py-4">{shipment?.start_location?.formattedAddress}</td>
 									<td className="px-6 py-4">{shipment?.final_destination?.formattedAddress}</td>
@@ -50,7 +71,17 @@ const index = () => {
 											? 'Door to Door'
 											: 'Airport to Airport'}
 									</td>
-									<td className="px-6 py-4">{shipment.shipment_Status}</td>
+									<td
+										className={`
+								 ${shipment.shipment_Status === 'UNCHECK' ? 'text-blue-500' : ''} 
+								 ${shipment.shipment_Status === 'CHECKED' ? 'text-yellow-600' : ''} 
+								 ${shipment.shipment_Status === 'TRANSIT' ? 'text-green-500' : ''} 
+								 ${shipment.shipment_Status === 'SUCCESSFUL' ? 'text-green-700' : ''} 
+								 ${shipment.shipment_Status === 'REJECTED' ? 'text-red-500' : ''} 
+								 font-extrabold px-6 py-4`}
+									>
+										{shipment.shipment_Status}
+									</td>
 								</tr>
 							))}
 						</tbody>
@@ -65,7 +96,7 @@ const index = () => {
 				loading={loading}
 			/>
 
-		{showModal && (
+			{showModal && (
 				<ShipmentModal selectedShipment={selectedShipment} setShowModal={setShowModal} />
 			)}
 		</div>

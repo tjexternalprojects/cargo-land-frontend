@@ -4,10 +4,10 @@ import { fadeSlide } from '@/utils/animations';
 import useUserProfile from './useUserProfile';
 import { AccountType, PersonalDetails } from '@/components';
 
-interface UserProfilePros{
-	isAdmin:boolean
+interface UserProfilePros {
+	isAdmin: boolean;
 }
-const index = ({isAdmin}:UserProfilePros) => {
+const index = ({ isAdmin }: UserProfilePros) => {
 	const { state, animationDirection, handleShowTab } = useUserProfile();
 	return (
 		<div className="space-y-10  w-full ">
@@ -28,18 +28,20 @@ const index = ({isAdmin}:UserProfilePros) => {
 						>
 							Personal&nbsp;Details
 						</div>
-						{isAdmin === false && <div>
-							<div
-								onClick={() => handleShowTab('item2', 2)}
-								className={`${
-									state.userCurrentTab == 'item2'
-										? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
-										: 'text-gray-400 pl-5'
-								} cursor-pointer`}
-							>
-								Account&nbsp;Type
+						{isAdmin === false && (
+							<div>
+								<div
+									onClick={() => handleShowTab('item2', 2)}
+									className={`${
+										state.userCurrentTab == 'item2'
+											? 'border-l-4 border-l-blue-900 pl-4 text-blue-900 font-bold'
+											: 'text-gray-400 pl-5'
+									} cursor-pointer`}
+								>
+									Account&nbsp;Type
+								</div>
 							</div>
-						</div>}
+						)}
 					</div>
 				</div>
 

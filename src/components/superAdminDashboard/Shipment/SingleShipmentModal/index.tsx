@@ -21,12 +21,13 @@ const ShipmentModal = ({
 		setShowRejectShipmentModal,
 		setShowUpdateShipmentPrice,
 		handleUpdatePrice,
+		handleSetOnTransit,
 		shipmentCurrentPrice,
 		showUpdateShipmentPrice,
 		showRejectShipmentModal,
 		shipmentCreator,
 		shipmentImages,
-	} = useShipmentModal(modalSelectedShipment);
+	} = useShipmentModal(modalSelectedShipment, setSelectedShipment);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
 			<div className=" md:w-9/12 w-11/12  fixed bg-white shadow-lg pb-3 ">
@@ -43,7 +44,7 @@ const ShipmentModal = ({
 					</div>
 				</div>
 				<div className="px-3 flex gap-4 flex-col overflow-y-auto  md:flex-row max-h-70-screen pt-4">
-					<div className="p-2 md:overflow-y-auto w-1/2 flex-grow">
+					<div className="p-2 md:overflow-y-auto md:w-1/2  flex-grow">
 						{/* <div className=" md:w-96 h-96 border bg-red-500 "> */}
 						<div className=" max-w-xl  ">
 							{shipmentImages.length > 0 ? (
@@ -106,7 +107,7 @@ const ShipmentModal = ({
 								{modalSelectedShipment.shipment_Status === 'CHECKED' && (
 									<div className="gap-2 flex w-full justify-between">
 										<button
-											onClick={() => handleViewOnMap(modalSelectedShipment.id)}
+											onClick={() => handleSetOnTransit(modalSelectedShipment.id)}
 											className="px-2 py-1 bg-green-800 text-white rounded"
 										>
 											Mark as Transit
@@ -120,7 +121,10 @@ const ShipmentModal = ({
 									</div>
 								)}
 								{modalSelectedShipment.shipment_Status === 'TRANSIT' && (
-									<button className="px-2 py-1 bg-green-800 text-white rounded">
+									<button
+										onClick={() => handleViewOnMap(modalSelectedShipment.id)}
+										className="px-2 py-1 bg-green-800 text-white rounded"
+									>
 										Update Location
 									</button>
 								)}
@@ -139,6 +143,13 @@ const ShipmentModal = ({
 								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-2">Tracking ID:</div>
 									<div className="p-2 font-bold">{modalSelectedShipment.id}</div>
+								</div>
+								<div className="flex flex-col ">
+									<div className=" border-l-2 w-full bg-slate-100 p-2">Date Created:</div>
+									<div className="p-2">
+										{new Date(modalSelectedShipment.createdAt).toDateString()}{' '}
+										{new Date(modalSelectedShipment.createdAt).toLocaleTimeString()}{' '}
+									</div>
 								</div>
 								<div className="flex flex-col ">
 									<div className=" border-l-2 w-full bg-slate-100 p-2">Title:</div>

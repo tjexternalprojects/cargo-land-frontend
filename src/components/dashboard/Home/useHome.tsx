@@ -52,12 +52,27 @@ function useHome() {
 					: 0
 			)
 		);
-		setTotalSuccessfulShipment(
-			successfulShipmentData?.reduce(
-				(accumulator: number, currentValue: number) => accumulator + currentValue,
-				0
-			)
-		);
+
+		let successfulShipmentsCount = state.shipmentSummary.reduce(function (
+			count: number,
+			shipment: { shipmentDetails: any }
+		) {
+			let shipmentDetails = shipment.shipmentDetails;
+
+			for (let i = 0; i < shipmentDetails.length; i++) {
+				let shipmentStatus = shipmentDetails[i].shipment_Status;
+
+				if (shipmentStatus === 'SUCCESSFUL') {
+					return count + 1;
+				}
+			}
+
+			return count;
+		},
+		0);
+
+		setTotalSuccessfulShipment(successfulShipmentsCount);
+
 		setSuccessfulShipmentLoader(false);
 	};
 
@@ -91,13 +106,11 @@ function useHome() {
 		setTransactionHistoryLoader(true);
 		userPaymentHistory().then(
 			(response) => {
-				console.log(response);
 				setTransactionHistory(response.data.data);
 				setTransactionHistoryLoader(false);
 			},
 			(error) => {
 				setTransactionHistoryLoader(false);
-				console.log(error);
 			}
 		);
 	};

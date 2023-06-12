@@ -21,8 +21,8 @@ function AuthServices() {
 		return api.post('/user/forgot-password', { email });
 	};
 
-	const resetPassword = (payload: Record<string, string | undefined>, token:string) => {
-		return api.patch('/user/reset-password/'+token, payload);
+	const resetPassword = (payload: Record<string, string | undefined>, token: string) => {
+		return api.patch('/user/reset-password/' + token, payload);
 	};
 
 	const logout = () => {

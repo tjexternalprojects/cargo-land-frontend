@@ -9,7 +9,6 @@ import {
 	RiUserReceivedLine,
 	userImg,
 } from '@/assets';
-import Slider from 'react-slick';
 
 import useShipmentSummary from './useShipmentSummary';
 import { RingLoader, ShipmentModal } from '@/components';
@@ -40,10 +39,10 @@ const RecipientDetails = () => {
 					<div className="bg-white  rounded-sm shadow-md  box-border w-full">
 						<div className=" h-screen-55 rounded-md overflow-auto w-full p-3 ">
 							<table className=" w-full  bg-white rounded-sm">
-								<thead className=" text-left  w-full bg-slate-100 ">
+								<thead className=" text-left  w-full bg-slate-100">
 									<tr>
 										<th>Select</th>
-										<th className="p-3">Shipment Id</th>
+										<th className="p-3">Shipment&nbsp;Id</th>
 										<th>Current Location</th>
 										<th>Destination</th>
 										<th>Shipment Type</th>
@@ -87,7 +86,7 @@ const RecipientDetails = () => {
 													onClick={() => handleRemoveItem(val.id)}
 													className="bg-red-500 rounded-full flex-grow md:flex-grow-0 w-full justify-between text-white flex space-x-2 items-center shadow-md"
 												>
-													<span className=" px-3 py-1">Remove</span>
+													<span className=" px-3 py-1">Delete</span>
 													{removeShipmentLoader && itemIndexToRemove === val.id ? (
 														<RingLoader loaderColor={'white'} size={30} textColor="text-blue-900" />
 													) : (
@@ -104,16 +103,22 @@ const RecipientDetails = () => {
 						</div>
 						<div className=" bottom-5 w-full  ">
 							<div className="bg-slate-100 p-5">
-								<div>Total Package Selected: <span className='font-extrabold'>{totalShipmentToCheckout}</span></div>
 								<div>
-									Total Amount: <span className='font-extrabold'>&#8358;{totalPrice.toLocaleString()}</span>
+									Total Package Selected:{' '}
+									<span className="font-extrabold">{totalShipmentToCheckout}</span>
+								</div>
+								<div>
+									Total Amount:{' '}
+									<span className="font-extrabold">&#8358;{totalPrice.toLocaleString()}</span>
 								</div>
 							</div>
 							<div className="flex justify-between p-5 gap-4 flex-wrap md:flex-nowrap">
 								<button
 									disabled={shipmentLoader || totalPrice === 0}
 									onClick={handlePayment}
-									className={`flex md:flex-grow-0 flex-grow items-center  justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300 ${totalPrice === 0 ? 'bg-red-100': 'bg-red-700'}`}
+									className={`flex md:flex-grow-0 flex-grow items-center  justify-between  space-x-3 text-white  hover:transition-all duration-150 ease-in-out hover:shadow-md hover:shadow-blue-100  shadow-md shadow-slate-300 ${
+										totalPrice === 0 ? 'bg-red-100' : 'bg-red-700'
+									}`}
 								>
 									<div className="p-2">Checkout</div>
 									<div

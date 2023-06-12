@@ -1,4 +1,5 @@
 // icons
+export { FaKeycdn } from 'react-icons/fa';
 export {
 	GrClose,
 	GrContactInfo,
@@ -58,6 +59,8 @@ export {
 	BsArrowDownRight,
 	BsCurrencyDollar,
 	BsCheckLg,
+	BsThreeDotsVertical,
+	BsGoogle,
 } from 'react-icons/bs';
 export {
 	AiOutlineNumber,
@@ -83,10 +86,12 @@ export { IoMdCart } from 'react-icons/io';
 // images
 export { default as logo } from './images/logo.png';
 export { default as userImg } from './images/user.png';
+export { default as rippleLoader } from './images/RippleLoader.svg';
 
 // Shipment Images
 export { default as package1 } from './images/shipment/package1.jpg';
-export {default as shipmentDefaultImg} from './images/shipment/shipmentDefaultImage.png'
+export { default as shipmentDefaultImg } from './images/shipment/shipmentDefaultImage.png';
+export { default as shipmentOverview } from './images/trackShipment/shipment.jpg';
 
 // Landing Page
 export { default as CircleBg } from './images/landingPage/circleBg';

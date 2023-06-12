@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 // common components
 export const Header = lazy(() => import('./common/Header'));
+export const Footer = lazy(() => import('./common/Footer'));
 export const LineGraph = lazy(() => import('./common/Graph/LingGraph'));
 export const MapDirection = lazy(() => import('./common/Maps/GoogleMap/Direction'));
 export const MapDirection3 = lazy(() => import('./common/Maps/GoogleMap/Direction3'));
@@ -21,9 +22,7 @@ export const ResendToken = lazy(() => import('./resendVerification'));
 
 // Business SignUp
 export const BusinessSignup = lazy(() => import('./common/UserProfile/businessSignup'));
-export const BusinessData = lazy(
-	() => import('./common/UserProfile/businessSignup/BusinessData')
-);
+export const BusinessData = lazy(() => import('./common/UserProfile/businessSignup/BusinessData'));
 export const BusinessDocuments = lazy(
 	() => import('./common/UserProfile/businessSignup/BusinessDocuments')
 );
@@ -45,9 +44,7 @@ export const PersonalDetails = lazy(() => import('./common/UserProfile/PersonalD
 export const UpdatePassword = lazy(
 	() => import('./common/UserProfile/PersonalDetails/UpdatePassword')
 );
-export const UserDetails = lazy(
-	() => import('./common/UserProfile/PersonalDetails/UserDetails')
-);
+export const UserDetails = lazy(() => import('./common/UserProfile/PersonalDetails/UserDetails'));
 export const UserImage = lazy(() => import('./common/UserProfile/PersonalDetails/UserImage'));
 
 export const AccountType = lazy(() => import('./common/UserProfile/AccountType'));
@@ -72,6 +69,10 @@ export const Contact = lazy(() => import('./LandingPage/Contact'));
 export const GetStarted = lazy(() => import('./LandingPage/GetStarted'));
 export const AboutUs = lazy(() => import('./LandingPage/AboutUs'));
 
+// Track Shipment
+export const ShipmentSearchBox = lazy(() => import('./TrackShipmentPage/ShipmentSearchBox'));
+export const TrackResult = lazy(() => import('./TrackShipmentPage/TrackResult'));
+
 // SUPER ADMIN DASHBOARD ======================================================
 export const ATopBar = lazy(() => import('./superAdminDashboard/TopBar'));
 export const ASidebar = lazy(() => import('./superAdminDashboard/Sidebar'));
@@ -80,11 +81,20 @@ export const AUsers = lazy(() => import('./superAdminDashboard/Users'));
 export const AUserDetailsModal = lazy(() => import('./superAdminDashboard/Users/UserDetailsModal'));
 export const ATransactions = lazy(() => import('./superAdminDashboard/Transactions'));
 
-
-// SHIPMENT 
+// SHIPMENT
 export const AShipment = lazy(() => import('./superAdminDashboard/Shipment/AllShipment'));
 export const AUpdateShipment = lazy(() => import('./superAdminDashboard/Shipment/ShipmentMap'));
-export const SearchShipmentModal  = lazy(() => import('./superAdminDashboard/Shipment/ShipmentIDModal'));
-export const RejectShipmentModal = lazy(()=>import('./superAdminDashboard/Shipment/RejectShipmentModal'))
-export const UpdateShipmentLocation = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentLocation'))
-export const UpdateShipmentPrice = lazy(()=>import('./superAdminDashboard/Shipment/UpdateShipmentPrice'))
+export const SearchShipmentModal = lazy(
+	() => import('./superAdminDashboard/Shipment/ShipmentIDModal')
+);
+export const InputShipmentSecrete = lazy(
+	() => import('./superAdminDashboard/Shipment/InputShipmentSecrete')
+);
+export const RejectShipmentModal = lazy(
+	() => import('./superAdminDashboard/Shipment/RejectShipmentModal')
+);
+export const AddNewRoute = lazy(() => import('./superAdminDashboard/Shipment/AddNewRoute'));
+export const UpdateShipmentPrice = lazy(
+	() => import('./superAdminDashboard/Shipment/UpdateShipmentPrice')
+);
+export { default as ShipmentMenu } from './superAdminDashboard/Shipment/ShipmentMenu';

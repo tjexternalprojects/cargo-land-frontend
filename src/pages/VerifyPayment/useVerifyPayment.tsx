@@ -65,8 +65,6 @@ function useVerifyPayment() {
 		setLoading(true);
 		verifyPayment(verify_payload).then(
 			(response) => {
-				console.log('RESPONSE FROM VERIFY PAYMENT =====================================');
-				console.log(response);
 				if (!response.data.success) {
 					toast.error('Error making payment', {
 						progressClassName: 'bg-red-500 h-1',
@@ -79,7 +77,6 @@ function useVerifyPayment() {
 				setLoading(false);
 			},
 			(error) => {
-				console.log(error);
 				setLoading(false);
 			}
 		);

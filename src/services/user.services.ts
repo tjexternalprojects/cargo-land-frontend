@@ -40,9 +40,9 @@ function UserServices() {
 		return api.get(`/user/all-users?page=${page_number}&limit=${page_limit}`);
 	};
 
-	const adminGetSingleUser = (user_id:string)=>{
-		return api.get('/user/single-user/'+user_id)
-	}
+	const adminGetSingleUser = (user_id: string) => {
+		return api.get('/user/single-user/' + user_id);
+	};
 	return {
 		contactUs,
 		getSingleUser,

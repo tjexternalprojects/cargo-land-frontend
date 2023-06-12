@@ -27,11 +27,14 @@ const Header = () => {
 							<a href="#Direction">Direction</a>
 						</li>
 						<li className="cursor-pointer">
+							<a href="/track_shipment">Track Shipment</a>
+						</li>
+						<li className="cursor-pointer">
 							<a href="#Contact">Contact Us</a>
 						</li>
 					</ul>
 				</div>
-				<div className="  flex   items-center  justify-center space-x-5">
+				<div className="flex items-center justify-center space-x-5">
 					{LocalStorageServices.getAccessToken() ? (
 						<>
 							<button
@@ -89,6 +92,9 @@ const Header = () => {
 						</li>
 						<li className="cursor-pointer" onClick={toggleShowLoin}>
 							<a href="#Direction">Direction</a>
+						</li>
+						<li className="cursor-pointer">
+							<a href="/track_shipment">Track Shipment</a>
 						</li>
 						<li className="cursor-pointer" onClick={toggleShowLoin}>
 							<a href="#Contact">Contact Us</a>

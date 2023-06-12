@@ -22,7 +22,6 @@ function useShipmentIDModal(setShowTrackingIdInput: React.Dispatch<React.SetStat
 		setLoading(true);
 		await getSingleShipment(shipmentId as string).then(
 			(response) => {
-				console.log(response);
 				if (response.data === null) {
 					toast.error("Shipment Can't be retrieve, re-check Tracking ID", {
 						progressClassName: 'bg-red-500 h-1',
@@ -37,7 +36,6 @@ function useShipmentIDModal(setShowTrackingIdInput: React.Dispatch<React.SetStat
 				setLoading(false);
 			},
 			(error) => {
-				console.log(error);
 				toast.error("Shipment Can't be retrieve, re-check ID", {
 					progressClassName: 'bg-red-500 h-1',
 					autoClose: 3000,

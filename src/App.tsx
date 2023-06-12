@@ -22,6 +22,7 @@ import {
 	ResetPassword,
 	VerifyPayment,
 	Page404,
+	TrackShipmentPage,
 } from '@/pages';
 import ProtectedDashboardRoutes from './ProtectedDashboardRoutes';
 import ProtectedAdminRoutes from './ProtectedAdminRoutes';
@@ -59,12 +60,17 @@ function App() {
 								<Route path="" element={<AdminHome />} />
 								<Route path="/admin/users/:current_page" element={<AUsers />} />
 								<Route path="/admin/shipment/update/:shipment_id" element={<AUpdateShipment />} />
-								<Route path="/admin/transactions" element={<ATransactions />} />
+								<Route
+									path="/admin/trans
+								actions"
+									element={<ATransactions />}
+								/>
 								<Route path="/admin/shipment/:current_page" element={<AShipment />} />
 								<Route path="/admin/profile" element={<UserProfile isAdmin={true} />} />
 							</Route>
 						</Route>
 						<Route path="/" element={<LandingPage />} />
+						<Route path="/track_shipment" element={<TrackShipmentPage />} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/resetpassword/:token" element={<ResetPassword />} />
 						<Route path="*" element={<Page404 />} />

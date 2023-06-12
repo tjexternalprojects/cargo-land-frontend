@@ -1,13 +1,11 @@
-
 import api from './api.services';
 
 function UserServices() {
-
-    const registerBusiness =(payload:Record<string, string>)=>{
-        return api.post('/business/register', payload)
-    }
+	const registerBusiness = (payload: Record<string, string>) => {
+		return api.post('/business/register', payload);
+	};
 	return {
-		registerBusiness
+		registerBusiness,
 	};
 }
 export default UserServices;

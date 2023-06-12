@@ -28,26 +28,29 @@ const Shipment = () => {
 						<thead className="text-xs text-gray-700 uppercase bg-gray-100">
 							<tr>
 								<th scope="col" className="px-6 py-3">
-									Tracking Id
+									Tracking&nbsp;Id
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Shipment Creator
+									Date&nbsp;created
+								</th>
+								<th scope="col" className="px-6 py-3">
+									Shipment&nbsp;Creator
 								</th>
 
 								<th scope="col" className="px-6 py-3">
-									Shipment Title
+									Shipment&nbsp;Title
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Sender's Address
+									Sender's&nbsp;Address
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Recipient's Address
+									Recipient's&nbsp;Address
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Delivery Type
+									Delivery&nbsp;Type
 								</th>
 								<th scope="col" className="px-6 py-3">
-									Shipment Status
+									Shipment&nbsp;Status
 								</th>
 							</tr>
 						</thead>
@@ -61,6 +64,10 @@ const Shipment = () => {
 									<th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
 										{shipment.id}
 									</th>
+									<td className="px-6 py-4">
+										{new Date(shipment.createdAt).toDateString()}{' '}
+										{new Date(shipment.createdAt).toLocaleTimeString()}{' '}
+									</td>
 									<td className="px-6 py-4">{shipment.shipment_title}</td>
 									<td className="px-6 py-4">{shipment.shipment_title}</td>
 									<td className="px-6 py-4">{shipment?.start_location?.formattedAddress}</td>

@@ -50,7 +50,6 @@ function useLogin() {
 				}
 			},
 			(error) => {
-				console.log(error)
 				setShowLoading(false);
 				if (error.code == 'ERR_NETWORK') {
 					toast.error(error.message, {
@@ -70,7 +69,7 @@ function useLogin() {
 		);
 	};
 
-	const hadleVerifyEmail = () => {
+	const handleVerifyEmail = () => {
 		setState({
 			...state,
 			showResendToken: true,
@@ -83,7 +82,6 @@ function useLogin() {
 			email: credentialResponse.email,
 			avatar: credentialResponse.picture,
 		};
-
 		LocalStorageServices.setUserInfo(user_info);
 		LocalStorageServices.setLocalAccessToken(credentialResponse.jti);
 		navigate('/dashboard');
@@ -95,13 +93,18 @@ function useLogin() {
 			autoClose: 3000,
 		});
 	};
+
+	const continueWithGoogle = () => {
+		window.open('http://server.cargolandglobal.com/auth/google/callback', '_self');
+	};
 	return {
-		hadleVerifyEmail,
+		handleVerifyEmail,
 		showForgotPassword,
 		setLoginData,
 		handleLogin,
 		googleLoginSuccess,
 		googleLoginFailure,
+		continueWithGoogle,
 		loginData,
 		showLoading,
 		GOOGLE_LOGIN_CLIENT_ID,

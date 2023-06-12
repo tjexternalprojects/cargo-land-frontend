@@ -7,7 +7,7 @@ import { RingLoader } from '@/components';
 interface ShipmentPriceProps {
 	selectedShipment: any;
 	setSelectedShipment: any;
-	shipmentCurrentPrice:number;
+	shipmentCurrentPrice: number;
 	setShowUpdateShipmentPrice: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const index = ({
@@ -24,7 +24,7 @@ const index = ({
 	);
 	return (
 		<div className=" fixed h-full  w-full top-0 left-0  z-30 bg-black bg-opacity-50 flex justify-center items-center">
-			<div className="w-1/2  fixed bg-white shadow-lg pb-3 ">
+			<div className="md:w-1/2 mx-2 md:mx-0  fixed bg-white shadow-lg pb-3 ">
 				<div className="flex items-center  w-full justify-between px-3 py-2 text-white  bg-blue-900  ">
 					<div className="font-bold">Update Shipment Price:</div>
 					<div

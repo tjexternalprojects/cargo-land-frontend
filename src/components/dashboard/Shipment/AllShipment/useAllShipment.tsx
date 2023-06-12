@@ -11,8 +11,8 @@ function useAllShipment() {
 	const { getAllUserShipmentPaginated } = ShipmentServices();
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState(1);
-	const [showModal, setShowModal] = useState(false)
-	const [selectedShipment, setSelectedShipment]= useState({})
+	const [showModal, setShowModal] = useState(false);
+	const [selectedShipment, setSelectedShipment] = useState({});
 
 	const getAllShipment = async () => {
 		if (isNaN(currentPage)) {
@@ -39,10 +39,10 @@ function useAllShipment() {
 		);
 	};
 
-	const handleSelectShipment =(val:any)=>{
-		setSelectedShipment(val)
-		setShowModal(true)
-	}
+	const handleSelectShipment = (val: any) => {
+		setSelectedShipment(val);
+		setShowModal(true);
+	};
 
 	useEffect(() => {
 		getAllShipment();

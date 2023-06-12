@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
 	BsTelephoneForward,
 	FaUserEdit,
@@ -39,7 +39,7 @@ const RecipientDetails = () => {
 		shipmentDetails,
 	} = useRecipientDetails();
 	const { control, handleSubmit } = useForm();
-
+	const [value, setValue] = useState('');
 	return (
 		<>
 			<div className="inline-flex flex-col items-center w-full">
@@ -98,21 +98,42 @@ const RecipientDetails = () => {
 							<label className="text-sm text-gray-400">
 								Recipient Phone Number <span className="text-red-500"> * </span>
 							</label>
-							<div className=" border-b-2 flex  mt-2">
-								<PhoneInputWithCountry
-									name="phoneInputWithCountrySelect"
-									control={control}
-									rules={{ required: true }}
-									placeholder="Enter phone number"
-									className=" outline-none focus:outline-none border-none"
-									value={(shipmentDetails.recipient_phone_number as string) ?? ''}
-									onChange={(e: string) =>
-										setShipmentDetails({
-											...shipmentDetails,
-											recipient_phone_number: e,
-										})
-									}
-								/>
+							<div className=" border-b-2 flex w-full  mt-2">
+								{/* {shipmentDetails.recipient_phone_number !== '' && state.editShipment == true && ( */}
+								{shipmentDetails.recipient_phone_number !== '' && state.editShipment === true && (
+									<PhoneInputWithCountry
+										name="phoneInputWithCountrySelect"
+										control={control}
+										rules={{ required: true }}
+										placeholder="Enter phone number"
+										className=" outline-none focus:outline-none border-none"
+										defaultValue={shipmentDetails.recipient_phone_number}
+										value={shipmentDetails.recipient_phone_number || ''}
+										onChange={(e: string) =>
+											setShipmentDetails({
+												...shipmentDetails,
+												recipient_phone_number: e,
+											})
+										}
+									/>
+								)}
+
+								{state.editShipment === false && (
+									<PhoneInputWithCountry
+										name="phoneInputWithCountrySelect2"
+										control={control}
+										rules={{ required: true }}
+										placeholder="Enter phone number"
+										className=" outline-none focus:outline-none border-none"
+										value={shipmentDetails.recipient_phone_number || ''}
+										onChange={(e: string) =>
+											setShipmentDetails({
+												...shipmentDetails,
+												recipient_phone_number: e,
+											})
+										}
+									/>
+								)}
 							</div>
 						</div>
 					</div>
@@ -164,7 +185,7 @@ const RecipientDetails = () => {
 										>
 											<option value="">Select Airport</option>
 
-											{airportList.map((airport:any, key:number) => (
+											{airportList.map((airport: any, key: number) => (
 												<option value={JSON.stringify(airport)} key={key}>
 													{airport.name}, {airport.city}
 												</option>
@@ -188,8 +209,6 @@ const RecipientDetails = () => {
 												className="w-full outline-none"
 												value={JSON.stringify(countryState)}
 												onChange={(e) => handleChangeState(JSON.parse(e.target.value))}
-												disabled={Object.keys(country).length === 0}
-												required
 											>
 												<option value="0">Select State</option>
 
@@ -211,11 +230,9 @@ const RecipientDetails = () => {
 										</small>
 										<div className=" border-b-2 flex  mt-2 p-2 bg-white">
 											<select
-												disabled={Object.keys(countryState).length === 0}
 												className="w-full outline-none"
 												value={JSON.stringify(stateCity)}
 												onChange={(e) => handleChangeCity(JSON.parse(e.target.value))}
-												required
 											>
 												<option value="0">Select City</option>
 
@@ -247,7 +264,7 @@ const RecipientDetails = () => {
 												value={address ?? ''}
 												placeholder="type in shipment street address location"
 												onChange={(e) => handleChangeAddress(e.target.value)}
-												disabled={Object.keys(stateCity).length === 0}
+												disabled={Object.keys(country).length === 0}
 												required
 											/>
 											<div className="text-xl text-gray-500">

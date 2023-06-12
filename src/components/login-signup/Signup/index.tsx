@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BiHide, BiShow, BsTelephoneForward, MdAttachEmail, BiUserPin } from '@/assets';
+import { BiHide, BiShow, BsTelephoneForward, MdAttachEmail, BiUserPin, BsGoogle } from '@/assets';
 import useSignUp from './useSignUp';
 import { RingLoader } from '@/components';
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
@@ -14,6 +14,7 @@ const signup = () => {
 		GOOGLE_SIGNUP_CLIENT_ID,
 		showLoading,
 		signUpData,
+		continueWithGoogle,
 		setSignUpData,
 		setShowPassword,
 		handleSingupSubmit,
@@ -97,7 +98,14 @@ const signup = () => {
 				<div className="border border-gray-300 w-full"></div>
 			</div>
 			<div className=" animate__animated animate__fadeInUp animate__faster flex justify-center ">
-				<GoogleOAuthProvider clientId={GOOGLE_SIGNUP_CLIENT_ID}>
+				<button
+					className="flex items-center justify-center w-full max-w-xs px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					onClick={continueWithGoogle}
+				>
+					<BsGoogle />
+					<div> Continue with Google</div>
+				</button>
+				{/* <GoogleOAuthProvider clientId={GOOGLE_SIGNUP_CLIENT_ID}>
 					<GoogleLogin
 						theme="outline"
 						text="signup_with"
@@ -113,7 +121,7 @@ const signup = () => {
 							googleSignUpFailure();
 						}}
 					/>
-				</GoogleOAuthProvider>
+				</GoogleOAuthProvider> */}
 			</div>
 		</div>
 	);

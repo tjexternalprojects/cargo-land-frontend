@@ -24,7 +24,9 @@ const sidebar = () => {
 				} animate_faster`}
 			>
 				<div className="bg-white  flex items-center justify-center rounded-xs p-2 mt-2  ">
-					<img src={logo} className=" w-24 h-8" alt="" />
+					<Link to="/">
+						<img src={logo} className=" w-24 h-8" alt="" />
+					</Link>
 				</div>
 				<div className="flex-grow mt-10 ">
 					<ul className="text-lg font-bold">
@@ -101,10 +103,10 @@ const sidebar = () => {
 						</div>
 					</div>
 					<div className="flex gap-2 text-2xl">
-					<Link to="/admin/profile"  onClick={() => handleToggleSidebar('/admin/profile')} >
-						<div className=" transition-all duration-75 ease-linear rounded-full text-blue-900 p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">
-							<CiSettings />
-						</div>
+						<Link to="/admin/profile" onClick={() => handleToggleSidebar('/admin/profile')}>
+							<div className=" transition-all duration-75 ease-linear rounded-full text-blue-900 p-2 shadow-md hover:shadow-red-200 border-blue-900 border hover:border-slate-50 cursor-pointer">
+								<CiSettings />
+							</div>
 						</Link>
 						<div
 							onClick={handleLogout}

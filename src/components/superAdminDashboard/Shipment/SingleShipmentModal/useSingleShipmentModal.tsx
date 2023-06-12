@@ -1,22 +1,20 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserServices } from '@/services';
+import { UserServices, ShipmentServices } from '@/services';
 import { confirmAlert } from 'react-confirm-alert';
 import { AppContextType, AppContext } from '@/context';
 import { toast } from 'react-toastify';
-function useShipmentModal(
-	modalSelectedShipment: any,
-) {
+function useShipmentModal(modalSelectedShipment: any, setSelectedShipment: any) {
 	const { adminGetSingleUser } = UserServices();
+	const { updateShipmentToTransit } = ShipmentServices();
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
 	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({});
 	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false);
 	const [showUpdateShipmentPrice, setShowUpdateShipmentPrice] = useState(false);
 	const [shipmentCurrentPrice, setShipmentCurrentPrice] = useState<number>(0);
 	const { state, setState } = useContext<AppContextType>(AppContext);
-
+	const [transitLoader, setTransitLoader] = useState(false);
 	const navigate = useNavigate();
-
 
 	const arrangeImage = () => {
 		const shipment_images: Record<string, string>[] = [];
@@ -29,23 +27,46 @@ function useShipmentModal(
 		}
 
 		setShipmentImages(shipment_images);
-		console.log(shipmentImages);
 	};
 
 	const handleViewOnMap = (shipment_id: string) => {
 		navigate(`/admin/shipment/update/${shipment_id}`);
 	};
 
+	const handleSetOnTransit = (shipment_id: string) => {
+		confirmAlert({
+			title: 'Set Shipment on Transit?',
+			message: 'Are you sure you want to set this shipment on transit',
+			buttons: [
+				{
+					label: 'Yes',
+					onClick: () => {
+						setTransitLoader(true);
+						updateShipmentToTransit(shipment_id).then(
+							(response) => {
+								setSelectedShipment(response.data);
+								setTransitLoader(false);
+							},
+							(error) => {
+								setTransitLoader(false);
+							}
+						);
+					},
+				},
+				{
+					label: 'No',
+					onClick: () => {},
+				},
+			],
+		});
+	};
+
 	const getUserDetails = async () => {
-		console.log(modalSelectedShipment, 'user IDDDDDDD');
 		await adminGetSingleUser(modalSelectedShipment.userID).then(
 			(response) => {
 				setShipmentCreator(response.data.user);
-				console.log(response);
 			},
-			(error) => {
-				console.log(error);
-			}
+			(error) => {}
 		);
 	};
 
@@ -83,6 +104,8 @@ function useShipmentModal(
 		setShowRejectShipmentModal,
 		setShowUpdateShipmentPrice,
 		handleUpdatePrice,
+		handleSetOnTransit,
+		transitLoader,
 		shipmentCurrentPrice,
 		showUpdateShipmentPrice,
 		showRejectShipmentModal,

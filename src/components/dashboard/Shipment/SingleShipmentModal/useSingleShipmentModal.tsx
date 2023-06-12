@@ -3,20 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { UserServices, ShipmentServices } from '@/services';
 import { confirmAlert } from 'react-confirm-alert';
 import { AppContextType, AppContext } from '@/context';
+import { OtherServices } from '@/services';
 import { toast } from 'react-toastify';
 function useShipmentModal(
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
 	selectedShipment: any
 ) {
-	const { adminGetSingleUser } = UserServices()
+	const { convertUrlsToFiles } = OtherServices();
+	const { adminGetSingleUser } = UserServices();
 	const [shipmentImages, setShipmentImages] = useState<any>([]);
-	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({})
-	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false)
-	const [selectedShipmentProps, setSelectedShipmentProps] = useState<any>(selectedShipment)
+	const [shipmentCreator, setShipmentCreator] = useState<Record<string, string | string[]>>({});
+	const [showRejectShipmentModal, setShowRejectShipmentModal] = useState(false);
+	const [selectedShipmentProps, setSelectedShipmentProps] = useState<any>(selectedShipment);
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [removeShipmentLoader, setRemoveShipmentLoader] = useState(false);
 	const { deleteShipment, getAllUserShipment } = ShipmentServices();
-
+	const [imageFullScreen, setImageFullScreen] = useState(false);
 
 	const navigate = useNavigate();
 	const handleCloseModal = () => {
@@ -34,35 +36,37 @@ function useShipmentModal(
 		}
 
 		setShipmentImages(shipment_images);
-		console.log(shipmentImages);
 	};
 
-
-
 	const getUserDetails = async () => {
-		await adminGetSingleUser(selectedShipment.userID).then(response => {
-			setShipmentCreator(response.data.user)
-			console.log(response)
-		}, error => {
-			console.log(error)
-		})
-	}
-
+		await adminGetSingleUser(selectedShipment.userID).then(
+			(response) => {
+				setShipmentCreator(response.data.user);
+			},
+			(error) => {}
+		);
+	};
 
 	const handleEdit = (shipment: Record<string, any> | undefined) => {
-		console.log(shipment)
 		shipmentToEdit(shipment);
 	};
 
-	const shipmentToEdit = (shipment: Record<string, any> | undefined) => {
-		console.log( )
+	const handleImageScreenChange = (isFullScreen: any) => {
+		setImageFullScreen(isFullScreen);
+	};
+
+	const shipmentToEdit = async (shipment: Record<string, any> | undefined) => {
 		const shipmentDetails = {
 			shipment_id: shipment?.id,
 			shipment_title: shipment?.shipment_title,
 			shipment_description: shipment?.shipment_description,
 			shipment_weight: shipment?.shipment_weight,
-			images: shipment?.images,
-			shipment_type:shipment?.shipment_Type.toLowerCase(),
+			previewImage: shipment?.images.map((url: string) => ({
+				original: url,
+				thumbnail: url,
+			})),
+			images: await convertUrlsToFiles(shipment?.images),
+			shipment_type: shipment?.shipment_Type.toLowerCase(),
 			start_location: {
 				location_id: shipment?.start_location?.location_id,
 				country: shipment?.start_location?.country,
@@ -75,6 +79,7 @@ function useShipmentModal(
 			},
 			recipient_full_name: shipment?.recipient_full_name,
 			recipient_email: shipment?.recipient_email,
+			recipient_phone_number: shipment?.recipient_phone_number,
 			final_destination: {
 				location_id: shipment?.final_destination?.location_id,
 				country: shipment?.final_destination?.country,
@@ -102,15 +107,15 @@ function useShipmentModal(
 	const removeShipment = async (shipment_id: string) => {
 		setRemoveShipmentLoader(true);
 		await deleteShipment(shipment_id).then(
-			(response) => {
-				toast.success('Item Removed Successfully', {
+			() => {
+				toast.success('Item Deleted Successfully', {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
 				});
 				getAllUserShipment();
 				setRemoveShipmentLoader(false);
 			},
-			(error) => {
+			() => {
 				setRemoveShipmentLoader(false);
 			}
 		);
@@ -130,18 +135,36 @@ function useShipmentModal(
 				},
 				{
 					label: 'No',
-					onClick: () => { },
+					onClick: () => {},
 				},
 			],
 		});
 	};
 
-
+	const handleShowOnMap = (shipment_details: any) => {
+		setState({ ...state, singleShipment: shipment_details });
+		navigate('/dashboard/track_shipment');
+	};
 	useEffect(() => {
 		arrangeImage();
 		getUserDetails();
 	}, [selectedShipment]);
-	return { handleCloseModal, getUserDetails, setShowRejectShipmentModal, setSelectedShipmentProps, handleEdit, handleDeleteItem, removeShipmentLoader, selectedShipmentProps, showRejectShipmentModal, shipmentCreator, shipmentImages };
+	return {
+		handleCloseModal,
+		getUserDetails,
+		setShowRejectShipmentModal,
+		setSelectedShipmentProps,
+		handleEdit,
+		handleDeleteItem,
+		handleImageScreenChange,
+		handleShowOnMap,
+		imageFullScreen,
+		removeShipmentLoader,
+		selectedShipmentProps,
+		showRejectShipmentModal,
+		shipmentCreator,
+		shipmentImages,
+	};
 }
 
 export default useShipmentModal;

@@ -6,14 +6,16 @@ import {
 	DirectionsRenderer,
 	Polyline,
 } from '@react-google-maps/api';
-
+import { rippleLoader } from '@/assets';
 const GOOGLE_API_KEY = import.meta.env.VITE_REACT_APP_GOOGLE_MAP_API_KEY;
 
 interface MapDirectionProps {
 	height: string;
 	startLocation: google.maps.LatLngLiteral;
-	midLocation: google.maps.LatLngLiteral;
+	locations: any;
 	endLocation: google.maps.LatLngLiteral;
+	currentLocation: any;
+	routeToLocation: any;
 }
 
 type MapLibrary = 'places' | 'drawing' | 'geometry' | 'localContext' | 'visualization';
@@ -23,8 +25,10 @@ const MAP_LIBRARIES: MapLibrary[] = ['places'];
 const MapDirection: FC<MapDirectionProps> = ({
 	height,
 	startLocation,
-	midLocation,
+	locations,
 	endLocation,
+	currentLocation,
+	routeToLocation,
 }) => {
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 	const [directionsResponse, setDirectionsResponse] = useState<null | google.maps.DirectionsResult>(
@@ -43,21 +47,25 @@ const MapDirection: FC<MapDirectionProps> = ({
 		const results = await directionsService.route({
 			origin: startLocation,
 			destination: endLocation,
-			waypoints: [{ location: midLocation }],
+			waypoints: locations?.map((location: any) => ({
+				location: {
+					lat: location.latitude,
+					lng: location.longitude,
+				} as google.maps.LatLngLiteral,
+				stopover: true,
+			})),
+
+			optimizeWaypoints: true,
 			travelMode: window.google.maps.TravelMode.DRIVING,
 		});
 		setDirectionsResponse(results);
-	}
-
-	function clearRoute() {
-		setDirectionsResponse(null);
 	}
 
 	useEffect(() => {
 		if (isLoaded) {
 			calculateRoute();
 		}
-	}, [isLoaded, startLocation, midLocation, endLocation]);
+	}, [isLoaded, startLocation, locations, endLocation]);
 
 	useEffect(() => {
 		if (map && directionsResponse) {
@@ -80,11 +88,43 @@ const MapDirection: FC<MapDirectionProps> = ({
 
 			setMovingMarker(newMovingMarker);
 
+			// CODE TO CALCULATE ROUTE TO, BASE ON THE CURRENT LOCATION AND THE NEXT DESTINATION ====================================================
+
+			let startIndex = -1;
+			let resetIndex = -1;
+			let startMinDistance = Infinity;
+			let endIndex = -1;
+			let endMinDistance = Infinity;
+
+			for (let i = 0; i < directionsResponse.routes[0].overview_path.length; i++) {
+				const point = directionsResponse.routes[0].overview_path[i];
+
+				const startDistance = Math.sqrt(
+					Math.pow(point.lat() - currentLocation.lat, 2) +
+						Math.pow(point.lng() - currentLocation.lng, 2)
+				);
+
+				if (startDistance < startMinDistance) {
+					startIndex = i;
+					resetIndex = i;
+					startMinDistance = startDistance;
+				}
+
+				const endDistance = Math.sqrt(
+					Math.pow(point.lat() - routeToLocation.lat, 2) +
+						Math.pow(point.lng() - routeToLocation.lng, 2)
+				);
+
+				if (endDistance < endMinDistance) {
+					endIndex = i;
+					endMinDistance = endDistance;
+				}
+			}
+
+			// END OF CODE TO CALCULATE ROUTE TO, BASE ON THE CURRENT LOCATION AND THE NEXT DESTINATION ====================================================
+
+			// CODE TO DO THE ACTUAL ANIMATION
 			const step = 100; // milliseconds
-			const numSteps = directionsResponse.routes[0].overview_path.length;
-			const resetIndex = Math.floor(numSteps / 2);
-			let startIndex = resetIndex;
-			let endIndex = numSteps;
 
 			const animateMarker = () => {
 				if (startIndex >= endIndex) {
@@ -114,23 +154,11 @@ const MapDirection: FC<MapDirectionProps> = ({
 			}}
 			onLoad={(map) => setMap(map)}
 		>
-			{/* {map && <Marker position={startLocation} />}
-			{map && <Marker position={midLocation} />}
-			{map && <Marker position={endLocation} />} */}
-
 			{directionsResponse && (
 				<>
 					<DirectionsRenderer directions={directionsResponse} />
-					<Marker
-						position={startLocation}
-						icon={{
-							path: window.google.maps.SymbolPath.CIRCLE,
-							fillColor: '#ff0000', // Change the color code to the desired color
-							fillOpacity: 1,
-							strokeWeight: 0,
-							scale: 6,
-						}}
-					/>
+					<Marker position={currentLocation} icon={rippleLoader} />
+
 					<Marker
 						position={endLocation}
 						icon={{

@@ -1,4 +1,4 @@
-import { BiUserPin, Si1Password, SiGmail } from '@/assets';
+import { BiUserPin, BsGoogle, Si1Password, SiGmail } from '@/assets';
 import useLogin from './useLogin';
 import { RingLoader } from '@/components';
 import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
@@ -10,9 +10,10 @@ const login = () => {
 		showLoading,
 		GOOGLE_LOGIN_CLIENT_ID,
 		verifyEmail,
+		continueWithGoogle,
 		googleLoginSuccess,
 		googleLoginFailure,
-		hadleVerifyEmail,
+		handleVerifyEmail,
 		handleLogin,
 		setLoginData,
 		showForgotPassword,
@@ -58,8 +59,8 @@ const login = () => {
 							Forgotten Password?
 						</span>
 						{verifyEmail && (
-							<span className="text-red-800 text-sm cursor-pointer" onClick={hadleVerifyEmail}>
-								Verifiy Email
+							<span className="text-red-800 text-sm cursor-pointer" onClick={handleVerifyEmail}>
+								Verify Email
 							</span>
 						)}
 					</div>
@@ -71,7 +72,14 @@ const login = () => {
 				<div className="border border-gray-300 w-full"></div>
 			</div>
 			<div className=" animate__animated animate__fadeInUp animate__faster flex justify-center ">
-				<GoogleOAuthProvider clientId={GOOGLE_LOGIN_CLIENT_ID}>
+				<button
+					className="flex items-center justify-center w-full max-w-xs px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					onClick={continueWithGoogle}
+				>
+					<BsGoogle />
+					<div> Continue with Google</div>
+				</button>
+				{/* <GoogleOAuthProvider clientId={GOOGLE_LOGIN_CLIENT_ID}>
 					<GoogleLogin
 						theme="outline"
 						text="signup_with"
@@ -87,7 +95,7 @@ const login = () => {
 							googleLoginFailure();
 						}}
 					/>
-				</GoogleOAuthProvider>
+				</GoogleOAuthProvider> */}
 			</div>
 		</div>
 	);

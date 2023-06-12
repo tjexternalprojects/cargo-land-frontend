@@ -4,14 +4,13 @@ import { toast } from 'react-toastify';
 import { useGeocode } from '@/components';
 import { ShipmentServices } from '@/services';
 import { Country } from 'country-state-city';
-import axios from 'axios';
 import airportCodes from 'airport-codes';
 
 function useNewShipmentForm() {
 	const { state, setState } = useContext<AppContextType>(AppContext);
 	const [showLoader, setShowLoader] = useState(false);
 	const { fetchLocation } = useGeocode();
-	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.images);
+	const [previewImage, setPreviewImage] = useState<any>(state.shipmentDetails.previewImage);
 	const { getCountryCovered } = ShipmentServices();
 
 	// Current address
@@ -22,10 +21,11 @@ function useNewShipmentForm() {
 	const [airportList, setAirportList] = useState<Record<string, string>[]>([]);
 	const [airport, setAirport] = useState<any>({});
 	const [countryCovered, setCountryCovered] = useState<Record<string, string>[]>([]);
+	const [imageFullScreen, setImageFullScreen] = useState(false);
 
 	// function to handle shipment data details
 	interface StartLocation {
-		location_id?: string,
+		location_id?: string;
 		country: any;
 		state: any;
 		city: any;
@@ -39,21 +39,25 @@ function useNewShipmentForm() {
 		shipment_title?: string;
 		shipment_description?: string;
 		shipment_weight?: string;
+		previewImage?: string[];
 		images?: any;
 		shipment_type?: string;
+		shipment_current_location?: string;
 		start_location?: StartLocation;
 	}
 
 	const [shipmentDetails, setShipmentDetails] = useState<ShipmentDetails>({});
 
 	const generateID = () => {
-		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		return (
-			Array.from({ length: 3 }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('') +
+			Array.from({ length: 3 }, () =>
+				characters.charAt(Math.floor(Math.random() * characters.length))
+			).join('') +
 			Math.random().toString().substring(2, 6) +
 			Date.now().toString().slice(-4)
-		).substring(0, 9)
-	}
+		).substring(0, 9);
+	};
 
 	const resetInputs = () => {
 		setShipmentDetails({
@@ -61,8 +65,10 @@ function useNewShipmentForm() {
 			shipment_title: state.shipmentDetails?.shipment_title as string,
 			shipment_description: state.shipmentDetails?.shipment_description as string,
 			shipment_weight: state.shipmentDetails?.shipment_weight as string,
+			previewImage: state.shipmentDetails?.previewImage,
 			images: state.shipmentDetails?.images,
 			shipment_type: state.shipmentDetails?.shipment_type as string,
+			shipment_current_location: state.shipmentDetails?.shipment_current_location as string,
 			start_location: {
 				location_id: state.shipmentDetails?.start_location?.location_id,
 				country: state.shipmentDetails?.start_location?.country,
@@ -74,7 +80,7 @@ function useNewShipmentForm() {
 				latitude: state.shipmentDetails?.start_location?.latitude as number,
 			},
 		});
-		setPreviewImage(state.shipmentDetails.images);
+		setPreviewImage(state.shipmentDetails.previewImage);
 		setAddress(state.shipmentDetails?.start_location?.address);
 		if (state.shipmentDetails?.start_location?.country !== '') {
 			const getCountryDetails = Country.getCountryByCode(
@@ -85,27 +91,6 @@ function useNewShipmentForm() {
 			setStateCity(state.shipmentDetails?.start_location?.city);
 		} else {
 			setCountry({});
-		}
-	};
-
-	// Function to handle shipment images
-	const image_slider_settings = {
-		dots: true,
-		infinite: false,
-		speed: 500,
-		slidesToShow: 4,
-		slidesToScroll: 1,
-		initialSlide: 0,
-	};
-
-	const removeImage = (indexToRemove: number) => {
-		const newPreviewImage = [...previewImage];
-		newPreviewImage.splice(indexToRemove, 1);
-		setPreviewImage(newPreviewImage);
-		if (shipmentDetails.images) {
-			const newShipmentImages = [...shipmentDetails.images];
-			newShipmentImages.splice(indexToRemove, 1);
-			setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
 		}
 	};
 
@@ -129,15 +114,10 @@ function useNewShipmentForm() {
 				latitude: null,
 			},
 		});
-		setAddress('')
+		setAddress('');
 	};
 
-	
-
-	const handleChangeDeliveryType=(val:string)=>{
-	
-
-
+	const handleChangeDeliveryType = (val: string) => {
 		setShipmentDetails({
 			...shipmentDetails,
 			start_location: {
@@ -152,14 +132,13 @@ function useNewShipmentForm() {
 				latitude: null,
 			},
 		});
-		setCountry({})
-		setAddress('')
+		setCountry({});
+		setAddress('');
 		setShipmentDetails({
 			...shipmentDetails,
 			shipment_type: val,
-		})
-		console.log(val)
-	}
+		});
+	};
 	const handleChangeCountry = (country: any) => {
 		resetShipmentStateOnChangeAddress();
 
@@ -241,19 +220,19 @@ function useNewShipmentForm() {
 		).then((data) => {
 			setShowLoader(false);
 			if (data.results.length > 1 && shipmentDetails.shipment_type === 'door_to_door') {
-				console.log(data);
 				toast.error(
 					'Multiple address match please re-check your address, you can add local government area to be specific'
 				);
 				return;
 			}
 			const { lat, lng } = data.results[0].geometry.location;
-
+			const location_id = generateID();
 			setShipmentDetails({
 				...shipmentDetails,
+				shipment_current_location: location_id,
 				start_location: {
 					...shipmentDetails.start_location,
-					location_id:generateID(),
+					location_id: location_id,
 					country: country,
 					state: countryState,
 					city: stateCity,
@@ -274,6 +253,21 @@ function useNewShipmentForm() {
 		});
 	};
 
+	const handleImageScreenChange = (isFullScreen: any) => {
+		setImageFullScreen(isFullScreen);
+	};
+
+	const removeImage = (indexToRemove: number) => {
+		const newPreviewImage = [...previewImage];
+		newPreviewImage.splice(indexToRemove, 1);
+		setPreviewImage(newPreviewImage);
+		if (shipmentDetails.images) {
+			const newShipmentImages = [...shipmentDetails.images];
+			newShipmentImages.splice(indexToRemove, 1);
+			setShipmentDetails({ ...shipmentDetails, images: newShipmentImages });
+		}
+	};
+
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files;
 		if (files && files.length > 0) {
@@ -286,7 +280,14 @@ function useNewShipmentForm() {
 						...prevDetails,
 						images: [...prevDetails.images, file],
 					}));
-					setPreviewImage((prevImages: any) => [...prevImages, dataUrl]);
+
+					setPreviewImage((prevImages: any) => [
+						...prevImages,
+						{
+							original: dataUrl,
+							thumbnail: dataUrl,
+						},
+					]);
 				};
 				reader.readAsDataURL(file);
 			} else {
@@ -351,6 +352,8 @@ function useNewShipmentForm() {
 		handleChangeAddress,
 		handleChangeAirport,
 		handleChangeDeliveryType,
+		handleImageScreenChange,
+		imageFullScreen,
 		airportList,
 		airport,
 		state,
@@ -360,7 +363,6 @@ function useNewShipmentForm() {
 		previewImage,
 		showLoader,
 		country,
-		image_slider_settings,
 		shipmentDetails,
 	};
 }

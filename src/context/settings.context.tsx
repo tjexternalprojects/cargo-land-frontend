@@ -9,7 +9,7 @@ function SettingsContext() {
 	const showForgetPassword = false;
 	const showResendToken = false;
 	const resendTokenMessage = '';
-	const activePage = ''
+	const activePage = '';
 	return {
 		notifications,
 		toggleNotification,

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 function useUpdateShipmentPrice(
 	selectedShipment: any,
 	setSelectedShipment: any,
-    shipmentCurrentPrice:number,
+	shipmentCurrentPrice: number,
 	setShowUpdateShipmentPrice: React.Dispatch<React.SetStateAction<boolean>>
 ) {
 	const { updateShipmentPrice } = ShipmentServices();
@@ -24,20 +24,18 @@ function useUpdateShipmentPrice(
 		setLoading(true);
 		updateShipmentPrice(selectedShipment?.id, price).then(
 			(response) => {
-				console.log(response);
 				setLoading(false);
 				toast.success('Shipment price updated successfully', {
 					progressClassName: 'bg-green-500 h-1',
 					autoClose: 3000,
 				});
-				setSelectedShipment((prevState:any) => ({
+				setSelectedShipment((prevState: any) => ({
 					...prevState,
-					delivery_price:response.data.delivery_price,
+					delivery_price: response.data.delivery_price,
 				}));
 				setShowUpdateShipmentPrice(false);
 			},
 			(error) => {
-				console.log(error);
 				setLoading(false);
 			}
 		);

@@ -44,7 +44,8 @@ const home = () => {
 					</div>
 				</div>
 
-				<div className=" inline-flex rounded-md gap-3 p-4  bg-green-50  flex-grow  justify-between  shadow-md items-center">
+				<Link
+					to="/admin/users/1" className=" inline-flex rounded-md gap-3 p-4  bg-green-50  flex-grow  justify-between  shadow-md items-center">
 					<div className=" w-20">{/* <LineGraph data={received_data} /> */}</div>
 					<div className="flex flex-col items-end text-green-500">
 						<div>Total Users</div>
@@ -54,19 +55,21 @@ const home = () => {
 							<div className=" text-5xl font-thin">{totalUsers}</div>
 						)}
 					</div>
-				</div>
-
-				<div className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center">
+				</Link>
+				<Link
+					to="/admin/shipment/1"
+					className=" inline-flex rounded-md gap-3 p-4  flex-grow  justify-between bg-slate-50 shadow-md items-center"
+				>
 					<div className=" w-20">{/* <LineGraph data={sent_data} /> */}</div>
 					<div className="flex flex-col items-end text-red-500">
 						<div>All Shipment</div>
 						{allShipmentLoading ? (
 							<RingLoader size={50} textColor="text-blue-900" />
 						) : (
-						<div className=" text-5xl font-thin ">{allShipment.length}</div>
+							<div className=" text-5xl font-thin ">{allShipment.length}</div>
 						)}
 					</div>
-				</div>
+				</Link>
 			</div>
 
 			{/* Bottom */}
@@ -138,7 +141,7 @@ const home = () => {
 													</div>{' '}
 													<div className=" italic text-xs text-gray-400">
 														<span className="font-bold">Account Status</span>{' '}
-														{val.isVerified ? 'Verified' : 'Not Verfied'}
+														{val.isVerified ? 'Verified' : 'Not Verified'}
 													</div>
 												</div>
 											</div>
@@ -160,9 +163,9 @@ const home = () => {
 						<span>
 							{transitShipment.length > 1 && (
 								<Link to="/admin/shipment/1">
-								<button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
-									View all ...
-								</button>
+									<button className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">
+										View all ...
+									</button>
 								</Link>
 							)}
 						</span>
@@ -170,52 +173,51 @@ const home = () => {
 					<hr />
 					<div className="mt-3">
 						<div className="w-full flex items-center">
-						{shipmentLoading ? (
-						<div className="w-full  flex items-center justify-center">
-							<RingLoader size={50} textColor="text-blue-900" />
-						</div>
-					) : (
-						<>
-							{transitShipment.length > 0 ? (
-								<div className="flex flex-col w-full space-y-4">
-									{transitShipment.slice(0, 5).map((val:any, index:number) => (
-										<div
-											key={index}
-											className="flex cursor-pointer flex-col w-full p-3  bg-blue-50 rounded-lg shadow-md "
-											onClick={() => handleViewOnMap(val.id)}
-										>
-											<div className="flex text-gray-500 text-sm">
-												<h4>Shipment ID:</h4>
-												<h4 className="font-bold ">{val.id}</h4>
-											</div>
-											<div className="flex justify-between items-center mt-2">
-												<div className="felx flex-col">
-													<div className="font-bold">Title: {val.shipment_title}</div>
-													<div className="flex flex-col text-xs">
-														<div>
-															Date Created: <span>{new Date(val.createdAt).toLocaleString()}</span>
+							{shipmentLoading ? (
+								<div className="w-full  flex items-center justify-center">
+									<RingLoader size={50} textColor="text-blue-900" />
+								</div>
+							) : (
+								<>
+									{transitShipment.length > 0 ? (
+										<div className="flex flex-col w-full space-y-4">
+											{transitShipment.slice(0, 5).map((val: any, index: number) => (
+												<div
+													key={index}
+													className="flex cursor-pointer flex-col w-full p-3  bg-blue-50 rounded-lg shadow-md "
+													onClick={() => handleViewOnMap(val.id)}
+												>
+													<div className="flex text-gray-500 text-sm">
+														<h4>Shipment ID:</h4>
+														<h4 className="font-bold ">{val.id}</h4>
+													</div>
+													<div className="flex justify-between items-center mt-2">
+														<div className="flex flex-col">
+															<div className="font-bold">Title: {val.shipment_title}</div>
+															<div className="flex flex-col text-xs">
+																<div>
+																	Date Created:{' '}
+																	<span>{new Date(val.createdAt).toLocaleString()}</span>
+																</div>
+																
+															</div>
 														</div>
 														<div>
-															Delevery Date: <span>In View</span>
+															<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
+																{val.shipment_Status}
+															</label>
 														</div>
 													</div>
 												</div>
-												<div>
-													<label className="text-blue-700 bg-blue-100 rounded-md py-1 px-3 text-sm font-bold">
-														{val.shipment_Status}
-													</label>
-												</div>
-											</div>
+											))}
 										</div>
-									))}
-								</div>
-							) : (
-								<div className="h-screen-40 flex-col flex  space-y-2">
-									<div className="text-2xl text-red-300">No shipment on Transit</div>
-									
-								</div>
+									) : (
+										<div className="h-screen-40 flex-col flex  space-y-2">
+											<div className="text-2xl text-red-300">No shipment on Transit</div>
+										</div>
+									)}
+								</>
 							)}
-							</>)}
 						</div>
 					</div>
 				</div>
